@@ -17,16 +17,16 @@ pipeline {
             //     }
             // }
             steps {
-                sh 'npm install'
-                sh 'npm run build'
+                bash 'npm install'
+                bash 'npm run build'
             }
         }
         stage('test') {
             steps {
                 // Depends on your language / test framework
-                sh 'npm install -D @playwright/test'
-                sh 'npx playwright install'
-                sh 'npx playwright test --list'
+                bash 'npm install -D @playwright/test'
+                bash 'npx playwright install'
+                bash 'npx playwright test --list'
             }
         }
 
