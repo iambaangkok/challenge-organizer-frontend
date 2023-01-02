@@ -1,8 +1,5 @@
-// CODE_CHANGES = getGitChanges()
-
 pipeline {
     agent any
-    //    agent { docker { image 'mcr.microsoft.com/playwright:v1.29.0-focal' } }
 
     // environment {
     //     // NEW_VERSION = '1.3.0'
@@ -11,29 +8,33 @@ pipeline {
 
     stages {
         stage('build') {
-            // when {
-            //     expression {
-            //         // BRANCH_NAME == 'dev' && CODE_CHANGES == true
-            //     }
-            // }
             steps {
-                bash 'npm install'
-                bash 'npm run build'
+                bat 'npm install'
+                bat 'npm run build'
             }
         }
         stage('test') {
             steps {
-                // Depends on your language / test framework
-                bash 'npm install -D @playwright/test'
-                bash 'npx playwright install'
-                bash 'npx playwright test --list'
+                bat 'npx playwright install'
+                bat 'npx playwright test --list'
             }
         }
 
-        // stage('deploy') {
-        //     steps {
-        //     }
-        // }
+        stage('build docker image') {
+            steps {
+                bat 'docker build -t iambaangkok/challenge-organizer-frontend .'
+            }
+        }
+
+        stage('push image to docker hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dff12934-5025-4c8d-a205-7ecab8123f22', passwordVariable: 'jenkins-docker-password', usernameVariable: 'jenkins-docker-username')]) {
+                    bat 'docker login -u iambaangkok -p %jenkins-docker-password%'
+
+                    bat 'docker push iambaangkok/challenge-organizer-frontend'
+                }
+            }
+        }
     }
     // post {
     //     always {
