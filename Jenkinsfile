@@ -11,11 +11,11 @@ pipeline {
 
     stages {
         stage('build') {
-            when {
-                expression {
-                    // BRANCH_NAME == 'dev' && CODE_CHANGES == true
-                }
-            }
+            // when {
+            //     expression {
+            //         // BRANCH_NAME == 'dev' && CODE_CHANGES == true
+            //     }
+            // }
             steps {
                 sh 'npm install'
                 sh 'npm run build'
@@ -29,19 +29,19 @@ pipeline {
             }
         }
 
-        stage('deploy') {
-            steps {
-            }
-        }
+        // stage('deploy') {
+        //     steps {
+        //     }
+        // }
     }
-    post {
-        always {
-        }
+    // post {
+    //     always {
+    //     }
 
-        failure {
-        }
+    //     failure {
+    //     }
 
-        success {
-        }
-    }
+    //     success {
+    //     }
+    // }
 }
