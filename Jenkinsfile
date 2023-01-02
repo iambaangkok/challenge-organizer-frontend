@@ -24,8 +24,9 @@ pipeline {
         stage('test') {
             steps {
                 // Depends on your language / test framework
-                sh 'npm install'
-                sh 'npx playwright test'
+                sh 'npm install -D @playwright/test'
+                sh 'npx playwright install'
+                sh 'npx playwright test --list'
             }
         }
 
