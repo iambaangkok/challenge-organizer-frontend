@@ -40,8 +40,8 @@ pipeline {
             steps {
                 bat 'docker pull iambaangkok/challenge-organizer-frontend'
                 bat 'docker rm -f challenge-organizer-frontend'
-                // bat 'docker run -dp 3000:3000 --name challenge-organizer-frontend iambaangkok/challenge-organizer-frontend'
-                bat 'docker compose up'
+                bat 'docker run -dp 3000:3000 --name challenge-organizer-frontend iambaangkok/challenge-organizer-frontend'
+                // bat 'docker compose up'
             }
         }
     }
