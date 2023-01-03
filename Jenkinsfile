@@ -35,6 +35,12 @@ pipeline {
                 }
             }
         }
+
+        stage('run docker image') {
+            steps {
+                bat 'docker run -dp 3000:3000 --name iambaangkok/challenge-organizer-frontend iambaangkok/challenge-organizer-frontend '
+            }
+        }
     }
     // post {
     //     always {

@@ -1,5 +1,5 @@
 FROM node:18-alpine as build
-WORKDIR /challenge-organizer-frontend
+WORKDIR /
 COPY package.json package-lock.json ./
 RUN npm install --production
 COPY . .
