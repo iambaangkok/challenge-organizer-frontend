@@ -1,0 +1,10 @@
+services:
+  app:
+    image: node:18-alpine
+    working_dir: /challenge-organizer-frontend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/challenge-organizer-frontend
+    command: sh -c "npm install && npm run build && npm run start"
+    
