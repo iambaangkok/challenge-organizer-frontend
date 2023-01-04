@@ -1,5 +1,6 @@
 .dockerignore
 
 /node_modules
+/.next
 
 playwright.config.ts
