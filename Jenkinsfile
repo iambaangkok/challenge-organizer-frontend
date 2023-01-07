@@ -32,9 +32,9 @@ pipeline {
                     try{
                         bat 'npx playwright install'
                         bat 'if not exist "playwright-report" mkdir playwright-report'
-                        bat 'npx playwright test --reporter=list > playwright-report/report.txt'                            
+                        bat 'npx playwright test > playwright-report/report.txt'                            
                         test_ok = true
-                        emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/index.html, playwright-report/report.txt', body: 'All test passed.', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
+                        emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/index.html, playwright-report/report.txt', body: 'All tests passed.', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
                         // emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/report.txt', body: '${FILE, path="playwright-report/report.txt"}', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
                     }catch(e) {
                         test_ok = false
