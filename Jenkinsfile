@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('checkout'){
-            steps {
-                checkout scmGit(branches: [[name: '*']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/iambaangkok/challenge-organizer-frontend.git']])
-            }
-        }
+        // stage('checkout'){
+        //     steps {
+        //         checkout scmGit(branches: [[name: '*']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/iambaangkok/challenge-organizer-frontend.git']])
+        //     }
+        // }
         stage('build') {
             when{
                 not{
