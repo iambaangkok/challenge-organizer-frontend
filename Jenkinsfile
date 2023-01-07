@@ -8,22 +8,22 @@ pipeline {
         //     }
         // }
         stage('build') {
-            when{
-                not{
-                    branch 'master'
-                }
-            }
+            // when{
+            //     not{
+            //         branch 'master'
+            //     }
+            // }
             steps {
                 bat 'npm install'
                 bat 'npm run build'
             }
         }
         stage('test') {
-            when{
-                not{
-                    branch 'master'
-                }
-            }
+            // when{
+            //     not{
+            //         branch 'master'
+            //     }
+            // }
             steps {
                 bat 'npx playwright install'
                 bat 'npx playwright test --reporter=list > playwright-report/report.txt'
