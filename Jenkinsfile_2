@@ -13,16 +13,30 @@ pipeline {
                 bat 'npm run build'
             }
         }
-        stage('test') {
-            steps {
-                bat 'npx playwright install'
-                bat 'npx playwright test --list'
-            }
-        }
+
+
 
         stage('build docker image') {
             steps {
                 bat 'docker build -t iambaangkok/challenge-organizer-frontend .'
+            }
+        }
+
+        stage('run docker image') {
+            steps {
+                // bat 'docker pull iambaangkok/challenge-organizer-frontend'
+                bat 'docker rm -f challenge-organizer-frontend'
+                bat 'docker run -dp 3000:3000 --name challenge-organizer-frontend iambaangkok/challenge-organizer-frontend'
+                // bat 'docker compose up'
+            }
+        }
+
+        stage('test') {
+            steps {
+                bat 'npx playwright install'
+                bat 'npx playwright test --reporter=html'
+                bat 'npx playwright test --reporter=list > playwright-report/report.txt'
+                emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/report.txt', body: '${FILE, path="playwright-report/report.txt"}', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
             }
         }
 
@@ -36,14 +50,7 @@ pipeline {
             }
         }
 
-        stage('run docker image') {
-            steps {
-                // bat 'docker pull iambaangkok/challenge-organizer-frontend'
-                bat 'docker rm -f challenge-organizer-frontend'
-                bat 'docker run -dp 3000:3000 --name challenge-organizer-frontend iambaangkok/challenge-organizer-frontend'
-                // bat 'docker compose up'
-            }
-        }
+
     }
     // post {
     //     always {
