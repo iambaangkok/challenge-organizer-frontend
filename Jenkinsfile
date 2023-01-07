@@ -1,43 +1,65 @@
 pipeline {
     agent any
 
+    // environment {
+    //     // NEW_VERSION = '1.3.0'
+    //     // SERVER_CREDENTIALS = credentials('')
+    // }
+
     stages {
-        // stage('checkout'){
-        //     steps {
-        //         checkout scmGit(branches: [[name: '*']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/iambaangkok/challenge-organizer-frontend.git']])
-        //     }
-        // }
         stage('build') {
-            // when{
-            //     not{
-            //         branch 'master'
-            //     }
-            // }
             steps {
                 bat 'npm install'
                 bat 'npm run build'
             }
         }
-        stage('test') {
-            // when{
-            //     not{
-            //         branch 'master'
-            //     }
-            // }
+
+
+
+        stage('build docker image') {
             steps {
-                bat 'npx playwright install'
-                bat 'npx playwright test --reporter=list > playwright-report/report.txt'
-                emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/report.txt', body: '${FILE, path="playwright-report/report.txt"}', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
-                // emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/index.html', body: '${FILE, path="playwright-report/index.html"}', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!',  to: 'pawaret_d@cmu.ac.th'
-                // emailext attachLog: true, attachmentsPattern: 'playwright-report/index.html', body: '', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
-                // emailext attachLog: true, body: '', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
-                // emailext body: 'Test report: ${FILE,path="playwright-report/index.html"}', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: 'Challenge Organizer - Jenkins Test Report'
+                bat 'docker build -t iambaangkok/challenge-organizer-frontend .'
             }
         }
+
+        stage('run docker image') {
+            steps {
+                // bat 'docker pull iambaangkok/challenge-organizer-frontend'
+                bat 'docker rm -f challenge-organizer-frontend'
+                bat 'docker run -dp 3000:3000 --name challenge-organizer-frontend iambaangkok/challenge-organizer-frontend'
+                // bat 'docker compose up'
+            }
+        }
+
+        stage('test') {
+            steps {
+                bat 'npx playwright install'
+                bat 'npx playwright test --reporter=html'
+                bat 'npx playwright test --reporter=list > playwright-report/report.txt'
+                emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/report.txt', body: '${FILE, path="playwright-report/report.txt"}', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
+            }
+        }
+
+        stage('push image to docker hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dff12934-5025-4c8d-a205-7ecab8123f22', passwordVariable: 'jenkins-docker-password', usernameVariable: 'jenkins-docker-username')]) {
+                    bat 'docker login -u iambaangkok -p %jenkins-docker-password%'
+
+                    bat 'docker push iambaangkok/challenge-organizer-frontend'
+                }
+            }
+        }
+
+
     }
     // post {
-    //     always{
-            
+    //     always {
+    //     }
+
+    //     failure {
+    //     }
+
+    //     success {
     //     }
     // }
 }
