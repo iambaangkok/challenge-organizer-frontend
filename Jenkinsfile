@@ -26,11 +26,22 @@ pipeline {
                 // bat 'docker compose up'
             }
         }
-        stage('test') {
-            steps {
-                bat 'npx playwright install'
-                bat 'npx playwright test'
-                bat 'npx playwright test --reporter=list > playwright-report/report.txt'
+        try{
+            stage('test') {
+                steps {
+                    bat 'npx playwright install'
+                    // bat 'npx playwright test'
+                    bat 'if not exist "playwright-report" mkdir playwright-report'
+                    bat 'npx playwright test --reporter=list > playwright-report/report.txt'                    
+                }
+            }
+            test_ok = true
+        }catch(e) {
+            test_ok = false
+            echo e.toString()  
+        }
+        stage('send build report'){
+            steps{
                 emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/report.txt', body: '${FILE, path="playwright-report/report.txt"}', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
             }
         }
@@ -39,9 +50,13 @@ pipeline {
                 branch 'master'
             }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dff12934-5025-4c8d-a205-7ecab8123f22', passwordVariable: 'jenkins-docker-password', usernameVariable: 'jenkins-docker-username')]) {
-                    bat 'docker login -u iambaangkok -p %jenkins-docker-password%'
-                    bat 'docker push iambaangkok/challenge-organizer-frontend'
+                script {
+                    if (test_ok) {
+                        withCredentials([usernamePassword(credentialsId: 'dff12934-5025-4c8d-a205-7ecab8123f22', passwordVariable: 'jenkins-docker-password', usernameVariable: 'jenkins-docker-username')]) {
+                            bat 'docker login -u iambaangkok -p %jenkins-docker-password%'
+                            bat 'docker push iambaangkok/challenge-organizer-frontend'
+                        }
+                    }
                 }
             }
         }
