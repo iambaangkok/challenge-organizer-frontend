@@ -3,4 +3,6 @@
 /node_modules
 /.next
 
-playwright.config.ts
+# /test-reporters
+# /tests
+# playwright.config.ts
