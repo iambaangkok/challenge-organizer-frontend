@@ -1,30 +1,44 @@
 import Head from 'next/head'
-import { Inter } from '@next/font/google'
-
-import { Button, Grid, Stack } from "@mui/material";
-
-import { Delete } from '@mui/icons-material'
-import Link from 'next/link';
 import ChallengeCard from '../components/homepage/ChallengeCard';
-const inter = Inter({ subsets: ['latin'] })
+import Task from '../components/homepage/Task';
+
+const testTaskData = {
+  taskName: 'ABA',
+  challengeName: 'SUCKDICK',
+  dueDate: Date(),
+  finished: false
+}
+
+const testChallengeData = {
+  challengeName: 'This is Challange Name',
+  type: 'Single',
+  format: 'Tournament',
+  description: 'This is Challenge description',
+  date: '11 Jan - 22 Feb',
+  numParticipants: 20,
+  maxParticipants: 30,
+  rating: 3.8,
+  joined: true,
+  closed: false
+}
 
 export default function Home() {
+  
   return (
     <>
       <Head>
-        <title>Login Page</title>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300&display=swap" rel="stylesheet" />
+        <title>RIVALs</title>
       </Head>
-      <div>This is home page</div>
-      <Link href='\login' className='no-underline'>
-        <Button variant='contained'>
-          Go to Login page
-        </Button>
-      </Link>
 
-      <div className='my-10'></div>
+      {/* List of challenges */}
+      <div className='flex flex-col space-y-2'>
+        <ChallengeCard {...testChallengeData}></ChallengeCard>
+        <ChallengeCard {...testChallengeData}></ChallengeCard>
+        <ChallengeCard {...testChallengeData}></ChallengeCard>
+      </div>
+      
+      <Task {...testTaskData}></Task>
 
-      <ChallengeCard></ChallengeCard>
     </>
   );
 }
