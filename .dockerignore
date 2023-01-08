@@ -4,4 +4,4 @@
 /.next
 
 /test-reporters
-playwright.config.ts
+/tests
