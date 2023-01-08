@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('homepage has correct title, url', async ({ page }) => {
-  await page.goto('http://localhost:3000/'); 
+  await page.goto('/'); 
 
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Home/);
@@ -10,7 +10,7 @@ test('homepage has correct title, url', async ({ page }) => {
 });
 
 test('homepage has links to homepage', async ({ page }) => {
-    await page.goto('http://localhost:3000/'); 
+    await page.goto('/'); 
 
     // Expect a title "to contain" a substring.
     

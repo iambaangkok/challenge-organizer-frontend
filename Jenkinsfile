@@ -13,19 +13,6 @@ pipeline {
                 bat 'npm run build'
             }
         }
-        stage('build docker image') {
-            steps {
-                bat 'docker build -t iambaangkok/challenge-organizer-frontend .'
-            }
-        }
-        stage('run docker image') {
-            steps {
-                // bat 'docker pull iambaangkok/challenge-organizer-frontend'
-                bat 'docker rm -f challenge-organizer-frontend'
-                bat 'docker run -dp 3000:3000 --name challenge-organizer-frontend iambaangkok/challenge-organizer-frontend'
-                // bat 'docker compose up'
-            }
-        }
         stage('test') {
             steps {
                 script {
@@ -46,6 +33,11 @@ pipeline {
                 }
             }
         }
+        stage('build docker image') {
+            steps {
+                bat 'docker build -t iambaangkok/challenge-organizer-frontend .'
+            }
+        }
         stage('push image to docker hub') {
             when{
                 branch 'master'
@@ -63,6 +55,15 @@ pipeline {
                 }
             }
         }
+        stage('run docker image') {
+            steps {
+                // bat 'docker pull iambaangkok/challenge-organizer-frontend'
+                bat 'docker rm -f challenge-organizer-frontend'
+                bat 'docker run -dp 3000:3000 --name challenge-organizer-frontend iambaangkok/challenge-organizer-frontend'
+                // bat 'docker compose up'
+            }
+        }
+        
 
 
     }
