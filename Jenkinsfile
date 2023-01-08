@@ -13,15 +13,11 @@ pipeline {
                 bat 'npm run build'
             }
         }
-
-
-
         stage('build docker image') {
             steps {
                 bat 'docker build -t iambaangkok/challenge-organizer-frontend .'
             }
         }
-
         stage('run docker image') {
             steps {
                 // bat 'docker pull iambaangkok/challenge-organizer-frontend'
@@ -30,22 +26,40 @@ pipeline {
                 // bat 'docker compose up'
             }
         }
-
         stage('test') {
             steps {
-                bat 'npx playwright install'
-                bat 'npx playwright test --reporter=html'
-                bat 'npx playwright test --reporter=list > playwright-report/report.txt'
-                emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/report.txt', body: '${FILE, path="playwright-report/report.txt"}', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
+                script {
+                    try{
+                        bat 'npx playwright install'
+                        bat 'if not exist "playwright-report" mkdir playwright-report'
+                        bat 'npx playwright test > playwright-report/report.txt'                            
+                        test_ok = true
+                        emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/index.html, playwright-report/report.txt', body: 'All tests passed.', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
+                        // emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/report.txt', body: '${FILE, path="playwright-report/report.txt"}', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
+                    }catch(e) {
+                        test_ok = false
+                        echo e.toString()  
+                        emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/index.html, playwright-report/report.txt', body: 'See attached report for failed test(s).', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
+                        // emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/report.txt', body: '${FILE, path="playwright-report/report.txt"}', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
+                        error "Test Failed"
+                    }
+                }
             }
         }
-
         stage('push image to docker hub') {
+            when{
+                branch 'master'
+            }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dff12934-5025-4c8d-a205-7ecab8123f22', passwordVariable: 'jenkins-docker-password', usernameVariable: 'jenkins-docker-username')]) {
-                    bat 'docker login -u iambaangkok -p %jenkins-docker-password%'
-
-                    bat 'docker push iambaangkok/challenge-organizer-frontend'
+                script {
+                    if (test_ok) {
+                        withCredentials([usernamePassword(credentialsId: 'dff12934-5025-4c8d-a205-7ecab8123f22', passwordVariable: 'jenkins-docker-password', usernameVariable: 'jenkins-docker-username')]) {
+                            bat 'docker login -u iambaangkok -p %jenkins-docker-password%'
+                            bat 'docker push iambaangkok/challenge-organizer-frontend'
+                        }
+                    }else{
+                        
+                    }
                 }
             }
         }
