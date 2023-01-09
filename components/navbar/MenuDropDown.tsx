@@ -20,6 +20,7 @@ export default function MenuDropDown() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const Username = 'John Doe'
 
   return (
     <div>
@@ -27,7 +28,7 @@ export default function MenuDropDown() {
         onClick={handleClick}
         className = {styles.MenuDropDownButton}
       >
-        Dashboard <KeyboardArrowDownIcon className={styles.ButtonIcon}></KeyboardArrowDownIcon>
+        {Username} <KeyboardArrowDownIcon className={styles.ButtonIcon}></KeyboardArrowDownIcon>
       </Button>
       <Menu
         anchorEl={anchorEl}

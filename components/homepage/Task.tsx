@@ -1,6 +1,6 @@
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import styles from './Task.module.css'
+import styles from './css/Task.module.css'
 
 interface taskData {
     taskName: string

@@ -2,8 +2,10 @@ import Head from 'next/head'
 import Link from 'next/link';
 import { Router } from 'next/router';
 import ChallengeCard from '../components/homepage/ChallengeCard';
+import Challenges from '../components/homepage/Challenges';
 import Task from '../components/homepage/Task';
 import NavBar from '../components/navbar/NavBar'
+import styles from '../pages/index.module.css'
 
 const testTaskData = {
   taskName: 'This is Task name',
@@ -32,14 +34,15 @@ export default function Home() {
       <Head>
         <title>RIVALs</title>
       </Head>
-      <NavBar></NavBar>
-      <body className='m-5'>
+      <body>
         {/* List of challenges */}
-        <div className='flex flex-col space-y-2'>
+        {/* <div className='flex flex-col space-y-2'>
           <ChallengeCard {...testChallengeData}></ChallengeCard>
           <ChallengeCard {...testChallengeData}></ChallengeCard>
           <ChallengeCard {...testChallengeData}></ChallengeCard>
-        </div>
+        </div> */}
+
+        <Challenges></Challenges>
 
         <Task {...testTaskData}></Task>
       </body>

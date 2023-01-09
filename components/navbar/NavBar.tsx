@@ -1,13 +1,12 @@
 import styles from './NavBar.module.css'
 import Link from 'next/link'
-import { Badge, Collapse, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
+import { Badge } from '@mui/material'
 import MailIcon from '@mui/icons-material/Mail';
-import { useState } from 'react';
 import MenuDropDown from './MenuDropDown';
 import { navLinks } from '../../lib/navLinks'
 
 export default function NavBar() {
-    
+
     return (
         <div className={styles.NavBar}>
             <div className={styles.Left}>
@@ -31,5 +30,10 @@ export default function NavBar() {
                 <MenuDropDown></MenuDropDown>
             </div>
         </div>
+
+
+
+
+
     )
 }

@@ -1,4 +1,4 @@
-import styles from './ChallengeCard.module.css'
+import styles from './css/ChallengeCard.module.css'
 import { Rating } from '@mui/material';
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
 
