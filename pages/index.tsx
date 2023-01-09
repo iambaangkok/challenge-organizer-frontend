@@ -1,12 +1,15 @@
 import Head from 'next/head'
+import Link from 'next/link';
+import { Router } from 'next/router';
 import ChallengeCard from '../components/homepage/ChallengeCard';
 import Task from '../components/homepage/Task';
+import NavBar from '../components/navbar/NavBar'
 
 const testTaskData = {
-  taskName: 'ABA',
-  challengeName: 'SUCKDICK',
+  taskName: 'This is Task name',
+  challengeName: 'This is Challenge name',
   dueDate: Date(),
-  finished: false
+  finished: true
 }
 
 const testChallengeData = {
@@ -23,21 +26,24 @@ const testChallengeData = {
 }
 
 export default function Home() {
-  
+
   return (
     <>
       <Head>
         <title>RIVALs</title>
       </Head>
+      <NavBar></NavBar>
+      <body className='m-5'>
+        {/* List of challenges */}
+        <div className='flex flex-col space-y-2'>
+          <ChallengeCard {...testChallengeData}></ChallengeCard>
+          <ChallengeCard {...testChallengeData}></ChallengeCard>
+          <ChallengeCard {...testChallengeData}></ChallengeCard>
+        </div>
 
-      {/* List of challenges */}
-      <div className='flex flex-col space-y-2'>
-        <ChallengeCard {...testChallengeData}></ChallengeCard>
-        <ChallengeCard {...testChallengeData}></ChallengeCard>
-        <ChallengeCard {...testChallengeData}></ChallengeCard>
-      </div>
-      
-      <Task {...testTaskData}></Task>
+        <Task {...testTaskData}></Task>
+      </body>
+
 
     </>
   );
