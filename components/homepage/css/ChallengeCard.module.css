@@ -1,5 +1,6 @@
 .ChallengeCard {
-    background-color: rgb(114, 122, 119);
+
+    background: var(--TextDimmedDark);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -39,7 +40,6 @@
     padding: 0px;
     gap: 10px;
 
-    width: 491px;
     height: 56px;
 
     flex: none;
@@ -55,7 +55,6 @@
     padding: 0px;
     gap: 10px;
 
-    /* width: 1009px; */
     height: 30px;
 
     flex: none;
@@ -71,7 +70,7 @@
     padding: 0px;
     gap: 27px;
 
-    width: 491px;
+    /* width: 491px; */
     height: 27px;
 
     flex: none;
@@ -80,57 +79,7 @@
 }
 
 .ChallengeName {
-    width: 326px;
-    height: 27px;
-
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 22px;
-    line-height: 27px;
-
-    color: #FFFFFF;
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-}
-
-.ChallengeType {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0px;
-
-    width: 456px;
-    height: 19px;
-
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-}
-
-.Sub {
-    /* Frame 18 */
-
-
-    /* Auto layout */
-
-    display: inline-flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 20px;
-
-    width: 456px;
-    height: 19px;
-
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+    color: var(--White);
 }
 
 .Left2 {
@@ -150,53 +99,15 @@
 }
 
 .Description {
-    /* Description */
-
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 
-    width: 713px;
-    height: 19px;
-
-    /* Normal */
-
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 19px;
-
-    /* Dimmed Bright */
-
-    color: #B8B8B8;
-
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+    color: var(--TextDimmedMain);
 }
 
 .Type {
-    /* Format : Tournament */
-    height: 19px;
-
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 19px;
-
-    color: #FFFFFF;
-
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 1;
-    flex-grow: 0;
+    color: var(--White);
 }
 
 .Right {
@@ -212,29 +123,12 @@
 }
 
 .Join {
-    width: 59px;
-    height: 19px;
-
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 19px;
-
-    color: #5BFF76;
+    color: var(--SuccessLight);
 }
 
 .numParticipants {
-    /* width: 23px; */
-    height: 21px;
 
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 17px;
-    line-height: 21px;
-
-    color: #FFFFFF;
+    color: var(--White);
 }
 
 .Icon {

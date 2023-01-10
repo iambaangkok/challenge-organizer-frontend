@@ -3,13 +3,12 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-import FlagIcon from '@mui/icons-material/Flag';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-import styles from '../navbar/MenuDropDown.module.css'
+import styles from '../navbar/css/MenuDropDown.module.css'
 
 export default function MenuDropDown() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -26,10 +25,11 @@ export default function MenuDropDown() {
     <div>
       <Button
         onClick={handleClick}
-        className = {styles.MenuDropDownButton}
+        className = {styles.MenuDropDownButton + ' H3'}
       >
         {Username} <KeyboardArrowDownIcon className={styles.ButtonIcon}></KeyboardArrowDownIcon>
       </Button>
+
       <Menu
         anchorEl={anchorEl}
         open={open}
@@ -45,6 +45,7 @@ export default function MenuDropDown() {
           <LogoutIcon></LogoutIcon> <div>Log Out</div>
         </MenuItem>
       </Menu>
+      
     </div>
   );
 }

@@ -1,14 +1,44 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --PrimaryLight: #FFDDAE;
+    --PrimaryMain: #FA9C1D;
+    --PrimaryDark: #DB8D23;
+    --SecondaryLight: #F6F7F9;
+    --SecondaryMain: #F2F3F5;
+    --SecondaryDark: #ECEDEF;
+    --ErrorLight: #E45252;
+    --ErrorMain: #D32F2F;
+    --ErrorDark: #9F1D1D;
+    --WarningLight: #FFE34E;
+    --WarningMain: #FFB800;
+    --WarningDark: #B47700;
+    --InfoLight: #5BC6F3;
+    --InfoMain: #2EACF3;
+    --InfoDark: #186AA5;
+    --SuccessLight: #72FD88;
+    --SuccessMain: #37DF66;
+    --SuccessDark: #209555;
+    --TextDimmedLight: #DBDBDB;
+    --TextDimmedMain: #8E8E8E;
+    --TextDimmedDark: #5C5C5C;
+    --White: #FFFFFF;
+    --Black: #000000;
+}
+
 .H1 {
     font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     font-size: 36px;
-    line-height: 44px;
+}
 
-    color: #FFFFFF;
+.H2 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
 }
 
 .H3 {
@@ -16,7 +46,68 @@
     font-style: normal;
     font-weight: 700;
     font-size: 22px;
-    line-height: 27px;
-
-    color: #FFFFFF;
 }
+
+.TextRegular {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.TextMedium {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.TextBold {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.S1Regular {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.S1Medium {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.S1Bold {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.S2Regular {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.S2Medium {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.S2Bold {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+}
+

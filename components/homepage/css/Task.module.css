@@ -7,16 +7,14 @@
     gap: 9px;
 
     position: relative;
-    /* width: 279px; */
-    height: 57px;
+    width: 279px;
+    /* height: 57px; */
 
 }
 
 .Checkbox {
-    /* CheckBox */
     width: 20px;
     height: 20px;
-    /* Inside auto layout */
 }
 
 .TaskInfo {
@@ -24,62 +22,20 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 0px;
-    gap: 8px;
+    gap: 4px;
 
     width: 250px;
     height: 57px;
-
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 1;
-    flex-grow: 1;
 }
 
 .TaskName {
-    /* width: 250px; */
-    height: 19px;
-
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-
-    color: #000000;
+    color: var(--Black);
 }
 
 .ChallengeName {
-    /* width: 122px; */
-    height: 15px;
-
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 15px;
-
-    color: #7D7B78;
-
+    color: var(--TextDimmedMain);
 }
 
 .DueDate {
-
-    width: 166px;
-    height: 15px;
-
-    /* Small 1 */
-
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 15px;
-    /* identical to box height */
-
-
-    /* Search Bar Color */
-
-    color: #7D7B78;
+    color: var(--TextDimmedMain);
 }

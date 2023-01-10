@@ -33,9 +33,9 @@ export default function Task(data: taskData) {
                 }
             </div>
             <div className={styles.TaskInfo}>
-                <div className={styles.TaskName}>{data.taskName}</div>
-                <div className={styles.ChallengeName}>{data.challengeName}</div>
-                <div className={styles.DueDate}>{data.dueDate}</div>
+                <div className={styles.TaskName + ' TextMedium'}>{data.taskName}</div>
+                <div className={styles.ChallengeName + ' S2Regular'}>{data.challengeName}</div>
+                <div className={styles.DueDate + ' S2Regular'}>{data.dueDate}</div>
             </div>
         </div>
     )
