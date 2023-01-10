@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>home</title>
+        <title>Home</title>
       </Head>
       <div className='flex justify-center items-start space-x-2'>
         <ChallengeDashboard></ChallengeDashboard>

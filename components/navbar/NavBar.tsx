@@ -15,7 +15,7 @@ export default function NavBar() {
                     {
                         navLinks.map((link, index) => {
                             return (
-                                <Link className={styles.NavElement + ' H3'} href={link.path} key={index}>
+                                <Link id = {link.name} className={styles.NavElement + ' H3'} href={link.path} key={index}>
                                     {link.name}
                                 </Link>
                             )
