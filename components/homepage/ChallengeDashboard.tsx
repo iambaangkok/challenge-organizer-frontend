@@ -9,20 +9,17 @@ const theme = createTheme({
         primary: {
             light: '#FFDDAE',
             main: '#FA9C1D',
-            dark: '#DB8D23'
-        }
+            dark: '#DB8D23',
+            contrastText: '#FFFFFF'
+        },
+    },
+    typography: {
+        fontFamily: 'Inter',
+        fontWeightMedium: 600,
+        fontSize: 15
     }
 })
 
-const selectBar = createTheme({
-    palette: {
-        primary: {
-            light: '#FFDDAE',
-            main: '#FA9C1D',
-            dark: '#DB8D23'
-        }
-    }
-})
 
 
 export default function Challenges() {
@@ -41,9 +38,9 @@ export default function Challenges() {
                             // value={}
                             // onChange={handleChange}
                             >
-                                <MenuItem value={10}>Type</MenuItem>
-                                <MenuItem value={20}>Format</MenuItem>
-                                <MenuItem value={30}>Date</MenuItem>
+                                <MenuItem >Type</MenuItem>
+                                <MenuItem >Format</MenuItem>
+                                <MenuItem >Date</MenuItem>
                             </Select>
                         </FormControl>
                     </div>
@@ -57,8 +54,8 @@ export default function Challenges() {
                             // value={2}
                             // onChange={handleChange}
                             >
-                                <MenuItem value={1}>Ascending</MenuItem>
-                                <MenuItem value={2}>Descending</MenuItem>
+                                <MenuItem >Ascending</MenuItem>
+                                <MenuItem >Descending</MenuItem>
                                 {/* <MenuItem value={30}>Thirty</MenuItem> */}
                             </Select>
                         </FormControl>

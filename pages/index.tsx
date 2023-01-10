@@ -11,22 +11,10 @@ export default function Home() {
       <Head>
         <title>home</title>
       </Head>
-      <body>
-        {/* List of challenges */}
-        {/* <div className='flex flex-col space-y-2'>
-          <ChallengeCard {...testChallengeData}></ChallengeCard>
-          <ChallengeCard {...testChallengeData}></ChallengeCard>
-          <ChallengeCard {...testChallengeData}></ChallengeCard>
-        </div> */}
-        <div className = 'flex'>
+      <div className='flex justify-center items-start space-x-2'>
         <ChallengeDashboard></ChallengeDashboard>
-
         <TaskDashboard></TaskDashboard>
-
-        </div>
-      </body>
-
-
+      </div>
     </>
   );
 }

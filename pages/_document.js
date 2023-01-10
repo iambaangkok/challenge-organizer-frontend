@@ -10,8 +10,9 @@ export default function Document() {
             </Head>
             <body className='m-0'>
                 <Main />
-                <NextScript />
             </body>
+            <NextScript />
+
         </Html>
     )
 }
