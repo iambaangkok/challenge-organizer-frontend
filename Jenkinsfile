@@ -34,6 +34,9 @@ pipeline {
             }
         }
         stage('build docker image') {
+            when{
+                branch 'master'
+            }
             steps {
                 bat 'docker build -t iambaangkok/challenge-organizer-frontend .'
             }
@@ -56,6 +59,9 @@ pipeline {
             }
         }
         stage('run docker image') {
+            when{
+                branch 'master'
+            }
             steps {
                 // bat 'docker pull iambaangkok/challenge-organizer-frontend'
                 bat 'docker rm -f challenge-organizer-frontend'
