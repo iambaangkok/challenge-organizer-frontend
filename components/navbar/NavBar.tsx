@@ -10,7 +10,7 @@ export default function NavBar() {
     return (
         <div className={styles.NavBar}>
             <div className={styles.Left}>
-                <div className={styles.Brand + ' H1'}>CHALLENGE.IO</div>
+                <div className={styles.Brand + ' H1'}>CRINGE.IO</div>
                 <div className={styles.NavMenu}>
                     {
                         navLinks.map((link, index) => {

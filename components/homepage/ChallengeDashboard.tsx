@@ -2,8 +2,7 @@ import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material
 import { challengeList } from '../../lib/challengeList'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ChallengeCard from './ChallengeCard'
-import styles from './css/Challenges.module.css'
-import { Divider } from '@mui/material';
+import styles from './css/ChallengeDashboard.module.css'
 
 const theme = createTheme({
     palette: {
