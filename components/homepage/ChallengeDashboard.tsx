@@ -1,8 +1,10 @@
 import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
-import { challengeList } from '../../lib/challengeList'
+import { testChallengeList } from '../../lib/challengeList'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ChallengeCard from './ChallengeCard'
 import styles from './css/ChallengeDashboard.module.css'
+import { useEffect, useState } from 'react'
+import Skeleton from '@mui/material/Skeleton';
 
 const theme = createTheme({
     palette: {
@@ -22,7 +24,30 @@ const theme = createTheme({
 
 
 
-export default function Challenges() {
+export default function ChallengeDashboard() {
+
+    const [loading, setLoading] = useState(false)
+    const [challengeList, setChallengeList] = useState(null)
+    const [filterState, setFilterState] = useState(0)
+    const [sortState, setSortState] = useState(0)
+
+    useEffect(() => {
+        setLoading(false) // Set this before deploy
+        fetch('/api/profile-data')
+            .then((res) => res.json())
+            .then((data) => {
+                setLoading(false)
+            })
+    }, [])
+
+    if (loading) {
+        return (
+            <div>
+                <Skeleton variant="rectangular" width={1000} height={800} />
+            </div>
+        )
+    }
+
     return (
         <div className={styles.Challenges}>
             <div className='flex justify-between mb-3'>
@@ -72,7 +97,7 @@ export default function Challenges() {
             </div>
             <hr />
             <div className='flex flex-col space-y-2'>
-                {challengeList.map((challenge, index) => {
+                {testChallengeList.map((challenge, index) => {
                     return (
                         <ChallengeCard key={index} {...challenge} />
                     )

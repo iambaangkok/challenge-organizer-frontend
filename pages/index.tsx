@@ -11,7 +11,7 @@ export default function Home() {
       <Head>
         <title>Home</title>
       </Head>
-      <div className='flex justify-center items-start space-x-2'>
+      <div className='flex justify-center items-start space-x-4 mt-6'>
         <ChallengeDashboard></ChallengeDashboard>
         <TaskDashboard></TaskDashboard>
       </div>
