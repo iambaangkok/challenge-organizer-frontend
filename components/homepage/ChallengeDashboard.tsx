@@ -49,7 +49,7 @@ export default function ChallengeDashboard() {
     }
 
     return (
-        <div className={styles.Challenges}>
+        <div className={styles.Challenges + ' ShadowContainer'}>
             <div className='flex justify-between mb-3'>
                 <div className='flex space-x-4 '>
                     <div className='H1'>Challenges</div>

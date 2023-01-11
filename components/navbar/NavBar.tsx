@@ -8,10 +8,9 @@ import { navLinks } from '../../lib/navLinks'
 export default function NavBar() {
 
     return (
-        <div className={styles.NavBar}>
+        <div className={styles.NavBar + ' ShadowContainer'}>
             <div className={styles.Left}>
                 <div className={styles.Brand + ' H1'}>CRINGE.IO</div>
-                {/* <div className={styles.NavMenu}> */}
                     {
                         navLinks.map((link, index) => {
                             return (
@@ -21,7 +20,6 @@ export default function NavBar() {
                             )
                         })
                     }
-                {/* </div> */}
             </div>
             <div className={styles.Right}>
                 <Badge badgeContent={4} color="primary">

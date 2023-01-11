@@ -9,7 +9,7 @@ export default function TaskDashboard() {
     const [taskList, setTaskList] = useState(null)
 
     return (
-        <div className={styles.TaskDashboard + ' flex flex-col'}>
+        <div className={styles.TaskDashboard + ' flex flex-col ShadowContainer'}>
             <div className='H1'>Your Tasks</div>
             <div>
                 <hr />

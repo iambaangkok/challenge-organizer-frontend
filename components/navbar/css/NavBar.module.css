@@ -6,12 +6,9 @@
     padding: 0px 20px;
     gap: 9px;
 
-    /* position: relative; */
     height: 84px;
 
     background: var(--PrimaryMain);
-
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 .Left {

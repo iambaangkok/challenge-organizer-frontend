@@ -2,6 +2,7 @@ import styles from './css/ChallengeCard.module.css'
 import { Rating } from '@mui/material';
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import Link from 'next/link';
+import Image from 'next/image'
 
 // Fetch from API
 // const rating = 3
@@ -26,10 +27,25 @@ interface challengeData {
 }
 
 export default function ChallengeCard(data: challengeData) {
+
+    const Img = require('../../assets/pingpong.jpg')
+
     return (
-        // <Link href='/' className='no-underline'>
-            <div className={styles.ChallengeCard + ' select-none'}>
-                <div className={styles.BottomHalf}>
+        // <Link href='/' className='no-underline'> -> Set to some route
+        <>
+            <div className={styles.ChallengeCard + ' flex flex-col justify-end select-none relative overflow-hidden'}>
+
+                <Image
+                    src={Img}
+                    alt={'test'}
+                    fill
+                    style = {{
+                        objectFit:'cover'
+                    }}
+                    className = {styles.Img}
+                />
+
+                <div className={styles.BottomHalf + ' flex flex-col space-y-3'}>
                     <div className={styles.Top}>
                         <div className={styles.Left}>
                             <div className={styles.ChallengeName + ' H3'}>
@@ -69,6 +85,8 @@ export default function ChallengeCard(data: challengeData) {
                     </div>
                 </div>
             </div>
+        </>
+
         // </Link>
 
     )
