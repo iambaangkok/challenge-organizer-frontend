@@ -24,14 +24,6 @@ interface taskData {
 export default function Task(data: taskData) {
     return (
         <div className={styles.Task}>
-            <div>
-                {data.finished &&
-                    <CheckBoxIcon className={styles.Checkbox}></CheckBoxIcon>
-                }
-                {!data.finished &&
-                    <CheckBoxOutlineBlankIcon className={styles.Checkbox}></CheckBoxOutlineBlankIcon>
-                }
-            </div>
             <div className={styles.TaskInfo}>
                 <div className={styles.TaskName + ' TextMedium'}>{data.taskName}</div>
                 <div className={styles.ChallengeName + ' S2Regular'}>{data.challengeName}</div>
