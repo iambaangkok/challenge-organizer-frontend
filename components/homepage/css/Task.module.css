@@ -1,0 +1,41 @@
+.Task {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    vertical-align: bottom;
+    padding: 5px;
+    gap: 9px;
+
+    position: relative;
+    width: 279px;
+    /* height: 57px; */
+
+}
+
+.Checkbox {
+    width: 20px;
+    height: 20px;
+}
+
+.TaskInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+
+    width: 250px;
+    height: 57px;
+}
+
+.TaskName {
+    color: var(--Black);
+}
+
+.ChallengeName {
+    color: var(--TextDimmedMain);
+}
+
+.DueDate {
+    color: var(--TextDimmedMain);
+}

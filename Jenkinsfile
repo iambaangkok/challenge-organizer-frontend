@@ -19,14 +19,14 @@ pipeline {
                     try{
                         bat 'npx playwright install'
                         bat 'if not exist "playwright-report" mkdir playwright-report'
-                        bat 'npx playwright test > playwright-report/report.txt'                            
-                        test_ok = true
-                        emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/index.html, playwright-report/report.txt', body: 'All tests passed.', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
-                        // emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/report.txt', body: '${FILE, path="playwright-report/report.txt"}', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
+                        bat 'npx playwright test --reporter=html'
+                        test_ok = true                        
+                        emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/index.html', body: 'All tests passed.', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
                     }catch(e) {
                         test_ok = false
-                        echo e.toString()  
-                        emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/index.html, playwright-report/report.txt', body: 'See attached report for failed test(s).', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
+                        echo e.toString()
+
+                        emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/index.html', body: 'See attached report for failed test(s).', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - TEST FAILED!'
                         // emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/report.txt', body: '${FILE, path="playwright-report/report.txt"}', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
                         error "Test Failed"
                     }
@@ -34,6 +34,9 @@ pipeline {
             }
         }
         stage('build docker image') {
+            when{
+                branch 'master'
+            }
             steps {
                 bat 'docker build -t iambaangkok/challenge-organizer-frontend .'
             }
@@ -48,7 +51,7 @@ pipeline {
                         withCredentials([usernamePassword(credentialsId: 'dff12934-5025-4c8d-a205-7ecab8123f22', passwordVariable: 'jenkins-docker-password', usernameVariable: 'jenkins-docker-username')]) {
                             bat 'docker login -u iambaangkok -p %jenkins-docker-password%'
                             bat 'docker push iambaangkok/challenge-organizer-frontend'
-                        }
+                        }                        
                     }else{
                         
                     }
@@ -56,6 +59,9 @@ pipeline {
             }
         }
         stage('run docker image') {
+            when{
+                branch 'master'
+            }
             steps {
                 // bat 'docker pull iambaangkok/challenge-organizer-frontend'
                 bat 'docker rm -f challenge-organizer-frontend'
