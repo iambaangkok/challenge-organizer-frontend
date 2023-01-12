@@ -12,14 +12,14 @@ const theme = createTheme({
             light: '#FFDDAE',
             main: '#FA9C1D',
             dark: '#DB8D23',
-            contrastText: '#FFFFFF'
+            contrastText: '#FFFFFF',
         },
     },
     typography: {
         fontFamily: 'Inter',
         fontWeightMedium: 600,
         fontSize: 15
-    }
+    },
 })
 
 
@@ -49,49 +49,77 @@ export default function ChallengeDashboard() {
     }
 
     return (
-        <div className={styles.Challenges + ' ShadowContainer'}>
-            <div className='flex justify-between mb-3'>
+        <div className={styles.ChallengeDashboard + ' ShadowContainer'}>
+            <div className='flex justify-between'>
                 <div className='flex space-x-4 '>
                     <div className='H1'>Challenges</div>
                     <div className='flex space-x-2 items-center'>
-                        <div className='H3'>
+                        <div className='TextRegular'>
                             Filter:
                         </div>
                         <FormControl size="small">
-                            {/* <InputLabel>All</InputLabel> */}
-                            <Select
-                                value={filterState}
-                                onChange={(event: SelectChangeEvent) => {
-                                    setFilterState(event.target.value)
-                                }}
-                            >
-                                <MenuItem value={'All'}>All</MenuItem>
-                                <MenuItem value={'Ongoing'}>Ongoing</MenuItem>
-                                <MenuItem value={'Upcoming'}>Upcoming</MenuItem>
-                                <MenuItem value={'Past'}>Past</MenuItem>
-                            </Select>
+                            <ThemeProvider theme={theme}>
+                                {/* <InputLabel>All</InputLabel> */}
+                                <Select
+                                    sx={{
+                                        '.MuiOutlinedInput-notchedOutline': {
+                                            borderColor: '#FA9C1D',
+                                        },
+                                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                            borderColor: '#FA9C1D',
+                                        },
+                                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                                            borderColor: '#FA9C1D',
+                                        },
+                                    }}
+                                    value={filterState}
+                                    onChange={(event: SelectChangeEvent) => {
+                                        setFilterState(event.target.value)
+                                    }}
+                                >
+                                    <MenuItem value={'All'}>All</MenuItem>
+                                    <MenuItem value={'Ongoing'}>Ongoing</MenuItem>
+                                    <MenuItem value={'Upcoming'}>Upcoming</MenuItem>
+                                    <MenuItem value={'Past'}>Past</MenuItem>
+                                </Select>
+                            </ThemeProvider>
+
                         </FormControl>
                     </div>
                     <div className='flex space-x-2 items-center'>
-                        <div className='H3'>
-                            Sort By: 
+                        <div className='TextRegular'>
+                            Sort By:
                         </div>
                         <FormControl size="small">
+                            <ThemeProvider theme={theme}>
+                                <Select
+                                    sx={{
+                                        '.MuiOutlinedInput-notchedOutline': {
+                                            borderColor: '#FA9C1D',
+                                        },
+                                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                            borderColor: '#FA9C1D',
+                                        },
+                                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                                            borderColor: '#FA9C1D',
+                                        },
+                                    }}
+                                    value={sortState}
+                                    onChange={(event: SelectChangeEvent) => {
+                                        setSortState(event.target.value)
+                                    }}
+                                >
+                                    <MenuItem value={'AZ'}>A-Z</MenuItem>
+                                    <MenuItem value={'ZA'}>Z-A</MenuItem>
+                                    <MenuItem value={'RecentAsc'}>Recent Up</MenuItem>
+                                    <MenuItem value={'RecentDesc'}>Recent Down</MenuItem>
+                                    <MenuItem value={'RatingAsc'}>Rating Up</MenuItem>
+                                    <MenuItem value={'RatingDesc'}>Rating Down</MenuItem>
+                                    {/* <MenuItem value={30}>Thirty</MenuItem> */}
+                                </Select>
+                            </ThemeProvider>
                             {/* <InputLabel>Ascending</InputLabel> */}
-                            <Select
-                                value={sortState}
-                                onChange={(event: SelectChangeEvent) => {
-                                    setSortState(event.target.value)
-                                }}
-                            >
-                                <MenuItem value={'AZ'}>A-Z</MenuItem>
-                                <MenuItem value={'ZA'}>Z-A</MenuItem>
-                                <MenuItem value={'RecentAsc'}>Recent Up</MenuItem>
-                                <MenuItem value={'RecentDesc'}>Recent Down</MenuItem>
-                                <MenuItem value={'RatingAsc'}>Rating Up</MenuItem>
-                                <MenuItem value={'RatingDesc'}>Rating Down</MenuItem>
-                                {/* <MenuItem value={30}>Thirty</MenuItem> */}
-                            </Select>
+
                         </FormControl>
                     </div>
                 </div>
@@ -104,7 +132,7 @@ export default function ChallengeDashboard() {
 
                 </div>
             </div>
-            <hr />
+            <hr/>
             <div className='flex flex-col space-y-2'>
                 {testChallengeList.map((challenge, index) => {
                     return (

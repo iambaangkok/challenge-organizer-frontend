@@ -21,11 +21,22 @@
 
 .Brand {
     padding: 0px 9px;
-    color: var(--Black)
+    color: var(--White);
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
 }
 
 .NavElement {
     text-decoration-line: none;
+    color: var(--White);
+}
+
+.NavElementUnderline {
+    /* text-decoration-line: none; */
     color: var(--White);
 }
 
@@ -34,5 +45,5 @@
     flex-direction: row;
     align-items: center;
     padding: 0px;
-    gap: 25px;
+    gap: 10px;
 }
