@@ -39,7 +39,7 @@ test("homepage has links to profile", async ({ page }) => {
 test("homepage challenge card links to challenge", async ({ page }) => {
   await page.goto("/");
 
-  const challengeCard = page.getByRole("link", { name: /Challenge/ });
+  const challengeCard = page.getByRole("link", { name: /Challenge/ }).first();
   await expect(challengeCard).toHaveAttribute("href", /.*challenge\?id=.*/);
   await challengeCard.click(); 
   await expect(page).toHaveURL(/.*challenge\?id=.*/);
@@ -48,7 +48,7 @@ test("homepage challenge card links to challenge", async ({ page }) => {
 test("homepage task item name links to tasks tab in challenge", async ({ page }) => {
   await page.goto("/");
 
-  const taskName = page.getByRole("link", { name: /Task/ });
+  const taskName = page.getByRole("link", { name: /Task/ }).first();
   await expect(taskName).toHaveAttribute("href", /.*challenge\?id=.*&tab=tasks.*/);
   await taskName.click(); 
   await expect(page).toHaveURL(/.*challenge\?id=.*&tab=tasks.*/);
