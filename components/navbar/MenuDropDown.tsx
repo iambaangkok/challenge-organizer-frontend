@@ -10,6 +10,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import PersonIcon from '@mui/icons-material/Person';
 
 import styles from '../navbar/css/MenuDropDown.module.css'
+import Link from 'next/link';
 
 export default function MenuDropDown() {
 
@@ -28,27 +29,37 @@ export default function MenuDropDown() {
     <div>
       <Button
         onClick={handleClick}
-        className = {styles.MenuDropDownButton + ' TextBold'}
+        className={styles.MenuDropDownButton + ' TextBold'}
       >
-        <PersonIcon sx = {{ fontSize:20 }} /> {Username} <KeyboardArrowDownIcon className={styles.ButtonIcon}/>
+        <PersonIcon sx={{ fontSize: 20 }} /> {Username} <KeyboardArrowDownIcon className={styles.ButtonIcon} />
       </Button>
+
 
       <Menu
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} className='flex space-x-2 TextRegular'>
-          <AccountBoxIcon></AccountBoxIcon> <div>My Account</div>
+        <MenuItem onClick={handleClose} className='TextRegular'>
+          <Link href='/profile' className='no-underline flex space-x-2 text-black'>
+            <AccountBoxIcon></AccountBoxIcon> <div>My Profile</div>
+          </Link>
         </MenuItem>
-        <MenuItem onClick={handleClose} className='flex space-x-2 TextRegular'>
-          <SettingsIcon></SettingsIcon> <div>Settings</div>
+
+        <MenuItem onClick={handleClose} className='TextRegular'>
+          <Link href='/settings' className='no-underline flex space-x-2 text-black'>
+            <SettingsIcon></SettingsIcon> <div>Settings</div>
+          </Link>
         </MenuItem>
-        <MenuItem onClick={handleClose} className='flex space-x-2 TextRegular'>
-          <LogoutIcon></LogoutIcon> <div>Log Out</div>
+
+        <MenuItem onClick={handleClose} className='TextRegular'>
+          <Link href='/logout' className='no-underline flex space-x-2 text-black'>
+            <LogoutIcon></LogoutIcon> <div>Log Out</div>
+          </Link>
         </MenuItem>
       </Menu>
-      
+
+
     </div>
   );
 }

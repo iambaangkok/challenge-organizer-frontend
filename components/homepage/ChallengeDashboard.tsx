@@ -133,7 +133,7 @@ export default function ChallengeDashboard() {
                 </div>
             </div>
             <hr/>
-            <div className='flex flex-col space-y-2'>
+            <div className='flex flex-col space-y-2 py-2'>
                 {testChallengeList.map((challenge, index) => {
                     return (
                         <ChallengeCard key={index} {...challenge} />

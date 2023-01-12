@@ -32,7 +32,7 @@ export default function ChallengeCard(data: challengeData) {
 
     return (
         // Set to some route
-        <Link href='/mychallenge' className='no-underline'> 
+        <Link id={data.challengeName} href='/mychallenge' className='no-underline'> 
             <>
                 <div className={styles.ChallengeCard + ' flex flex-col justify-end select-none relative overflow-hidden'}>
 
