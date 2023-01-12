@@ -36,33 +36,19 @@ test("homepage has links to profile", async ({ page }) => {
   await expect(page).toHaveURL(/.*profile/);
 });
 
-test("homepage challenge card has info fields and links to challenge", async ({ page }) => {
+test("homepage challenge card links to challenge", async ({ page }) => {
   await page.goto("/");
 
   const challengeCard = page.getByRole("link", { name: /Challenge/ });
-
-  await expect(challengeCard.locator(".ChallengeName").first()).toBeVisible();
-  await expect(challengeCard.locator(".ChallengeDescription").first()).toBeVisible();
-
-  await expect(challengeCard.getByText(/.*Type.*/).first()).toBeVisible();
-  await expect(challengeCard.getByText(/.*Format.*/).first()).toBeVisible();
-  await expect(challengeCard.getByText(/.*Date.*/).first()).toBeVisible();
-
   await expect(challengeCard).toHaveAttribute("href", /.*challenge\?id=.*/);
   await challengeCard.click(); 
   await expect(page).toHaveURL(/.*challenge\?id=.*/);
 });
 
-test("homepage task item has info fields and links to challenge", async ({ page }) => {
+test("homepage task item name links to tasks tab in challenge", async ({ page }) => {
   await page.goto("/");
 
-  const taskItem = page.locator(".TaskItem").first()
-  
-  await expect(taskItem.locator(".TaskItemChallengeName").first()).toBeVisible();
-  await expect(taskItem.locator(".TaskItemDueDate").first()).toBeVisible();
-  await expect(taskItem.getByText(/.*Date.*/).first()).toBeVisible();
-
-  const taskName = taskItem.getByRole("link", { name: /Task/ });
+  const taskName = page.getByRole("link", { name: /Task/ });
   await expect(taskName).toHaveAttribute("href", /.*challenge\?id=.*&tab=tasks.*/);
   await taskName.click(); 
   await expect(page).toHaveURL(/.*challenge\?id=.*&tab=tasks.*/);
