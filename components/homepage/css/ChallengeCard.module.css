@@ -6,14 +6,14 @@
     height: 154px;
 
     border-radius: 8px;
-
+/* 
     transition: 0.2s;
-    transition-timing-function:ease-out;
+    transition-timing-function:ease-out; */
 }
 
-.ChallengeCard:hover {
+/* .ChallengeCard:hover {
     transform: scaleX(1.01) scaleY(1.02);
-}
+} */
 
 .BottomHalf {
     /* display: flex;

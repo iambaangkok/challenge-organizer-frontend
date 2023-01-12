@@ -3,6 +3,7 @@ import { createTheme, Rating, ThemeProvider } from '@mui/material';
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import Link from 'next/link';
 import Image from 'next/image'
+import { BiUserCheck } from "react-icons/bi";
 
 // Fetch from API
 // const rating = 3
@@ -77,10 +78,15 @@ export default function ChallengeCard(data: challengeData) {
                                         Joined!
                                     </div>
                                 }
-                                <AccessibilityIcon className={styles.Icon}></AccessibilityIcon>
+                                <BiUserCheck className={styles.Icon}/>
                                 <div className={styles.numParticipants + ' TextBold'}>
                                     {data.numParticipants} / {data.maxParticipants}
                                 </div>
+                                {data.closed &&
+                                    <div className={'TextBold text-white'}>
+                                        Closed
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
