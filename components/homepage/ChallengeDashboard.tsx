@@ -5,6 +5,7 @@ import ChallengeCard from './ChallengeCard'
 import styles from './css/ChallengeDashboard.module.css'
 import { useEffect, useState } from 'react'
 import Skeleton from '@mui/material/Skeleton';
+import { HiArrowNarrowDown, HiArrowNarrowUp } from 'react-icons/hi'
 
 const theme = createTheme({
     palette: {
@@ -111,10 +112,10 @@ export default function ChallengeDashboard() {
                                 >
                                     <MenuItem value={'AZ'}>A-Z</MenuItem>
                                     <MenuItem value={'ZA'}>Z-A</MenuItem>
-                                    <MenuItem value={'RecentAsc'}>Recent Up</MenuItem>
-                                    <MenuItem value={'RecentDesc'}>Recent Down</MenuItem>
-                                    <MenuItem value={'RatingAsc'}>Rating Up</MenuItem>
-                                    <MenuItem value={'RatingDesc'}>Rating Down</MenuItem>
+                                    <MenuItem value={'RecentAsc'}> Recent <HiArrowNarrowUp /></MenuItem>
+                                    <MenuItem value={'RecentDesc'}>Recent <HiArrowNarrowDown /></MenuItem>
+                                    <MenuItem value={'RatingAsc'}>Rating <HiArrowNarrowUp /></MenuItem>
+                                    <MenuItem value={'RatingDesc'}>Rating <HiArrowNarrowDown /></MenuItem>
                                     {/* <MenuItem value={30}>Thirty</MenuItem> */}
                                 </Select>
                             </ThemeProvider>
@@ -132,7 +133,7 @@ export default function ChallengeDashboard() {
 
                 </div>
             </div>
-            <hr/>
+            <hr />
             <div className='flex flex-col space-y-2 py-2'>
                 {testChallengeList.map((challenge, index) => {
                     return (

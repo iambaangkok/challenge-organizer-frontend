@@ -39,12 +39,14 @@ export default function NavBar() {
                     notiNum > 0 ?
                         <Badge badgeContent={notiNum} color="error">
                             <NotificationsIcon color="action" sx = {{
-                                fontSize: 26
+                                fontSize: 26 ,
+                                color : 'White'
                             }}/>
                         </Badge>
                         :
                         <NotificationsIcon color="action" sx = {{
-                            fontSize: 26
+                            fontSize: 26 ,
+                            color : 'White'
                         }} />
                 }
 

@@ -31,7 +31,7 @@ export default function MenuDropDown() {
         onClick={handleClick}
         className={styles.MenuDropDownButton + ' TextBold'}
       >
-        <PersonIcon sx={{ fontSize: 20 }} /> {Username} <KeyboardArrowDownIcon className={styles.ButtonIcon} />
+        <PersonIcon sx={{ fontSize: 26 }} /> <span className='text-lg'>{Username}</span> <KeyboardArrowDownIcon sx={{ fontSize: 26 }} />
       </Button>
 
 
@@ -58,8 +58,6 @@ export default function MenuDropDown() {
           </Link>
         </MenuItem>
       </Menu>
-
-
     </div>
   );
 }
