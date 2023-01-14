@@ -30,9 +30,17 @@ interface challengeData {
 
 export default function ChallengeCard(data: challengeData) {
 
+    const challengeId = 'ABCDEFG'
+
     return (
         // Set to some route
-        <Link id={data.challengeName} href='/mychallenge' className='no-underline'> 
+        <Link
+            id={data.challengeName}
+            href={{
+                pathname: '/challenge',
+                query: { id: challengeId },
+            }}
+            className='no-underline'>
             <>
                 <div className={styles.ChallengeCard + ' flex flex-col justify-end select-none relative overflow-hidden'}>
 
@@ -78,7 +86,7 @@ export default function ChallengeCard(data: challengeData) {
                                         Joined!
                                     </div>
                                 }
-                                <BiUserCheck className={styles.Icon}/>
+                                <BiUserCheck className={styles.Icon} />
                                 <div className={styles.numParticipants + ' TextBold'}>
                                     {data.numParticipants} / {data.maxParticipants}
                                 </div>
