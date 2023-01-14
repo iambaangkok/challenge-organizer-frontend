@@ -1,8 +1,4 @@
 .NavBar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
     padding: 0px 20px;
     gap: 9px;
 
@@ -12,11 +8,8 @@
 }
 
 .Left {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     padding: 0px;
-    gap: 20px;
+    /* gap: 20px; */
 }
 
 .Brand {
@@ -28,16 +21,6 @@
     font-weight: 700;
     font-size: 40px;
     line-height: 48px;
-}
-
-.NavElement {
-    text-decoration-line: none;
-    color: var(--White);
-}
-
-.NavElementUnderline {
-    /* text-decoration-line: none; */
-    color: var(--White);
 }
 
 .Right {
