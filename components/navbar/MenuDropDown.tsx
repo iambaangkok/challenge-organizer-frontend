@@ -41,7 +41,7 @@ export default function MenuDropDown() {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose} className='TextRegular'>
-          <Link id='Profile' href='/profile' className='no-underline flex space-x-2 text-black'>
+          <Link href='/profile' className='no-underline flex space-x-2 text-black'>
             <AccountBoxIcon></AccountBoxIcon> <div>My Profile</div>
           </Link>
         </MenuItem>

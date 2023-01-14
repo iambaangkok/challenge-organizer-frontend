@@ -50,7 +50,7 @@ export default function ChallengeDashboard() {
     }
 
     return (
-        <div className={styles.ChallengeDashboard + ' ShadowContainer'}>
+        <div className={styles.ChallengeDashboard + ' flex flex-col ShadowContainer'}>
             <div className='flex justify-between'>
                 <div className='flex space-x-4 '>
                     <div className='H1'>Challenges</div>
@@ -127,13 +127,15 @@ export default function ChallengeDashboard() {
                 <div>
                     <ThemeProvider theme={theme}>
                         <Button variant='contained'>
-                            Create Challenges
+                            Create a new Challenge
                         </Button>
                     </ThemeProvider>
-
                 </div>
             </div>
-            <hr />
+            <div>
+                <hr />
+
+            </div>
             <div className='flex flex-col space-y-2 py-2'>
                 {testChallengeList.map((challenge, index) => {
                     return (

@@ -3,7 +3,7 @@ import { createTheme, Rating, ThemeProvider } from '@mui/material';
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import Link from 'next/link';
 import Image from 'next/image'
-import { BiUserCheck } from "react-icons/bi";
+import { BiUserCheck, BiUser } from "react-icons/bi";
 
 // Fetch from API
 // const rating = 3
@@ -83,10 +83,10 @@ export default function ChallengeCard(data: challengeData) {
                             <div className='flex space-x-1 items-center'>
                                 {data.joined &&
                                     <div className={styles.Join + ' TextBold'}>
-                                        Joined!
+                                        Joined
                                     </div>
                                 }
-                                <BiUserCheck className={styles.Icon} />
+                                <BiUser className={styles.Icon} />
                                 <div className={styles.numParticipants + ' TextBold'}>
                                     {data.numParticipants} / {data.maxParticipants}
                                 </div>
