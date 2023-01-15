@@ -11,23 +11,10 @@ interface taskData {
     finished: Boolean
 }
 
-// const data = {
-//     taskName: 'This is Task Name',
-//     challengeName: 'This is Challenge Name',
-//     dueDate: Date(),
-//     finished: true
-// }
-
-// const taskName = 'This is Task Name'
-// const challengeName = 'This is Challenge Name'
-// const dueDate = '21 Jan - 13 Feb'
-// const finished = true
-
 export default function Task(data: taskData) {
 
-
-
     return (
+        // Each task routes to its own task page
         <Link
             id={data.challengeName}
             href={{
@@ -37,8 +24,9 @@ export default function Task(data: taskData) {
                     tab: 'tasks'
                 },
             }}
-            className='no-underline'>
-
+            className='no-underline'
+        >
+            {/* Task Info */}
             <div className={styles.Task}>
                 <div className={styles.TaskInfo}>
                     <div className={styles.TaskName + ' TextMedium'}>{data.taskName}</div>

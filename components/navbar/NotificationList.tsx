@@ -7,7 +7,7 @@ interface notification {
     date: string
 }
 
-const NotificationDropDown = ({ anchorE1, handleClose, open, notificationList }: any) => {
+const NotificationList = ({ anchorE1, handleClose, open, notificationList }: any) => {
     return (
         <Menu
             anchorEl={anchorE1}
@@ -15,12 +15,12 @@ const NotificationDropDown = ({ anchorE1, handleClose, open, notificationList }:
             onClose={handleClose}
         >
             {
-                notificationList.map((item: notification , index : any) => {
-                    return <MenuItem onClick={handleClose} key = {index}> {item.description} </MenuItem>
+                notificationList.map((item: notification, index: any) => {
+                    return <MenuItem onClick={handleClose} key={index}> {item.description} </MenuItem>
                 })
             }
         </Menu >
     )
 }
 
-export default NotificationDropDown
+export default NotificationList

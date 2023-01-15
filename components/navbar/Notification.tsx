@@ -1,7 +1,8 @@
-import { Tooltip, IconButton, Badge, Button } from "@mui/material";
-import { SetStateAction, useState } from "react";
+import { Tooltip, IconButton, Badge } from "@mui/material";
+import { useState } from "react";
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import NotificationDropDown from "./NotificationDropDown";
+import NotificationList from "./NotificationList";
+import {notificationList} from '../../lib/notificationList'
 
 interface input {
     badgeContent: number
@@ -11,6 +12,7 @@ export default function Notification({ badgeContent }: input) {
 
     const haveNotification = `You have ${badgeContent} notifications.`
     const noNotification = 'No new notifications.'
+
     const [open, setOpen] = useState<Boolean>(false)
     const [anchorE1, setAnchorE1] = useState<any>(null)
 
@@ -24,21 +26,6 @@ export default function Notification({ badgeContent }: input) {
     const handleClose = () => {
         setOpen(false)
     }
-
-    const notificationList = [
-        {
-            description: 'aaa bbb',
-            date: '21 dec 2000'
-        },
-        {
-            description: 'thsi qqwe 22',
-            date: '21 we 20111'
-        },
-        {
-            description: 'adrtghjdb',
-            date: '234 dec 2000'
-        },
-    ]
 
     return (
         <>
@@ -56,7 +43,7 @@ export default function Notification({ badgeContent }: input) {
                     }
                 </IconButton>
             </Tooltip>
-            <NotificationDropDown
+            <NotificationList
                 open={open}
                 anchorE1={anchorE1}
                 handleClose={handleClose}

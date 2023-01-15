@@ -8,8 +8,7 @@
     border-radius: 5px;
     position: relative;
     transition: ease-out 0.15s;
-    /* width: 279px; */
-    /* height: 57px; */
+
 }
 
 .Task:hover {
