@@ -2,19 +2,24 @@ import React from 'react'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-const NotificationDropDown = ({ anchorE1, handleClose, open } : any) => {
+interface notification {
+    description: string,
+    date: string
+}
+
+const NotificationDropDown = ({ anchorE1, handleClose, open, notificationList }: any) => {
     return (
         <Menu
-            id="basic-menu"
             anchorEl={anchorE1}
             open={open}
             onClose={handleClose}
         >
-            <MenuItem onClick={handleClose} > Profile </MenuItem>
-            <MenuItem onClick={handleClose} > My account </MenuItem>
-            <MenuItem onClick={handleClose} > Logout </MenuItem>
+            {
+                notificationList.map((item: notification , index : any) => {
+                    return <MenuItem onClick={handleClose} key = {index}> {item.description} </MenuItem>
+                })
+            }
         </Menu >
-
     )
 }
 

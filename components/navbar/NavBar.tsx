@@ -7,7 +7,6 @@ import { navLinks } from '../../lib/navLinks'
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Notification from './Notification';
-import NotificationDropDown from './NotificationDropDown';
 
 export default function NavBar() {
 
@@ -43,9 +42,8 @@ export default function NavBar() {
             </div>
             <div className={styles.Right}>
                 <Notification 
-                    badgeContent={5}
+                    badgeContent={2}
                 />
-
                 <MenuDropDown></MenuDropDown>
             </div>
         </div>
