@@ -25,7 +25,7 @@ export default function ChallengeCard(data: challengeData) {
     return (
         // Each challenge card routes to its own challenge page
         <Link
-            id={data.challengeName}
+            id={"ChallengeCard"}
             href={{
                 pathname: '/challenge',
                 query: { id: challengeId },

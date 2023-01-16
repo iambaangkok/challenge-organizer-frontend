@@ -19,37 +19,42 @@ test("homepage has links to homepage", async ({ page }) => {
 });
 
 test("homepage has links to shop", async ({ page }) => {
-  await page.goto("/");
+    await page.goto("/");
 
-  const shopButton = page.getByRole("link", { name: "Shop" });
-  await expect(shopButton).toHaveAttribute("href", "/shop");
-  await shopButton.click();
-  await expect(page).toHaveURL(/.*shop/);
+    const shopButton = page.getByRole("link", { name: "Shop" });
+    await expect(shopButton).toHaveAttribute("href", "/shop");
+    await shopButton.click();
+    await expect(page).toHaveURL(/.*shop/);
 });
 
 test("homepage has links to profile", async ({ page }) => {
-  await page.goto("/");
+    await page.goto("/");
 
-  const profileButton = page.getByRole("link", { name: "Profile" });
-  await expect(profileButton).toHaveAttribute("href", "/profile");
-  await profileButton.click(); 
-  await expect(page).toHaveURL(/.*profile/);
+    const profileDropDown = page.locator("#ProfileDropDown")
+    await profileDropDown.dispatchEvent("click")
+    const profileButton = page.locator("#Profile")
+    await expect(profileButton).toHaveAttribute("href", "/profile");
+    await profileButton.click();
+    await expect(page).toHaveURL(/.*profile/);
 });
 
 test("homepage challenge card links to challenge", async ({ page }) => {
-  await page.goto("/");
+    await page.goto("/");
 
-  const challengeCard = page.getByRole("link", { name: /Challenge/ }).first();
-  await expect(challengeCard).toHaveAttribute("href", /.*challenge\?id=.*/);
-  await challengeCard.click(); 
-  await expect(page).toHaveURL(/.*challenge\?id=.*/);
+    const challengeCard = page.locator("#ChallengeCard").first();
+    await expect(challengeCard).toHaveAttribute("href", /.*challenge\?id=.*/);
+    await challengeCard.click();
+    await expect(page).toHaveURL(/.*challenge\?id=.*/);
 });
 
-test("homepage task item name links to tasks tab in challenge", async ({ page }) => {
-  await page.goto("/");
+test("homepage task item name links to tasks tab in challenge", async ({
+    page,
+}) => {
+    await page.goto("/");
 
-  const taskName = page.getByRole("link", { name: /Task/ }).first();
-  await expect(taskName).toHaveAttribute("href", /.*challenge\?id=.*&tab=tasks.*/);
-  await taskName.click(); 
-  await expect(page).toHaveURL(/.*challenge\?id=.*&tab=tasks.*/);
+    const taskName = page.getByRole("link", { name: /Task/ }).first();
+    await expect(taskName).toHaveAttribute("href", /.*challenge\?id=.*&tab=tasks.*/
+    );
+    await taskName.click();
+    await expect(page).toHaveURL(/.*challenge\?id=.*&tab=tasks.*/);
 });

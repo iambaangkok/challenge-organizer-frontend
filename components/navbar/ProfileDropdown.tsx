@@ -31,6 +31,7 @@ export default function ProfileDropdown() {
 		<div>
 			{/* Profile */}
 			<Button
+				id="ProfileDropDown"
 				onClick={handleClick}
 				className={styles.MenuDropDownButton + ' TextBold'}
 			>
@@ -44,7 +45,7 @@ export default function ProfileDropdown() {
 				onClose={handleClose}
 			>
 				<MenuItem onClick={handleClose} className='TextRegular'>
-					<Link href='/profile' className='no-underline flex space-x-2 text-black'>
+					<Link id="Profile" href='/profile' className='no-underline flex space-x-2 text-black'>
 						<AccountBoxIcon></AccountBoxIcon> <div>My Profile</div>
 					</Link>
 				</MenuItem>
