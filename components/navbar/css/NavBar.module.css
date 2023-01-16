@@ -1,0 +1,31 @@
+.NavBar {
+    padding: 0px 20px;
+    gap: 9px;
+
+    height: 84px;
+
+    background: var(--PrimaryMain);
+}
+
+.Left {
+    padding: 0px;
+}
+
+.Brand {
+    padding: 0px 9px;
+    color: var(--White);
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+}
+
+.Right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+}
