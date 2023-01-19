@@ -47,7 +47,7 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 			<Button
 				id="ProfileDropDown"
 				onClick={handleClick}
-				className={styles.MenuDropDownButton + ' TextBold'}
+				className={'text-white TextBold'}
 			>
 				<PersonIcon sx={{ fontSize: 26 }} />
 				{loginStatus &&
@@ -64,6 +64,14 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 					anchorEl={anchorEl}
 					open={open}
 					onClose={handleClose}
+					anchorOrigin={{
+						vertical: 'bottom',
+						horizontal: 'right',
+					}}
+					transformOrigin={{
+						vertical: 'top',
+						horizontal: 'right',
+					}}
 				>
 					<MenuItem onClick={handleClose} className='TextRegular'>
 						<Link id="Profile" href='/profile' className='no-underline flex space-x-2 text-black'>
@@ -91,6 +99,14 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 					anchorEl={anchorEl}
 					open={open}
 					onClose={handleClose}
+					anchorOrigin={{
+						vertical: 'bottom',
+						horizontal: 'right',
+					}}
+					transformOrigin={{
+						vertical: 'top',
+						horizontal: 'right',
+					}}
 				>
 					<MenuItem onClick={handleClose} className='TextRegular'>
 						<Link href='/settings' className='no-underline flex space-x-2 text-black'>
