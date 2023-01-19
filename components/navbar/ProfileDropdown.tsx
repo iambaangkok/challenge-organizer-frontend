@@ -33,7 +33,7 @@ export default function ProfileDropdown() {
 			<Button
 				id="ProfileDropDown"
 				onClick={handleClick}
-				className={styles.MenuDropDownButton + ' TextBold text-white'}
+				className='TextBold text-white'
 			>
 				<PersonIcon sx={{ fontSize: 26 }} /> <span className='text-lg text-white'>{Username}</span> <KeyboardArrowDownIcon sx={{ fontSize: 26 }} />
 			</Button>
