@@ -2,11 +2,12 @@ import styles from './css/NavBar.module.css'
 import Link from 'next/link'
 
 import ProfileDropdown from './ProfileDropdown';
-import { navLinks, restrictedLink } from '../../lib/navLinks'
+import { navLinks } from '../../lib/navLinks'
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import Notification from './Notification';
 
-export default function NavBar({loginStatus , fullName} : any) {
+export default function NavBar() {
 
     const router = useRouter()
 
@@ -19,9 +20,6 @@ export default function NavBar({loginStatus , fullName} : any) {
                 {/* Navigation Menu */}
                 {
                     navLinks.map((link, index) => {
-                        if (!loginStatus && restrictedLink.includes(link.name)) {
-                            return <></>
-                        }
                         if (router.asPath.includes(link.path))
                             return (
                                 <Link href={link.path} className=' text-white h-full flex flex-col justify-center px-4 hover:bg-orange-500 ease-out duration-150'>
@@ -47,7 +45,7 @@ export default function NavBar({loginStatus , fullName} : any) {
                 <Notification
                     badgeContent={2}
                 />
-                <ProfileDropdown loginStatus = {loginStatus} fullName={fullName}></ProfileDropdown>
+                <ProfileDropdown></ProfileDropdown>
             </div>
 
         </div>
