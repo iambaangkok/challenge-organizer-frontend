@@ -1,4 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from 'axios';
+import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { WhoAmIResponse } from '../pages/api/whoAmI';
 import Navbar from './navbar/NavBar'
@@ -11,6 +12,8 @@ export default function Layout({ children }: any) {
     const [loading, setLoading] = useState<boolean>(false)
     const [loginStatus, setLoginStatus] = useState<boolean>(false)
 
+    const router = useRouter().asPath
+    
     const getInfo = () => {
         //All cookies that belong to the current url will be sent with the request automatically
         //so we don't have to attach token to the request
@@ -45,7 +48,7 @@ export default function Layout({ children }: any) {
             });
     }
 
-    useEffect(getInfo, [])
+    useEffect(getInfo, [router])
 
     if (loading)
         return (
