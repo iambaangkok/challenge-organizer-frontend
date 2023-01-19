@@ -1,3 +1,4 @@
+import { Alert, CircularProgress, Snackbar } from '@mui/material';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
@@ -10,16 +11,18 @@ export default function Layout({ children }: any) {
     const [studentId, setStudentId] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [loading, setLoading] = useState<boolean>(false)
-    const [loginStatus, setLoginStatus] = useState<boolean>(false)
+    const [loggedIn, setLoggedIn] = useState<boolean>(false)
+    const [alert, setAlert] = useState(false)
+
 
     const router = useRouter().asPath
-    
+
     const getInfo = () => {
         //All cookies that belong to the current url will be sent with the request automatically
         //so we don't have to attach token to the request
         //You can view token (stored in cookies storage) in browser devtools (F12). Open tab "Application" -> "Cookies"
         setLoading(true)
-        setLoginStatus(false)
+        setAlert(false)
         axios
             .get<{}, AxiosResponse<WhoAmIResponse>, {}>("api/whoAmI")
             .then((response) => {
@@ -28,9 +31,8 @@ export default function Layout({ children }: any) {
                     setFullName(response.data.firstName + " " + response.data.lastName);
                     setCmuAccount(response.data.cmuAccount);
                     setStudentId(response.data.studentId ?? "No Student Id");
-                    setLoginStatus(true)
+                    setLoggedIn(true)
                 }
-                setLoading(false)
             })
             .catch((error: AxiosError<WhoAmIResponse>) => {
                 if (!error.response) {
@@ -41,30 +43,39 @@ export default function Layout({ children }: any) {
                     setErrorMessage("Authentication failed");
                 } else if (error.response.data.ok === false) {
                     setErrorMessage(error.response.data.message);
+                } else if (error.response.data.message === "User not login") {
+                    setErrorMessage(error.response.data.message);
+                    setLoggedIn(false)
                 } else {
                     setErrorMessage("Unknown error occurred. Please try again later");
                 }
+                setAlert(true)
+            })
+            .finally(() => {
                 setLoading(false)
             });
     }
 
     useEffect(getInfo, [router])
 
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setAlert(false);
+    };
+
     if (loading)
         return (
-            <>
-                <div>
-                    Loading ...
-                </div>
-            </>
+            <div>
+                <CircularProgress />
+            </div>
         )
 
-    if (!loginStatus) {
-        // some notification?
-
+    if (!loggedIn) {
         return (
             <>
-                <Navbar loginStatus={loginStatus} fullName={null} />
+                <Navbar loginStatus={loggedIn} fullName={null} />
                 <main>{children}</main>
             </>
         )
@@ -72,7 +83,7 @@ export default function Layout({ children }: any) {
 
     return (
         <>
-            <Navbar loginStatus={loginStatus} fullName={fullName} />
+            <Navbar loginStatus={loggedIn} fullName={fullName} />
             <main>{children}</main>
         </>
     )

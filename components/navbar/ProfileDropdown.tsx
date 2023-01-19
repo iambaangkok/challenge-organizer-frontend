@@ -10,11 +10,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import PersonIcon from '@mui/icons-material/Person';
 
-import styles from '../navbar/css/ProfileDropdown.module.css'
 import Link from 'next/link';
 import axios from 'axios';
 import router from 'next/router';
-import { Url } from 'url';
 
 export default function ProfileDropdown({ loginStatus, fullName }: any) {
 

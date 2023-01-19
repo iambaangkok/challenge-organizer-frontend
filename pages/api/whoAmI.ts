@@ -27,6 +27,10 @@ export default async function handler(
 
   const token = getCookie("cmu-oauth-example-token", { req, res });
 
+  // not logged in
+  if (typeof token === undefined)
+    return res.status(404).json({ ok: false, message: "User not login" });
+  
   //validate token
   if (typeof token !== "string")
     return res.status(401).json({ ok: false, message: "Invalid token" });
