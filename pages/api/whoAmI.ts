@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import type { NextApiRequest, NextApiResponse } from "next";
 import { JWTPayload } from "../../types/JWTPayload";
 
-type SuccessResponse = {
+export type SuccessResponse = {
   ok: true;
   cmuAccount: string;
   firstName: string;
@@ -11,7 +11,7 @@ type SuccessResponse = {
   studentId?: string;
 };
 
-type ErrorResponse = {
+export type ErrorResponse = {
   ok: false;
   message: string;
 };

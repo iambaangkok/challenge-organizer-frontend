@@ -1,8 +1,8 @@
-import { Alert, CircularProgress, Snackbar } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-import { WhoAmIResponse } from '../pages/api/whoAmI';
+import { ErrorResponse, SuccessResponse } from '../pages/api/whoAmI';
 import Navbar from './navbar/NavBar'
 
 export default function Layout({ children }: any) {
@@ -24,7 +24,7 @@ export default function Layout({ children }: any) {
         setLoading(true)
         setAlert(false)
         axios
-            .get<{}, AxiosResponse<WhoAmIResponse>, {}>("api/whoAmI")
+            .get<{}, AxiosResponse<SuccessResponse>, {}>("api/whoAmI")
             .then((response) => {
                 if (response.data.ok) {
                     setErrorMessage("No error")
@@ -34,7 +34,7 @@ export default function Layout({ children }: any) {
                     setLoggedIn(true)
                 }
             })
-            .catch((error: AxiosError<WhoAmIResponse>) => {
+            .catch((error: AxiosError<ErrorResponse>) => {
                 if (!error.response) {
                     setErrorMessage(
                         "Cannot connect to the network. Please try again later."
