@@ -13,14 +13,38 @@ const theme = createTheme({
     },
 })
 
-const pinfo = ['Global Rank', 'Rating', 'Challenge Completed', 'Challenge Participated']
-const hinfo = ['Global Rank', 'Rating', 'Average Challenge Rating', 'Challenge Published', 'Challenge Created']
+const personalInfo = {
+    'Global Rank': 3,
+    'Rating': 44,
+    'Challenge Completed': 16,
+    'Challenge Participated': 32,
+}
 
-const mapElement = (value: string, index: any) => {
-    if (value === 'Global Rank')
-        return <div key={index} className={styles.Info + ' S1Regular flex items-center space-x-1'}><AiFillTrophy /><div>{value}</div></div>
+const hostInfo = {
+    'Global Rank': 3,
+    'Rating': 44,
+    'Average Challenge Rating': 16,
+    'Challenge Published': 32,
+    'Challenge Created': 33
+}
+
+const mapElement = (value: any, index: any) => {
+    if (value[0] === 'Global Rank')
+        return (
+            <div key={index} className={styles.Info + ' S1Regular flex items-center space-x-1'}>
+                <AiFillTrophy />
+                <div>{value[0]}</div>
+                <div>{value[1]}</div>
+            </div>
+        )
     else
-        return <div key={index} className='S1Regular flex items-center space-x-1'><AiFillTrophy /><div>{value}</div></div>
+        return (
+            <div key={index} className='S1Regular flex items-center space-x-1'>
+                <AiFillTrophy />
+                <div>{value[0]}</div>
+                <div>{value[1]}</div>
+            </div>
+        )
 }
 
 export default function InfoDashboard() {
@@ -59,7 +83,7 @@ export default function InfoDashboard() {
                 <div className='TextMedium'>Participation Info</div>
                 <div className='p-2 space-y-2'>
                     {
-                        pinfo.map(mapElement)
+                        Object.entries(personalInfo).map(mapElement)
                     }
                 </div>
             </div>
@@ -70,7 +94,7 @@ export default function InfoDashboard() {
                 <div className='TextMedium'>Host Info</div>
                 <div className='p-2 space-y-2'>
                     {
-                        hinfo.map(mapElement)
+                        Object.entries(hostInfo).map(mapElement)
                     }
                 </div>
             </div>
