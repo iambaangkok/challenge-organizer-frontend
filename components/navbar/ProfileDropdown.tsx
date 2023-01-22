@@ -45,14 +45,9 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 			<Button
 				id="ProfileDropDown"
 				onClick={handleClick}
-				className={'text-white TextBold'}
+				className='TextBold text-white'
 			>
-				<PersonIcon sx={{ fontSize: 26 }} />
-				{loginStatus &&
-					<span className='text-lg'>{fullName}</span>
-				}
-				<KeyboardArrowDownIcon sx={{ fontSize: 26 }} />
-
+				<PersonIcon sx={{ fontSize: 26 }} /> <span className='text-lg text-white'>{Username}</span> <KeyboardArrowDownIcon sx={{ fontSize: 26 }} />
 			</Button>
 
 			{/* Profile DropDown */}
