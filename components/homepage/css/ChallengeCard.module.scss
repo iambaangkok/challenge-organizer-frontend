@@ -3,10 +3,10 @@
     height: 154px;
     border-radius: 8px;
     transition: ease-out 0.2s;
-}
-
-.ChallengeCard:hover {
-    transform: scaleX(1.01) scaleY(1.01);
+    
+    &:hover {
+        transform: scaleX(1.01) scaleY(1.01);
+    }
 }
 
 .BottomHalf {

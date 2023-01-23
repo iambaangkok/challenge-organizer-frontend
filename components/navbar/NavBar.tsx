@@ -24,7 +24,7 @@ export default function NavBar({loginStatus , fullName} : any) {
                         }
                         if (router.asPath.includes(link.path))
                             return (
-                                <Link href={link.path} className=' text-white h-full flex flex-col justify-center px-4 hover:bg-orange-500 ease-out duration-150'>
+                                <Link href={link.path} className=' text-white h-full flex flex-col justify-center px-4 no-underline bg-orange-500'>
                                     <div className='TextBold flex flex-col justify-center' key={index}>
                                         {link.name}
                                     </div>

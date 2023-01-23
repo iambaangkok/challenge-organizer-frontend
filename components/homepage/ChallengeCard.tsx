@@ -1,4 +1,4 @@
-import styles from './css/ChallengeCard.module.css'
+import styles from './css/ChallengeCard.module.scss'
 import { Rating } from '@mui/material';
 import Link from 'next/link';
 import Image from 'next/image'

@@ -9,10 +9,9 @@
     position: relative;
     transition: ease-out 0.15s;
 
-}
-
-.Task:hover {
-    background-color: gainsboro;
+    &:hover {
+        background-color: gainsboro;
+    }
 }
 
 .Checkbox {
@@ -35,10 +34,6 @@
     color: var(--Black);
 }
 
-.ChallengeName {
-    color: var(--TextDimmedMain);
-}
-
-.DueDate {
+.TaskDescription {
     color: var(--TextDimmedMain);
 }
