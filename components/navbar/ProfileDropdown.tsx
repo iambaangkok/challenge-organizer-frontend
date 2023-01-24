@@ -27,7 +27,7 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 		setAnchorEl(null);
 	};
 
-	function signOut() {
+	const signOut = () => {
 		//Call sign out api without caring what is the result
 		//It will fail only in case of client cannot connect to server
 		//This is left as an exercise for you. Good luck.

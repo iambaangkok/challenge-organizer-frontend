@@ -20,12 +20,12 @@ export default function NavBar({loginStatus , fullName} : any) {
                 {
                     navLinks.map((link, index) => {
                         if (!loginStatus && restrictedLink.includes(link.name)) {
-                            return <></>
+                            return <div key={index}></div>
                         }
                         if (router.asPath.includes(link.path))
                             return (
-                                <Link href={link.path} className=' text-white h-full flex flex-col justify-center px-4 no-underline bg-orange-500'>
-                                    <div className='TextBold flex flex-col justify-center' key={index}>
+                                <Link key={index} href={link.path} className=' text-white h-full flex flex-col justify-center px-4 no-underline bg-orange-500'>
+                                    <div className='TextBold flex flex-col justify-center'>
                                         {link.name}
                                     </div>
                                 </Link>
@@ -33,8 +33,8 @@ export default function NavBar({loginStatus , fullName} : any) {
                             )
                         else
                             return (
-                                <Link href={link.path} className='text-white h-full flex flex-col justify-center px-4 no-underline hover:bg-orange-500 ease-out duration-150'>
-                                    <div id={link.name} className='TextBold' key={index}>
+                                <Link key={index} href={link.path} className='text-white h-full flex flex-col justify-center px-4 no-underline hover:bg-orange-500 ease-out duration-150'>
+                                    <div id={link.name} className='TextBold'>
                                         {link.name}
                                     </div>
                                 </Link>

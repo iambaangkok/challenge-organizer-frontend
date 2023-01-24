@@ -1,6 +1,7 @@
 import { getCookie } from "cookies-next";
 import jwt from 'jsonwebtoken';
 import type { NextApiRequest, NextApiResponse } from "next";
+import { decode } from "punycode";
 import { JWTPayload } from "../../types/JWTPayload";
 
 export type SuccessResponse = {
@@ -30,10 +31,11 @@ export default async function handler(
   // not logged in
   if (typeof token === undefined)
     return res.status(404).json({ ok: false, message: "User not login" });
-  
+
   //validate token
   if (typeof token !== "string")
     return res.status(401).json({ ok: false, message: "Invalid token" });
+
   try {
     const decoded = jwt.verify(
       token,

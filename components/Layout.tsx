@@ -45,11 +45,9 @@ export default function Layout({ children }: any) {
                     setErrorMessage(error.response.data.message);
                 } else if (error.response.data.message === "User not login") {
                     setErrorMessage(error.response.data.message);
-                    setLoggedIn(false)
                 } else {
                     setErrorMessage("Unknown error occurred. Please try again later");
                 }
-                setAlert(true)
             })
             .finally(() => {
                 setLoading(false)
@@ -58,26 +56,11 @@ export default function Layout({ children }: any) {
 
     useEffect(getInfo, [router])
 
-    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setAlert(false);
-    };
-
-    if (loading)
+    if (loading) {
         return (
             <div>
                 <CircularProgress />
             </div>
-        )
-
-    if (!loggedIn) {
-        return (
-            <>
-                <Navbar loginStatus={loggedIn} fullName={null} />
-                <main>{children}</main>
-            </>
         )
     }
 

@@ -13,6 +13,14 @@ const NotificationList = ({ anchorE1, handleClose, open, notificationList }: any
             anchorEl={anchorE1}
             open={open}
             onClose={handleClose}
+            anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+            }}
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
         >
             {
                 notificationList.map((item: notification, index: any) => {

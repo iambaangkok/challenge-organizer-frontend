@@ -1,9 +1,7 @@
 .NavBar {
     padding: 0px 20px;
     gap: 9px;
-
     height: 84px;
-
     background: var(--PrimaryMain);
 }
 
@@ -12,7 +10,7 @@
 }
 
 .Brand {
-    padding: 0px 9px;
+    padding: 0px 20px 0px 0px;
     color: var(--White);
 
     font-family: 'Inter';
