@@ -29,7 +29,7 @@ export default function ChallengeCard(data: challengeData) {
             href={{
                 pathname: '/challenge',
                 query: { id: challengeId },
-            }}
+            }} 
             className='no-underline'>
 
             {/* Challenge Card */}
@@ -57,7 +57,7 @@ export default function ChallengeCard(data: challengeData) {
                                 readOnly
                             />
                         </div>
-                        <div>
+                        <div> 
                             <div className='flex space-x-4'>
                                 <div className={styles.Type + ' TextMedium'}>Type: {data.type}</div>
                                 <div className={styles.Type + ' TextMedium'}>Format: {data.format}</div>

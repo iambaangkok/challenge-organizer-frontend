@@ -1,6 +1,5 @@
 .NavBar {
     padding: 0px 20px;
-    gap: 9px;
     height: 84px;
     background: var(--PrimaryMain);
 }
