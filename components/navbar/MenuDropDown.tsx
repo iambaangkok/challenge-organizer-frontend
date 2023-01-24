@@ -28,6 +28,7 @@ export default function MenuDropDown() {
   return (
     <div>
       <Button
+        id="ProfileDropDown"
         onClick={handleClick}
         className={styles.MenuDropDownButton + ' TextBold'}
       >
