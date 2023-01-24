@@ -69,6 +69,7 @@ export default function InfoDashboard() {
                     </div>
                     <ThemeProvider theme={theme}>
                         <Button
+                            id='EditProfileButton'
                             variant='contained'
                             className='TextBold'
                             sx={{
