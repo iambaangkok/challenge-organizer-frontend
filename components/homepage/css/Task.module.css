@@ -3,14 +3,12 @@
     flex-direction: row;
     align-items: flex-start;
     vertical-align: bottom;
-    padding: 8px 20px;
-    gap: 9px;
+    padding: 8px 10px;
 
     border-radius: 5px;
     position: relative;
     transition: ease-out 0.15s;
-    /* width: 279px; */
-    /* height: 57px; */
+
 }
 
 .Task:hover {

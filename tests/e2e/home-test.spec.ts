@@ -21,6 +21,7 @@ test("homepage has links to homepage", async ({ page }) => {
 
 test("homepage has links to shop", async ({ page }) => {
     await page.goto("/");
+    await page.goto("/");
 
     const shopButton = page.getByRole("link", { name: "Shop" });
     await expect(shopButton).toBeDefined();
@@ -30,6 +31,7 @@ test("homepage has links to shop", async ({ page }) => {
 });
 
 test("homepage has links to profile", async ({ page }) => {
+    await page.goto("/");
     await page.goto("/");
 
     const profileDropDown = page.locator("#ProfileDropDown");
@@ -45,6 +47,7 @@ test("homepage has links to profile", async ({ page }) => {
 
 test("homepage challenge card links to challenge", async ({ page }) => {
     await page.goto("/");
+    await page.goto("/");
 
     const challengeCard = page.locator("#ChallengeCard").first();
     await expect(challengeCard).toBeDefined();
@@ -52,6 +55,7 @@ test("homepage challenge card links to challenge", async ({ page }) => {
     await challengeCard.click();
     await expect(page).toHaveURL(/.*challenge\?id=.*/);
 });
+
 
 test("homepage task item name links to tasks tab in challenge", async ({
     page,

@@ -14,7 +14,7 @@ export default function TaskDashboard() {
             <div>
                 <hr />
             </div>
-            <div className={styles.TaskList + ' flex flex-col py-2'}>
+            <div className={styles.TaskList + ' flex flex-col mt-2'}>
                 {
                     testTaskList.map((task, index) => {
                         return <Task key={index} {...task}></Task>
