@@ -22,6 +22,7 @@ export default function ChallengeCard(data: challengeData) {
 
     const challengeId = 'ABCDEFG'
 
+
     return (
         // Each challenge card routes to its own challenge page
         <Link

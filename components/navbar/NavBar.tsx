@@ -1,10 +1,10 @@
 import styles from './css/NavBar.module.css'
-import Link from 'next/link'
-
 import ProfileDropdown from './ProfileDropdown';
 import { navLinks, restrictedLink } from '../../lib/navLinks'
-import { useRouter } from 'next/router';
 import Notification from './Notification';
+
+import Link from 'next/link'
+import { useRouter } from 'next/router';
 
 export default function NavBar({loginStatus , fullName} : any) {
 

@@ -1,22 +1,15 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import {Button , Menu , MenuItem} from '@mui/material';
 
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import SettingsIcon from '@mui/icons-material/Settings';
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import PersonIcon from '@mui/icons-material/Person';
+import {AccountBox , Settings , Login , Logout , KeyboardArrowDown , Person} from '@mui/icons-material';
 
 import Link from 'next/link';
 import axios from 'axios';
 import router from 'next/router';
+import { useState } from 'react';
 
 export default function ProfileDropdown({ loginStatus, fullName }: any) {
 
-	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
 
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -47,11 +40,11 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 				onClick={handleClick}
 				className={'text-white TextBold'}
 			>
-				<PersonIcon sx={{ fontSize: 26 }} />
+				<Person sx={{ fontSize: 26 }} />
 				{loginStatus &&
 					<span className='text-lg'>{fullName}</span>
 				}
-				<KeyboardArrowDownIcon sx={{ fontSize: 26 }} />
+				<KeyboardArrowDown sx={{ fontSize: 26 }} />
 
 			</Button>
 
@@ -73,19 +66,19 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 				>
 					<MenuItem onClick={handleClose} className='TextRegular'>
 						<Link id="Profile" href='/profile' className='no-underline flex space-x-2 text-black'>
-							<AccountBoxIcon></AccountBoxIcon> <div>My Profile</div>
+							<AccountBox></AccountBox> <div>My Profile</div>
 						</Link>
 					</MenuItem>
 
 					<MenuItem onClick={handleClose} className='TextRegular'>
 						<Link href='/settings' className='no-underline flex space-x-2 text-black'>
-							<SettingsIcon></SettingsIcon> <div>Settings</div>
+							<Settings></Settings> <div>Settings</div>
 						</Link>
 					</MenuItem>
 
 					<MenuItem onClick={signOut} className='TextRegular'>
 						<Link href='/' className='no-underline flex space-x-2 text-black'>
-							<LogoutIcon></LogoutIcon> <div>Log Out</div>
+							<Logout></Logout> <div>Log Out</div>
 						</Link>
 					</MenuItem>
 				</Menu>
@@ -108,13 +101,13 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 				>
 					<MenuItem onClick={handleClose} className='TextRegular'>
 						<Link href='/settings' className='no-underline flex space-x-2 text-black'>
-							<SettingsIcon></SettingsIcon> <div>Settings</div>
+							<Settings></Settings> <div>Settings</div>
 						</Link>
 					</MenuItem>
 
 					<MenuItem onClick={handleClose} className='TextRegular'>
 						<Link href={CMUOAuthCallback} className='no-underline flex space-x-2 text-black'>
-							<LoginIcon></LoginIcon> <div>Log In</div>
+							<Login></Login> <div>Log In</div>
 						</Link>
 					</MenuItem>
 				</Menu>

@@ -1,5 +1,3 @@
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import Link from 'next/link';
 import styles from './css/Task.module.scss'
 

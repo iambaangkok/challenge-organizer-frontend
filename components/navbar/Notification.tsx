@@ -1,8 +1,9 @@
+import NotificationList from "./NotificationList";
+import {notificationList} from '../../lib/notificationList'
+
 import { Tooltip, IconButton, Badge } from "@mui/material";
 import { useState } from "react";
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import NotificationList from "./NotificationList";
-import {notificationList} from '../../lib/notificationList'
 
 interface input {
     badgeContent: number

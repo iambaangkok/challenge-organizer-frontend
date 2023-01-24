@@ -1,8 +1,9 @@
-import { Button, FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import { testChallengeList } from '../../lib/challengeList'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ChallengeCard from './ChallengeCard'
 import styles from './css/ChallengeDashboard.module.css'
+
+import { Button , FormControl, MenuItem, Select } from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react'
 import Skeleton from '@mui/material/Skeleton';
 import { HiArrowNarrowDown, HiArrowNarrowUp } from 'react-icons/hi'
@@ -82,7 +83,7 @@ export default function ChallengeDashboard() {
                                         },
                                     }}
                                     value={filterState}
-                                    onChange={(event: SelectChangeEvent) => {
+                                    onChange={(event) => {
                                         setFilterState(event.target.value)
                                     }}
                                 >
@@ -115,7 +116,7 @@ export default function ChallengeDashboard() {
                                         },
                                     }}
                                     value={sortState}
-                                    onChange={(event: SelectChangeEvent) => {
+                                    onChange={(event) => {
                                         setSortState(event.target.value)
                                     }}
                                 >
