@@ -13,41 +13,49 @@ export default function Home() {
             <Head>
                 <title>Challenge</title>
             </Head>
-            <div
-                className={
-                    "main-container flex justify-center items-start space-x-4 mt-6"
-                }>
-                {/* placeholder image */}
+            <div className={styles["main-container"]}>
                 <div className={styles["banner-container"]}>
                     <Image
                         src={bannerImage}
                         alt=""
-                        className={styles['banner']}
+                        className={styles["banner"]}
                     />
                 </div>
-                <div className={styles["title-container"]}>
-                    <div className={styles["title-left"]}>
-                        <div className={styles[""]}></div>
-                        <div className={styles["title-text-container"]}>
-                            <div className={styles["title-text"]}></div>
-                            <button className={styles["status"]}></button>
+                <div className={styles["challengemenu-container"]}>
+                    <div className={styles["title-container"]}>
+                        <div className={styles["title-left"]}>
+                            <div className={styles[""] + " H3"}>
+                                Challenges/
+                            </div>
+                            <div className={styles["title-text-container"]}>
+                                <div className={styles["title-text"] + " H1"}>
+                                    {"TitleText"}
+                                </div>
+                                <button className={styles["status"]}>
+                                    {"status button"}
+                                </button>
+                            </div>
+                        </div>
+                        <div className={styles["title-right"]}>
+                            <button className={styles[""]}>
+                                {"edit challenge button"}
+                            </button>
                         </div>
                     </div>
-                    <div className={styles["title-right"]}>
-                        <button className={styles[""]}></button>
+                    <div className={styles["tabs-container"]}>
+                        <button className={styles["tab-button"]}>
+                            Announcement
+                        </button>
+                        <button className={styles["tab-button"]}>Rules</button>
+                        <button className={styles["tab-button"]}>
+                            Rewards
+                        </button>
+                        <button className={styles["tab-button"]}>
+                            Leaderboard
+                        </button>
                     </div>
                 </div>
-                <div className={styles["tabs-container"]}>
-                    <button className={styles["tab-button"]}>
-                        Announcement
-                    </button>
-                    <button className={styles["tab-button"]}>Rules</button>
-                    <button className={styles["tab-button"]}>Rewards</button>
-                    <button className={styles["tab-button"]}>
-                        Leaderboard
-                    </button>
-                </div>
-                <div className={styles["content-container"]}></div>
+                <div className={styles["content-container"]}>Content</div>
             </div>
         </>
     );
