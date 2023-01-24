@@ -47,9 +47,9 @@ test("profile page has links to profile", async ({ page }) => {
 test("profile page has edit button", async ({ page }) => {
     await page.goto(url);
 
-    const editProfileButton = page.getByRole("button", { name: /EditProfileButton/ });
+    const editProfileButton = page.locator("#EditProfileButton");
     await expect(editProfileButton).toBeDefined();
-    await expect(editProfileButton).toHaveText("Edit Button", {ignoreCase:true});
+    await expect(editProfileButton).toHaveText("Edit Profile", {ignoreCase:true});
     // await editProfileButton.click();
     // await expect(page).toHaveURL(/.*challenge\?id=.*/);
 });
