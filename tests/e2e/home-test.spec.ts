@@ -4,7 +4,7 @@ test("homepage has correct title, url", async ({ page }) => {
     await page.goto("/");
 
     // Expect a title "to contain" a substring.
-    await expect(page).toHaveTitle(/Home/);
+    await expect(page).toHaveTitle(/.*Home.*/);
 
     await expect(page).toHaveURL(/.*home/); // Expects the URL to contain intro.
 });
