@@ -5,6 +5,7 @@ import Notification from './Notification';
 
 import Link from 'next/link'
 import { useRouter } from 'next/router';
+import { NavLinks } from '../../types/Request';
 
 export default function NavBar({loginStatus , fullName} : any) {
 
@@ -18,7 +19,7 @@ export default function NavBar({loginStatus , fullName} : any) {
                 <div className={styles.Brand + ' H1 h-full flex flex-col justify-center'}>CHAL.ORG</div>
                 {/* Navigation Menu */}
                 {
-                    navLinks.map((link, index) => {
+                    navLinks.map((link : NavLinks, index) => {
                         if (!loginStatus && restrictedLink.includes(link.name)) {
                             return <div key={index}></div>
                         }

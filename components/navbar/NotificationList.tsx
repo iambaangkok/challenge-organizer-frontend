@@ -1,9 +1,5 @@
 import {Menu , MenuItem} from '@mui/material';
-
-interface notification {
-    description: string,
-    date: string
-}
+import { NotificationList } from '../../types/Request';
 
 const NotificationList = ({ anchorE1, handleClose, open, notificationList }: any) => {
     return (
@@ -21,7 +17,7 @@ const NotificationList = ({ anchorE1, handleClose, open, notificationList }: any
             }}
         >
             {
-                notificationList.map((item: notification, index: any) => {
+                notificationList.map((item: NotificationList , index: any) => {
                     return <MenuItem onClick={handleClose} key={index}> {item.description} </MenuItem>
                 })
             }

@@ -7,6 +7,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react'
 import Skeleton from '@mui/material/Skeleton';
 import { HiArrowNarrowDown, HiArrowNarrowUp } from 'react-icons/hi'
+import { ChallengeList } from '../../types/Request';
 
 // Theme for Select Components
 const theme = createTheme({
@@ -28,7 +29,7 @@ const theme = createTheme({
 export default function ChallengeDashboard() {
 
     const [loading, setLoading] = useState(false)
-    const [challengeList, setChallengeList] = useState(null)
+    const [challengeList, setChallengeList] = useState<ChallengeList>()
     const [filterState, setFilterState] = useState<string>('All')
     const [sortState, setSortState] = useState<string>('AZ')
 
@@ -149,7 +150,7 @@ export default function ChallengeDashboard() {
 
             {/* Challenge List */}
             <div className='flex flex-col space-y-2 py-2'>
-                {testChallengeList.map((challenge, index) => {
+                {testChallengeList.map((challenge : ChallengeList, index) => {
                     return (
                         <ChallengeCard key={index} {...challenge} />
                     )
