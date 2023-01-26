@@ -13,11 +13,10 @@ export default function Home() {
             <Head>
                 <title>Challenge</title>
             </Head>
-            {/* <div className={styles["main-container"]}> */}
             <div className={styles["banner-container"]}>
                 <Image src={bannerImage} alt="" className={styles["banner"]} />
             </div>
-            <div className={styles["challengemenu-container"]}>
+            <div className={styles["challengemenu-container"] + " ShadowContainer"}>
                 <div className={styles["title-container"]}>
                     <div className={styles["title-left"]}>
                         <div className={styles[""] + " H3"}>Challenges/</div>
@@ -25,7 +24,7 @@ export default function Home() {
                             <div className={styles["title-text"] + " H1"}>
                                 {"TitleText"}
                             </div>
-                            <button className={styles["status"]}>
+                            <button id="StatusButton" className={styles["status-button"]}>
                                 {"status button"}
                             </button>
                         </div>
@@ -48,7 +47,6 @@ export default function Home() {
                 </div>
             </div>
             <div className={styles["content-container"]}>Content</div>
-            {/* </div> */}
         </>
     );
 }
