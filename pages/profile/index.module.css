@@ -1,7 +1,4 @@
-.Left {
-    width: 348px;
-}
-
 .Right {
     width: 794px;
+    height: inherit;
 }
