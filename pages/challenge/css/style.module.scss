@@ -8,17 +8,6 @@
     width: 100vw;
 }
 
-.challengemenu-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    padding: 0px 50px;
-
-    align-self: stretch;
-
-}
-
 .banner-container {
     overflow: hidden;
     display: block;
@@ -34,45 +23,58 @@
     align-self: stretch;
 }
 
-.title-container {
-    /* Auto layout */
+.challengemenu-container {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    padding: 12px 50px 0px;
-    gap: 20px;
 
-    // width: 1300px;
-    height: 103px;
+    padding: 0px 50px;
+    margin-left: auto;
+    margin-right: auto;
 
-    background: var(--White);
+    max-width: 1280px;
 
-    /* Inside auto layout */
-    flex-shrink: 1;
     align-self: stretch;
-    justify-self: center;
 
-    .title-left {
+    .title-container {
         /* Auto layout */
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        padding: 10px 0px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 50px 0px;
+        gap: 20px;
 
-        // width: fit-content;
-        height: 91px;
+        height: 103px;
 
-        .title-text-container {
+        background: var(--White);
+
+        /* Inside auto layout */
+        flex-shrink: 1;
+        align-self: stretch;
+        justify-self: center;
+
+        .title-left {
             /* Auto layout */
             display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 25px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 10px 0px;
 
-            // width: 775px;
-            height: 44px;
+            // width: fit-content;
+            height: 91px;
+
+            .title-text-container {
+                /* Auto layout */
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 25px;
+
+                // width: 775px;
+                height: 44px;
+            }
         }
     }
 }
