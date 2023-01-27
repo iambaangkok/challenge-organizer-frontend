@@ -13,6 +13,9 @@ export default function Challenge() {
     // Variables
     const [tabValue, setTabValue] = useState<number>(0);
 
+    const [loading, setLoading] = useState(false)
+    // const [challengeList, setChallengeList] = useState<PostList>()
+
     // Functions
 
     function fetchTabData() {}
@@ -22,6 +25,15 @@ export default function Challenge() {
         newTabValue: number
     ) {
         setTabValue(newTabValue);
+    }
+
+    // Computations
+    if (loading) {
+        return (
+            <div>
+                {/* <Skeleton variant="rectangular" width={1000} height={800} /> */}
+            </div>
+        )
     }
 
     return (
