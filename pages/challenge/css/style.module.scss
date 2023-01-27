@@ -134,6 +134,7 @@
         padding: 0px 0px;
         gap: 25px;
 
+        min-height: 0;
         height: 29px;
 
         background: var(--White);
@@ -143,17 +144,26 @@
         align-self: stretch;
         flex-grow: 0;
 
+        div div{
+            gap: 25px;
+        }
+
         .tab-button {
             /* Auto layout */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 5px 0px;
-            
-            color: var(--Black);
+            padding: 0px 0px;
+
+            min-width: 0;
+            max-width: 100%;
             width: fit-content;
+            min-height: 0;
             height: 29px;
+
+            color: var(--Black);
+            text-transform: none;
 
             /* Inside auto layout */
             flex: none;
@@ -161,6 +171,11 @@
             flex-grow: 0;
         }
 
-            
+        .tab-indicator {
+            background-color: var(--PrimaryMain)
+        }
+
     }
+    
+    
 }

@@ -6,11 +6,16 @@ import styles from "./css/style.module.scss";
 import TaskDashboard from "../../components/homepage/TaskDashboard";
 
 import bannerImage from "../../public/pingpong.jpg";
-import { Box, Button, styled, Tab, Tabs } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box, Button, makeStyles, styled, Tab, Tabs } from "@mui/material";
+import { CSSProperties, useEffect, useState } from "react";
 
-export default function Home() {
+export default function Challenge() {
+    // Variables
     const [tabValue, setTabValue] = useState<number>(0);
+
+    // Functions
+
+    function fetchTabData() {}
 
     function handleTabChange(
         _event: React.ChangeEvent<{}>,
@@ -20,26 +25,25 @@ export default function Home() {
     }
 
     // Styled Components
-
     interface StyledTabProps {
-        label: string,
-        value: number,
-        className: string
+        label: string;
+        value: number;
+        className: string;
     }
 
     const StyledTab = styled((props: StyledTabProps) => (
         <Tab disableRipple {...props} />
     ))(({ theme }) => ({
-        textTransform: "none",
-        fontWeight: theme.typography.fontWeightRegular,
-        fontSize: theme.typography.pxToRem(15),
-        marginRight: theme.spacing(1),
-        "&.Mui-selected": {
-            color: "#ea7000",
-        },
-        "&.Mui-focusVisible": {
-            backgroundColor: "#fa9c1d",
-        },
+        // textTransform: "none",
+        // fontWeight: theme.typography.fontWeightRegular,
+        // fontSize: theme.typography.pxToRem(15),
+        // marginRight: theme.spacing(1),
+        // "&.Mui-selected": {
+        //     color: "#ea7000",
+        // },
+        // "&.Mui-focusVisible": {
+        //     backgroundColor: "#fa9c1d",
+        // },
     }));
 
     return (
@@ -90,7 +94,8 @@ export default function Home() {
                     value={tabValue}
                     onChange={handleTabChange}
                     aria-label="Tabs"
-                    className={styles["tabs-container"]}>
+                    className={styles["tabs-container"]}
+                    TabIndicatorProps={{ className: styles["tab-indicator"] }}>
                     <StyledTab
                         label="Announcement"
                         value={0}
