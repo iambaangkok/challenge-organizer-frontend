@@ -70,8 +70,6 @@
             width: fit-content;
             height: 91px;
 
-
-
             .title-text-container {
                 /* Auto layout */
                 display: flex;
@@ -92,16 +90,10 @@
                 padding: 0px 20px;
                 gap: 10px;
 
-                width: 110px;
+                width: fit-content;
                 height: 35px;
 
-                /* Primary/Main */
-
-                background: #fa9c1d;
-                border-radius: 30px;
-
                 /* Inside auto layout */
-
                 flex: none;
                 order: 1;
                 flex-grow: 0;
@@ -119,9 +111,24 @@
 
             width: fit-content;
             height: 47px;
-        }
 
-        
+            .editchallenge-button {
+                /* Auto layout */
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 10px 20px;
+
+                width: fit-content;
+                height: 47px;
+
+                /* Inside auto layout */
+                flex: none;
+                order: 1;
+                flex-grow: 0;
+            }
+        }
     }
 
     .tabs-container {
@@ -143,5 +150,4 @@
         align-self: stretch;
         flex-grow: 0;
     }
-    
 }
