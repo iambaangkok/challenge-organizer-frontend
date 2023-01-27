@@ -142,5 +142,25 @@
         flex: none;
         align-self: stretch;
         flex-grow: 0;
+
+        .tab-button {
+            /* Auto layout */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5px 0px;
+            
+            color: var(--Black);
+            width: fit-content;
+            height: 29px;
+
+            /* Inside auto layout */
+            flex: none;
+            order: 0;
+            flex-grow: 0;
+        }
+
+            
     }
 }

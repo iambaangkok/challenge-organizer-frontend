@@ -6,16 +6,41 @@ import styles from "./css/style.module.scss";
 import TaskDashboard from "../../components/homepage/TaskDashboard";
 
 import bannerImage from "../../public/pingpong.jpg";
-import { Box, Button, Tab, Tabs } from "@mui/material";
+import { Box, Button, styled, Tab, Tabs } from "@mui/material";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-
     const [tabValue, setTabValue] = useState<number>(0);
 
-    function handleTabChange(_event: React.ChangeEvent<{}>, newTabValue:number) {
+    function handleTabChange(
+        _event: React.ChangeEvent<{}>,
+        newTabValue: number
+    ) {
         setTabValue(newTabValue);
     }
+
+    // Styled Components
+
+    interface StyledTabProps {
+        label: string,
+        value: number,
+        className: string
+    }
+
+    const StyledTab = styled((props: StyledTabProps) => (
+        <Tab disableRipple {...props} />
+    ))(({ theme }) => ({
+        textTransform: "none",
+        fontWeight: theme.typography.fontWeightRegular,
+        fontSize: theme.typography.pxToRem(15),
+        marginRight: theme.spacing(1),
+        "&.Mui-selected": {
+            color: "#ea7000",
+        },
+        "&.Mui-focusVisible": {
+            backgroundColor: "#fa9c1d",
+        },
+    }));
 
     return (
         <>
@@ -65,10 +90,32 @@ export default function Home() {
                     value={tabValue}
                     onChange={handleTabChange}
                     aria-label="Tabs"
-                    className={styles["tabs-container"] + " TextBold"}>
-                    <Tab label="Item One" value={0}/>
-                    <Tab label="Item Two" value={1}/>
-                    <Tab label="Item Three" value={2}/>
+                    className={styles["tabs-container"]}>
+                    <StyledTab
+                        label="Announcement"
+                        value={0}
+                        className={styles["tab-button"] + " TextBold"}
+                    />
+                    <StyledTab
+                        label="Rules"
+                        value={1}
+                        className={styles["tab-button"] + " TextBold"}
+                    />
+                    <StyledTab
+                        label="Reward"
+                        value={2}
+                        className={styles["tab-button"] + " TextBold"}
+                    />
+                    <StyledTab
+                        label="Community"
+                        value={3}
+                        className={styles["tab-button"] + " TextBold"}
+                    />
+                    <StyledTab
+                        label="Leaderboard"
+                        value={4}
+                        className={styles["tab-button"] + " TextBold"}
+                    />
                 </Tabs>
             </div>
             <div className={styles["content-container"]}>Content</div>
