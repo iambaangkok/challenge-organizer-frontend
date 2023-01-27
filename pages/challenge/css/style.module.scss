@@ -95,7 +95,6 @@
 
                 /* Inside auto layout */
                 flex: none;
-                order: 1;
                 flex-grow: 0;
             }
         }
@@ -125,7 +124,6 @@
 
                 /* Inside auto layout */
                 flex: none;
-                order: 1;
                 flex-grow: 0;
             }
         }
@@ -133,9 +131,6 @@
 
     .tabs-container {
         /* Auto layout */
-        display: flex;
-        flex-direction: row;
-        align-items: center;
         padding: 0px 0px;
         gap: 25px;
 
@@ -144,9 +139,7 @@
         background: var(--White);
 
         /* Inside auto layout */
-
         flex: none;
-        order: 2;
         align-self: stretch;
         flex-grow: 0;
     }

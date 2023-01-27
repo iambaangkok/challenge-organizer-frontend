@@ -7,9 +7,15 @@ import TaskDashboard from "../../components/homepage/TaskDashboard";
 
 import bannerImage from "../../public/pingpong.jpg";
 import { Box, Button, Tab, Tabs } from "@mui/material";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-    function handleTabChange() {}
+
+    const [tabValue, setTabValue] = useState<number>(0);
+
+    function handleTabChange(_event: React.ChangeEvent<{}>, newTabValue:number) {
+        setTabValue(newTabValue);
+    }
 
     return (
         <>
@@ -55,18 +61,15 @@ export default function Home() {
                         </Button>
                     </div>
                 </div>
-                <div className={styles["tabs-container"]}>
-                    <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                        <Tabs
-                            value={1}
-                            onChange={handleTabChange}
-                            aria-label="Tabs">
-                            <Tab label="Item One" />
-                            <Tab label="Item Two" />
-                            <Tab label="Item Three" />
-                        </Tabs>
-                    </Box>
-                </div>
+                <Tabs
+                    value={tabValue}
+                    onChange={handleTabChange}
+                    aria-label="Tabs"
+                    className={styles["tabs-container"] + " TextBold"}>
+                    <Tab label="Item One" value={0}/>
+                    <Tab label="Item Two" value={1}/>
+                    <Tab label="Item Three" value={2}/>
+                </Tabs>
             </div>
             <div className={styles["content-container"]}>Content</div>
         </>
