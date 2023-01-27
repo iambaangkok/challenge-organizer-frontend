@@ -24,28 +24,6 @@ export default function Challenge() {
         setTabValue(newTabValue);
     }
 
-    // Styled Components
-    interface StyledTabProps {
-        label: string;
-        value: number;
-        className: string;
-    }
-
-    const StyledTab = styled((props: StyledTabProps) => (
-        <Tab disableRipple {...props} />
-    ))(({ theme }) => ({
-        // textTransform: "none",
-        // fontWeight: theme.typography.fontWeightRegular,
-        // fontSize: theme.typography.pxToRem(15),
-        // marginRight: theme.spacing(1),
-        // "&.Mui-selected": {
-        //     color: "#ea7000",
-        // },
-        // "&.Mui-focusVisible": {
-        //     backgroundColor: "#fa9c1d",
-        // },
-    }));
-
     return (
         <>
             <Head>
@@ -96,30 +74,35 @@ export default function Challenge() {
                     aria-label="Tabs"
                     className={styles["tabs-container"]}
                     TabIndicatorProps={{ className: styles["tab-indicator"] }}>
-                    <StyledTab
+                    <Tab
                         label="Announcement"
                         value={0}
                         className={styles["tab-button"] + " TextBold"}
+                        disableRipple
                     />
-                    <StyledTab
+                    <Tab
                         label="Rules"
                         value={1}
                         className={styles["tab-button"] + " TextBold"}
+                        disableRipple
                     />
-                    <StyledTab
+                    <Tab
                         label="Reward"
                         value={2}
                         className={styles["tab-button"] + " TextBold"}
+                        disableRipple
                     />
-                    <StyledTab
+                    <Tab
                         label="Community"
                         value={3}
                         className={styles["tab-button"] + " TextBold"}
+                        disableRipple
                     />
-                    <StyledTab
+                    <Tab
                         label="Leaderboard"
                         value={4}
                         className={styles["tab-button"] + " TextBold"}
+                        disableRipple
                     />
                 </Tabs>
             </div>
