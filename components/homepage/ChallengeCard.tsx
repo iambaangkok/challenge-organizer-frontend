@@ -3,33 +3,17 @@ import { Rating } from '@mui/material';
 import Link from 'next/link';
 import Image from 'next/image'
 import { BiUser } from "react-icons/bi";
+import { ChallengeCardData } from '../../types/DataType';
 
-interface challengeData {
-    challengeName: string
-    type: string
-    format: string
-    description: string
-    date: string
-    numParticipants: number
-    maxParticipants: number
-    rating: number
-    joined: boolean
-    closed: boolean
-    img: string
-}
-
-export default function ChallengeCard(data: challengeData) {
-
-    const challengeId = 'ABCDEFG'
-
-
+export default function ChallengeCard(data: ChallengeCardData) {
+    
     return (
         // Each challenge card routes to its own challenge page
         <Link
             id={"ChallengeCard"}
             href={{
                 pathname: '/challenge',
-                query: { id: challengeId },
+                query: { id: data.challengeID },
             }} 
             className='no-underline'>
 

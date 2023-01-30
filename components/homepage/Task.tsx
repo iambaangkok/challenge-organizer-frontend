@@ -1,15 +1,9 @@
 import Link from 'next/link';
+import { TaskData } from '../../types/DataType';
 import styles from './css/Task.module.scss'
 
-interface taskData {
-    taskId: string
-    taskName: string
-    challengeName: string
-    dueDate: string
-    finished: Boolean
-}
 
-export default function Task(data: taskData) {
+export default function Task(data: TaskData) {
 
     return (
         // Each task routes to its own task page
