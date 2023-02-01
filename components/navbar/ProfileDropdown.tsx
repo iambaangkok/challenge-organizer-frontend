@@ -1,5 +1,6 @@
-import {Button , Menu , MenuItem} from '@mui/material';
+import styles from './css/ProfileDropdown.module.scss'
 
+import {Button , Menu , MenuItem} from '@mui/material';
 import {AccountBox , Settings , Login , Logout , KeyboardArrowDown , Person} from '@mui/icons-material';
 
 import Link from 'next/link';
@@ -36,12 +37,13 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 		<div>
 			{/* Profile */}
 			<Button
-				id="ProfileDropDown"
+				id="ProfileDropdown"
 				onClick={handleClick}
 				className={'text-white TextBold'}
 			>
 				<Person sx={{ fontSize: 26 }} />
-				{loginStatus &&
+				{
+					loginStatus &&
 					<span className='text-lg'>{fullName}</span>
 				}
 				<KeyboardArrowDown sx={{ fontSize: 26 }} />
@@ -65,19 +67,19 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 					}}
 				>
 					<MenuItem onClick={handleClose} className='TextRegular'>
-						<Link id="Profile" href='/profile' className='no-underline flex space-x-2 text-black'>
+						<Link id="Profile" href='/profile' className={styles['Menu']}>
 							<AccountBox></AccountBox> <div>My Profile</div>
 						</Link>
 					</MenuItem>
 
 					<MenuItem onClick={handleClose} className='TextRegular'>
-						<Link href='/settings' className='no-underline flex space-x-2 text-black'>
+						<Link href='/settings' className={styles['Menu']}>
 							<Settings></Settings> <div>Settings</div>
 						</Link>
 					</MenuItem>
 
 					<MenuItem onClick={signOut} className='TextRegular'>
-						<Link href='/' className='no-underline flex space-x-2 text-black'>
+						<Link href='/' className={styles['Menu']}>
 							<Logout></Logout> <div>Log Out</div>
 						</Link>
 					</MenuItem>
@@ -100,13 +102,13 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 					}}
 				>
 					<MenuItem onClick={handleClose} className='TextRegular'>
-						<Link href='/settings' className='no-underline flex space-x-2 text-black'>
+						<Link href='/settings' className={styles['Menu']}>
 							<Settings></Settings> <div>Settings</div>
 						</Link>
 					</MenuItem>
 
 					<MenuItem onClick={handleClose} className='TextRegular'>
-						<Link href={CMUOAuthCallback} className='no-underline flex space-x-2 text-black'>
+						<Link href={CMUOAuthCallback} className={styles['Menu']}>
 							<Login></Login> <div>Log In</div>
 						</Link>
 					</MenuItem>

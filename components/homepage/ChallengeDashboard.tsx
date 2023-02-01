@@ -53,18 +53,18 @@ export default function ChallengeDashboard() {
     }
 
     return (
-        <div className={styles.ChallengeDashboard + ' flex flex-col ShadowContainer'}>
+        <div className={styles['ChallengeDashboard'] + ' ShadowContainer'}>
             {/* Top */}
-            <div className='flex justify-between'>
+            <div className={styles['Top']}>
 
                 {/* Filter and Sort */}
-                <div className='flex space-x-4 '>
+                <div className={styles['FilterAndSort']}>
 
                     {/* Title */}
                     <div className='H1'>Challenges</div>
 
                     {/* Filter */}
-                    <div className='flex space-x-2 items-center'>
+                    <div className={styles['Select']}>
                         <div className='TextRegular'>
                             Filter:
                         </div>
@@ -98,7 +98,7 @@ export default function ChallengeDashboard() {
                     </div>
 
                     {/* Sort By */}
-                    <div className='flex space-x-2 items-center'>
+                    <div className={styles['Select']}>
                         <div className='TextRegular'>
                             Sort By:
                         </div>
@@ -149,7 +149,7 @@ export default function ChallengeDashboard() {
             </div>
 
             {/* Challenge List */}
-            <div className='flex flex-col space-y-2 py-2'>
+            <div className={styles['ChallengeList']}>
                 {testChallengeList.map((challenge: ChallengeCardData, index) => {
                     return (
                         <ChallengeCard key={index} {...challenge} />

@@ -10,12 +10,12 @@ export default function TaskDashboard() {
     const [taskList, setTaskList] = useState<TaskData>()
 
     return (
-        <div className={styles.TaskDashboard + ' flex flex-col ShadowContainer'}>
+        <div className={styles.TaskDashboard + ' ShadowContainer'}>
             <div className='H1'>Your Tasks</div>
             <div>
                 <hr />
             </div>
-            <div className={styles.TaskList + ' flex flex-col mt-2'}>
+            <div className={styles.TaskList}>
                 {
                     testTaskList.map((task : TaskData, index) => {
                         return <Task key={index} {...task}></Task>

@@ -18,22 +18,19 @@ export default function ChallengeCard(data: ChallengeCardData) {
             className='no-underline'>
 
             {/* Challenge Card */}
-            <div className={styles.ChallengeCard}>
+            <div className={styles['ChallengeCard']}>
                 {/* Background Image */}
                 <Image
                     src={data.img}
                     alt={'test'}
                     fill
-                    style={{
-                        objectFit: 'cover'
-                    }}
-                    className={styles.Img}
+                    className={styles['Img']}
                 />
                 {/* Challenge Info */}
-                <div className={styles.BottomHalf}>
-                    <div className={styles.Top}>
-                        <div className={styles.Left}>
-                            <div className={styles.ChallengeName + ' H3'}>
+                <div className={styles['BottomHalf']}>
+                    <div className={styles['Top']}>
+                        <div className={styles['Left']}>
+                            <div className={styles['ChallengeName'] + ' H3'}>
                                 {data.challengeName}
                             </div>
                             <Rating
@@ -44,30 +41,35 @@ export default function ChallengeCard(data: ChallengeCardData) {
                         </div>
                         <div> 
                             <div className='flex space-x-4'>
-                                <div className={styles.Type + ' TextMedium'}>Type: {data.type}</div>
-                                <div className={styles.Type + ' TextMedium'}>Format: {data.format}</div>
-                                <div className={styles.Type + ' TextMedium'}>Date: {data.date}</div>
+                                <div className={styles['Type'] + ' TextMedium'}>Type: {data.type}</div>
+                                <div className={styles['Type'] + ' TextMedium'}>Format: {data.format}</div>
+                                <div className={styles['Type'] + ' TextMedium'}>Date: {data.date}</div>
                             </div>
                         </div>
                     </div>
-                    <div className={styles.Bottom}>
-                        <div className={styles.Left2}>
-                            <div className={styles.Description + ' TextRegular'}>
+
+                    <div className={styles['Bottom']}>
+                        <div className={styles['ChallengeDescription']}>
+                            <div className={styles['Description'] + ' TextRegular'}>
                                 {data.description}
                             </div>
                         </div>
-                        <div className='flex space-x-1 items-center'>
-                            {data.joined &&
-                                <div className={styles.Join + ' TextBold'}>
+
+                        {/* ChallengeStatus : Number of participants , Open/Closed */}
+                        <div className={styles['ChallengeStatus']}>
+                            {
+                                data.joined &&
+                                <div className={styles['Joined'] + ' TextBold'}>
                                     Joined
                                 </div>
                             }
-                            <BiUser className={styles.Icon} />
-                            <div className={styles.numParticipants + ' TextBold'}>
+                            <BiUser className={styles['Icon']} />
+                            <div className={styles['NumParticipants'] + ' TextBold'}>
                                 {data.numParticipants} / {data.maxParticipants}
                             </div>
-                            {data.closed &&
-                                <div className='TextBold text-white'>
+                            {
+                                data.closed &&
+                                <div className={styles['Closed'] + ' TextBold'}>
                                     Closed
                                 </div>
                             }

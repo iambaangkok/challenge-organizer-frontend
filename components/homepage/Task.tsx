@@ -19,18 +19,13 @@ export default function Task(data: TaskData) {
             className='no-underline'
         >
             {/* Task Info */}
-            <div className={styles.Task}>
-                <div className={styles.TaskInfo}>
-                    <div className={styles.TaskName + ' TextMedium'}>{data.taskName}</div>
-                    <div className={styles.TaskDescription + ' S2Regular'}>{data.challengeName}</div>
-                    <div className={styles.TaskDescription + ' S2Regular'}>{data.dueDate}</div>
+            <div className={styles['Task']}>
+                <div className={styles['TaskInfo']}>
+                    <div className={styles['TaskName'] + ' TextMedium'}>{data.taskName}</div>
+                    <div className={styles['TaskDescription'] + ' S2Regular'}>{data.challengeName}</div>
+                    <div className={styles['TaskDescription'] + ' S2Regular'}>{data.dueDate}</div>
                 </div>
             </div>
-
         </Link>
-
-
-
-
     )
 }

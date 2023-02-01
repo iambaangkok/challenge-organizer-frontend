@@ -3,4 +3,13 @@
     width: 309px;
     height: 100%;
     border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.TaskList {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.5rem; 
 }

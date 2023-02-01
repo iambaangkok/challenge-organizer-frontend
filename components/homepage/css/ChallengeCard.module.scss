@@ -27,10 +27,10 @@
 .BottomHalf {
     width: 100%;
     height: 95px;
-    margin-top: 0.75rem; 
+    margin-top: 0.75rem;
 
-    display: flex; 
-    flex-direction: column; 
+    display: flex;
+    flex-direction: column;
     justify-content: space-around;
 }
 
@@ -42,7 +42,6 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
-
 }
 
 .Bottom {
@@ -70,7 +69,7 @@
     color: var(--White);
 }
 
-.Left2 {
+.ChallengeDescription {
     padding: 0px;
     width: 713px;
     height: 19px;
@@ -106,11 +105,16 @@
     gap: 10px;
 }
 
-.Join {
+.Joined {
     color: var(--SuccessLight);
 }
 
-.numParticipants {
+.Closed {
+    color: var(--White);
+}
+
+
+.NumParticipants {
     color: var(--White);
 }
 
@@ -121,8 +125,16 @@
 }
 
 .Img {
+    object-fit: cover;
     z-index: -1;
     opacity: 0.8;
     transition: 0.2s ease-in;
     filter: brightness(47.5%)
+}
+
+.ChallengeStatus {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+
 }
