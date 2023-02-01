@@ -1,0 +1,63 @@
+.NavBar {
+    padding: 0px 20px;
+    height: 84px;
+    background: var(--PrimaryMain);
+    display: flex;
+    justify-content: space-between;
+}
+
+.Left {
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.Brand {
+    padding: 0px 20px 0px 0px;
+    color: var(--White);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.Right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+}
+
+.Link {
+    display: flex;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    color: var(--White);
+    text-decoration: none;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+
+    &Selected {
+        @extend .Link;
+        background-color: rgb(249 115 22);
+    }
+
+    &NotSelected {
+        @extend .Link;
+
+        transition-duration: 150ms;
+        transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+        background-color: none;
+
+        &:hover {
+            background-color: rgb(249 115 22);
+        }
+    }
+}
+
+.LinkText {
+    
+}
