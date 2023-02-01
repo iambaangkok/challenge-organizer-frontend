@@ -18,7 +18,7 @@ export default function ChallengeCard(data: ChallengeCardData) {
             className='no-underline'>
 
             {/* Challenge Card */}
-            <div className={styles.ChallengeCard + ' flex flex-col justify-end select-none relative overflow-hidden'}>
+            <div className={styles.ChallengeCard}>
                 {/* Background Image */}
                 <Image
                     src={data.img}
@@ -30,7 +30,7 @@ export default function ChallengeCard(data: ChallengeCardData) {
                     className={styles.Img}
                 />
                 {/* Challenge Info */}
-                <div className={styles.BottomHalf + ' flex flex-col space-y-3'}>
+                <div className={styles.BottomHalf}>
                     <div className={styles.Top}>
                         <div className={styles.Left}>
                             <div className={styles.ChallengeName + ' H3'}>
@@ -67,7 +67,7 @@ export default function ChallengeCard(data: ChallengeCardData) {
                                 {data.numParticipants} / {data.maxParticipants}
                             </div>
                             {data.closed &&
-                                <div className={'TextBold text-white'}>
+                                <div className='TextBold text-white'>
                                     Closed
                                 </div>
                             }

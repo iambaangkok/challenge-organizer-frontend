@@ -2,7 +2,8 @@ import { CircularProgress } from '@mui/material';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-import { ErrorResponse, SuccessResponse } from '../pages/api/whoAmI';
+import { SuccessResponse, ErrorResponse } from '../pages/api/whoAmI';
+
 import Navbar from './navbar/NavBar'
 
 export default function Layout({ children }: any) {
@@ -13,7 +14,6 @@ export default function Layout({ children }: any) {
     const [loading, setLoading] = useState<boolean>(false)
     const [loggedIn, setLoggedIn] = useState<boolean>(false)
     const [alert, setAlert] = useState(false)
-
 
     const router = useRouter().asPath
 
@@ -53,7 +53,6 @@ export default function Layout({ children }: any) {
                 setLoading(false)
             });
     }
-
     useEffect(getInfo, [router])
 
     if (loading) {
