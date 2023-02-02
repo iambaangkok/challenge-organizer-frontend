@@ -1,30 +1,15 @@
 import { testChallengeList } from '../../lib/challengeList'
 import ChallengeCard from './ChallengeCard'
 import styles from './css/ChallengeDashboard.module.css'
+import { ChallengeCardData } from '../../types/DataType';
+import { useState } from 'react'
 
 import { Button, FormControl, MenuItem, Select } from '@mui/material'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react'
+import { ThemeProvider } from '@mui/material/styles';
 import Skeleton from '@mui/material/Skeleton';
 import { HiArrowNarrowDown, HiArrowNarrowUp } from 'react-icons/hi'
-import { ChallengeCardData } from '../../types/DataType';
-
-// Theme for Select Components
-const theme = createTheme({
-    palette: {
-        primary: {
-            light: '#FFDDAE',
-            main: '#FA9C1D',
-            dark: '#DB8D23',
-            contrastText: '#FFFFFF',
-        },
-    },
-    typography: {
-        fontFamily: 'Inter',
-        fontWeightMedium: 600,
-        fontSize: 15
-    },
-})
+import { createChallengeButton } from '../../theme/button/CreateChallenge';
+import { selectTheme } from '../../theme/select/select';
 
 export default function ChallengeDashboard() {
 
@@ -69,24 +54,24 @@ export default function ChallengeDashboard() {
                             Filter:
                         </div>
                         <FormControl size="small">
-                            <ThemeProvider theme={theme}>
-                                {/* <InputLabel>All</InputLabel> */}
+                            <ThemeProvider theme={selectTheme}>
                                 <Select
                                     sx={{
-                                        '.MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#FA9C1D',
-                                        },
-                                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#FA9C1D',
-                                        },
-                                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#FA9C1D',
-                                        },
+                                        // '.MuiOutlinedInput-notchedOutline': {
+                                        //     borderColor: '#FA9C1D',
+                                        // },
+                                        // '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                        //     borderColor: '#FA9C1D',
+                                        // },
+                                        // '&:hover .MuiOutlinedInput-notchedOutline': {
+                                        //     borderColor: '#FA9C1D',
+                                        // },
                                     }}
                                     value={filterState}
                                     onChange={(event) => {
                                         setFilterState(event.target.value)
                                     }}
+
                                 >
                                     <MenuItem value={'All'}>All</MenuItem>
                                     <MenuItem value={'Ongoing'}>Ongoing</MenuItem>
@@ -94,6 +79,7 @@ export default function ChallengeDashboard() {
                                     <MenuItem value={'Past'}>Past</MenuItem>
                                 </Select>
                             </ThemeProvider>
+
                         </FormControl>
                     </div>
 
@@ -103,39 +89,37 @@ export default function ChallengeDashboard() {
                             Sort By:
                         </div>
                         <FormControl size="small">
-                            <ThemeProvider theme={theme}>
-                                <Select
-                                    sx={{
-                                        '.MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#FA9C1D',
-                                        },
-                                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#FA9C1D',
-                                        },
-                                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#FA9C1D',
-                                        },
-                                    }}
-                                    value={sortState}
-                                    onChange={(event) => {
-                                        setSortState(event.target.value)
-                                    }}
-                                >
-                                    <MenuItem value={'AZ'}>A-Z</MenuItem>
-                                    <MenuItem value={'ZA'}>Z-A</MenuItem>
-                                    <MenuItem value={'RecentAsc'}> Recent <HiArrowNarrowUp /></MenuItem>
-                                    <MenuItem value={'RecentDesc'}>Recent <HiArrowNarrowDown /></MenuItem>
-                                    <MenuItem value={'RatingAsc'}>Rating <HiArrowNarrowUp /></MenuItem>
-                                    <MenuItem value={'RatingDesc'}>Rating <HiArrowNarrowDown /></MenuItem>
-                                </Select>
-                            </ThemeProvider>
+                            <Select
+                                sx={{
+                                    '.MuiOutlinedInput-notchedOutline': {
+                                        borderColor: '#FA9C1D',
+                                    },
+                                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: '#FA9C1D',
+                                    },
+                                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: '#FA9C1D',
+                                    },
+                                }}
+                                value={sortState}
+                                onChange={(event) => {
+                                    setSortState(event.target.value)
+                                }}
+                            >
+                                <MenuItem value={'AZ'}>A-Z</MenuItem>
+                                <MenuItem value={'ZA'}>Z-A</MenuItem>
+                                <MenuItem value={'RecentAsc'}> Recent <HiArrowNarrowUp /></MenuItem>
+                                <MenuItem value={'RecentDesc'}>Recent <HiArrowNarrowDown /></MenuItem>
+                                <MenuItem value={'RatingAsc'}>Rating <HiArrowNarrowUp /></MenuItem>
+                                <MenuItem value={'RatingDesc'}>Rating <HiArrowNarrowDown /></MenuItem>
+                            </Select>
                         </FormControl>
                     </div>
                 </div>
 
                 {/* Create Challenge Button */}
                 <div>
-                    <ThemeProvider theme={theme}>
+                    <ThemeProvider theme={createChallengeButton}>
                         <Button variant='contained'>
                             Create a new Challenge
                         </Button>
