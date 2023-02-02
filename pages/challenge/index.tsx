@@ -7,33 +7,74 @@ import TaskDashboard from "../../components/homepage/TaskDashboard";
 
 import bannerImage from "../../public/pingpong.jpg";
 import { Box, Button, makeStyles, styled, Tab, Tabs } from "@mui/material";
-import { CSSProperties, useEffect, useState } from "react";
+import { CSSProperties, useCallback, useEffect, useState } from "react";
+
+import { testPostListsByTabs } from "../../lib/postListByTabs";
+
+export interface TabData {
+    index: number;
+    tabName: string;
+    posts: [
+        {
+            author: {
+                displayName: string;
+                isHost: boolean;
+            };
+            contentMarkdown: boolean;
+        }
+    ];
+}
 
 export default function Challenge() {
     // Variables
     const [tabValue, setTabValue] = useState<number>(0);
+    const [tabData, setTabData] = useState<TabData>();
 
-    const [loading, setLoading] = useState(false)
-    // const [challengeList, setChallengeList] = useState<PostList>()
+    const [loading, setLoading] = useState(false);
 
     // Functions
 
-    function fetchTabData() {}
-
-    function handleTabChange(
+    async function handleTabChange(
         _event: React.ChangeEvent<{}>,
         newTabValue: number
     ) {
+        setLoading(true);
+
         setTabValue(newTabValue);
+
+        setLoading(false);
     }
 
-    // Computations
+    // useCallbacks
+
+    const fetchTabData = useCallback(async () => {
+        // const tabsData = JSON.parse(testPostListsByTabs);
+        const newTabData = testPostListsByTabs.find((x) => {
+            return x.index == tabValue;
+        }) as unknown as TabData;
+
+        // console.log("challengePage.testPostListsByTabs : ")
+        // console.log(testPostListsByTabs)
+        // console.log("challengePage . fetchTabData()");
+        // console.log(newTabData)
+
+        setTabData(newTabData);
+    }, [tabValue]);
+
+    // useEffects
+
+    useEffect(() => {
+        fetchTabData();
+    }, [fetchTabData]);
+
+    useEffect(() => {}, [loading]);
+
     if (loading) {
-        return (
-            <div>
-                {/* <Skeleton variant="rectangular" width={1000} height={800} /> */}
-            </div>
-        )
+        // return (
+        //     <div>
+        //         {/* <Skeleton variant="rectangular" width={1000} height={800} /> */}
+        //     </div>
+        // );
     }
 
     return (
@@ -86,39 +127,20 @@ export default function Challenge() {
                     aria-label="Tabs"
                     className={styles["tabs-container"]}
                     TabIndicatorProps={{ className: styles["tab-indicator"] }}>
-                    <Tab
-                        label="Announcement"
-                        value={0}
-                        className={styles["tab-button"] + " TextBold"}
-                        disableRipple
-                    />
-                    <Tab
-                        label="Rules"
-                        value={1}
-                        className={styles["tab-button"] + " TextBold"}
-                        disableRipple
-                    />
-                    <Tab
-                        label="Reward"
-                        value={2}
-                        className={styles["tab-button"] + " TextBold"}
-                        disableRipple
-                    />
-                    <Tab
-                        label="Community"
-                        value={3}
-                        className={styles["tab-button"] + " TextBold"}
-                        disableRipple
-                    />
-                    <Tab
-                        label="Leaderboard"
-                        value={4}
-                        className={styles["tab-button"] + " TextBold"}
-                        disableRipple
-                    />
+                    {testPostListsByTabs.map((x, index) => (
+                        <Tab
+                            key={index}
+                            label={x.tabName}
+                            value={index}
+                            className={styles["tab-button"] + " TextBold"}
+                            disableRipple
+                        />
+                    ))}
                 </Tabs>
             </div>
-            <div className={styles["content-container"]}>Content</div>
+            <div className={styles["content-container"]}>
+                {tabData?.tabName}
+            </div>
         </>
     );
 }
