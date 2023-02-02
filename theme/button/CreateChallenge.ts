@@ -1,40 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 
-// declare module '@mui/material/styles' {
-//     interface Theme {
-//         palette: {
-//             primary: {
-//                 light: string;
-//                 main: string;
-//                 dark: string;
-//                 contrastText: string;
-//             }
-//         };
-//         typography: {
-//             fontFamily: string;
-//             fontWeightMedium: number;
-//             fontSize: number;
-//         };
-//     }
-
-//     interface ThemeOptions {
-//         palette?: {
-//             primary?: {
-//                 light?: string;
-//                 main?: string;
-//                 dark?: string;
-//                 contrastText?: string;
-//             }
-//         };
-//         typography?: {
-//             fontFamily?: string;
-//             fontWeightMedium?: number;
-//             fontSize?: number;
-//         };
-//     }
-// }
-
-export const createChallengeButton = createTheme({
+export const createChallengeButtonTheme = createTheme({
     palette: {
         primary: {
             light: '#FFDDAE',

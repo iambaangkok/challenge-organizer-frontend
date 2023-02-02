@@ -8,7 +8,7 @@ import { Button, FormControl, MenuItem, Select } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles';
 import Skeleton from '@mui/material/Skeleton';
 import { HiArrowNarrowDown, HiArrowNarrowUp } from 'react-icons/hi'
-import { createChallengeButton } from '../../theme/button/CreateChallenge';
+import { createChallengeButtonTheme } from '../../theme/button/CreateChallenge';
 import { selectTheme } from '../../theme/select/select';
 
 export default function ChallengeDashboard() {
@@ -56,17 +56,6 @@ export default function ChallengeDashboard() {
                         <FormControl size="small">
                             <ThemeProvider theme={selectTheme}>
                                 <Select
-                                    sx={{
-                                        // '.MuiOutlinedInput-notchedOutline': {
-                                        //     borderColor: '#FA9C1D',
-                                        // },
-                                        // '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                        //     borderColor: '#FA9C1D',
-                                        // },
-                                        // '&:hover .MuiOutlinedInput-notchedOutline': {
-                                        //     borderColor: '#FA9C1D',
-                                        // },
-                                    }}
                                     value={filterState}
                                     onChange={(event) => {
                                         setFilterState(event.target.value)
@@ -79,7 +68,6 @@ export default function ChallengeDashboard() {
                                     <MenuItem value={'Past'}>Past</MenuItem>
                                 </Select>
                             </ThemeProvider>
-
                         </FormControl>
                     </div>
 
@@ -89,37 +77,28 @@ export default function ChallengeDashboard() {
                             Sort By:
                         </div>
                         <FormControl size="small">
-                            <Select
-                                sx={{
-                                    '.MuiOutlinedInput-notchedOutline': {
-                                        borderColor: '#FA9C1D',
-                                    },
-                                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                        borderColor: '#FA9C1D',
-                                    },
-                                    '&:hover .MuiOutlinedInput-notchedOutline': {
-                                        borderColor: '#FA9C1D',
-                                    },
-                                }}
-                                value={sortState}
-                                onChange={(event) => {
-                                    setSortState(event.target.value)
-                                }}
-                            >
-                                <MenuItem value={'AZ'}>A-Z</MenuItem>
-                                <MenuItem value={'ZA'}>Z-A</MenuItem>
-                                <MenuItem value={'RecentAsc'}> Recent <HiArrowNarrowUp /></MenuItem>
-                                <MenuItem value={'RecentDesc'}>Recent <HiArrowNarrowDown /></MenuItem>
-                                <MenuItem value={'RatingAsc'}>Rating <HiArrowNarrowUp /></MenuItem>
-                                <MenuItem value={'RatingDesc'}>Rating <HiArrowNarrowDown /></MenuItem>
-                            </Select>
+                            <ThemeProvider theme={selectTheme}>
+                                <Select
+                                    value={sortState}
+                                    onChange={(event) => {
+                                        setSortState(event.target.value)
+                                    }}
+                                >
+                                    <MenuItem value={'AZ'}>A-Z</MenuItem>
+                                    <MenuItem value={'ZA'}>Z-A</MenuItem>
+                                    <MenuItem value={'RecentAsc'}> Recent <HiArrowNarrowUp /></MenuItem>
+                                    <MenuItem value={'RecentDesc'}>Recent <HiArrowNarrowDown /></MenuItem>
+                                    <MenuItem value={'RatingAsc'}>Rating <HiArrowNarrowUp /></MenuItem>
+                                    <MenuItem value={'RatingDesc'}>Rating <HiArrowNarrowDown /></MenuItem>
+                                </Select>
+                            </ThemeProvider>
                         </FormControl>
                     </div>
                 </div>
 
                 {/* Create Challenge Button */}
                 <div>
-                    <ThemeProvider theme={createChallengeButton}>
+                    <ThemeProvider theme={createChallengeButtonTheme}>
                         <Button variant='contained'>
                             Create a new Challenge
                         </Button>
