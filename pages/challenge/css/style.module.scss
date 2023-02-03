@@ -6,6 +6,9 @@
     align-items: center;
 
     width: 100vw;
+    height: calc(100vh - 86px);
+
+    background: var(--SecondaryMain);
 }
 
 .banner-container {
@@ -31,8 +34,8 @@
     padding: 0px 50px;
 
     width: calc(100% - 100px);
-
-    align-self: stretch;
+    height: fit-content;
+    background: var(--White);
 
     div {
         margin-left: auto;
@@ -89,7 +92,7 @@
                 align-items: center;
                 padding: 0px 20px;
                 gap: 10px;
-                
+
                 width: fit-content;
                 height: 35px;
 
@@ -143,8 +146,8 @@
         flex: none;
         align-self: stretch;
         flex-grow: 0;
-        
-        div div{
+
+        div div {
             gap: 25px;
         }
 
@@ -172,10 +175,204 @@
         }
 
         .tab-indicator {
-            background-color: var(--PrimaryMain)
+            background-color: var(--PrimaryMain);
         }
-
     }
-    
-    
+    // :hover{
+    //     animation: spin 2s infinite cubic-bezier(.85,.01,.25,1);
+    // }
+    // @keyframes spin {
+    //     0% {
+    //       transform: rotateX(-20deg) rotateY(20deg);
+    //     }
+    //     100% {
+    //       transform: rotateX(-20deg) rotateY(740deg);
+    //     }
+    // }
+}
+
+.content-container {
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px 50px;
+    gap: 35px;
+
+    width: min(100% - 100px, 1100px);
+
+    /* Inside auto layout */
+    flex: 1 0 auto;
+
+    .posts-container {
+        /* Auto layout */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 30px 15px;
+        gap: 8px;
+
+        height: fit-content;
+
+        background: var(--White);
+
+        border-radius: 10px;
+
+        /* Inside auto layout */
+        flex: 1 0 auto;
+    }
+
+    .rightsidebar-container {
+        /* Auto layout */
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0px;
+        gap: 15px;
+
+        width: 309px;
+        height: fit-content;
+
+        /* Inside auto layout */
+        flex: 0 0 auto;
+
+        .rightsideitem-container {
+            /* Auto layout */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 15px 15px;
+            // gap: 8px;
+
+            width: 100%;
+            height: fit-content;
+
+            background: var(--White);
+
+            border-radius: 10px;
+
+            /* Inside auto layout */
+            flex: 0 0 auto;
+
+            .header-text {
+                /* Auto layout */
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                padding: 0px 0px 6px;
+
+                color: var(--Black);
+
+                flex: 0 0 auto;
+            }
+
+            .divider {
+                width: 100%;
+
+                border: 1px solid var(--PrimaryMain);
+
+                /* Inside auto layout */
+                flex: 1 0 auto;
+            }
+
+            .body,
+            .footer {
+                /* Auto layout */
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px 0px;
+                gap: 12px;
+
+                width: 100%;
+                height: fit-content;
+
+                /* Inside auto layout */
+                flex: 0 0 auto;
+
+                .description-container {
+                    /* Auto layout */
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    padding: 0px;
+                    gap: 9px;
+
+                    width: 100%;
+                    height: fit-content;
+
+                    /* Inside auto layout */
+                    flex: 0 0 auto;
+                }
+
+                .info-container {
+                    /* Auto layout */
+                    display: flex;
+                    flex-direction: row;
+                    align-items: flex-start;
+                    padding: 0px;
+
+                    width: 100%;
+                    height: fit-content;
+
+                    /* Inside auto layout */
+                    flex: 0 0 auto;
+
+                    .infotexts-container {
+                        /* Auto layout */
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        padding: 0px;
+                        gap: 4px;
+
+                        width: 50%;
+                        height: fit-content;
+
+                        /* Inside auto layout */
+                        flex: 1 0 auto;
+
+                        .field {
+                            height: 24px;
+                            color: var(--Black);
+                        }
+
+                        .value {
+                            position:relative;
+                            top:-6px;
+
+                            color: var(--TextDimmedMain);
+                        }
+
+                        .icons-container {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: flex-start;
+                            padding: 0px;
+                            gap: 1px;
+
+                            position:relative;
+                            top:-4px;
+
+                            width: 100%;
+                            height: fit-content;
+
+                            /* Inside auto layout */
+                            flex: 0 0 auto;
+
+                            .icon{
+                                color: var(--PrimaryMain);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .footer {
+                padding-bottom: 0;
+            }
+        }
+    }
 }

@@ -10,6 +10,7 @@ import { Box, Button, makeStyles, styled, Tab, Tabs } from "@mui/material";
 import { CSSProperties, useCallback, useEffect, useState } from "react";
 
 import { testPostListsByTabs } from "../../lib/postListByTabs";
+import { Star, StarBorder, StarHalf } from "@mui/icons-material";
 
 export interface TabData {
     index: number;
@@ -78,7 +79,7 @@ export default function Challenge() {
     }
 
     return (
-        <>
+        <div className={styles["main-container"]}>
             <Head>
                 <title>Challenge</title>
             </Head>
@@ -139,8 +140,158 @@ export default function Challenge() {
                 </Tabs>
             </div>
             <div className={styles["content-container"]}>
-                {tabData?.tabName}
+                <div className={styles["posts-container"]}>
+                    {tabData?.tabName}
+                </div>
+                <div className={styles["rightsidebar-container"]}>
+                    <div className={styles["rightsideitem-container"]}>
+                        <div className={styles["header-text"] + " H3"}>
+                            Challenge Starts In
+                        </div>
+                        <div className={styles["divider"]}></div>
+                        <div className={styles["content"]}></div>
+                    </div>
+                    <div className={styles["rightsideitem-container"]}>
+                        <div className={styles["header-text"] + " H3"}>
+                            About Challenge
+                        </div>
+                        <div className={styles["divider"]}></div>
+                        <div className={styles["body"]}>
+                            <div className={styles["description-container"]}>
+                                <div
+                                    className={
+                                        styles["description"] + " S1Medium"
+                                    }>
+                                    Lorem ipsum dolor sit amet consectetur
+                                    adipisicing elit. Commodi aliquam suscipit
+                                    a, odit doloremque assumenda veniam, eos
+                                    voluptas soluta esse accusamus deleniti.
+                                    Voluptas provident ea aspernatur hic sequi,
+                                    error iure.
+                                </div>
+                                <div
+                                    className={
+                                        styles["creationdate"] + " S2Regular"
+                                    }>
+                                    Created Jan 13, 2013 by BOBOZ
+                                </div>
+                            </div>
+                            <div className={styles["info-container"]}>
+                                <div className={styles["infotexts-container"]}>
+                                    <div
+                                        className={
+                                            styles["field"] + " S1Medium"
+                                        }>
+                                        10000
+                                    </div>
+                                    <div
+                                        className={
+                                            styles["value"] + " S2Regular"
+                                        }>
+                                        Prize Pool
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={styles["info-container"]}>
+                                <div className={styles["infotexts-container"]}>
+                                    <div
+                                        className={
+                                            styles["field"] + " S1Medium"
+                                        }>
+                                        Duo
+                                    </div>
+                                    <div
+                                        className={
+                                            styles["value"] + " S2Regular"
+                                        }>
+                                        Type
+                                    </div>
+                                </div>
+                                <div className={styles["infotexts-container"]}>
+                                    <div
+                                        className={
+                                            styles["field"] + " S1Medium"
+                                        }>
+                                        Tournament
+                                    </div>
+                                    <div
+                                        className={
+                                            styles["value"] + " S2Regular"
+                                        }>
+                                        Format
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={styles["info-container"]}>
+                                <div className={styles["infotexts-container"]}>
+                                    <div
+                                        className={
+                                            styles["field"] + " S1Medium"
+                                        }>
+                                        Dec 25, 2023
+                                    </div>
+                                    <div
+                                        className={
+                                            styles["value"] + " S2Regular"
+                                        }>
+                                        Start Date
+                                    </div>
+                                </div>
+                                <div className={styles["infotexts-container"]}>
+                                    <div
+                                        className={
+                                            styles["field"] + " S1Medium"
+                                        }>
+                                        Dec 31, 2023
+                                    </div>
+                                    <div
+                                        className={
+                                            styles["value"] + " S2Regular"
+                                        }>
+                                        End Date
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles["divider"]}></div>
+                        <div className={styles["footer"]}>
+                            <div className={styles["info-container"]}>
+                                <div className={styles["infotexts-container"]}>
+                                    <div
+                                        className={
+                                            styles["field"] + " S1Medium"
+                                        }>
+                                        92 / 100
+                                    </div>
+                                    <div
+                                        className={
+                                            styles["value"] + " S2Regular"
+                                        }>
+                                        Participants
+                                    </div>
+                                </div>
+                                <div className={styles["infotexts-container"]}>
+                                    <div className={styles["icons-container"]}>
+                                        <Star className={styles["icon"]} />
+                                        <Star className={styles["icon"]} />
+                                        <Star className={styles["icon"]} />
+                                        <StarHalf className={styles["icon"]} />
+                                        <StarBorder
+                                            className={styles["icon"]}
+                                        />
+                                    </div>
+                                    <div
+                                        className={
+                                            styles["value"] + " S2Regular"
+                                        }>
+                                        Rating
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </>
+        </div>
     );
 }
