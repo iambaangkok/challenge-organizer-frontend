@@ -18,12 +18,8 @@ export default function CMUOAuthCallback() {
 			.post<SignInResponse>('api/signIn', { authorizationCode: code })
 			.then((resp) => {
 				if (resp.data.ok) {
-
-					// send response to API server
-
-
-
-
+					// get API Token
+					axios.post()
 					router.push('/home')
 				}
 			})
