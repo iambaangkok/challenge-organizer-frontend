@@ -13,5 +13,3 @@ export type AuthorizationResponse = {
     statusCode: number;
     message: string;
 };
-
-

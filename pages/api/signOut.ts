@@ -5,7 +5,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<{ ok: true }>
 ) {
-  deleteCookie("cmu-oauth-example-token", {
+  deleteCookie("cmu-oauth-token", {
     req,
     res,
     path: "/",
