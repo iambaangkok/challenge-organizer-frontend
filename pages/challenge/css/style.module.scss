@@ -107,7 +107,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
-            padding: 10px 0px 15px 0px;
+            padding: 10px 0px;
 
             margin-right: 0;
 
@@ -126,8 +126,7 @@
                 height: 47px;
 
                 /* Inside auto layout */
-                flex: none;
-                flex-grow: 0;
+                flex: 0 0 auto;
             }
         }
     }

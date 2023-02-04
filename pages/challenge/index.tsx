@@ -48,19 +48,13 @@ export default function Challenge() {
     const [challengePageData, setChallengePageData] =
         useState<ChallengePageData>();
 
-    const [loading, setLoading] = useState(false);
-
     // Functions
 
     async function handleTabChange(
         _event: React.ChangeEvent<{}>,
         newTabValue: number
     ) {
-        setLoading(true);
-
         setTabValue(newTabValue);
-
-        setLoading(false);
     }
 
     // useCallbacks
@@ -72,7 +66,6 @@ export default function Challenge() {
 
         setTabData(newTabData);
         console.log(typeof newTabData);
-        console.log("fetchTabData");
     }, [tabValue]);
 
     // useEffects
@@ -87,7 +80,6 @@ export default function Challenge() {
             console.log(typeof newChallengePageData);
 
             setChallengePageData(newChallengePageData);
-            console.log("fetchChallengeData");
         };
 
         fetchChallengeData();
@@ -98,18 +90,6 @@ export default function Challenge() {
     useEffect(() => {
         fetchTabData();
     }, [fetchTabData]);
-
-    useEffect(() => {
-        console.log("refreshing");
-    }, []);
-
-    if (loading) {
-        // return (
-        //     <div>
-        //         {/* <Skeleton variant="rectangular" width={1000} height={800} /> */}
-        //     </div>
-        // );
-    }
 
     return (
         <div className={styles["main-container"]}>
