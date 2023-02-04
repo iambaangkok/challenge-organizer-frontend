@@ -8,7 +8,7 @@ import { Button, FormControl, MenuItem, Select } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles';
 import Skeleton from '@mui/material/Skeleton';
 import { HiArrowNarrowDown, HiArrowNarrowUp } from 'react-icons/hi'
-import { createChallengeButtonTheme } from '../../theme/button/CreateChallenge';
+import { ButtonTheme } from '../../theme/button/Button';
 import { selectTheme } from '../../theme/select/select';
 
 export default function ChallengeDashboard() {
@@ -98,11 +98,12 @@ export default function ChallengeDashboard() {
 
                 {/* Create Challenge Button */}
                 <div>
-                    <ThemeProvider theme={createChallengeButtonTheme}>
-                        <Button variant='contained'>
+                    <ThemeProvider theme={ButtonTheme}>
+                        <Button variant='contained' size='medium'>
                             Create a new Challenge
                         </Button>
                     </ThemeProvider>
+
                 </div>
             </div>
 
