@@ -9,9 +9,9 @@ import { CSSProperties, useCallback, useEffect, useState } from "react";
 
 import { testPostListsByTabs } from "../../lib/postListByTabs";
 import { testChallengePageData } from "../../lib/challengePageData";
-import { Star, StarBorder, StarHalf } from "@mui/icons-material";
 import CountdownTimer from "../../components/challenge/CountdownTimer";
 import Link from "next/link";
+import StarRating from "../../components/challenge/StarRating";
 
 export interface TabData {
     index: number;
@@ -80,7 +80,6 @@ export default function Challenge() {
         }) as unknown as TabData;
 
         setTabData(newTabData);
-        console.log(typeof newTabData);
     }, [tabValue]);
 
     // useEffects
@@ -90,9 +89,6 @@ export default function Challenge() {
         const fetchChallengeData = () => {
             const newChallengePageData =
                 testChallengePageData as unknown as ChallengePageData;
-
-            console.log(newChallengePageData);
-            console.log(typeof newChallengePageData);
 
             setChallengePageData(newChallengePageData);
         };
@@ -343,15 +339,7 @@ export default function Challenge() {
                                     </div>
                                 </div>
                                 <div className={styles["infotexts-container"]}>
-                                    <div className={styles["icons-container"]}>
-                                        <Star className={styles["icon"]} />
-                                        <Star className={styles["icon"]} />
-                                        <Star className={styles["icon"]} />
-                                        <StarHalf className={styles["icon"]} />
-                                        <StarBorder
-                                            className={styles["icon"]}
-                                        />
-                                    </div>
+                                    <StarRating rating={challengePageData? challengePageData.rating : 0}></StarRating>
                                     <div
                                         className={
                                             styles["field"] + " S2Regular"
