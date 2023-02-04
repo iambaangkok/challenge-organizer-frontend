@@ -66,10 +66,13 @@ export default function Challenge() {
         return date.toLocaleString("en-US", { month: "long" });
     }
 
-    function getFormattedDate(unformattedDate:string) {
+    function getFormattedDate(unformattedDate: string) {
         const date = new Date(unformattedDate);
 
-        return `${getMonthName(date.getMonth()).substring(0,3)} ${date.getDate()}, ${date.getFullYear()}`;
+        return `${getMonthName(date.getMonth()).substring(
+            0,
+            3
+        )} ${date.getDate()}, ${date.getFullYear()}`;
     }
 
     // useCallbacks
@@ -136,16 +139,25 @@ export default function Challenge() {
                         </div>
                     </div>
                     <div className={styles["title-right"]}>
-                        <Button
-                            id="EditChallengeButton"
-                            variant="contained"
-                            className={
-                                styles["editchallenge-button"] +
-                                " button-primary H3"
-                            }
-                            disableElevation>
-                            {"Edit Challenge"}
-                        </Button>
+                        <Link
+                            id={"EditChallengeButton"}
+                            href={{
+                                pathname: "/editchallenge",
+                                query: { id: "CHALLENGEID" },
+                            }}
+                            style={{
+                                textDecoration:"none"
+                            }}>
+                            <Button
+                                variant="contained"
+                                className={
+                                    styles["editchallenge-button"] +
+                                    " button-primary H3"
+                                }
+                                disableElevation>
+                                {"Edit Challenge"}
+                            </Button>
+                        </Link>
                     </div>
                 </div>
                 <Tabs
@@ -219,7 +231,9 @@ export default function Challenge() {
                                     }>
                                     Published{" "}
                                     {challengePageData
-                                        ? getFormattedDate(challengePageData.publishDate)
+                                        ? getFormattedDate(
+                                              challengePageData.publishDate
+                                          )
                                         : "N/A"}{" "}
                                     by{" "}
                                     <Link
@@ -291,8 +305,10 @@ export default function Challenge() {
                                             styles["value"] + " S1Medium"
                                         }>
                                         {challengePageData
-                                        ? getFormattedDate(challengePageData.startDate)
-                                        : "N/A"}
+                                            ? getFormattedDate(
+                                                  challengePageData.startDate
+                                              )
+                                            : "N/A"}
                                     </div>
                                     <div
                                         className={
@@ -307,8 +323,10 @@ export default function Challenge() {
                                             styles["value"] + " S1Medium"
                                         }>
                                         {challengePageData
-                                        ? getFormattedDate(challengePageData.endDate)
-                                        : "N/A"}
+                                            ? getFormattedDate(
+                                                  challengePageData.endDate
+                                              )
+                                            : "N/A"}
                                     </div>
                                     <div
                                         className={
@@ -339,7 +357,12 @@ export default function Challenge() {
                                     </div>
                                 </div>
                                 <div className={styles["infotexts-container"]}>
-                                    <StarRating rating={challengePageData? challengePageData.rating : 0}></StarRating>
+                                    <StarRating
+                                        rating={
+                                            challengePageData
+                                                ? challengePageData.rating
+                                                : 0
+                                        }></StarRating>
                                     <div
                                         className={
                                             styles["field"] + " S2Regular"
