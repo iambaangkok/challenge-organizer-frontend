@@ -49,7 +49,7 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-end;
         padding: 12px 0px 0px;
 
         height: 103px;
@@ -107,12 +107,12 @@
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
-            padding: 10px 0px 0px 0px;
+            padding: 10px 0px 15px 0px;
 
             margin-right: 0;
 
             width: fit-content;
-            height: 47px;
+            height: fit-content;
 
             .editchallenge-button {
                 /* Auto layout */
@@ -334,14 +334,14 @@
                         /* Inside auto layout */
                         flex: 1 0 auto;
 
-                        .field {
-                            height: 24px;
+                        .value {
+                            height: fit-content;
                             color: var(--Black);
                         }
 
-                        .value {
-                            position:relative;
-                            top:-6px;
+                        .field {
+                            // position:relative;
+                            // top:-6px;
 
                             color: var(--TextDimmedMain);
                         }
@@ -357,7 +357,7 @@
                             top:-4px;
 
                             width: 100%;
-                            height: fit-content;
+                            height: 16px;
 
                             /* Inside auto layout */
                             flex: 0 0 auto;

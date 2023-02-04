@@ -3,14 +3,14 @@ import Image from "next/image";
 
 import styles from "./css/style.module.scss";
 
-import TaskDashboard from "../../components/homepage/TaskDashboard";
-
 import bannerImage from "../../public/pingpong.jpg";
 import { Box, Button, makeStyles, styled, Tab, Tabs } from "@mui/material";
 import { CSSProperties, useCallback, useEffect, useState } from "react";
 
 import { testPostListsByTabs } from "../../lib/postListByTabs";
+import { testChallengePageData } from "../../lib/challengePageData";
 import { Star, StarBorder, StarHalf } from "@mui/icons-material";
+import CountdownTimer from "../../components/challenge/CountdownTimer";
 
 export interface TabData {
     index: number;
@@ -26,10 +26,27 @@ export interface TabData {
     ];
 }
 
+export interface ChallengePageData {
+    title: string;
+    description: string;
+    host: string;
+    creationDate: string;
+    prizePool: number;
+    type: string;
+    format: string;
+    startDate: string;
+    endDate: string;
+    maxParticipantCount: number;
+    participantCount: number;
+    rating: number;
+}
+
 export default function Challenge() {
     // Variables
     const [tabValue, setTabValue] = useState<number>(0);
     const [tabData, setTabData] = useState<TabData>();
+    const [challengePageData, setChallengePageData] =
+        useState<ChallengePageData>();
 
     const [loading, setLoading] = useState(false);
 
@@ -49,26 +66,42 @@ export default function Challenge() {
     // useCallbacks
 
     const fetchTabData = useCallback(async () => {
-        // const tabsData = JSON.parse(testPostListsByTabs);
         const newTabData = testPostListsByTabs.find((x) => {
             return x.index == tabValue;
         }) as unknown as TabData;
 
-        // console.log("challengePage.testPostListsByTabs : ")
-        // console.log(testPostListsByTabs)
-        // console.log("challengePage . fetchTabData()");
-        // console.log(newTabData)
-
         setTabData(newTabData);
+        console.log(typeof newTabData);
+        console.log("fetchTabData");
     }, [tabValue]);
 
     // useEffects
 
     useEffect(() => {
+        // fetchChallengeData will later be changed to useCallback
+        const fetchChallengeData = () => {
+            const newChallengePageData =
+                testChallengePageData as unknown as ChallengePageData;
+
+            console.log(newChallengePageData);
+            console.log(typeof newChallengePageData);
+
+            setChallengePageData(newChallengePageData);
+            console.log("fetchChallengeData");
+        };
+
+        fetchChallengeData();
+
+        return () => {};
+    }, []);
+
+    useEffect(() => {
         fetchTabData();
     }, [fetchTabData]);
 
-    useEffect(() => {}, [loading]);
+    useEffect(() => {
+        console.log("refreshing");
+    }, []);
 
     if (loading) {
         // return (
@@ -95,7 +128,9 @@ export default function Challenge() {
                         <div className={styles[""] + " H3"}>Challenges/</div>
                         <div className={styles["title-text-container"]}>
                             <div className={styles["title-text"] + " H1"}>
-                                {"TitleText"}
+                                {challengePageData
+                                    ? challengePageData.title
+                                    : "TitleText"}
                             </div>
                             <Button
                                 id="StatusButton"
@@ -140,8 +175,8 @@ export default function Challenge() {
                 </Tabs>
             </div>
             <div className={styles["content-container"]}>
-                <div className={styles["posts-container"]}>
-                    {tabData?.tabName}
+                <div className={styles["posts-container"] + " TextRegular"}>
+                    {tabData?.tabName + " tab posts"}
                 </div>
                 <div className={styles["rightsidebar-container"]}>
                     <div className={styles["rightsideitem-container"]}>
@@ -149,7 +184,15 @@ export default function Challenge() {
                             Challenge Starts In
                         </div>
                         <div className={styles["divider"]}></div>
-                        <div className={styles["content"]}></div>
+                        <CountdownTimer
+                            dateTime={
+                                challengePageData
+                                    ? challengePageData.startDate
+                                    : "1970-01-01"
+                            }
+                            dateTimeFormat={
+                                "YYYY-MM-DDTHH:mm:ss.sssZ"
+                            }></CountdownTimer>
                     </div>
                     <div className={styles["rightsideitem-container"]}>
                         <div className={styles["header-text"] + " H3"}>
@@ -162,12 +205,9 @@ export default function Challenge() {
                                     className={
                                         styles["description"] + " S1Medium"
                                     }>
-                                    Lorem ipsum dolor sit amet consectetur
-                                    adipisicing elit. Commodi aliquam suscipit
-                                    a, odit doloremque assumenda veniam, eos
-                                    voluptas soluta esse accusamus deleniti.
-                                    Voluptas provident ea aspernatur hic sequi,
-                                    error iure.
+                                    {challengePageData
+                                        ? challengePageData.description
+                                        : "description"}
                                 </div>
                                 <div
                                     className={
@@ -178,15 +218,14 @@ export default function Challenge() {
                             </div>
                             <div className={styles["info-container"]}>
                                 <div className={styles["infotexts-container"]}>
-                                    <div
-                                        className={
-                                            styles["field"] + " S1Medium"
-                                        }>
-                                        10000
+                                    <div className={styles["value"] + " H3"}>
+                                        {challengePageData
+                                            ? challengePageData.prizePool
+                                            : "N/A"}
                                     </div>
                                     <div
                                         className={
-                                            styles["value"] + " S2Regular"
+                                            styles["field"] + " S2Regular"
                                         }>
                                         Prize Pool
                                     </div>
@@ -196,13 +235,15 @@ export default function Challenge() {
                                 <div className={styles["infotexts-container"]}>
                                     <div
                                         className={
-                                            styles["field"] + " S1Medium"
+                                            styles["value"] + " S1Medium"
                                         }>
-                                        Duo
+                                        {challengePageData
+                                            ? challengePageData.type
+                                            : "N/A"}
                                     </div>
                                     <div
                                         className={
-                                            styles["value"] + " S2Regular"
+                                            styles["field"] + " S2Regular"
                                         }>
                                         Type
                                     </div>
@@ -210,13 +251,15 @@ export default function Challenge() {
                                 <div className={styles["infotexts-container"]}>
                                     <div
                                         className={
-                                            styles["field"] + " S1Medium"
+                                            styles["value"] + " S1Medium"
                                         }>
-                                        Tournament
+                                        {challengePageData
+                                            ? challengePageData.format
+                                            : "N/A"}
                                     </div>
                                     <div
                                         className={
-                                            styles["value"] + " S2Regular"
+                                            styles["field"] + " S2Regular"
                                         }>
                                         Format
                                     </div>
@@ -226,13 +269,15 @@ export default function Challenge() {
                                 <div className={styles["infotexts-container"]}>
                                     <div
                                         className={
-                                            styles["field"] + " S1Medium"
+                                            styles["value"] + " S1Medium"
                                         }>
-                                        Dec 25, 2023
+                                        {challengePageData
+                                            ? challengePageData.startDate
+                                            : "N/A"}
                                     </div>
                                     <div
                                         className={
-                                            styles["value"] + " S2Regular"
+                                            styles["field"] + " S2Regular"
                                         }>
                                         Start Date
                                     </div>
@@ -240,13 +285,15 @@ export default function Challenge() {
                                 <div className={styles["infotexts-container"]}>
                                     <div
                                         className={
-                                            styles["field"] + " S1Medium"
+                                            styles["value"] + " S1Medium"
                                         }>
-                                        Dec 31, 2023
+                                        {challengePageData
+                                            ? challengePageData.endDate
+                                            : "N/A"}
                                     </div>
                                     <div
                                         className={
-                                            styles["value"] + " S2Regular"
+                                            styles["field"] + " S2Regular"
                                         }>
                                         End Date
                                     </div>
@@ -259,13 +306,15 @@ export default function Challenge() {
                                 <div className={styles["infotexts-container"]}>
                                     <div
                                         className={
-                                            styles["field"] + " S1Medium"
+                                            styles["value"] + " S1Medium"
                                         }>
-                                        92 / 100
+                                        {challengePageData
+                                            ? `${challengePageData.participantCount} / ${challengePageData.maxParticipantCount}`
+                                            : "N/A"}
                                     </div>
                                     <div
                                         className={
-                                            styles["value"] + " S2Regular"
+                                            styles["field"] + " S2Regular"
                                         }>
                                         Participants
                                     </div>
@@ -282,7 +331,7 @@ export default function Challenge() {
                                     </div>
                                     <div
                                         className={
-                                            styles["value"] + " S2Regular"
+                                            styles["field"] + " S2Regular"
                                         }>
                                         Rating
                                     </div>
