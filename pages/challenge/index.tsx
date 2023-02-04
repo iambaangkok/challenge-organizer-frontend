@@ -66,13 +66,10 @@ export default function Challenge() {
         return date.toLocaleString("en-US", { month: "long" });
     }
 
-    function getFormatedPublishDate() {
-        if (!challengePageData) {
-            return "FORMATTEDPUBLISHDATE";
-        }
-        const date = new Date(challengePageData?.publishDate);
+    function getFormattedDate(unformattedDate:string) {
+        const date = new Date(unformattedDate);
 
-        return `${getMonthName(date.getMonth()).substring(0,3)} ${date.getDay()}, ${date.getFullYear()}`;
+        return `${getMonthName(date.getMonth()).substring(0,3)} ${date.getDate()}, ${date.getFullYear()}`;
     }
 
     // useCallbacks
@@ -226,8 +223,8 @@ export default function Challenge() {
                                     }>
                                     Published{" "}
                                     {challengePageData
-                                        ? getFormatedPublishDate()
-                                        : "PUBLISHDATE"}{" "}
+                                        ? getFormattedDate(challengePageData.publishDate)
+                                        : "N/A"}{" "}
                                     by{" "}
                                     <Link
                                         id={"HostName"}
@@ -238,7 +235,7 @@ export default function Challenge() {
                                         className={styles["hostname"]}>
                                         {challengePageData
                                             ? challengePageData.host
-                                            : "HOSTNAME"}
+                                            : "N/A"}
                                     </Link>
                                 </div>
                             </div>
@@ -298,8 +295,8 @@ export default function Challenge() {
                                             styles["value"] + " S1Medium"
                                         }>
                                         {challengePageData
-                                            ? challengePageData.startDate
-                                            : "N/A"}
+                                        ? getFormattedDate(challengePageData.startDate)
+                                        : "N/A"}
                                     </div>
                                     <div
                                         className={
@@ -314,8 +311,8 @@ export default function Challenge() {
                                             styles["value"] + " S1Medium"
                                         }>
                                         {challengePageData
-                                            ? challengePageData.endDate
-                                            : "N/A"}
+                                        ? getFormattedDate(challengePageData.endDate)
+                                        : "N/A"}
                                     </div>
                                     <div
                                         className={
