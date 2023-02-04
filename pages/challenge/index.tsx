@@ -11,6 +11,7 @@ import { testPostListsByTabs } from "../../lib/postListByTabs";
 import { testChallengePageData } from "../../lib/challengePageData";
 import { Star, StarBorder, StarHalf } from "@mui/icons-material";
 import CountdownTimer from "../../components/challenge/CountdownTimer";
+import Link from "next/link";
 
 export interface TabData {
     index: number;
@@ -155,11 +156,20 @@ export default function Challenge() {
                 </Tabs>
             </div>
             <div className={styles["content-container"]}>
-                <div className={styles["posts-container"] + " TextRegular"}>
+                <div
+                    className={
+                        styles["posts-container"] +
+                        " TextRegular" +
+                        " ShadowContainer"
+                    }>
                     {tabData?.tabName + " tab posts"}
                 </div>
                 <div className={styles["rightsidebar-container"]}>
-                    <div className={styles["rightsideitem-container"]}>
+                    <div
+                        className={
+                            styles["rightsideitem-container"] +
+                            " ShadowContainer"
+                        }>
                         <div className={styles["header-text"] + " H3"}>
                             Challenge Starts In
                         </div>
@@ -174,7 +184,11 @@ export default function Challenge() {
                                 "YYYY-MM-DDTHH:mm:ss.sssZ"
                             }></CountdownTimer>
                     </div>
-                    <div className={styles["rightsideitem-container"]}>
+                    <div
+                        className={
+                            styles["rightsideitem-container"] +
+                            " ShadowContainer"
+                        }>
                         <div className={styles["header-text"] + " H3"}>
                             About Challenge
                         </div>
@@ -193,7 +207,18 @@ export default function Challenge() {
                                     className={
                                         styles["creationdate"] + " S2Regular"
                                     }>
-                                    Created Jan 13, 2013 by BOBOZ
+                                    Created Jan 13, 2013 by{" "}
+                                    <Link
+                                        id={"HostName"}
+                                        href={{
+                                            pathname: "/user",
+                                            query: { id: "USERID" },
+                                        }}
+                                        className={styles["hostname"]}>
+                                        {challengePageData
+                                            ? challengePageData.host
+                                            : "HOSTNAME"}
+                                    </Link>
                                 </div>
                             </div>
                             <div className={styles["info-container"]}>

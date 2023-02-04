@@ -304,6 +304,17 @@
 
                     /* Inside auto layout */
                     flex: 0 0 auto;
+
+                    .creationdate {
+                        .hostname {
+                            color: var(--PrimaryMain);
+                            text-decoration: none;
+                            cursor: pointer;
+                        }
+                        .hostname:hover {
+                            text-decoration: underline;
+                        }
+                    }
                 }
 
                 .info-container {
@@ -352,8 +363,8 @@
                             padding: 0px;
                             gap: 1px;
 
-                            position:relative;
-                            top:-4px;
+                            position: relative;
+                            top: -4px;
 
                             width: 100%;
                             height: 16px;
@@ -361,7 +372,7 @@
                             /* Inside auto layout */
                             flex: 0 0 auto;
 
-                            .icon{
+                            .icon {
                                 color: var(--PrimaryMain);
                             }
                         }
