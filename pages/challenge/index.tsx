@@ -32,6 +32,7 @@ export interface ChallengePageData {
     description: string;
     host: string;
     creationDate: string;
+    publishDate: string;
     prizePool: number;
     type: string;
     format: string;
@@ -56,6 +57,22 @@ export default function Challenge() {
         newTabValue: number
     ) {
         setTabValue(newTabValue);
+    }
+
+    function getMonthName(monthNumber: number) {
+        const date = new Date();
+        date.setMonth(monthNumber);
+
+        return date.toLocaleString("en-US", { month: "long" });
+    }
+
+    function getFormatedPublishDate() {
+        if (!challengePageData) {
+            return "FORMATTEDPUBLISHDATE";
+        }
+        const date = new Date(challengePageData?.publishDate);
+
+        return `${getMonthName(date.getMonth()).substring(0,3)} ${date.getDay()}, ${date.getFullYear()}`;
     }
 
     // useCallbacks
@@ -207,7 +224,11 @@ export default function Challenge() {
                                     className={
                                         styles["creationdate"] + " S2Regular"
                                     }>
-                                    Created Jan 13, 2013 by{" "}
+                                    Published{" "}
+                                    {challengePageData
+                                        ? getFormatedPublishDate()
+                                        : "PUBLISHDATE"}{" "}
+                                    by{" "}
                                     <Link
                                         id={"HostName"}
                                         href={{
