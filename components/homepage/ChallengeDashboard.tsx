@@ -1,6 +1,6 @@
 import { testChallengeList } from '../../lib/challengeList'
 import ChallengeCard from './ChallengeCard'
-import styles from './css/ChallengeDashboard.module.css'
+import styles from './css/ChallengeDashboard.module.scss'
 import { ChallengeCardData } from '../../types/DataType';
 import { useState } from 'react'
 
@@ -97,9 +97,9 @@ export default function ChallengeDashboard() {
                 </div>
 
                 {/* Create Challenge Button */}
-                <div>
+                <div className={styles['CreateChallengeButton']}>
                     <ThemeProvider theme={ButtonTheme}>
-                        <Button variant='contained' size='medium'>
+                        <Button variant='contained' size='small'>
                             Create a new Challenge
                         </Button>
                     </ThemeProvider>

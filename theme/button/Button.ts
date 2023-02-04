@@ -11,13 +11,81 @@ var White = '#FFFFFF';
 
 // * Important: define variant = 'contained' and size in MUI button elements
 
+declare module '@mui/material/Button' {
+    interface ButtonPropsVariantOverrides {
+        rounded: true;
+    }
+}
+
 export const ButtonTheme = createTheme({
     components: {
         'MuiButton': {
+            // 'rounded' variants
+            variants: [
+                {
+                    props: {
+                        variant: 'rounded', size: 'small'
+                    },
+                    style: {
+                        color:White ,
+                        fontSize: '12px',
+                        padding: '6px 12px',
+                        borderRadius: '20px',
+                        backgroundColor: PrimaryMain,
+                        ':disabled': {
+                            color: White,
+                            backgroundColor: PrimaryMain,
+                        },
+                        ':hover': {
+                            backgroundColor: PrimaryMain,
+                        },
+                    },
+                },
+                {
+                    props: {
+                        variant: 'rounded', size: 'medium'
+                    },
+                    style: {
+                        color:White ,
+                        fontSize: '14px',
+                        padding: '10px 16px',
+                        borderRadius: '20px',
+                        backgroundColor: PrimaryMain,
+                        ':disabled': {
+                            color: White,
+                            backgroundColor: PrimaryMain,
+                        },
+                        ':hover': {
+                            backgroundColor: PrimaryMain,
+                        },
+                    },
+                },
+                {
+                    props: {
+                        variant: 'rounded', size: 'large'
+                    },
+                    style: {
+                        color:White ,
+                        fontSize: '16px',
+                        padding: '14px 20px',
+                        borderRadius: '30px',
+                        backgroundColor: PrimaryMain,
+                        ':disabled': {
+                            color: White,
+                            backgroundColor: PrimaryMain,
+                        },
+                        ':hover': {
+                            backgroundColor: PrimaryMain,
+                        },
+                    },
+                },
+            ],
+
             styleOverrides: {
                 root: {
-                    fontStyle: 'normal' ,
-                    fontWeight: '700' ,
+                    height: 'auto' ,
+                    fontStyle: 'normal',
+                    fontWeight: '700',
                     boxShadow: 'none',
                     ':hover': {
                         boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.25)',
@@ -27,7 +95,7 @@ export const ButtonTheme = createTheme({
                     },
                     ':disabled': {
                         opacity: '0.5'
-                    }
+                    },
                 },
                 containedPrimary: {
                     color: White,
@@ -37,7 +105,7 @@ export const ButtonTheme = createTheme({
                     }
                 },
                 containedSecondary: {
-                    color: PrimaryMain ,
+                    color: PrimaryMain,
                     ':disabled': {
                         color: PrimaryMain,
                         backgroundColor: SecondaryMain,
@@ -59,7 +127,10 @@ export const ButtonTheme = createTheme({
                     borderRadius: '15px'
                 },
             },
-        }
+            
+            
+        },
+        
     },
     typography: {
         fontFamily: 'Inter',
