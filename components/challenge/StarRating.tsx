@@ -23,14 +23,13 @@ export default function StarRating({ rating }: StarRatingData) {
                     newStars.push(0);
                 }
             }
-
             setStars(newStars);
         };
 
         calculateStars();
 
         return () => {};
-    }, []);
+    }, [rating]);
 
     return (
         <div className={styles["stars-wrapper"]}>
