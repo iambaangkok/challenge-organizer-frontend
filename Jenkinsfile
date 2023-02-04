@@ -18,6 +18,7 @@ pipeline {
                 script {
                     try{
                         bat 'npx playwright install'
+                        bat 'npx playwright install msedge'
                         bat 'if not exist "playwright-report" mkdir playwright-report'
                         bat 'npx playwright test --reporter=html'
                         test_ok = true
