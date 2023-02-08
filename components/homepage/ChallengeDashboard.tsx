@@ -1,11 +1,13 @@
-import { Button, FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import { testChallengeList } from '../../lib/challengeList'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ChallengeCard from './ChallengeCard'
 import styles from './css/ChallengeDashboard.module.css'
+
+import { Button, FormControl, MenuItem, Select } from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react'
 import Skeleton from '@mui/material/Skeleton';
 import { HiArrowNarrowDown, HiArrowNarrowUp } from 'react-icons/hi'
+import { ChallengeCardData } from '../../types/DataType';
 
 // Theme for Select Components
 const theme = createTheme({
@@ -27,7 +29,7 @@ const theme = createTheme({
 export default function ChallengeDashboard() {
 
     const [loading, setLoading] = useState(false)
-    const [challengeList, setChallengeList] = useState(null)
+    const [challengeList, setChallengeList] = useState<[ChallengeCardData]>()
     const [filterState, setFilterState] = useState<string>('All')
     const [sortState, setSortState] = useState<string>('AZ')
 
@@ -51,18 +53,18 @@ export default function ChallengeDashboard() {
     }
 
     return (
-        <div className={styles.ChallengeDashboard + ' flex flex-col ShadowContainer'}>
+        <div className={styles['ChallengeDashboard'] + ' ShadowContainer'}>
             {/* Top */}
-            <div className='flex justify-between'>
+            <div className={styles['Top']}>
 
                 {/* Filter and Sort */}
-                <div className='flex space-x-4 '>
+                <div className={styles['FilterAndSort']}>
 
                     {/* Title */}
                     <div className='H1'>Challenges</div>
 
                     {/* Filter */}
-                    <div className='flex space-x-2 items-center'>
+                    <div className={styles['Select']}>
                         <div className='TextRegular'>
                             Filter:
                         </div>
@@ -82,7 +84,7 @@ export default function ChallengeDashboard() {
                                         },
                                     }}
                                     value={filterState}
-                                    onChange={(event: SelectChangeEvent) => {
+                                    onChange={(event) => {
                                         setFilterState(event.target.value)
                                     }}
                                 >
@@ -96,7 +98,7 @@ export default function ChallengeDashboard() {
                     </div>
 
                     {/* Sort By */}
-                    <div className='flex space-x-2 items-center'>
+                    <div className={styles['Select']}>
                         <div className='TextRegular'>
                             Sort By:
                         </div>
@@ -115,7 +117,7 @@ export default function ChallengeDashboard() {
                                         },
                                     }}
                                     value={sortState}
-                                    onChange={(event: SelectChangeEvent) => {
+                                    onChange={(event) => {
                                         setSortState(event.target.value)
                                     }}
                                 >
@@ -147,8 +149,8 @@ export default function ChallengeDashboard() {
             </div>
 
             {/* Challenge List */}
-            <div className='flex flex-col space-y-2 py-2'>
-                {testChallengeList.map((challenge, index) => {
+            <div className={styles['ChallengeList']}>
+                {testChallengeList.map((challenge: ChallengeCardData, index) => {
                     return (
                         <ChallengeCard key={index} {...challenge} />
                     )

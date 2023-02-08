@@ -1,29 +1,32 @@
-import styles from './css/NavBar.module.css'
-import Link from 'next/link'
-
+import styles from './css/NavBar.module.scss'
 import ProfileDropdown from './ProfileDropdown';
-import { navLinks } from '../../lib/navLinks'
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { navLinks, restrictedLink } from '../../lib/navLinks'
 import Notification from './Notification';
 
-export default function NavBar() {
+import Link from 'next/link'
+import { useRouter } from 'next/router';
+import { NavLinks } from '../../types/Request';
+
+export default function NavBar({ loginStatus, fullName }: any) {
 
     const router = useRouter()
 
     return (
-        <div className={styles.NavBar + ' flex justify-between ShadowContainer '}>
+        <div className={styles.NavBar + ' ShadowContainer'}>
             {/* Left */}
-            <div className={styles.Left + ' h-full flex items-center'}>
+            <div className={styles.Left}>
                 {/* Website Name, Logo */}
-                <div className={styles.Brand + ' H1 h-full flex flex-col justify-center'}>CHAL.ORG</div>
+                <div className={styles.Brand + ' H1'}>CHAL.ORG</div>
                 {/* Navigation Menu */}
                 {
-                    navLinks.map((link, index) => {
+                    navLinks.map((link: NavLinks, index) => {
+                        if (!loginStatus && restrictedLink.includes(link.name)) {
+                            return <div key={index}></div>
+                        }
                         if (router.asPath.includes(link.path))
                             return (
-                                <Link key={index} href={link.path} className=' text-white h-full flex flex-col justify-center px-4 no-underline bg-orange-500'>
-                                    <div className='TextBold' >
+                                <Link key={index} href={link.path} className={styles.LinkSelected}>
+                                    <div className='TextBold'>
                                         {link.name}
                                     </div>
                                 </Link>
@@ -31,7 +34,7 @@ export default function NavBar() {
                             )
                         else
                             return (
-                                <Link key={index} href={link.path} className='text-white h-full flex flex-col justify-center px-4 no-underline hover:bg-orange-500 ease-out duration-150'>
+                                <Link key={index} href={link.path} className={styles.LinkNotSelected}>
                                     <div id={link.name} className='TextBold'>
                                         {link.name}
                                     </div>
@@ -45,14 +48,8 @@ export default function NavBar() {
                 <Notification
                     badgeContent={2}
                 />
-                <ProfileDropdown></ProfileDropdown>
+                <ProfileDropdown loginStatus={loginStatus} fullName={fullName}></ProfileDropdown>
             </div>
-
         </div>
-
-
-
-
-
     )
 }

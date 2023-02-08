@@ -1,51 +1,58 @@
+@mixin userSelect($props) {
+    -webkit-user-select: $props;
+    user-select: $props;
+}
+
 .ChallengeCard {
     padding: 10px 17px;
     height: 154px;
     border-radius: 8px;
-    transition: ease-out 0.2s;
-}
 
-.ChallengeCard:hover {
-    transform: scaleX(1.01) scaleY(1.01);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    overflow: hidden;
+    position: relative;
+
+    @include userSelect(none);
+
+    transition: ease-out 0.2s;
+
+    &:hover {
+        transform: scaleX(1.01) scaleY(1.01);
+    }
 }
 
 .BottomHalf {
     width: 100%;
     height: 95px;
+    margin-top: 0.75rem;
 
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .Top {
+    padding: 0px;
+    height: 56px;
+
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0px;
     gap: 10px;
-
-    height: 56px;
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
 }
 
 .Bottom {
+    padding: 0px;
+    height: 30px;
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 0px;
     gap: 10px;
-
-    height: 30px;
-
-    flex: none;
-    order: 1;
-    align-self: stretch;
-    flex-grow: 0;
 }
 
 .Left {
@@ -56,30 +63,22 @@
     gap: 27px;
 
     height: 27px;
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
 }
 
 .ChallengeName {
     color: var(--White);
 }
 
-.Left2 {
+.ChallengeDescription {
+    padding: 0px;
+    width: 713px;
+    height: 19px;
+
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    padding: 0px;
     gap: 10px;
-
-    width: 713px;
-    height: 19px;
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
 }
 
 .Description {
@@ -95,23 +94,27 @@
 }
 
 .Right {
+    padding: 0px;
+    width: 122px;
+    height: 30px;
+
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    padding: 0px;
     gap: 10px;
-
-    width: 122px;
-    height: 30px;
 }
 
-.Join {
+.Joined {
     color: var(--SuccessLight);
 }
 
-.numParticipants {
+.Closed {
+    color: var(--White);
+}
 
+
+.NumParticipants {
     color: var(--White);
 }
 
@@ -122,8 +125,16 @@
 }
 
 .Img {
+    object-fit: cover;
     z-index: -1;
     opacity: 0.8;
     transition: 0.2s ease-in;
     filter: brightness(47.5%)
+}
+
+.ChallengeStatus {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+
 }
