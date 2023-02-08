@@ -2,110 +2,110 @@
 @import "tailwindcss/utilities";
 
 :root {
-    --PrimaryLight: #FFDDAE;
-    --PrimaryMain: #FA9C1D;
-    --PrimaryDark: #EA7000;
-    --SecondaryLight: #F6F7F9;
-    --SecondaryMain: #F2F3F5;
-    --SecondaryDark: #ECEDEF;
-    --ErrorLight: #E45252;
-    --ErrorMain: #D32F2F;
-    --ErrorDark: #9F1D1D;
-    --WarningLight: #FFE34E;
-    --WarningMain: #FFB800;
-    --WarningDark: #B47700;
-    --InfoLight: #5BC6F3;
-    --InfoMain: #2EACF3;
-    --InfoDark: #186AA5;
-    --SuccessLight: #72FD88;
-    --SuccessMain: #37DF66;
+    --PrimaryLight: #ffddae;
+    --PrimaryMain: #fa9c1d;
+    --PrimaryDark: #ea7000;
+    --SecondaryLight: #f6f7f9;
+    --SecondaryMain: #f2f3f5;
+    --SecondaryDark: #ecedef;
+    --ErrorLight: #e45252;
+    --ErrorMain: #d32f2f;
+    --ErrorDark: #9f1d1d;
+    --WarningLight: #ffe34e;
+    --WarningMain: #ffb800;
+    --WarningDark: #b47700;
+    --InfoLight: #5bc6f3;
+    --InfoMain: #2eacf3;
+    --InfoDark: #186aa5;
+    --SuccessLight: #72fd88;
+    --SuccessMain: #37df66;
     --SuccessDark: #209555;
-    --TextDimmedLight: #DBDBDB;
-    --TextDimmedMain: #8E8E8E;
-    --TextDimmedDark: #5C5C5C;
-    --White: #FFFFFF;
+    --TextDimmedLight: #dbdbdb;
+    --TextDimmedMain: #8e8e8e;
+    --TextDimmedDark: #5c5c5c;
+    --White: #ffffff;
     --Black: #000000;
 }
 
 .H1 {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 700;
     font-size: 36px;
 }
 
 .H2 {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 700;
     font-size: 28px;
 }
 
 .H3 {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 700;
     font-size: 22px;
 }
 
 .TextRegular {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
 }
 
 .TextMedium {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
 }
 
 .TextBold {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
 }
 
 .S1Regular {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
 }
 
 .S1Medium {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
 }
 
 .S1Bold {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
 }
 
 .S2Regular {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
 }
 
 .S2Medium {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
 }
 
 .S2Bold {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 700;
     font-size: 12px;
@@ -121,4 +121,21 @@
 
 hr {
     border: 1px solid var(--PrimaryMain);
+}
+
+/* Buttons */
+
+.button-primary {
+    background: var(--PrimaryMain);
+    border-radius: 30px;
+    
+    text-transform: none;
+}
+
+.button-primary:focus {
+    background: var(--PrimaryMain);
+}
+
+.button-primary:hover {
+    background: var(--PrimaryDark);
 }
