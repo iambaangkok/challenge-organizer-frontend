@@ -108,7 +108,7 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 					</MenuItem>
 
 					<MenuItem onClick={handleClose} className='TextRegular'>
-						<Link href={CMUOAuthCallback} className={styles['Menu']}>
+						<Link id="Login" href={CMUOAuthCallback} className={styles['Menu']}>
 							<Login></Login> <div>Log In</div>
 						</Link>
 					</MenuItem>
