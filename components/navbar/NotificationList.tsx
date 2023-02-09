@@ -1,8 +1,8 @@
-import {Menu , MenuItem} from '@mui/material';
-import { AnchorHTMLAttributes } from 'react';
+import { Menu, MenuItem } from '@mui/material';
 import { NotificationData } from '../../types/DataType';
 
-const NotificationList = ({ anchorE1, handleClose, open, notificationList } : any) => {
+export default function NotificationList( {anchorE1, handleClose, open, data} : any ) {
+    
     return (
         <Menu
             anchorEl={anchorE1}
@@ -18,7 +18,7 @@ const NotificationList = ({ anchorE1, handleClose, open, notificationList } : an
             }}
         >
             {
-                notificationList.map((item: NotificationData , index: any) => {
+                data.map((item: NotificationData , index: any) => {
                     return <MenuItem onClick={handleClose} key={index}> {item.description} </MenuItem>
                 })
             }
@@ -26,4 +26,4 @@ const NotificationList = ({ anchorE1, handleClose, open, notificationList } : an
     )
 }
 
-export default NotificationList
+
