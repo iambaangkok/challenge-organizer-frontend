@@ -4,10 +4,11 @@ import styles from './css/ChallengeDashboard.module.css'
 
 import { Button, FormControl, MenuItem, Select } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Skeleton from '@mui/material/Skeleton';
 import { HiArrowNarrowDown, HiArrowNarrowUp } from 'react-icons/hi'
 import { ChallengeCardData } from '../../types/DataType';
+import axios from 'axios';
 
 // Theme for Select Components
 const theme = createTheme({
@@ -30,27 +31,29 @@ export default function ChallengeDashboard() {
 
     const [loading, setLoading] = useState(false)
     const [challengeList, setChallengeList] = useState<[ChallengeCardData]>()
-    const [filterState, setFilterState] = useState<string>('All')
-    const [sortState, setSortState] = useState<string>('AZ')
+    const [filterState, setFilterState] = useState<string>('all')
+    const [sortState, setSortState] = useState<string>('a-z')
 
     // Fetching Data from API
-    // useEffect(() => {
-    //     setLoading(false) // Set this before deploy
-    //     fetch('/api/profile-data')
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             setLoading(false)
-    //         })
-    // }, [])
+    const getChallengeList = () => {
+        setLoading(true)
+        axios
+            .get('api/challenges', {
+                params: {
+                    sort: sortState,
+                    filter: filterState
+                }
+            })
+            .then((resp) => {
+                // setChallengeList(resp.data)
+            }).catch((err) => {
 
-    // If the data is not loaded
-    if (loading) {
-        return (
-            <div>
-                <Skeleton variant="rectangular" width={1000} height={800} />
-            </div>
-        )
+            }).finally(() => {
+                setLoading(false)
+            })
     }
+
+    useEffect(getChallengeList, [filterState, sortState])
 
     return (
         <div className={styles['ChallengeDashboard'] + ' ShadowContainer'}>
@@ -88,10 +91,10 @@ export default function ChallengeDashboard() {
                                         setFilterState(event.target.value)
                                     }}
                                 >
-                                    <MenuItem value={'All'}>All</MenuItem>
-                                    <MenuItem value={'Ongoing'}>Ongoing</MenuItem>
-                                    <MenuItem value={'Upcoming'}>Upcoming</MenuItem>
-                                    <MenuItem value={'Past'}>Past</MenuItem>
+                                    <MenuItem value={'all'}>All</MenuItem>
+                                    <MenuItem value={'ongoing'}>Ongoing</MenuItem>
+                                    <MenuItem value={'upcoming'}>Upcoming</MenuItem>
+                                    <MenuItem value={'past'}>Past</MenuItem>
                                 </Select>
                             </ThemeProvider>
                         </FormControl>
@@ -121,12 +124,12 @@ export default function ChallengeDashboard() {
                                         setSortState(event.target.value)
                                     }}
                                 >
-                                    <MenuItem value={'AZ'}>A-Z</MenuItem>
-                                    <MenuItem value={'ZA'}>Z-A</MenuItem>
-                                    <MenuItem value={'RecentAsc'}> Recent <HiArrowNarrowUp /></MenuItem>
-                                    <MenuItem value={'RecentDesc'}>Recent <HiArrowNarrowDown /></MenuItem>
-                                    <MenuItem value={'RatingAsc'}>Rating <HiArrowNarrowUp /></MenuItem>
-                                    <MenuItem value={'RatingDesc'}>Rating <HiArrowNarrowDown /></MenuItem>
+                                    <MenuItem value={'a-z'}>A-Z</MenuItem>
+                                    <MenuItem value={'z-a'}>Z-A</MenuItem>
+                                    <MenuItem value={'recent-asc'}> Recent <HiArrowNarrowUp /></MenuItem>
+                                    <MenuItem value={'recent-desc'}>Recent <HiArrowNarrowDown /></MenuItem>
+                                    <MenuItem value={'rating-asc'}>Rating <HiArrowNarrowUp /></MenuItem>
+                                    <MenuItem value={'rating-desc'}>Rating <HiArrowNarrowDown /></MenuItem>
                                 </Select>
                             </ThemeProvider>
                         </FormControl>
@@ -150,12 +153,20 @@ export default function ChallengeDashboard() {
 
             {/* Challenge List */}
             <div className={styles['ChallengeList']}>
-                {testChallengeList.map((challenge: ChallengeCardData, index) => {
-                    return (
-                        <ChallengeCard key={index} {...challenge} />
-                    )
+                {
+                    loading &&
+                    <div>
+                        <Skeleton variant="rectangular" width={1000} height={800} />
+                    </div>
                 }
-                )}
+                {
+                    !loading &&
+                    testChallengeList.map((challenge: ChallengeCardData, index) => {
+                        return (
+                            <ChallengeCard key={index} {...challenge} />
+                        )
+                    }
+                    )}
             </div>
         </div>
     )
