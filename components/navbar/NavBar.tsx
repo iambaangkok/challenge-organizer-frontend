@@ -16,7 +16,8 @@ export default function NavBar({ loginStatus, fullName }: any) {
     const router = useRouter()
 
     // fetch notification list
-    // axios.get()
+    // if(loginStatus)
+    //      axios.get()
 
     return (
         <div className={styles.NavBar + ' ShadowContainer'}>
@@ -52,8 +53,10 @@ export default function NavBar({ loginStatus, fullName }: any) {
             </div>
             {/* Right */}
             <div className={styles.Right}>
-                <Notification
-                    badgeContent={notificationList.length} notificationList={notificationList} />
+                {
+                    loginStatus &&
+                    <Notification badgeContent={notificationList.length} notificationList={notificationList} />
+                }
                 <ProfileDropdown loginStatus={loginStatus} fullName={fullName}></ProfileDropdown>
             </div>
         </div>
