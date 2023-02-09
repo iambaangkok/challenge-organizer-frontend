@@ -72,12 +72,6 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 						</Link>
 					</MenuItem>
 
-					<MenuItem onClick={handleClose} className='TextRegular'>
-						<Link href='/settings' className={styles['Menu']}>
-							<Settings></Settings> <div>Settings</div>
-						</Link>
-					</MenuItem>
-
 					<MenuItem onClick={signOut} className='TextRegular'>
 						<Link href='/' className={styles['Menu']}>
 							<Logout></Logout> <div>Log Out</div>
@@ -101,12 +95,6 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 						horizontal: 'right',
 					}}
 				>
-					<MenuItem onClick={handleClose} className='TextRegular'>
-						<Link href='/settings' className={styles['Menu']}>
-							<Settings></Settings> <div>Settings</div>
-						</Link>
-					</MenuItem>
-
 					<MenuItem onClick={handleClose} className='TextRegular'>
 						<Link id="Login" href={CMUOAuthCallback} className={styles['Menu']}>
 							<Login></Login> <div>Log In</div>
