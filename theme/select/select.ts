@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 
-export const selectTheme = createTheme({
+export const SelectTheme = createTheme({
     components: {
         MuiOutlinedInput: {
             styleOverrides: {

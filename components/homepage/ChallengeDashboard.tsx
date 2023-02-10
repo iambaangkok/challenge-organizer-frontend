@@ -9,7 +9,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import Skeleton from '@mui/material/Skeleton';
 import { HiArrowNarrowDown, HiArrowNarrowUp } from 'react-icons/hi'
 import { ButtonTheme } from '../../theme/button/Button';
-import { selectTheme } from '../../theme/select/select';
+import { SelectTheme } from '../../theme/select/Select';
 
 export default function ChallengeDashboard() {
 
@@ -54,7 +54,7 @@ export default function ChallengeDashboard() {
                             Filter:
                         </div>
                         <FormControl size="small">
-                            <ThemeProvider theme={selectTheme}>
+                            <ThemeProvider theme={SelectTheme}>
                                 <Select
                                     value={filterState}
                                     onChange={(event) => {
@@ -77,7 +77,7 @@ export default function ChallengeDashboard() {
                             Sort By:
                         </div>
                         <FormControl size="small">
-                            <ThemeProvider theme={selectTheme}>
+                            <ThemeProvider theme={SelectTheme}>
                                 <Select
                                     value={sortState}
                                     onChange={(event) => {
