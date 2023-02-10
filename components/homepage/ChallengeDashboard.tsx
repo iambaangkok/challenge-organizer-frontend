@@ -9,6 +9,7 @@ import Skeleton from '@mui/material/Skeleton';
 import { HiArrowNarrowDown, HiArrowNarrowUp } from 'react-icons/hi'
 import { ChallengeCardData } from '../../types/DataType';
 import axios from 'axios';
+import Link from 'next/link';
 
 // Theme for Select Components
 const theme = createTheme({
@@ -80,10 +81,10 @@ export default function ChallengeDashboard() {
                                             borderColor: '#FA9C1D',
                                         },
                                         '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#FA9C1D',
+                                            borderColor: '#DB8D23',
                                         },
                                         '&:hover .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#FA9C1D',
+                                            borderColor: '#DB8D23',
                                         },
                                     }}
                                     value={filterState}
@@ -138,11 +139,13 @@ export default function ChallengeDashboard() {
 
                 {/* Create Challenge Button */}
                 <div>
-                    <ThemeProvider theme={theme}>
-                        <Button variant='contained'>
-                            Create a new Challenge
-                        </Button>
-                    </ThemeProvider>
+                    <Link href='/challenges/create' className='no-underline'>
+                        <ThemeProvider theme={theme}>
+                            <Button variant='contained'>
+                                Create a new Challenge
+                            </Button>
+                        </ThemeProvider>
+                    </Link>
                 </div>
             </div>
 
@@ -166,7 +169,7 @@ export default function ChallengeDashboard() {
                             <ChallengeCard key={index} {...challenge} />
                         )
                     }
-                    )}
+                )}
             </div>
         </div>
     )

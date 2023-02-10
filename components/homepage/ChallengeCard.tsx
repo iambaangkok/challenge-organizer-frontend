@@ -21,7 +21,7 @@ export default function ChallengeCard(data: ChallengeCardData) {
             <div className={styles['ChallengeCard']}>
                 {/* Background Image */}
                 <Image
-                    src={data.img}
+                    src={data.bannerImg}
                     alt={'test'}
                     fill
                     className={styles['Img']}
@@ -31,7 +31,7 @@ export default function ChallengeCard(data: ChallengeCardData) {
                     <div className={styles['Top']}>
                         <div className={styles['Left']}>
                             <div className={styles['ChallengeName'] + ' H3'}>
-                                {data.challengeName}
+                                {data.challengeTitle}
                             </div>
                             <Rating
                                 name="simple-controlled"
@@ -43,7 +43,7 @@ export default function ChallengeCard(data: ChallengeCardData) {
                             <div className='flex space-x-4'>
                                 <div className={styles['Type'] + ' TextMedium'}>Type: {data.type}</div>
                                 <div className={styles['Type'] + ' TextMedium'}>Format: {data.format}</div>
-                                <div className={styles['Type'] + ' TextMedium'}>Date: {data.date}</div>
+                                <div className={styles['Type'] + ' TextMedium'}>Date: {data.startDate} - {data.endDate}</div>
                             </div>
                         </div>
                     </div>

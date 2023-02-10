@@ -1,16 +1,17 @@
 export interface ChallengeCardData {
     challengeID: string 
-    challengeName: string
+    challengeTitle: string
     type: string
     format: string
     description: string
-    date: string
+    startDate: string
+    endDate: string
     numParticipants: number
     maxParticipants: number
     rating: number
     joined: boolean
     closed: boolean
-    img: string
+    bannerImg: string
 }
 
 export interface TaskData {
