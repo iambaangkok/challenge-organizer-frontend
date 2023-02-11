@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { AiFillTrophy } from 'react-icons/ai'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const theme = createTheme({
     palette: {
@@ -48,6 +50,28 @@ const mapElement = (value: any, index: any) => {
 }
 
 export default function InfoDashboard() {
+
+    const userDisplayName = localStorage.getItem('displayName')
+    const [displayName , setDisplayName] = useState<string|null>("")
+    const [fullName , setFullName] = useState<string|null>("")
+    const [loading , setLoading] = useState<boolean>(false)
+
+    const getInfo = () => {
+        setLoading(true)
+        axios
+            .get(`http://localhost:3001/api/users/${userDisplayName}`)
+            .then((resp) => {
+                setDisplayName(userDisplayName)
+                setFullName(resp.data.firstName + ' ' + resp.data.lastName)
+            }).catch((err) => {
+
+            }).finally(() => {
+                setLoading(false)
+            })
+    }
+
+    useEffect(getInfo , [userDisplayName])
+
     return (
         <div className={styles.InfoDashboard + ' ShadowContainer flex flex-col'}>
             <div className='flex space-x-4'>
@@ -61,10 +85,10 @@ export default function InfoDashboard() {
                 <div className='flex flex-col justify-between'>
                     <div>
                         <div className='TextMedium'>
-                            DarkTXYZ
+                            {displayName}
                         </div>
                         <div className={styles.Name + ' S1Regular'}>
-                            Pawaret Dilokwuttisit
+                            {fullName}
                         </div>
                     </div>
                     <ThemeProvider theme={theme}>

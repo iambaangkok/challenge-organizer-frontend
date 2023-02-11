@@ -27,7 +27,7 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 		//This is left as an exercise for you. Good luck.
 		setAnchorEl(null);
 		axios.post("/api/signOut").finally(() => {
-			router.reload()
+			router.push('/home')
 		});
 	}
 
