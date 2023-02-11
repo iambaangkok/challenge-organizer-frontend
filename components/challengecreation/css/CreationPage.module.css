@@ -2,9 +2,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 30px 64px;
-    /* width: 100%; */
-    /* height: 100%; */
+    /* padding: 30px 64px; */
+    /* width: 1254px;
+    height: 767px; */
     flex: none;
     order: 1;
     flex-grow: 0;
@@ -17,8 +17,8 @@
     padding: 20px 10px;
     margin: auto;
     /* gap: 10px; */
-    width: 1600px;
-    height: 961px;
+    width: 1200px;
+    /* height: 961px; */
     /* White */
     background: #FFFFFF;
     /* Drop Shadow/Container */
@@ -39,10 +39,10 @@
     align-items: flex-start;
     padding: 0px 0px 10px;
     /* gap: 5px; */
-    width: full;
-    height: 872px;
+    width: 100%;
+    height: max-content;
     /* Inside auto layout */
-    /* flex: none; */
+    flex: none;
     order: 0;
     align-self: stretch;
     flex-grow: 0;
@@ -83,8 +83,8 @@
     align-items: flex-start;
     padding: 20px 10px 0px;
     gap: 20px;
-    width: full;
-    height: 836px;
+    width: 100;
+    height: 100%;
     /* Inside auto layout */
     flex: none;
     order: 2;
@@ -136,7 +136,7 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 0px;
-    gap: 10px;
+    gap: 3px;
     width: full;
     /* Inside auto layout */
     flex: none;
@@ -150,6 +150,7 @@
     align-items: flex-start;
     padding: 0px;
     gap: 5px;
+    width: 100%;
     /* Inside auto layout */
     flex: none;
     order: 2;
@@ -164,7 +165,7 @@
     padding: 20px 10px 0px;
     gap: 10px;
     width: 300px;
-    height: 198px;
+    height: 100%;
     /* Inside auto layout */
     flex: none;
     order: 0;
@@ -190,6 +191,7 @@
     order: 0;
     align-self: stretch;
     flex-grow: 0;
+    cursor: pointer;
 }
 
 .cr_Box:hover {
@@ -198,4 +200,137 @@
 
 .cr_Box:focus {
     background-color: #FFDDAE;
+}
+
+.cr_ActivePartcipant {
+    width: 909px;
+    height: 17px;
+    /* S1/Medium */
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+    /* Text Dimmed/Main */
+    color: #8E8E8E;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.cr_TableHead {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px;
+    width: 879px;
+    height: 37px;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+    background-color: #999999;
+}
+
+.cr_TableHeadText {
+    width: 91px;
+    height: 17px;
+    /* S1/Medium */
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+    text-align: center;
+    /* Black */
+    color: #000000;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.cr_TalbeCss {
+    /* Frame 41 */
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 10px;
+    width: 909px;
+    height: 269px;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.cr_SuccessText {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--SuccessDark)
+}
+
+.cr_HeadText {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--TextDimmedMain)
+}
+
+.cr_fileText {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--Black)
+}
+
+.cr_star {
+    color: var(--ErrorMain)
+}
+
+.cr_CounterBox {
+    /* Frame 39 */
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    width: 909px;
+    height: 17px;
+    /* Inside auto layout */
+    flex: none;
+    order: 2;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.cr_Buttonsession {
+    /* btn */
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0px 10px;
+    gap: 10px;
+    width: 100%;
+    background: #FFFFFF;
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
 }
