@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { AuthorizationResponse } from "../types/Request";
+import { AuthorizationRequest, AuthorizationResponse } from "../types/Request";
 import { SignInResponse } from "./api/signIn";
 
 export default function CMUOAuthCallback() {
@@ -24,14 +24,17 @@ export default function CMUOAuthCallback() {
 						.get<{}, AxiosResponse, {}>('api/whoAmI')
 						.then((response) => {
 							if (response.data.ok) {
-								// console.log(response.data)
-								// axios.post<AuthorizationResponse>('http://locahost:3001/users', {
-								// 	username: response.data.firstName + " " + response.data.lastName,
-								// 	cmuAccount: response.data.cmuAccount,
-								// 	studentId: response.data.studentId
-								// }).then((resp) => {
-								// 	console.log(resp.data)
-								// })
+								axios.post<AuthorizationResponse>('http://localhost:3001/api/users', {
+									firstName: response.data.firstName,
+									lastName: response.data.lastName,
+									cmuAccount: response.data.cmuAccount,
+									studentId: response.data.studentId
+								}).then((resp) => {
+									localStorage.setItem('displayName', resp.data.displayName)
+									console.log(resp.data.displayName)
+								}).catch((err) => {
+									
+								})
 							}
 						})
 
