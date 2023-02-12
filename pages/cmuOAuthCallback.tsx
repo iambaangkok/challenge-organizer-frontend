@@ -21,7 +21,7 @@ export default function CMUOAuthCallback() {
 
 					// get API Token
 					await axios
-						.get<{}, AxiosResponse, {}>('api/whoAmI')
+						.get<{}, AxiosResponse, {}>('http://localhost:3000/api/whoAmI')
 						.then((response) => {
 							if (response.data.ok) {
 								axios.post<AuthorizationResponse>('http://localhost:3001/api/users', {
@@ -36,6 +36,8 @@ export default function CMUOAuthCallback() {
 									
 								})
 							}
+						}).catch((err) => {
+							console.log(err)
 						})
 
 					router.push('/home')

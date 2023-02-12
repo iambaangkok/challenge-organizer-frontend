@@ -27,9 +27,15 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 		//This is left as an exercise for you. Good luck.
 		setAnchorEl(null);
 		localStorage.removeItem('displayName')
-		axios.post("/api/signOut").finally(() => {
-			router.push('/home')
-		});
+		axios
+			.post("/api/signOut")
+			.catch((err) => {
+
+			})
+			.finally(() => {
+			});
+		router.push('/home')
+		
 	}
 
 	const CMUOAuthCallback = process.env.NEXT_PUBLIC_CMU_OAUTH_URL

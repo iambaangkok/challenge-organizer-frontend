@@ -36,14 +36,14 @@ export default function ChallengeDashboard() {
     const [filterState, setFilterState] = useState<string>('all')
     const [sortState, setSortState] = useState<string>('a-z')
 
-    const [displayName, setDisplayName] = useState('/')
+    const [displayName, setDisplayName] = useState('')
 
     useEffect(() => {
-        if (typeof window !== 'undefined') {
+        if (localStorage.getItem('displayName') !== null) {
             setDisplayName(`/${localStorage.getItem('displayName')}`)
         }
         else {
-            setDisplayName(`/`)
+            setDisplayName(``)
         }
     } , [])
 
@@ -66,7 +66,7 @@ export default function ChallengeDashboard() {
             })
     }
 
-    useEffect(getChallengeList, [filterState, sortState])
+    useEffect(getChallengeList, [displayName, filterState, sortState])
 
     return (
         <div className={styles['ChallengeDashboard'] + ' ShadowContainer'}>
