@@ -6,14 +6,17 @@ import { BiUser } from "react-icons/bi";
 import { ChallengeCardData } from '../../types/DataType';
 
 export default function ChallengeCard(data: ChallengeCardData) {
-    
+
+    const startDate = new Date(data.startDate).toLocaleDateString()
+    const endDate = new Date(data.endDate).toLocaleDateString()
+
     return (
         // Each challenge card routes to its own challenge page
         <Link
             id={"ChallengeCard"}
             href={{
                 pathname: '/challenge',
-                query: { id: data.challengeID },
+                query: { id: data.challengeId },
             }} 
             className='no-underline'>
 
@@ -21,7 +24,7 @@ export default function ChallengeCard(data: ChallengeCardData) {
             <div className={styles['ChallengeCard']}>
                 {/* Background Image */}
                 <Image
-                    src={data.bannerImg}
+                    src="/pingpong.jpg"
                     alt={'test'}
                     fill
                     className={styles['Img']}
@@ -37,13 +40,14 @@ export default function ChallengeCard(data: ChallengeCardData) {
                                 name="simple-controlled"
                                 value={data.rating}
                                 readOnly
+                                precision={0.1}
                             />
                         </div>
                         <div> 
                             <div className='flex space-x-4'>
                                 <div className={styles['Type'] + ' TextMedium'}>Type: {data.type}</div>
                                 <div className={styles['Type'] + ' TextMedium'}>Format: {data.format}</div>
-                                <div className={styles['Type'] + ' TextMedium'}>Date: {data.startDate} - {data.endDate}</div>
+                                <div className={styles['Type'] + ' TextMedium'}>Date: {startDate} - {endDate}</div>
                             </div>
                         </div>
                     </div>
@@ -58,7 +62,7 @@ export default function ChallengeCard(data: ChallengeCardData) {
                         {/* ChallengeStatus : Number of participants , Open/Closed */}
                         <div className={styles['ChallengeStatus']}>
                             {
-                                data.joined &&
+                                data.join &&
                                 <div className={styles['Joined'] + ' TextBold'}>
                                     Joined
                                 </div>

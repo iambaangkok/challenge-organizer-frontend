@@ -1,5 +1,5 @@
 export interface ChallengeCardData {
-    challengeID: string 
+    challengeId: string 
     challengeTitle: string
     type: string
     format: string
@@ -9,7 +9,7 @@ export interface ChallengeCardData {
     numParticipants: number
     maxParticipants: number
     rating: number
-    joined: boolean
+    join: boolean
     closed: boolean
     bannerImg: string
 }

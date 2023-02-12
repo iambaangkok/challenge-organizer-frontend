@@ -26,6 +26,7 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 		//It will fail only in case of client cannot connect to server
 		//This is left as an exercise for you. Good luck.
 		setAnchorEl(null);
+		localStorage.removeItem('displayName')
 		axios.post("/api/signOut").finally(() => {
 			router.reload()
 		});

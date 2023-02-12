@@ -31,22 +31,34 @@ const theme = createTheme({
 export default function ChallengeDashboard() {
 
     const [loading, setLoading] = useState(false)
-    const [challengeList, setChallengeList] = useState<[ChallengeCardData]>()
+    const [challengeList, setChallengeList] = useState<[ChallengeCardData]|null>(null)
+
     const [filterState, setFilterState] = useState<string>('all')
     const [sortState, setSortState] = useState<string>('a-z')
+
+    const [displayName, setDisplayName] = useState('/')
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setDisplayName(`/${localStorage.getItem('displayName')}`)
+        }
+        else {
+            setDisplayName(`/`)
+        }
+    } , [])
 
     // Fetching Data from API
     const getChallengeList = () => {
         setLoading(true)
         axios
-            .get('api/challenges', {
-                params: {
-                    sort: sortState,
-                    filter: filterState
-                }
+            .get(`http://localhost:3001/api/challenges${displayName}`, {
+                // params: {
+                //     sort: sortState,
+                //     filter: filterState
+                // }
             })
             .then((resp) => {
-                // setChallengeList(resp.data)
+                setChallengeList(resp.data)
             }).catch((err) => {
 
             }).finally(() => {
@@ -163,13 +175,13 @@ export default function ChallengeDashboard() {
                     </div>
                 }
                 {
-                    !loading &&
-                    testChallengeList.map((challenge: ChallengeCardData, index) => {
+                    !loading && (challengeList !== null) &&
+                    challengeList.map((challenge: ChallengeCardData, index) => {
                         return (
                             <ChallengeCard key={index} {...challenge} />
                         )
                     }
-                )}
+                    )}
             </div>
         </div>
     )
