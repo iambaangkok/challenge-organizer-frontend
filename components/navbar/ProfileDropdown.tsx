@@ -28,7 +28,7 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 		setAnchorEl(null);
 		localStorage.removeItem('displayName')
 		axios.post("/api/signOut").finally(() => {
-			router.reload()
+			router.push('/home')
 		});
 	}
 
