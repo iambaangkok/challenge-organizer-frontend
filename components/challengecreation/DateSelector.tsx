@@ -34,7 +34,7 @@ interface Data{
 
 }
 
-export default function DateSelector(data:any,returnDate:any){
+export default function DateSelector(data:any){
     const [value, setValue] = React.useState<Dayjs | null>(null);
     return(
       
@@ -45,7 +45,7 @@ export default function DateSelector(data:any,returnDate:any){
         value={value}
         onChange={(newValue: any) => {
           setValue(newValue);
-          returnDate(newValue);
+          data.returnDate(newValue);
 
         }}
         renderInput={(params:any) => <TextField {...params} />}

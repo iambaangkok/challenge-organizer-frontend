@@ -19,10 +19,10 @@ const Desc1 = {
     max: 400,
     multiline: true
 }
-const parti = {
+const Parti = {
     width: 400,
     height: 40,
-    max: 66666,
+    max: 8,
     num: true
 }
 const double = {
@@ -56,10 +56,10 @@ export default function CreationPage() {
     const [desc, setDesc] = useState<String>("");
     const [descLimit, setDescLimit] = useState<Number>(0);
 
-    const [parti, setParti] = useState<String>("");
-
-
-    // const [banner, setBanner] = useState<File>();
+    const [parti, setParti] = useState<Number>();
+    const [partiLimit, setPartiLimit] = useState<Number>(0);
+    
+    const [banner, setBanner] = useState<File>();
 
 
     const [date, setDate] = useState<Dayjs | null>(null);
@@ -74,12 +74,14 @@ export default function CreationPage() {
         format: formatState,
         startDate: date,
         endDate: end,
-        participant: parti,
-        // banner:banner
+        participant: Number (parti),
+        banner:banner
         }
+        
         let send = JSON.stringify(j)
         //axios
-        location.reload()
+        console.log(send)
+        // location.reload()
     }
 
 
@@ -97,6 +99,7 @@ export default function CreationPage() {
         // banner:banner
         }
         let send = JSON.stringify(j)
+        
         //tolocalstorage
     }
 
@@ -176,7 +179,7 @@ export default function CreationPage() {
                                                 }}
                                             >
                                                 <MenuItem value={'Single'}>Single</MenuItem>
-                                                <MenuItem value={'Single69'}>Team</MenuItem>
+                                                <MenuItem value={'Team'}>Team</MenuItem>
                                             </Select>
                                         </ThemeProvider>
                                     </FormControl>
@@ -215,7 +218,7 @@ export default function CreationPage() {
                             {/* Limit */}
                             <div className='pb-2'>
                                 <div className={styles.cr_HeadText + ' pb-2'} >Participant Limit (0 for unlimited)<span className={styles.cr_star}> * </span></div>
-                                <TextField_ {...parti} returnText={setParti}></TextField_>
+                                <TextField_ {...Parti} returnText={setParti} returnLimit = {setPartiLimit}></TextField_>
                             </div>
 
                             {/* Banner */}

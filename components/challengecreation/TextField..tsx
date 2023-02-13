@@ -1,9 +1,11 @@
-import {TextField} from '@mui/material';
+import {breadcrumbsClasses, TextField} from '@mui/material';
 import { alpha, createTheme, styled } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material';
 import { ClassNames } from '@emotion/react';
 import { Interface } from 'node:readline/promises';
 import React from 'react';
+import { textSpanEnd } from 'typescript';
+import { useEffect } from 'react';
 
 const theme = createTheme({
     palette: {
@@ -57,19 +59,28 @@ export default function TextField_(data:any){
         fieldId = "outlined-basic"
     }
 
-
-
-    const [text,setText] = React.useState<String>("");
-    const handleChange = (e:any) =>{
+    const [text,setText] = React.useState<any>("");
+    useEffect(()=>{
+        // console.log("useeffect "+ text)
+        data.returnText(text)
+    },[text])
+    
+    const handleChange = async (e:any) =>{
         // console.log(data.max)
         // console.log(e.target.value)
-        // console.log(e.target.value.toString())
+        // console.log("target = "+e.target.value.toString())
+        // console.log("curTarget = "+e.currentTarget.value.toString())
+        // console.log(Number(e.target.value))
         // console.log(e.target.value.toString().length)
+      
+    
         if(e.target.value.toString().length <= data.max){
+            // console.log("textbefroe = "+text)
+            data.num?setText(Number(e.target.value)):setText(e.target.value.toString())
+    
+
             setText(e.target.value.toString())
-           
-        }
-        data.returnText(text)
+        }   
         if(e.target.value.toString().length>data.max){
             data.returnLimit(data.max)
         }else{
@@ -91,11 +102,16 @@ export default function TextField_(data:any){
         // sx = {[{ height: height} ]}
         // focused
         inputProps = {{style: {fontSize:14,fontFamily:'Inter',fontWeight:500,fontStyle:'normal'}}}
+    
+        onKeyDown= { data.num? (evt) =>  ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault() : (evt) => {}}
         onChange = {(e) => handleChange(e)}
-        value ={text}
+        // value ={data.num?Number(text):text}
+    
+        value = {text}
         
         />
         </ThemeProvider>
+        
         
     )
 }
