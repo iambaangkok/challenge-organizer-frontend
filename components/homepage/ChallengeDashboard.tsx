@@ -8,8 +8,8 @@ import { Button, FormControl, MenuItem, Select } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles';
 import Skeleton from '@mui/material/Skeleton';
 import { HiArrowNarrowDown, HiArrowNarrowUp } from 'react-icons/hi'
-import { ButtonTheme } from '../../theme/button/Button';
-import { SelectTheme } from '../../theme/select/Select';
+import { ButtonTheme } from '../../theme/Button';
+import { SelectTheme } from '../../theme/Select';
 
 export default function ChallengeDashboard() {
 
