@@ -1,7 +1,12 @@
 import styles from './css/ProfileDropdown.module.scss'
 
 import {Button , Menu , MenuItem} from '@mui/material';
-import {AccountBox , Settings , Login , Logout , KeyboardArrowDown , Person} from '@mui/icons-material';
+
+import AccountBox from '@mui/icons-material/AccountBox';
+import Login from '@mui/icons-material/Login';
+import Logout from '@mui/icons-material/Logout';
+import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
+import Person from '@mui/icons-material/Person';
 
 import Link from 'next/link';
 import axios from 'axios';

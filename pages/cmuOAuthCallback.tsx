@@ -31,7 +31,7 @@ export default function CMUOAuthCallback() {
 									studentId: response.data.studentId
 								}).then((resp) => {
 									localStorage.setItem('displayName', resp.data.displayName)
-									console.log(resp.data.displayName)
+									// console.log(resp.data.displayName)
 								}).catch((err) => {
 									
 								})

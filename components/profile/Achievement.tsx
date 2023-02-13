@@ -1,5 +1,4 @@
 import { Button, Pagination } from '@mui/material'
-import ChallengeCard from '../homepage/ChallengeCard'
 import styles from './css/Achievement.module.css'
 
 export default function Achievement() {

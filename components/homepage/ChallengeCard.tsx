@@ -1,5 +1,5 @@
 import styles from './css/ChallengeCard.module.scss'
-import { Rating } from '@mui/material';
+import Rating from '@mui/material/Rating';
 import Link from 'next/link';
 import Image from 'next/image'
 import { BiUser } from "react-icons/bi";

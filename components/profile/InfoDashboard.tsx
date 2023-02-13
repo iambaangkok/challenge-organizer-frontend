@@ -50,18 +50,30 @@ const mapElement = (value: any, index: any) => {
 }
 
 export default function InfoDashboard() {
-
-    const userDisplayName = localStorage.getItem('displayName')
-    const [displayName , setDisplayName] = useState<string|null>("")
+    
+    // const userDisplayName = localStorage.getItem('displayName')
+    // const [displayName , setDisplayName] = useState<string|null>("")
     const [fullName , setFullName] = useState<string|null>("")
     const [loading , setLoading] = useState<boolean>(false)
+
+    const [displayName, setDisplayName] = useState('')
+
+    useEffect(() => {
+        if (localStorage.getItem('displayName') !== null) {
+            setDisplayName(`${localStorage.getItem('displayName')}`)
+        }
+        else {
+            setDisplayName(``)
+        }
+    } , [])
+
 
     const getInfo = () => {
         setLoading(true)
         axios
-            .get(`http://localhost:3001/api/users/${userDisplayName}`)
+            .get(`http://localhost:3001/api/users/${displayName}`)
             .then((resp) => {
-                setDisplayName(userDisplayName)
+                setDisplayName(displayName)
                 setFullName(resp.data.firstName + ' ' + resp.data.lastName)
             }).catch((err) => {
 
@@ -70,7 +82,7 @@ export default function InfoDashboard() {
             })
     }
 
-    useEffect(getInfo , [userDisplayName])
+    useEffect(getInfo , [displayName])
 
     return (
         <div className={styles.InfoDashboard + ' ShadowContainer flex flex-col'}>
