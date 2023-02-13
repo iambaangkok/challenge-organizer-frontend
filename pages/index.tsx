@@ -2,7 +2,7 @@ import Head from 'next/head'
 import ChallengeDashboard from '../components/homepage/ChallengeDashboard';
 import Task from '../components/homepage/Task';
 import TaskDashboard from '../components/homepage/TaskDashboard';
-import TextField from '../components/challengecreation/TextField.';
+import TextField from '../components/challengecreation/AtomicComponent/TextField.';
 import CreationPage from '../components/challengecreation/CreationPage';
 
 const test = {

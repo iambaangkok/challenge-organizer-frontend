@@ -1,11 +1,11 @@
 import styles from './css/CreationPage.module.css'
-import DateSelector from './DateSelector'
-import TextField_ from './TextField.'
+import DateSelector from './AtomicComponent/DateSelector'
+import TextField_ from './AtomicComponent/TextField.'
 import { useState } from 'react'
 import { FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import ParticipantList from './ParticipantList'
+import ParticipantList from './AtomicComponent/ParticipantList'
 import { Dayjs } from 'dayjs';
 import Button from '@mui/material/Button';
 const Title = {
@@ -118,12 +118,17 @@ export default function CreationPage() {
                     {/* content */}
 
                     <div className={styles.cr_NewBody}>
+                        
+                        {/* menu */}
+
                         <div className={styles.cr_MenuTab}>
                             <div className={styles.cr_Box}> <div className="S1Medium" >General Info</div></div>
                             <div className={styles.cr_Box}> <div className="S1Medium">Reward</div></div>
                             <div className={styles.cr_Box}> <div className="S1Medium" >Collaborators</div></div>
                         </div>
                         <div className={styles.cr_InfoFrame}>
+
+
                             <div className="w-full py-2">
                                 <div className={styles.cr_HeadText + ' pb-2'} >Challenge Title <span className={styles.cr_star}> * </span></div>
                                 <TextField_  {...Title} returnText={setTitle} returnLimit={setTitleLimit}  ></TextField_>
