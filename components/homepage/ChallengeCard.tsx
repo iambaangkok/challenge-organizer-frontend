@@ -2,7 +2,8 @@ import styles from './css/ChallengeCard.module.scss'
 import Rating from '@mui/material/Rating';
 import Link from 'next/link';
 import Image from 'next/image'
-import { BiUser } from "react-icons/bi";
+import { BiUser } from "react-icons/bi/";
+import { BsFillCheckCircleFill } from 'react-icons/bs'
 import { ChallengeCardData } from '../../types/DataType';
 
 export default function ChallengeCard(data: ChallengeCardData) {
@@ -17,7 +18,7 @@ export default function ChallengeCard(data: ChallengeCardData) {
             href={{
                 pathname: '/challenge',
                 query: { id: data.challengeId },
-            }} 
+            }}
             className='no-underline'>
 
             {/* Challenge Card */}
@@ -43,7 +44,7 @@ export default function ChallengeCard(data: ChallengeCardData) {
                                 precision={0.1}
                             />
                         </div>
-                        <div> 
+                        <div>
                             <div className='flex space-x-4'>
                                 <div className={styles['Type'] + ' TextMedium'}>Type: {data.type}</div>
                                 <div className={styles['Type'] + ' TextMedium'}>Format: {data.format}</div>
@@ -64,12 +65,12 @@ export default function ChallengeCard(data: ChallengeCardData) {
                             {
                                 data.join &&
                                 <div className={styles['Joined'] + ' TextBold'}>
-                                    Joined
+                                    <div>Joined</div> <BsFillCheckCircleFill />
                                 </div>
                             }
-                            <BiUser className={styles['Icon']} />
                             <div className={styles['NumParticipants'] + ' TextBold'}>
-                                {data.numParticipants} / {data.maxParticipants}
+                                <BiUser className={styles['Icon']} />
+                                {data.numParticipants}/{data.maxParticipants}
                             </div>
                             {
                                 data.closed &&

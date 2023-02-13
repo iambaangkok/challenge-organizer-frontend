@@ -2,6 +2,7 @@ import styles from './css/InfoDashboard.module.css'
 import Image from 'next/image'
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material';
+import Skeleton from '@mui/material/Skeleton'
 import { AiFillTrophy } from 'react-icons/ai'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -50,11 +51,11 @@ const mapElement = (value: any, index: any) => {
 }
 
 export default function InfoDashboard() {
-    
+
     // const userDisplayName = localStorage.getItem('displayName')
     // const [displayName , setDisplayName] = useState<string|null>("")
-    const [fullName , setFullName] = useState<string|null>("")
-    const [loading , setLoading] = useState<boolean>(false)
+    const [fullName, setFullName] = useState<string | null>("")
+    const [loading, setLoading] = useState<boolean>(false)
 
     const [displayName, setDisplayName] = useState('')
 
@@ -65,7 +66,7 @@ export default function InfoDashboard() {
         else {
             setDisplayName(``)
         }
-    } , [])
+    }, [])
 
 
     const getInfo = () => {
@@ -73,7 +74,6 @@ export default function InfoDashboard() {
         axios
             .get(`http://localhost:3001/api/users/${displayName}`)
             .then((resp) => {
-                setDisplayName(displayName)
                 setFullName(resp.data.firstName + ' ' + resp.data.lastName)
             }).catch((err) => {
 
@@ -82,7 +82,22 @@ export default function InfoDashboard() {
             })
     }
 
-    useEffect(getInfo , [displayName])
+    useEffect(getInfo, [displayName])
+
+    if (loading) {
+        return (
+            <div className={styles.InfoDashboard + ' ShadowContainer flex flex-col'}>
+                <div className='flex space-x-4'>
+                    <Skeleton variant='circular' width={100} height={100} />
+                    <Skeleton variant='rectangular' width={190} height={100} />
+                </div>
+                <hr className={styles.Line} />
+                <Skeleton variant='rectangular' width={306} height={128} />
+                <hr className={styles.Line} />
+                <Skeleton variant='rectangular' width={306} height={153} />
+            </div>
+        )
+    }
 
     return (
         <div className={styles.InfoDashboard + ' ShadowContainer flex flex-col'}>

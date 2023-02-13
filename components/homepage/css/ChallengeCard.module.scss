@@ -106,6 +106,10 @@
 }
 
 .Joined {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.25rem;
     color: var(--SuccessLight);
 }
 
@@ -116,6 +120,10 @@
 
 .NumParticipants {
     color: var(--White);
+    display: flex;
+    flex-direction: row;
+    gap: 0.1rem;
+    align-items: center;
 }
 
 .Icon {
@@ -134,7 +142,8 @@
 
 .ChallengeStatus {
     display: flex;
-    gap: 0.25rem;
+    flex-direction: row;
+    gap: 0.4rem;
     align-items: center;
 
 }

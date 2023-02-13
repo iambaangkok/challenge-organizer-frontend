@@ -170,8 +170,12 @@ export default function ChallengeDashboard() {
             <div className={styles['ChallengeList']}>
                 {
                     loading &&
-                    <div>
-                        <Skeleton variant="rectangular" width={1000} height={800} />
+                    <div className = 'flex flex-col space-y-2'>
+                        <Skeleton variant="rectangular" height={154}/>
+                        <Skeleton variant="rectangular" height={154}/>
+                        <Skeleton variant="rectangular" height={154}/>
+                        <Skeleton variant="rectangular" height={154}/>
+                        <Skeleton variant="rectangular" height={154}/>
                     </div>
                 }
                 {
