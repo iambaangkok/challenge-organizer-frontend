@@ -80,18 +80,18 @@ export default function CreationPage() {
             format: formatState,
             maxParticipants: Number(parti),
             numParticipants: 0,
-            host:"id1676040564716"
+            host: "id1676040564716"
             // banner: banner
         }
 
-        let send = JSON.stringify(j)
-        axios.post('http://localhost:3001/api/challenges',{send})
+        axios.post('http://localhost:3001/api/challenges', j)
         .then ((resp)=>{
-            // let id = resp.id
-            Router.push('/challenge?id=')
+            let id = resp.data.challengeId
+            Router.push('/challenge?id='+id)
+        }).catch((err) => {
+            console.log(err)
         })
 
-        console.log(send)
         // location.reload()
     }
 
