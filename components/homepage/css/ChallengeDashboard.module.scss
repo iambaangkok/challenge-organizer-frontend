@@ -29,3 +29,9 @@
     padding-bottom: 0.5rem; 
     gap : 0.5rem; 
 }
+
+.CreateChallengeButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

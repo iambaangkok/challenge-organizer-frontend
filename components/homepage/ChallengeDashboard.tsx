@@ -1,30 +1,15 @@
 import { testChallengeList } from '../../lib/challengeList'
 import ChallengeCard from './ChallengeCard'
-import styles from './css/ChallengeDashboard.module.css'
+import styles from './css/ChallengeDashboard.module.scss'
+import { ChallengeCardData } from '../../types/DataType';
+import { useState } from 'react'
 
 import { Button, FormControl, MenuItem, Select } from '@mui/material'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react'
+import { ThemeProvider } from '@mui/material/styles';
 import Skeleton from '@mui/material/Skeleton';
 import { HiArrowNarrowDown, HiArrowNarrowUp } from 'react-icons/hi'
-import { ChallengeCardData } from '../../types/DataType';
-
-// Theme for Select Components
-const theme = createTheme({
-    palette: {
-        primary: {
-            light: '#FFDDAE',
-            main: '#FA9C1D',
-            dark: '#DB8D23',
-            contrastText: '#FFFFFF',
-        },
-    },
-    typography: {
-        fontFamily: 'Inter',
-        fontWeightMedium: 600,
-        fontSize: 15
-    },
-})
+import { ButtonTheme } from '../../theme/Button';
+import { SelectTheme } from '../../theme/Select';
 
 export default function ChallengeDashboard() {
 
@@ -69,24 +54,13 @@ export default function ChallengeDashboard() {
                             Filter:
                         </div>
                         <FormControl size="small">
-                            <ThemeProvider theme={theme}>
-                                {/* <InputLabel>All</InputLabel> */}
+                            <ThemeProvider theme={SelectTheme}>
                                 <Select
-                                    sx={{
-                                        '.MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#FA9C1D',
-                                        },
-                                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#FA9C1D',
-                                        },
-                                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#FA9C1D',
-                                        },
-                                    }}
                                     value={filterState}
                                     onChange={(event) => {
                                         setFilterState(event.target.value)
                                     }}
+
                                 >
                                     <MenuItem value={'All'}>All</MenuItem>
                                     <MenuItem value={'Ongoing'}>Ongoing</MenuItem>
@@ -103,19 +77,8 @@ export default function ChallengeDashboard() {
                             Sort By:
                         </div>
                         <FormControl size="small">
-                            <ThemeProvider theme={theme}>
+                            <ThemeProvider theme={SelectTheme}>
                                 <Select
-                                    sx={{
-                                        '.MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#FA9C1D',
-                                        },
-                                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#FA9C1D',
-                                        },
-                                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#FA9C1D',
-                                        },
-                                    }}
                                     value={sortState}
                                     onChange={(event) => {
                                         setSortState(event.target.value)
@@ -134,12 +97,13 @@ export default function ChallengeDashboard() {
                 </div>
 
                 {/* Create Challenge Button */}
-                <div>
-                    <ThemeProvider theme={theme}>
-                        <Button variant='contained'>
+                <div className={styles['CreateChallengeButton']}>
+                    <ThemeProvider theme={ButtonTheme}>
+                        <Button variant='contained' size='small'>
                             Create a new Challenge
                         </Button>
                     </ThemeProvider>
+
                 </div>
             </div>
 
