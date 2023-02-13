@@ -9,9 +9,7 @@ import ParticipantList from './AtomicComponent/ParticipantList'
 import { Dayjs } from 'dayjs';
 import Button from '@mui/material/Button';
 import GeneralInfo from './MenuComponents/GeneralInfo'
-import axios from 'axios'
-import Router from 'next/router'
-
+import { useEffect } from 'react'
 const Title = {
     width: 1200,
     height: 40,
@@ -51,7 +49,7 @@ const theme = createTheme({
 })
 
 
-export default function CreationPage() {
+export default function EditPage() {
     const [typeState, setTypeState] = useState<string>("");
     const [formatState, setFormatState] = useState<string>("");
 
@@ -65,32 +63,47 @@ export default function CreationPage() {
 
     const [banner, setBanner] = useState<File>();
 
+ 
+
 
     const [date, setDate] = useState<Dayjs | null>(null);
     const [end, setEnd] = useState<Dayjs | null>(null);
+    let api = {
+        title: "geba",
+        desc: "test test",
+        type: "Single",
+        format: "Elim",
+        // startDate: "2023-02-06T17:00:00.000Z,
+        // endDate: "2023-02-13T17:00:00.000Z",
+        participant: 123,
+        // banner: banner
+    }
+    useEffect(() =>{
+        setTitle(api.title)
+        setDesc(api.desc)
+        setTypeState(api.type)
+        setFormatState(api.format)  
+        // setDate(api.startDate)
+        // setEnd(api.endDate)
+        setParti(api.participant)
+        // setBanner
+    },[])
 
     const handleCreate = () => {
 
         let j = {
-            challengeTitle: title,
-            description: desc,
-            startDate: date,
-            endDate: end,
+            title: title,
+            desc: desc,
             type: typeState,
             format: formatState,
-            maxParticipants: Number(parti),
-            numParticipants: 0,
-            host:"id1676040564716"
-            // banner: banner
+            startDate: date,
+            endDate: end,
+            participant: Number(parti),
+            banner: banner
         }
 
         let send = JSON.stringify(j)
-        axios.post('http://localhost:3001/api/challenges',{send})
-        .then ((resp)=>{
-            // let id = resp.id
-            Router.push('/challenge?id=')
-        })
-
+        //axios
         console.log(send)
         // location.reload()
     }
@@ -122,7 +135,7 @@ export default function CreationPage() {
 
                 <div className={styles.cr_Challenges}>
                     <div className='ml-8'>
-                        <p className='H1'>Create a New Challenge</p>
+                        <p className='H1'>Edit Challenge</p>
                     </div>
                     <div className={styles.cr_line}></div>
 
@@ -136,6 +149,8 @@ export default function CreationPage() {
                                 <div className={styles.cr_Box}> <div className="S1Medium" >General Info</div></div>
                                 <div className={styles.cr_Box}> <div className="S1Medium">Reward</div></div>
                                 <div className={styles.cr_Box}> <div className="S1Medium" >Collaborators</div></div>
+                                <div className={styles.cr_Box}> <div className="S1Medium" >Participant / Member</div></div>
+                                <div className={styles.cr_Box}> <div className="S1Medium" >Task</div></div>
                             </div>
 
                             {/* body */}
@@ -143,7 +158,7 @@ export default function CreationPage() {
                                 {/* general info */}
                                 <div className="w-full py-2">
                                     <div className={styles.cr_HeadText + ' pb-2'} >Challenge Title <span className={styles.cr_star}> * </span></div>
-                                    <TextField_  {...Title} returnText={setTitle} returnLimit={setTitleLimit} ></TextField_>
+                                    <TextField_  {...Title} returnText={setTitle} returnLimit={setTitleLimit} default={api.title}  ></TextField_>
                                     <div className="flex justify-end mr-1 pt-1">
                                         <div className={styles.cr_SuccessText}>
                                             {titleLimit}/50
@@ -152,7 +167,7 @@ export default function CreationPage() {
                                 </div>
                                 <div className="w-full pb-2">
                                     <div className={styles.cr_HeadText + ' pb-2'} >Description(Optional)</div>
-                                    <TextField_ {...Desc1} returnText={setDesc} returnLimit={setDescLimit}></TextField_>
+                                    <TextField_ {...Desc1} returnText={setDesc} returnLimit={setDescLimit} default = {api.desc}></TextField_>
                                     <div className="flex justify-end mr-1 pt-1" >
                                         <div className={styles.cr_SuccessText}>
                                             {descLimit}/400
@@ -176,7 +191,7 @@ export default function CreationPage() {
                                 <div className="flex flex-row gap-10 pb-2">
 
                                     <div className={styles.cr_DateInside}>
-                                        <div className={styles.cr_HeadText + ' pb-2'} >Type<span className={styles.cr_star}> * </span></div>
+                                        <div className={styles.cr_HeadText + ' pb-2'} >Type<span className={styles.cr_star} > * </span></div>
                                         <FormControl fullWidth>
                                             <ThemeProvider theme={theme}>
                                                 <Select sx={[{
@@ -190,10 +205,11 @@ export default function CreationPage() {
                                                         borderColor: '#FA9C1D',
                                                     },
                                                 }, { width: 262 }]}
-                                                    value={typeState}
+                                                    // value={typeState}
                                                     onChange={(event: SelectChangeEvent) => {
                                                         setTypeState(event.target.value)
                                                     }}
+                                                    defaultValue = {api.type}
                                                 >
                                                     <MenuItem value={'Single'}>Single</MenuItem>
                                                     <MenuItem value={'Team'}>Team</MenuItem>
@@ -217,10 +233,12 @@ export default function CreationPage() {
                                                         borderColor: '#FA9C1D',
                                                     },
                                                 }, { width: 262 }]}
-                                                    value={formatState}
+                                                    // value={formatState}
+                                                    defaultValue = {api.format}
                                                     onChange={(event: SelectChangeEvent) => {
                                                         setFormatState(event.target.value)
                                                     }}
+
                                                 >
                                                     <MenuItem value={'Point'}>Point Based</MenuItem>
                                                     <MenuItem value={'Elim'}>Elimination</MenuItem>
@@ -235,7 +253,7 @@ export default function CreationPage() {
                             
                                 <div className='pb-2'>
                                     <div className={styles.cr_HeadText + ' pb-2'} >Participant Limit (0 for unlimited)<span className={styles.cr_star}> * </span></div>
-                                    <TextField_ {...Parti} returnText={setParti} returnLimit={setPartiLimit}></TextField_>
+                                    <TextField_ {...Parti} returnText={setParti} returnLimit={setPartiLimit} default = {api.participant}></TextField_>
                                 </div>
 
 
@@ -273,7 +291,7 @@ export default function CreationPage() {
                             <div>
                                 <Button variant='outlined'
                                     onClick={handleCreate}>
-                                    create challenge
+                                    delete challenge
                                 </Button>
                             </div>
                             {/* save */}
@@ -281,7 +299,7 @@ export default function CreationPage() {
                                 <Button variant='outlined'
                                     onClick={handleSave}
                                 >
-                                    change info
+                                    save
 
                                 </Button>
                             </div>

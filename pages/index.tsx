@@ -4,6 +4,7 @@ import Task from '../components/homepage/Task';
 import TaskDashboard from '../components/homepage/TaskDashboard';
 import TextField from '../components/challengecreation/AtomicComponent/TextField.';
 import CreationPage from '../components/challengecreation/CreationPage';
+import EditPage from '../components/challengecreation/EditPage';
 
 const test = {
   fieldname: "aa",
@@ -32,6 +33,7 @@ export default function Home() {
          </div> */}
       <div>
       <CreationPage></CreationPage>
+         {/* <EditPage></EditPage> */}
       </div>
      
       </body>

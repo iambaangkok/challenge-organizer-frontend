@@ -1,4 +1,4 @@
-import {breadcrumbsClasses, TextField} from '@mui/material';
+import { breadcrumbsClasses, TextField } from '@mui/material';
 import { alpha, createTheme, styled } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material';
 import { ClassNames } from '@emotion/react';
@@ -16,14 +16,14 @@ const theme = createTheme({
             contrastText: '#FFFFFF',
         },
     },
-    components : {
-        'MuiTextField' : {
-            styleOverrides : {
-                root : {
-                    '.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline' : {
+    components: {
+        'MuiTextField': {
+            styleOverrides: {
+                root: {
+                    '.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
                         borderColor: '#FA9C1D'
-                    } , 
-                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline' : {
+                    },
+                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
                         borderColor: '#EA7000'
                     },
                 }
@@ -32,7 +32,7 @@ const theme = createTheme({
     }
 })
 const styles = {
-    refont:{
+    refont: {
         fontFamily: 'Inter',
         fontStyle: 'normal',
         fontWeight: 500,
@@ -40,7 +40,7 @@ const styles = {
     }
 }
 
-interface textData{
+interface textData {
     width: number
     height: number
     max: number
@@ -49,69 +49,78 @@ interface textData{
 
 
 
-export default function TextField_(data:any){
-    var fieldId  = ""
+export default function TextField_(data: any) {
+    var fieldId = ""
     var height = data.height
-    if(data.multiline){
+    if (data.multiline) {
         fieldId = "outlined-multiline-flexible"
         height = height
-    }else{
+    } else {
         fieldId = "outlined-basic"
     }
 
-    const [text,setText] = React.useState<any>("");
-    useEffect(()=>{
+    const [text, setText] = React.useState<any>("");
+    useEffect(() => {
         // console.log("useeffect "+ text)
         data.returnText(text)
-    },[text])
-    
-    const handleChange = async (e:any) =>{
+    }, [text])
+
+    useEffect(() => {
+        if (data.default) {
+            let i = data.default.toString().length
+            setText(data.default)
+            data.returnLimit(i)
+        }
+    }, [])
+
+    const handleChange = async (e: any) => {
         // console.log(data.max)
         // console.log(e.target.value)
         // console.log("target = "+e.target.value.toString())
         // console.log("curTarget = "+e.currentTarget.value.toString())
         // console.log(Number(e.target.value))
         // console.log(e.target.value.toString().length)
-      
-    
-        if(e.target.value.toString().length <= data.max){
+
+
+        if (e.target.value.toString().length <= data.max) {
             // console.log("textbefroe = "+text)
-            data.num?setText(Number(e.target.value)):setText(e.target.value.toString())
-    
+            data.num ? setText(Number(e.target.value)) : setText(e.target.value.toString())
+
 
             setText(e.target.value.toString())
-        }   
-        if(e.target.value.toString().length>data.max){
+        }
+        if (e.target.value.toString().length > data.max) {
             data.returnLimit(data.max)
-        }else{
-        data.returnLimit(e.target.value.toString().length)
+        } else {
+            data.returnLimit(e.target.value.toString().length)
         }
     };
 
-    return(
-        <ThemeProvider theme = {theme}>
-            <TextField 
-        id= "outlined-multiline-flexible"
-        multiline ={data.multiline? true:false}
-        maxRows = {4}
-        label="" 
-        variant="outlined" 
-        fullWidth = {true}
-        type = {data.num?"number":"any"}
-        autoComplete='off'
-        // sx = {[{ height: height} ]}
-        // focused
-        inputProps = {{style: {fontSize:14,fontFamily:'Inter',fontWeight:500,fontStyle:'normal'}}}
-    
-        onKeyDown= { data.num? (evt) =>  ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault() : (evt) => {}}
-        onChange = {(e) => handleChange(e)}
-        // value ={data.num?Number(text):text}
-    
-        value = {text}
-        
-        />
+    return (
+        <ThemeProvider theme={theme}>
+            <TextField
+                id="outlined-multiline-flexible"
+                multiline={data.multiline ? true : false}
+                maxRows={4}
+                label=""
+                variant="outlined"
+                fullWidth={true}
+                type={data.num ? "number" : "any"}
+                autoComplete='off'
+                // sx = {[{ height: height} ]}
+                // focused
+                inputProps={{ style: { fontSize: 14, fontFamily: 'Inter', fontWeight: 500, fontStyle: 'normal' } }}
+
+                onKeyDown={data.num ? (evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault() : (evt) => { }}
+                onChange={(e) => handleChange(e)}
+                // value ={data.num?Number(text):text}
+                
+                
+                value = {text}
+
+            />
         </ThemeProvider>
-        
-        
+
+
     )
 }
