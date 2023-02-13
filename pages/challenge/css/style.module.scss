@@ -1,0 +1,364 @@
+.main-container {
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100vw;
+    height: calc(100vh - 86px);
+
+    background: var(--SecondaryMain);
+}
+
+.banner-container {
+    overflow: hidden;
+    display: block;
+
+    height: 223px;
+
+    .banner {
+        opacity: 70%;
+
+        width: 100%;
+        height: auto;
+    }
+    align-self: stretch;
+}
+
+.challengemenu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 0px 50px;
+
+    width: calc(100% - 100px);
+    height: fit-content;
+    background: var(--White);
+
+    div {
+        margin-left: auto;
+        margin-right: auto;
+
+        width: min(100%, 1100px);
+    }
+
+    .title-container {
+        /* Auto layout */
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 12px 0px 0px;
+
+        height: 103px;
+
+        background: var(--White);
+
+        /* Inside auto layout */
+        flex-shrink: 1;
+        align-self: stretch;
+        justify-self: center;
+
+        .title-left {
+            /* Auto layout */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 10px 0px 0px 0px;
+            margin-left: 0;
+
+            width: fit-content;
+            height: 91px;
+
+            .title-text-container {
+                /* Auto layout */
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 25px;
+
+                // width: 775px;
+                height: 44px;
+            }
+
+            .status-button {
+                /* Auto layout */
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                padding: 0px 20px;
+                gap: 10px;
+
+                width: fit-content;
+                height: 35px;
+
+                /* Inside auto layout */
+                flex: none;
+                flex-grow: 0;
+            }
+        }
+
+        .title-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 10px 0px;
+
+            margin-right: 0;
+
+            width: fit-content;
+            height: fit-content;
+
+            .editchallenge-button {
+                /* Auto layout */
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 10px 20px;
+
+                width: fit-content;
+                height: 47px;
+
+                /* Inside auto layout */
+                flex: 0 0 auto;
+            }
+        }
+    }
+
+    .tabs-container {
+        /* Auto layout */
+        padding: 0px 0px;
+        gap: 25px;
+
+        min-height: 0;
+        height: 29px;
+
+        background: var(--White);
+
+        /* Inside auto layout */
+        flex: none;
+        align-self: stretch;
+        flex-grow: 0;
+
+        div div {
+            gap: 25px;
+        }
+
+        .tab-button {
+            /* Auto layout */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0px 0px;
+
+            min-width: 0;
+            max-width: 100%;
+            width: fit-content;
+            min-height: 0;
+            height: 29px;
+
+            color: var(--Black);
+            text-transform: none;
+
+            /* Inside auto layout */
+            flex: none;
+            order: 0;
+            flex-grow: 0;
+        }
+
+        .tab-indicator {
+            background-color: var(--PrimaryMain);
+        }
+    }
+    // :hover{
+    //     animation: spin 2s infinite cubic-bezier(.85,.01,.25,1);
+    // }
+    // @keyframes spin {
+    //     0% {
+    //       transform: rotateX(-20deg) rotateY(20deg);
+    //     }
+    //     100% {
+    //       transform: rotateX(-20deg) rotateY(740deg);
+    //     }
+    // }
+}
+
+.content-container {
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px 50px;
+    gap: 35px;
+
+    width: min(100% - 100px, 1100px);
+
+    /* Inside auto layout */
+    flex: 1 0 auto;
+
+    .posts-container {
+        /* Auto layout */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 30px 15px;
+        gap: 8px;
+
+        height: fit-content;
+
+        background: var(--White);
+
+        border-radius: 10px;
+
+        /* Inside auto layout */
+        flex: 1 0 auto;
+    }
+
+    .rightsidebar-container {
+        /* Auto layout */
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0px;
+        gap: 15px;
+
+        width: 309px;
+        height: fit-content;
+
+        /* Inside auto layout */
+        flex: 0 0 auto;
+
+        .rightsideitem-container {
+            /* Auto layout */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 15px 15px;
+            // gap: 8px;
+
+            width: 100%;
+            height: fit-content;
+
+            background: var(--White);
+
+            border-radius: 10px;
+
+            /* Inside auto layout */
+            flex: 0 0 auto;
+
+            .header-text {
+                /* Auto layout */
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                padding: 0px 0px 6px;
+
+                color: var(--Black);
+
+                flex: 0 0 auto;
+            }
+
+            .divider {
+                width: 100%;
+
+                border: 1px solid var(--PrimaryMain);
+
+                /* Inside auto layout */
+                flex: 1 0 auto;
+            }
+
+            .body,
+            .footer {
+                /* Auto layout */
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px 0px;
+                gap: 12px;
+
+                width: 100%;
+                height: fit-content;
+
+                /* Inside auto layout */
+                flex: 0 0 auto;
+
+                .description-container {
+                    /* Auto layout */
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    padding: 0px;
+                    gap: 9px;
+
+                    width: 100%;
+                    height: fit-content;
+
+                    /* Inside auto layout */
+                    flex: 0 0 auto;
+
+                    .creationdate {
+                        .hostname {
+                            color: var(--PrimaryMain);
+                            text-decoration: none;
+                            cursor: pointer;
+                        }
+                        .hostname:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+
+                .info-container {
+                    /* Auto layout */
+                    display: flex;
+                    flex-direction: row;
+                    align-items: flex-start;
+                    padding: 0px;
+
+                    width: 100%;
+                    height: fit-content;
+
+                    /* Inside auto layout */
+                    flex: 0 0 auto;
+
+                    .infotexts-container {
+                        /* Auto layout */
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        padding: 0px;
+                        gap: 4px;
+
+                        width: 50%;
+                        height: fit-content;
+
+                        /* Inside auto layout */
+                        flex: 1 0 auto;
+
+                        .value {
+                            height: fit-content;
+                            color: var(--Black);
+                        }
+
+                        .field {
+                            color: var(--TextDimmedMain);
+                        }
+                    }
+                }
+            }
+
+            .footer {
+                padding-bottom: 0;
+            }
+        }
+    }
+}

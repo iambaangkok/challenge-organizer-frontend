@@ -87,7 +87,7 @@ export default async function handler(
   //The rest code is just an example of how you can use CMU basic info to create session
 
   //if the code reach here, it means that user sign-in using his CMU Account successfully
-  //Now we will use acquired baic info (student name, student id, ...) to create session
+  //Now we will use acquired basic info (student name, student id, ...) to create session
   //There are many authentication methods such as token or cookie session or you can use any authentication library.
   //The example will use JsonWebToken (JWT)
 
@@ -110,7 +110,7 @@ export default async function handler(
   //Write token in cookie storage of client's browser
   //Note that this is server side code. We can write client cookie from the server. This is normal.
   //You can view cookie in the browser devtools (F12). Open tab "Application" -> "Cookies"
-  setCookie("cmu-oauth-example-token", token, {
+  setCookie("cmu-oauth-token", token, {
     req,
     res,
     maxAge: 3600,
@@ -125,5 +125,7 @@ export default async function handler(
     domain: "localhost",
   });
 
-  return res.json({ ok: true });
+  return res.json({
+    ok: true
+  });
 }

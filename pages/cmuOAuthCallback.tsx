@@ -1,8 +1,8 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { AuthorizationResponse } from "../types/Request";
 import { SignInResponse } from "./api/signIn";
-import './api/signIn'
 
 export default function CMUOAuthCallback() {
 	const router = useRouter();
@@ -16,13 +16,24 @@ export default function CMUOAuthCallback() {
 
 		axios
 			.post<SignInResponse>('api/signIn', { authorizationCode: code })
-			.then((resp) => {
+			.then(async (resp) => {
 				if (resp.data.ok) {
 
-					// send response to API server
-
-
-
+					// get API Token
+					await axios
+						.get<{}, AxiosResponse, {}>('api/whoAmI')
+						.then((response) => {
+							if (response.data.ok) {
+								// console.log(response.data)
+								// axios.post<AuthorizationResponse>('http://locahost:3001/users', {
+								// 	username: response.data.firstName + " " + response.data.lastName,
+								// 	cmuAccount: response.data.cmuAccount,
+								// 	studentId: response.data.studentId
+								// }).then((resp) => {
+								// 	console.log(resp.data)
+								// })
+							}
+						})
 
 					router.push('/home')
 				}
