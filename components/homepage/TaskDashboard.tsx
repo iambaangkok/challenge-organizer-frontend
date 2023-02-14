@@ -1,21 +1,27 @@
 import styles from './css/TaskDashboard.module.css'
-import {taskList} from '../../lib/taskList'
+import { testTaskList } from '../../lib/taskList'
 import Task from './Task'
+import { useState } from 'react'
+import { TaskData } from '../../types/DataType'
 
 export default function TaskDashboard() {
 
+    const [loading, setLoading] = useState(true)
+    const [taskList, setTaskList] = useState<TaskData>()
+
     return (
-        <div>
-            <div className = 'H1'>Your Tasks</div>
-            <hr/>
-            <div className = 'flex flex-col space-y-4'>
+        <div className={styles.TaskDashboard + ' ShadowContainer'}>
+            <div className='H1'>Your Tasks</div>
+            <div>
+                <hr />
+            </div>
+            <div className={styles.TaskList}>
                 {
-                    taskList.map((task , index) => {
+                    testTaskList.map((task : TaskData, index) => {
                         return <Task key={index} {...task}></Task>
                     })
                 }
             </div>
-
         </div>
     )
 

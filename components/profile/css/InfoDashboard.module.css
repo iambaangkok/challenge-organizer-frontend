@@ -1,0 +1,25 @@
+.InfoDashboard {
+    padding: 24px;
+    gap: 10px;
+    border-radius: 15px;
+    height: inherit;
+    width: 1/4;
+}
+
+.ProfilePic {
+    size : 100px ;
+    border-radius: 8px;
+}
+
+.Name {
+    color : var(--TextDimmedMain)
+}
+
+.Line {
+    width: 100%;
+    border: 1px solid var(--TextDimmedLight);
+}
+
+.Info {
+    color : var(--PrimaryMain)
+}

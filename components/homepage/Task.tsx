@@ -1,42 +1,31 @@
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import styles from './css/Task.module.css'
+import Link from 'next/link';
+import { TaskData } from '../../types/DataType';
+import styles from './css/Task.module.scss'
 
-interface taskData {
-    taskName: string
-    challengeName: string
-    dueDate: string
-    finished: Boolean
-}
 
-// const data = {
-//     taskName: 'This is Task Name',
-//     challengeName: 'This is Challenge Name',
-//     dueDate: Date(),
-//     finished: true
-// }
+export default function Task(data: TaskData) {
 
-// const taskName = 'This is Task Name'
-// const challengeName = 'This is Challenge Name'
-// const dueDate = '21 Jan - 13 Feb'
-// const finished = true
-
-export default function Task(data: taskData) {
     return (
-        <div className={styles.Task}>
-            <div>
-                {data.finished &&
-                    <CheckBoxIcon className={styles.Checkbox}></CheckBoxIcon>
-                }
-                {!data.finished &&
-                    <CheckBoxOutlineBlankIcon className={styles.Checkbox}></CheckBoxOutlineBlankIcon>
-                }
+        // Each task routes to its own task page
+        <Link
+            id={data.challengeName}
+            href={{
+                pathname: '/challenge',
+                query: {
+                    id: data.taskId,
+                    tab: 'tasks'
+                },
+            }}
+            className='no-underline'
+        >
+            {/* Task Info */}
+            <div className={styles['Task']}>
+                <div className={styles['TaskInfo']}>
+                    <div className={styles['TaskName'] + ' TextMedium'}>{data.taskName}</div>
+                    <div className={styles['TaskDescription'] + ' S2Regular'}>{data.challengeName}</div>
+                    <div className={styles['TaskDescription'] + ' S2Regular'}>{data.dueDate}</div>
+                </div>
             </div>
-            <div className={styles.TaskInfo}>
-                <div className={styles.TaskName + ' TextMedium'}>{data.taskName}</div>
-                <div className={styles.ChallengeName + ' S2Regular'}>{data.challengeName}</div>
-                <div className={styles.DueDate + ' S2Regular'}>{data.dueDate}</div>
-            </div>
-        </div>
+        </Link>
     )
 }

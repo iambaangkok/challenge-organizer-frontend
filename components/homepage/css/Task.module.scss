@@ -3,18 +3,15 @@
     flex-direction: row;
     align-items: flex-start;
     vertical-align: bottom;
-    padding: 5px;
-    gap: 9px;
+    padding: 8px 10px;
 
+    border-radius: 5px;
     position: relative;
-    width: 279px;
-    /* height: 57px; */
+    transition: ease-out 0.15s;
 
-}
-
-.Checkbox {
-    width: 20px;
-    height: 20px;
+    &:hover {
+        background-color: gainsboro;
+    }
 }
 
 .TaskInfo {
@@ -32,10 +29,6 @@
     color: var(--Black);
 }
 
-.ChallengeName {
-    color: var(--TextDimmedMain);
-}
-
-.DueDate {
+.TaskDescription {
     color: var(--TextDimmedMain);
 }

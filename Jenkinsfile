@@ -18,9 +18,10 @@ pipeline {
                 script {
                     try{
                         bat 'npx playwright install'
+                        bat 'npx playwright install msedge'
                         bat 'if not exist "playwright-report" mkdir playwright-report'
                         bat 'npx playwright test --reporter=html'
-                        test_ok = true                        
+                        test_ok = true
                         emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/index.html', body: 'All tests passed.', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
                     }catch(e) {
                         test_ok = false
@@ -46,16 +47,17 @@ pipeline {
                 branch 'master'
             }
             steps {
-                script {
-                    if (test_ok) {
-                        withCredentials([usernamePassword(credentialsId: 'dff12934-5025-4c8d-a205-7ecab8123f22', passwordVariable: 'jenkins-docker-password', usernameVariable: 'jenkins-docker-username')]) {
-                            bat 'docker login -u iambaangkok -p %jenkins-docker-password%'
-                            bat 'docker push iambaangkok/challenge-organizer-frontend'
-                        }                        
-                    }else{
+                withCredentials([usernamePassword(credentialsId: 'dff12934-5025-4c8d-a205-7ecab8123f22', passwordVariable: 'jenkins-docker-password', usernameVariable: 'jenkins-docker-username')]) {
+                    bat 'docker login -u iambaangkok -p %jenkins-docker-password%'
+                    bat 'docker push iambaangkok/challenge-organizer-frontend'
+                }                        
+                // script {
+                //     if (test_ok) {
                         
-                    }
-                }
+                //     }else{
+                        
+                //     }
+                // }
             }
         }
         stage('run docker image') {
@@ -64,8 +66,8 @@ pipeline {
             }
             steps {
                 // bat 'docker pull iambaangkok/challenge-organizer-frontend'
-                bat 'docker rm -f challenge-organizer-frontend'
-                bat 'docker run -dp 3000:3000 --name challenge-organizer-frontend iambaangkok/challenge-organizer-frontend'
+                bat 'docker rm -f chalorg-frontend'
+                bat 'docker run -dp 3000:3000 --name chalorg-frontend iambaangkok/challenge-organizer-frontend'
                 // bat 'docker compose up'
             }
         }

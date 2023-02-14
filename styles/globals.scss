@@ -1,0 +1,145 @@
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root {
+    --PrimaryLight: #ffddae;
+    --PrimaryMain: #fa9c1d;
+    --PrimaryDark: #ea7000;
+    --SecondaryLight: #f6f7f9;
+    --SecondaryMain: #f2f3f5;
+    --SecondaryDark: #ecedef;
+    --ErrorLight: #e45252;
+    --ErrorMain: #d32f2f;
+    --ErrorDark: #9f1d1d;
+    --WarningLight: #ffe34e;
+    --WarningMain: #ffb800;
+    --WarningDark: #b47700;
+    --InfoLight: #5bc6f3;
+    --InfoMain: #2eacf3;
+    --InfoDark: #186aa5;
+    --SuccessLight: #72fd88;
+    --SuccessMain: #37df66;
+    --SuccessDark: #209555;
+    --TextDimmedLight: #dbdbdb;
+    --TextDimmedMain: #8e8e8e;
+    --TextDimmedDark: #5c5c5c;
+    --White: #ffffff;
+    --Black: #000000;
+}
+
+.H1 {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+}
+
+.H2 {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+}
+
+.H3 {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.TextRegular {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.TextMedium {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.TextBold {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.S1Regular {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.S1Medium {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.S1Bold {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.S2Regular {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.S2Medium {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.S2Bold {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.ShadowContainer {
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.ShadowButton {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.ShadowHoveringAndPressing {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+hr {
+    border: 1px solid var(--PrimaryMain);
+}
+
+/* Buttons */
+
+.button-primary {
+    background: var(--PrimaryMain);
+    border-radius: 30px;
+    
+    text-transform: none;
+}
+
+.button-primary:focus {
+    background: var(--PrimaryMain);
+}
+
+.button-primary:hover {
+    background: var(--PrimaryDark);
+}

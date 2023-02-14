@@ -1,39 +1,55 @@
-import styles from './css/NavBar.module.css'
-import Link from 'next/link'
-import { Badge } from '@mui/material'
-import MailIcon from '@mui/icons-material/Mail';
-import MenuDropDown from './MenuDropDown';
-import { navLinks } from '../../lib/navLinks'
+import styles from './css/NavBar.module.scss'
+import ProfileDropdown from './ProfileDropdown';
+import { navLinks, restrictedLink } from '../../lib/navLinks'
+import Notification from './Notification';
 
-export default function NavBar() {
+import Link from 'next/link'
+import { useRouter } from 'next/router';
+import { NavLinks } from '../../types/Request';
+
+export default function NavBar({ loginStatus, fullName }: any) {
+
+    const router = useRouter()
 
     return (
-        <div className={styles.NavBar}>
+        <div className={styles.NavBar + ' ShadowContainer'}>
+            {/* Left */}
             <div className={styles.Left}>
-                <div className={styles.Brand + ' H1'}>CRINGE.IO</div>
-                <div className={styles.NavMenu}>
-                    {
-                        navLinks.map((link, index) => {
+                {/* Website Name, Logo */}
+                <div className={styles.Brand + ' H1'}>CHAL.ORG</div>
+                {/* Navigation Menu */}
+                {
+                    navLinks.map((link: NavLinks, index) => {
+                        if (!loginStatus && restrictedLink.includes(link.name)) {
+                            return <div key={index}></div>
+                        }
+                        if (router.asPath.includes(link.path))
                             return (
-                                <Link className={styles.NavElement + ' H3'} href={link.path} key={index}>
-                                    {link.name}
+                                <Link key={index} href={link.path} className={styles.LinkSelected}>
+                                    <div className='TextBold'>
+                                        {link.name}
+                                    </div>
+                                </Link>
+
+                            )
+                        else
+                            return (
+                                <Link key={index} href={link.path} className={styles.LinkNotSelected}>
+                                    <div id={link.name} className='TextBold'>
+                                        {link.name}
+                                    </div>
                                 </Link>
                             )
-                        })
-                    }
-                </div>
+                    })
+                }
             </div>
+            {/* Right */}
             <div className={styles.Right}>
-                <Badge badgeContent={4} color="primary">
-                    <MailIcon color="action" />
-                </Badge>
-                <MenuDropDown></MenuDropDown>
+                <Notification
+                    badgeContent={2}
+                />
+                <ProfileDropdown loginStatus={loginStatus} fullName={fullName}></ProfileDropdown>
             </div>
         </div>
-
-
-
-
-
     )
 }

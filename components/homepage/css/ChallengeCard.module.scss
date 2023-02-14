@@ -1,0 +1,140 @@
+@mixin userSelect($props) {
+    -webkit-user-select: $props;
+    user-select: $props;
+}
+
+.ChallengeCard {
+    padding: 10px 17px;
+    height: 154px;
+    border-radius: 8px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    overflow: hidden;
+    position: relative;
+
+    @include userSelect(none);
+
+    transition: ease-out 0.2s;
+
+    &:hover {
+        transform: scaleX(1.01) scaleY(1.01);
+    }
+}
+
+.BottomHalf {
+    width: 100%;
+    height: 95px;
+    margin-top: 0.75rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.Top {
+    padding: 0px;
+    height: 56px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.Bottom {
+    padding: 0px;
+    height: 30px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.Left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 27px;
+
+    height: 27px;
+}
+
+.ChallengeName {
+    color: var(--White);
+}
+
+.ChallengeDescription {
+    padding: 0px;
+    width: 713px;
+    height: 19px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.Description {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    color: var(--TextDimmedMain);
+}
+
+.Type {
+    color: var(--White);
+}
+
+.Right {
+    padding: 0px;
+    width: 122px;
+    height: 30px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.Joined {
+    color: var(--SuccessLight);
+}
+
+.Closed {
+    color: var(--White);
+}
+
+
+.NumParticipants {
+    color: var(--White);
+}
+
+.Icon {
+    width: 25px;
+    height: 25px;
+    color: var(--White);
+}
+
+.Img {
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.8;
+    transition: 0.2s ease-in;
+    filter: brightness(47.5%)
+}
+
+.ChallengeStatus {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+
+}
