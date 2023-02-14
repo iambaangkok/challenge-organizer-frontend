@@ -35,14 +35,14 @@ interface Data{
 }
 
 export default function DateSelector(data:any){
-    const [value, setValue] = React.useState<Dayjs | null>(null);
+    const [value, setValue] = React.useState<Dayjs|null>();
     return(
       
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <ThemeProvider theme = {theme}>
       <DatePicker
         label=""
-        value={value}
+        value={data.default}
         onChange={(newValue: any) => {
           setValue(newValue);
           data.returnDate(newValue);

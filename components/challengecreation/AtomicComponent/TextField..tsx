@@ -65,13 +65,8 @@ export default function TextField_(data: any) {
         data.returnText(text)
     }, [text])
 
-    useEffect(() => {
-        if (data.default) {
-            let i = data.default.toString().length
-            setText(data.default)
-            data.returnLimit(i)
-        }
-    }, [])
+
+    
 
     const handleChange = async (e: any) => {
         // console.log(data.max)
@@ -96,6 +91,12 @@ export default function TextField_(data: any) {
         }
     };
 
+    const iprop = {
+        disableunderline:"true",
+        style: { fontSize: 14, fontFamily: 'Inter', fontWeight: 500, fontStyle: 'normal' }
+        }
+  
+
     return (
         <ThemeProvider theme={theme}>
             <TextField
@@ -109,14 +110,14 @@ export default function TextField_(data: any) {
                 autoComplete='off'
                 // sx = {[{ height: height} ]}
                 // focused
-                inputProps={{ style: { fontSize: 14, fontFamily: 'Inter', fontWeight: 500, fontStyle: 'normal' } }}
+                inputProps={iprop}
 
                 onKeyDown={data.num ? (evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault() : (evt) => { }}
                 onChange={(e) => handleChange(e)}
                 // value ={data.num?Number(text):text}
                 
-                
-                value = {text}
+                value = {data.default?data.default:""}
+                // defaultValue = {data.default}
 
             />
         </ThemeProvider>

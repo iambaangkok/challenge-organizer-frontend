@@ -6,12 +6,13 @@ import { FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ParticipantList from './AtomicComponent/ParticipantList'
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import Button from '@mui/material/Button';
 import GeneralInfo from './MenuComponents/GeneralInfo'
 import axios from 'axios'
 import Router from 'next/router'
 import { ButtonTheme } from '../../theme/Button'
+import { useEffect } from 'react'
 
 const Title = {
     width: 1200,
@@ -52,23 +53,50 @@ const theme = createTheme({
 })
 
 
+
 export default function CreationPage() {
     const [typeState, setTypeState] = useState<string>("");
     const [formatState, setFormatState] = useState<string>("");
-
-    const [title, setTitle] = useState<String>();
+    
+    const [title, setTitle] = useState<String>("");
     const [titleLimit, setTitleLimit] = useState<Number>(0);
     const [desc, setDesc] = useState<String>("");
     const [descLimit, setDescLimit] = useState<Number>(0);
-
+    
     const [parti, setParti] = useState<Number>();
     const [partiLimit, setPartiLimit] = useState<Number>(0);
-
+    
     const [banner, setBanner] = useState<File>();
+    
+    
+    const [date, setDate] = useState<Dayjs|null>(null);
+    const [end, setEnd] = useState<Dayjs|null>(null);
+    // const [host,setHost] = useState<String>();
 
+    useEffect(()=>{
+        let saved = JSON.parse(localStorage.getItem('saved'));
+        if(saved){
+            console.log(saved)
+            // console.log("title bf "+ title)
+            // console.log("saved title bf "+ saved.title)
+            setTitle(saved.title)
+            setTitleLimit(saved.title.toString().length)
+            // console.log("title af "+ title)
+            // console.log("saved title af "+ saved.title)
+            setDesc(saved.desc)
+            setDescLimit(saved.desc.toString().length)
 
-    const [date, setDate] = useState<Dayjs | null>(null);
-    const [end, setEnd] = useState<Dayjs | null>(null);
+            setTypeState(saved.type)
+            setFormatState(saved.format)
+            setParti(saved.participant)
+            // console.log(saved.startDate)
+            // console.log(saved.endDate)
+            setDate(dayjs(saved.startDate))
+            setEnd(dayjs(saved.endDate))
+        }   
+    },[])
+
+    
 
     const handleCreate = () => {
 
@@ -81,12 +109,13 @@ export default function CreationPage() {
             format: formatState,
             maxParticipants: Number(parti),
             numParticipants: 0,
-            host: "id1676040564716"
+            host: localStorage.getItem('displayName')
             // banner: banner
         }
-
+        console.log(j)
         axios.post('http://localhost:3001/api/challenges', j)
             .then((resp) => {
+                localStorage.removeItem('saved')
                 let id = resp.data.challengeId
                 Router.push('/challenge?id=' + id)
             }).catch((err) => {
@@ -94,6 +123,7 @@ export default function CreationPage() {
             })
 
         // location.reload()
+
     }
 
 
@@ -111,7 +141,7 @@ export default function CreationPage() {
             // banner:banner
         }
         let send = JSON.stringify(j)
-
+        localStorage.setItem('saved',send);
         //tolocalstorage
     }
 
@@ -144,7 +174,7 @@ export default function CreationPage() {
                                 {/* general info */}
                                 <div className="w-full py-2">
                                     <div className={styles.cr_HeadText + ' pb-2'} >Challenge Title <span className={styles.cr_star}> * </span></div>
-                                    <TextField_  {...Title} returnText={setTitle} returnLimit={setTitleLimit} ></TextField_>
+                                    <TextField_  {...Title} returnText={setTitle} returnLimit={setTitleLimit} default = {title} ></TextField_>
                                     <div className="flex justify-end mr-1 pt-1">
                                         <div className={styles.cr_SuccessText}>
                                             {titleLimit}/50
@@ -153,7 +183,7 @@ export default function CreationPage() {
                                 </div>
                                 <div className="w-full pb-2">
                                     <div className={styles.cr_HeadText + ' pb-2'} >Description(Optional)</div>
-                                    <TextField_ {...Desc1} returnText={setDesc} returnLimit={setDescLimit}></TextField_>
+                                    <TextField_ {...Desc1} returnText={setDesc} returnLimit={setDescLimit} default = {desc}></TextField_>
                                     <div className="flex justify-end mr-1 pt-1" >
                                         <div className={styles.cr_SuccessText}>
                                             {descLimit}/400
@@ -164,12 +194,12 @@ export default function CreationPage() {
                                 <div className="flex flex-row gap-10 pb-2">
                                     <div className={styles.cr_DateInside}>
                                         <div className={styles.cr_HeadText + ' pb-2'} >Start Date<span className={styles.cr_star}> * </span></div>
-                                        <DateSelector {...double} returnDate={setDate} ></DateSelector>
+                                        <DateSelector {...double} returnDate={setDate} default = {date}></DateSelector>
 
                                     </div>
                                     <div className={styles.cr_DateInside}>
                                         <div className={styles.cr_HeadText + ' pb-2'} >End Date<span className={styles.cr_star}> * </span></div>
-                                        <DateSelector {...double} returnDate={setEnd}> </DateSelector>
+                                        <DateSelector {...double} returnDate={setEnd} default = {end}> </DateSelector>
 
                                     </div>
 
@@ -236,7 +266,7 @@ export default function CreationPage() {
 
                                 <div className='pb-2'>
                                     <div className={styles.cr_HeadText + ' pb-2'} >Participant Limit (0 for unlimited)<span className={styles.cr_star}> * </span></div>
-                                    <TextField_ {...Parti} returnText={setParti} returnLimit={setPartiLimit}></TextField_>
+                                    <TextField_ {...Parti} returnText={setParti} returnLimit={setPartiLimit} default = {parti}></TextField_>
                                 </div>
 
 
