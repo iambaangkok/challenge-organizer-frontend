@@ -5,6 +5,7 @@ import TaskDashboard from '../components/homepage/TaskDashboard';
 import TextField from '../components/challengecreation/AtomicComponent/TextField.';
 import CreationPage from '../components/challengecreation/CreationPage';
 import EditPage from '../components/challengecreation/EditPage';
+import React from 'react';
 
 const test = {
   fieldname: "aa",
@@ -19,22 +20,21 @@ export default function Home() {
         <title>home</title>
       </Head>
       <body>
-        {/* List of challenges */}
         {/* <div className='flex flex-col space-y-2'>
           <ChallengeCard {...testChallengeData}></ChallengeCard>
           <ChallengeCard {...testChallengeData}></ChallengeCard>
           <ChallengeCard {...testChallengeData}></ChallengeCard>
-        </div> */}
-        {/* <div className = 'flex'>
+        </div>  */}
+         <div className = 'flex'>
         <ChallengeDashboard></ChallengeDashboard>
 
         <TaskDashboard></TaskDashboard> 
 
-         </div> */}
-      <div>
-      <CreationPage></CreationPage>
-         {/* <EditPage></EditPage> */}
-      </div>
+         </div>
+      {/* // <div>
+      // <CreationPage></CreationPage>
+      //    <EditPage></EditPage>
+      // </div> */}
      
       </body>
 
