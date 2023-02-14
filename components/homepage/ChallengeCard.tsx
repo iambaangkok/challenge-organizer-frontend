@@ -11,6 +11,8 @@ export default function ChallengeCard(data: ChallengeCardData) {
     const startDate = new Date(data.startDate).toLocaleDateString()
     const endDate = new Date(data.endDate).toLocaleDateString()
 
+    // console.log(data.join)   
+
     return (
         // Each challenge card routes to its own challenge page
         <Link

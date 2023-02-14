@@ -45,6 +45,7 @@ export default function ChallengeDashboard() {
         else {
             setDisplayName(``)
         }
+        console.log(displayName)
     } , [])
 
     // Fetching Data from API

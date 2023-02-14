@@ -11,9 +11,11 @@ import Person from '@mui/icons-material/Person';
 import Link from 'next/link';
 import axios from 'axios';
 import router from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function ProfileDropdown({ loginStatus, fullName }: any) {
+
+	const [displayName , setDisplayName] = useState<string | null>('')
 
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
@@ -45,6 +47,10 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 
 	const CMUOAuthCallback = process.env.NEXT_PUBLIC_CMU_OAUTH_URL
 
+	useEffect(() => {
+		setDisplayName(localStorage.getItem('displayName'))
+	} , [])
+
 	return (
 		<div>
 			{/* Profile */}
@@ -56,7 +62,7 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 				<Person sx={{ fontSize: 26 }} />
 				{
 					loginStatus &&
-					<span className='text-lg'>{fullName}</span>
+					<span className='text-lg'>{displayName}</span>
 				}
 				<KeyboardArrowDown sx={{ fontSize: 26 }} />
 

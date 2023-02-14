@@ -37,6 +37,7 @@ export default function Layout({ children }: any) {
 				}
 			})
 			.catch((error: AxiosError<WhoAmIResponse>) => {
+				localStorage.removeItem('displayName')
 				if (!error.response) {
 					setErrorMessage(
 						"Cannot connect to the network. Please try again later."
