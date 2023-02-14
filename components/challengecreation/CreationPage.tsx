@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import GeneralInfo from './MenuComponents/GeneralInfo'
 import axios from 'axios'
 import Router from 'next/router'
+import { ButtonTheme } from '../../theme/Button'
 
 const Title = {
     width: 1200,
@@ -85,12 +86,12 @@ export default function CreationPage() {
         }
 
         axios.post('http://localhost:3001/api/challenges', j)
-        .then ((resp)=>{
-            let id = resp.data.challengeId
-            Router.push('/challenge?id='+id)
-        }).catch((err) => {
-            console.log(err)
-        })
+            .then((resp) => {
+                let id = resp.data.challengeId
+                Router.push('/challenge?id=' + id)
+            }).catch((err) => {
+                console.log(err)
+            })
 
         // location.reload()
     }
@@ -232,7 +233,7 @@ export default function CreationPage() {
                                     </div>
                                 </div>
 
-                            
+
                                 <div className='pb-2'>
                                     <div className={styles.cr_HeadText + ' pb-2'} >Participant Limit (0 for unlimited)<span className={styles.cr_star}> * </span></div>
                                     <TextField_ {...Parti} returnText={setParti} returnLimit={setPartiLimit}></TextField_>
@@ -245,13 +246,15 @@ export default function CreationPage() {
                                     <div className="flex flex-row place-content-center ">
                                         <div className={styles.cr_fileText + ' my-2 pr-4'}>placeholder.jpg </div>
 
-                                        <Button variant='outlined' component="label"
-                                            sx={[{ width: 70 }, { height: 40 }]}
-                                        >
-                                            upload
-                                            <input hidden accept="image/*" multiple type="file" />
+                                        <ThemeProvider theme={ButtonTheme}>
+                                            <Button variant='contained' size='medium' color='secondary' component="label"
+                                                sx={[{ width: 70 }, { height: 40 }]}
+                                            >
+                                                upload
+                                                <input hidden accept="image/*" multiple type="file" />
+                                            </Button>
+                                        </ThemeProvider>
 
-                                        </Button>
 
                                     </div>
 
@@ -271,19 +274,27 @@ export default function CreationPage() {
 
                             {/* create */}
                             <div>
-                                <Button variant='outlined'
-                                    onClick={handleCreate}>
-                                    create challenge
-                                </Button>
+                                <ThemeProvider theme={ButtonTheme}>
+                                    <Button variant='contained' size='medium'
+                                        onClick={handleCreate}>
+                                        create challenge
+                                    </Button>
+                                </ThemeProvider>
+
                             </div>
                             {/* save */}
                             <div>
-                                <Button variant='outlined'
-                                    onClick={handleSave}
-                                >
-                                    change info
+                                <ThemeProvider theme={ButtonTheme}>
+                                    <Button variant='contained' size='medium' color='secondary'
+                                        onClick={handleSave}
+                                    >
+                                        save
 
-                                </Button>
+                                    </Button>
+                                </ThemeProvider>
+
+
+
                             </div>
 
                         </div>
