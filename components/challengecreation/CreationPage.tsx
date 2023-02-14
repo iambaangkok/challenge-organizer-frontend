@@ -226,8 +226,8 @@ export default function CreationPage() {
                                                         setTypeState(event.target.value)
                                                     }}
                                                 >
-                                                    <MenuItem value={'Single'}>Single</MenuItem>
-                                                    <MenuItem value={'Team'}>Team</MenuItem>
+                                                    <MenuItem value={'single'}>Single</MenuItem>
+                                                    <MenuItem value={'team'}>Team</MenuItem>
                                                 </Select>
                                             </ThemeProvider>
                                         </FormControl>
@@ -253,9 +253,9 @@ export default function CreationPage() {
                                                         setFormatState(event.target.value)
                                                     }}
                                                 >
-                                                    <MenuItem value={'Point'}>Point Based</MenuItem>
-                                                    <MenuItem value={'Elim'}>Elimination</MenuItem>
-                                                    <MenuItem value={'Double'}>Double Elimination</MenuItem>
+                                                    <MenuItem value={'point-based'}>Point Based</MenuItem>
+                                                    <MenuItem value={'elimination'}>Elimination</MenuItem>
+                                                    <MenuItem value={'double-elimination'}>Double Elimination</MenuItem>
                                                 </Select>
                                             </ThemeProvider>
                                         </FormControl>
