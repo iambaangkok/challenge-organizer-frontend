@@ -17,56 +17,52 @@ const theme = createTheme({
         },
     },
     components: {
-        'MuiTextField': {
+        MuiTextField: {
             styleOverrides: {
                 root: {
                     '.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-                        borderColor: '#FA9C1D'
+                        borderColor: '#FA9C1D',
                     },
-                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-                        borderColor: '#EA7000'
-                    },
-                }
-            }
-        }
-    }
-})
+                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                        {
+                            borderColor: '#EA7000',
+                        },
+                },
+            },
+        },
+    },
+});
 const styles = {
     refont: {
         fontFamily: 'Inter',
         fontStyle: 'normal',
         fontWeight: 500,
-        fontSize: 14
-    }
-}
+        fontSize: 14,
+    },
+};
 
 interface textData {
-    width: number
-    height: number
-    max: number
-    multiline: Boolean
+    width: number;
+    height: number;
+    max: number;
+    multiline: Boolean;
 }
 
-
-
 export default function TextField_(data: any) {
-    var fieldId = ""
-    var height = data.height
+    var fieldId = '';
+    var height = data.height;
     if (data.multiline) {
-        fieldId = "outlined-multiline-flexible"
-        height = height
+        fieldId = 'outlined-multiline-flexible';
+        height = height;
     } else {
-        fieldId = "outlined-basic"
+        fieldId = 'outlined-basic';
     }
 
-    const [text, setText] = React.useState<any>("");
+    const [text, setText] = React.useState<any>('');
     useEffect(() => {
         // console.log("useeffect "+ text)
-        data.returnText(text)
-    }, [text])
-
-
-    
+        data.returnText(text);
+    }, [text]);
 
     const handleChange = async (e: any) => {
         // console.log(data.max)
@@ -76,26 +72,30 @@ export default function TextField_(data: any) {
         // console.log(Number(e.target.value))
         // console.log(e.target.value.toString().length)
 
-
         if (e.target.value.toString().length <= data.max) {
             // console.log("textbefroe = "+text)
-            data.num ? setText(Number(e.target.value)) : setText(e.target.value.toString())
+            data.num
+                ? setText(Number(e.target.value))
+                : setText(e.target.value.toString());
 
-
-            setText(e.target.value.toString())
+            setText(e.target.value.toString());
         }
         if (e.target.value.toString().length > data.max) {
-            data.returnLimit(data.max)
+            data.returnLimit(data.max);
         } else {
-            data.returnLimit(e.target.value.toString().length)
+            data.returnLimit(e.target.value.toString().length);
         }
     };
 
     const iprop = {
-        disableunderline:"true",
-        style: { fontSize: 14, fontFamily: 'Inter', fontWeight: 500, fontStyle: 'normal' }
-        }
-  
+        disableunderline: 'true',
+        style: {
+            fontSize: 14,
+            fontFamily: 'Inter',
+            fontWeight: 500,
+            fontStyle: 'normal',
+        },
+    };
 
     return (
         <ThemeProvider theme={theme}>
@@ -106,22 +106,24 @@ export default function TextField_(data: any) {
                 label=""
                 variant="outlined"
                 fullWidth={true}
-                type={data.num ? "number" : "any"}
-                autoComplete='off'
+                type={data.num ? 'number' : 'any'}
+                autoComplete="off"
                 // sx = {[{ height: height} ]}
                 // focused
                 inputProps={iprop}
-
-                onKeyDown={data.num ? (evt) => ['e', 'E', '+', '-', '.'].includes(evt.key) && evt.preventDefault() : (evt) => { }}
+                onKeyDown={
+                    data.num
+                        ? (evt) =>
+                              ['e', 'E', '+', '-', '.'].includes(evt.key) &&
+                              evt.preventDefault()
+                        : (evt) => {}
+                }
                 onChange={(e) => handleChange(e)}
                 // value ={data.num?Number(text):text}
-                
-                value = {data.default?data.default:""}
-                // defaultValue = {data.default}
 
+                value={data.default ? data.default : ''}
+                // defaultValue = {data.default}
             />
         </ThemeProvider>
-
-
-    )
+    );
 }

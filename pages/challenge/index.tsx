@@ -1,17 +1,17 @@
-import Head from "next/head";
-import Image from "next/image";
+import Head from 'next/head';
+import Image from 'next/image';
 
-import styles from "./css/style.module.scss";
+import styles from './css/style.module.scss';
 
-import bannerImage from "../../public/pingpong.jpg";
-import { Box, Button, makeStyles, styled, Tab, Tabs } from "@mui/material";
-import { CSSProperties, useCallback, useEffect, useState } from "react";
+import bannerImage from '../../public/pingpong.jpg';
+import { Box, Button, makeStyles, styled, Tab, Tabs } from '@mui/material';
+import { CSSProperties, useCallback, useEffect, useState } from 'react';
 
-import { testPostListsByTabs } from "../../lib/postListByTabs";
-import { testChallengePageData } from "../../lib/challengePageData";
-import CountdownTimer from "../../components/challenge/CountdownTimer";
-import Link from "next/link";
-import StarRating from "../../components/challenge/StarRating";
+import { testPostListsByTabs } from '../../lib/postListByTabs';
+import { testChallengePageData } from '../../lib/challengePageData';
+import CountdownTimer from '../../components/challenge/CountdownTimer';
+import Link from 'next/link';
+import StarRating from '../../components/challenge/StarRating';
 
 export interface TabData {
     index: number;
@@ -23,7 +23,7 @@ export interface TabData {
                 isHost: boolean;
             };
             contentMarkdown: boolean;
-        }
+        },
     ];
 }
 
@@ -54,7 +54,7 @@ export default function Challenge() {
 
     async function handleTabChange(
         _event: React.ChangeEvent<{}>,
-        newTabValue: number
+        newTabValue: number,
     ) {
         setTabValue(newTabValue);
     }
@@ -63,7 +63,7 @@ export default function Challenge() {
         const date = new Date();
         date.setMonth(monthNumber);
 
-        return date.toLocaleString("en-US", { month: "long" });
+        return date.toLocaleString('en-US', { month: 'long' });
     }
 
     function getFormattedDate(unformattedDate: string) {
@@ -71,7 +71,7 @@ export default function Challenge() {
 
         return `${getMonthName(date.getMonth()).substring(
             0,
-            3
+            3,
         )} ${date.getDate()}, ${date.getFullYear()}`;
     }
 
@@ -106,56 +106,60 @@ export default function Challenge() {
     }, [fetchTabData]);
 
     return (
-        <div className={styles["main-container"]}>
+        <div className={styles['main-container']}>
             <Head>
                 <title>Challenge</title>
             </Head>
-            <div className={styles["banner-container"]}>
-                <Image src={bannerImage} alt="" className={styles["banner"]} />
+            <div className={styles['banner-container']}>
+                <Image src={bannerImage} alt="" className={styles['banner']} />
             </div>
             <div
                 className={
-                    styles["challengemenu-container"] + " ShadowContainer"
-                }>
-                <div className={styles["title-container"]}>
-                    <div className={styles["title-left"]}>
-                        <div className={styles[""] + " H3"}>Challenges/</div>
-                        <div className={styles["title-text-container"]}>
-                            <div className={styles["title-text"] + " H1"}>
+                    styles['challengemenu-container'] + ' ShadowContainer'
+                }
+            >
+                <div className={styles['title-container']}>
+                    <div className={styles['title-left']}>
+                        <div className={styles[''] + ' H3'}>Challenges/</div>
+                        <div className={styles['title-text-container']}>
+                            <div className={styles['title-text'] + ' H1'}>
                                 {challengePageData
                                     ? challengePageData.title
-                                    : "TitleText"}
+                                    : 'TitleText'}
                             </div>
                             <Button
                                 id="StatusButton"
                                 variant="contained"
                                 className={
-                                    styles["status-button"] +
-                                    " button-primary H3"
+                                    styles['status-button'] +
+                                    ' button-primary H3'
                                 }
-                                disableElevation>
-                                {"Join"}
+                                disableElevation
+                            >
+                                {'Join'}
                             </Button>
                         </div>
                     </div>
-                    <div className={styles["title-right"]}>
+                    <div className={styles['title-right']}>
                         <Link
-                            id={"EditChallengeButton"}
+                            id={'EditChallengeButton'}
                             href={{
-                                pathname: "/editchallenge",
-                                query: { id: "CHALLENGEID" },
+                                pathname: '/editchallenge',
+                                query: { id: 'CHALLENGEID' },
                             }}
                             style={{
-                                textDecoration:"none"
-                            }}>
+                                textDecoration: 'none',
+                            }}
+                        >
                             <Button
                                 variant="contained"
                                 className={
-                                    styles["editchallenge-button"] +
-                                    " button-primary H3"
+                                    styles['editchallenge-button'] +
+                                    ' button-primary H3'
                                 }
-                                disableElevation>
-                                {"Edit Challenge"}
+                                disableElevation
+                            >
+                                {'Edit Challenge'}
                             </Button>
                         </Link>
                     </div>
@@ -164,209 +168,228 @@ export default function Challenge() {
                     value={tabValue}
                     onChange={handleTabChange}
                     aria-label="Tabs"
-                    className={styles["tabs-container"]}
-                    TabIndicatorProps={{ className: styles["tab-indicator"] }}>
+                    className={styles['tabs-container']}
+                    TabIndicatorProps={{ className: styles['tab-indicator'] }}
+                >
                     {testPostListsByTabs.map((x, index) => (
                         <Tab
                             key={index}
                             label={x.tabName}
                             value={index}
-                            className={styles["tab-button"] + " TextBold"}
+                            className={styles['tab-button'] + ' TextBold'}
                             disableRipple
                         />
                     ))}
                 </Tabs>
             </div>
-            <div className={styles["content-container"]}>
+            <div className={styles['content-container']}>
                 <div
                     className={
-                        styles["posts-container"] +
-                        " TextRegular" +
-                        " ShadowContainer"
-                    }>
-                    {tabData?.tabName + " tab posts"}
+                        styles['posts-container'] +
+                        ' TextRegular' +
+                        ' ShadowContainer'
+                    }
+                >
+                    {tabData?.tabName + ' tab posts'}
                 </div>
-                <div className={styles["rightsidebar-container"]}>
+                <div className={styles['rightsidebar-container']}>
                     <div
                         className={
-                            styles["rightsideitem-container"] +
-                            " ShadowContainer"
-                        }>
-                        <div className={styles["header-text"] + " H3"}>
+                            styles['rightsideitem-container'] +
+                            ' ShadowContainer'
+                        }
+                    >
+                        <div className={styles['header-text'] + ' H3'}>
                             Challenge Starts In
                         </div>
-                        <div className={styles["divider"]}></div>
+                        <div className={styles['divider']}></div>
                         <CountdownTimer
                             dateTime={
                                 challengePageData
                                     ? challengePageData.startDate
-                                    : "1970-01-01"
+                                    : '1970-01-01'
                             }
-                            dateTimeFormat={
-                                "YYYY-MM-DDTHH:mm:ss.sssZ"
-                            }></CountdownTimer>
+                            dateTimeFormat={'YYYY-MM-DDTHH:mm:ss.sssZ'}
+                        ></CountdownTimer>
                     </div>
                     <div
                         className={
-                            styles["rightsideitem-container"] +
-                            " ShadowContainer"
-                        }>
-                        <div className={styles["header-text"] + " H3"}>
+                            styles['rightsideitem-container'] +
+                            ' ShadowContainer'
+                        }
+                    >
+                        <div className={styles['header-text'] + ' H3'}>
                             About Challenge
                         </div>
-                        <div className={styles["divider"]}></div>
-                        <div className={styles["body"]}>
-                            <div className={styles["description-container"]}>
+                        <div className={styles['divider']}></div>
+                        <div className={styles['body']}>
+                            <div className={styles['description-container']}>
                                 <div
                                     className={
-                                        styles["description"] + " S1Medium"
-                                    }>
+                                        styles['description'] + ' S1Medium'
+                                    }
+                                >
                                     {challengePageData
                                         ? challengePageData.description
-                                        : "description"}
+                                        : 'description'}
                                 </div>
                                 <div
                                     className={
-                                        styles["creationdate"] + " S2Regular"
-                                    }>
-                                    Published{" "}
+                                        styles['creationdate'] + ' S2Regular'
+                                    }
+                                >
+                                    Published{' '}
                                     {challengePageData
                                         ? getFormattedDate(
-                                              challengePageData.publishDate
+                                              challengePageData.publishDate,
                                           )
-                                        : "N/A"}{" "}
-                                    by{" "}
+                                        : 'N/A'}{' '}
+                                    by{' '}
                                     <Link
-                                        id={"HostName"}
+                                        id={'HostName'}
                                         href={{
-                                            pathname: "/user",
-                                            query: { id: "USERID" },
+                                            pathname: '/user',
+                                            query: { id: 'USERID' },
                                         }}
-                                        className={styles["hostname"]}>
+                                        className={styles['hostname']}
+                                    >
                                         {challengePageData
                                             ? challengePageData.host
-                                            : "N/A"}
+                                            : 'N/A'}
                                     </Link>
                                 </div>
                             </div>
-                            <div className={styles["info-container"]}>
-                                <div className={styles["infotexts-container"]}>
-                                    <div className={styles["value"] + " H3"}>
+                            <div className={styles['info-container']}>
+                                <div className={styles['infotexts-container']}>
+                                    <div className={styles['value'] + ' H3'}>
                                         {challengePageData
                                             ? challengePageData.prizePool
-                                            : "N/A"}
+                                            : 'N/A'}
                                     </div>
                                     <div
                                         className={
-                                            styles["field"] + " S2Regular"
-                                        }>
+                                            styles['field'] + ' S2Regular'
+                                        }
+                                    >
                                         Prize Pool
                                     </div>
                                 </div>
                             </div>
-                            <div className={styles["info-container"]}>
-                                <div className={styles["infotexts-container"]}>
+                            <div className={styles['info-container']}>
+                                <div className={styles['infotexts-container']}>
                                     <div
                                         className={
-                                            styles["value"] + " S1Medium"
-                                        }>
+                                            styles['value'] + ' S1Medium'
+                                        }
+                                    >
                                         {challengePageData
                                             ? challengePageData.type
-                                            : "N/A"}
+                                            : 'N/A'}
                                     </div>
                                     <div
                                         className={
-                                            styles["field"] + " S2Regular"
-                                        }>
+                                            styles['field'] + ' S2Regular'
+                                        }
+                                    >
                                         Type
                                     </div>
                                 </div>
-                                <div className={styles["infotexts-container"]}>
+                                <div className={styles['infotexts-container']}>
                                     <div
                                         className={
-                                            styles["value"] + " S1Medium"
-                                        }>
+                                            styles['value'] + ' S1Medium'
+                                        }
+                                    >
                                         {challengePageData
                                             ? challengePageData.format
-                                            : "N/A"}
+                                            : 'N/A'}
                                     </div>
                                     <div
                                         className={
-                                            styles["field"] + " S2Regular"
-                                        }>
+                                            styles['field'] + ' S2Regular'
+                                        }
+                                    >
                                         Format
                                     </div>
                                 </div>
                             </div>
-                            <div className={styles["info-container"]}>
-                                <div className={styles["infotexts-container"]}>
+                            <div className={styles['info-container']}>
+                                <div className={styles['infotexts-container']}>
                                     <div
                                         className={
-                                            styles["value"] + " S1Medium"
-                                        }>
+                                            styles['value'] + ' S1Medium'
+                                        }
+                                    >
                                         {challengePageData
                                             ? getFormattedDate(
-                                                  challengePageData.startDate
+                                                  challengePageData.startDate,
                                               )
-                                            : "N/A"}
+                                            : 'N/A'}
                                     </div>
                                     <div
                                         className={
-                                            styles["field"] + " S2Regular"
-                                        }>
+                                            styles['field'] + ' S2Regular'
+                                        }
+                                    >
                                         Start Date
                                     </div>
                                 </div>
-                                <div className={styles["infotexts-container"]}>
+                                <div className={styles['infotexts-container']}>
                                     <div
                                         className={
-                                            styles["value"] + " S1Medium"
-                                        }>
+                                            styles['value'] + ' S1Medium'
+                                        }
+                                    >
                                         {challengePageData
                                             ? getFormattedDate(
-                                                  challengePageData.endDate
+                                                  challengePageData.endDate,
                                               )
-                                            : "N/A"}
+                                            : 'N/A'}
                                     </div>
                                     <div
                                         className={
-                                            styles["field"] + " S2Regular"
-                                        }>
+                                            styles['field'] + ' S2Regular'
+                                        }
+                                    >
                                         End Date
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className={styles["divider"]}></div>
-                        <div className={styles["footer"]}>
-                            <div className={styles["info-container"]}>
-                                <div className={styles["infotexts-container"]}>
+                        <div className={styles['divider']}></div>
+                        <div className={styles['footer']}>
+                            <div className={styles['info-container']}>
+                                <div className={styles['infotexts-container']}>
                                     <div
                                         className={
-                                            styles["value"] + " S1Medium"
-                                        }>
+                                            styles['value'] + ' S1Medium'
+                                        }
+                                    >
                                         {challengePageData
                                             ? `${challengePageData.participantCount} / ${challengePageData.maxParticipantCount}`
-                                            : "N/A"}
+                                            : 'N/A'}
                                     </div>
                                     <div
                                         className={
-                                            styles["field"] + " S2Regular"
-                                        }>
+                                            styles['field'] + ' S2Regular'
+                                        }
+                                    >
                                         Participants
                                     </div>
                                 </div>
-                                <div className={styles["infotexts-container"]}>
+                                <div className={styles['infotexts-container']}>
                                     <StarRating
                                         rating={
                                             challengePageData
                                                 ? challengePageData.rating
                                                 : 0
-                                        }></StarRating>
+                                        }
+                                    ></StarRating>
                                     <div
                                         className={
-                                            styles["field"] + " S2Regular"
-                                        }>
+                                            styles['field'] + ' S2Regular'
+                                        }
+                                    >
                                         Rating
                                     </div>
                                 </div>

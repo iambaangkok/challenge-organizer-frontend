@@ -20,7 +20,7 @@
     width: 1200px;
     /* height: 961px; */
     /* White */
-    background: #FFFFFF;
+    background: #ffffff;
     /* Drop Shadow/Container */
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
@@ -68,7 +68,7 @@
     /* Line 1 */
     width: full;
     height: 0px;
-    border-bottom: 3px solid #FA9C1D;
+    border-bottom: 3px solid #fa9c1d;
     /* Inside auto layout */
     flex: none;
     /* order: 1; */
@@ -103,8 +103,8 @@
     width: 1272px;
     height: 271px;
     /* TextInputColor */
-    background: #FFFFFF;
-    border: 1px solid #FA9C1D;
+    background: #ffffff;
+    border: 1px solid #fa9c1d;
     border-radius: 15px;
     /* Inside auto layout */
     flex: none;
@@ -182,7 +182,7 @@
     width: 280px;
     height: 37px;
     /* TextInputColor */
-    background: #FFFFFF;
+    background: #ffffff;
     /* Primary/Main */
     /* border: 1px solid #FA9C1D; */
     border-radius: 8px;
@@ -195,11 +195,11 @@
 }
 
 .cr_Box:hover {
-    background-color: #FFDDAE;
+    background-color: #ffddae;
 }
 
 .cr_Box:focus {
-    background-color: #FFDDAE;
+    background-color: #ffddae;
 }
 
 .cr_ActivePartcipant {
@@ -213,7 +213,7 @@
     line-height: 17px;
     /* identical to box height */
     /* Text Dimmed/Main */
-    color: #8E8E8E;
+    color: #8e8e8e;
     /* Inside auto layout */
     flex: none;
     order: 0;
@@ -276,7 +276,7 @@
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
-    color: var(--SuccessDark)
+    color: var(--SuccessDark);
 }
 
 .cr_HeadText {
@@ -284,7 +284,7 @@
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
-    color: var(--TextDimmedMain)
+    color: var(--TextDimmedMain);
 }
 
 .cr_fileText {
@@ -292,11 +292,11 @@
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
-    color: var(--Black)
+    color: var(--Black);
 }
 
 .cr_star {
-    color: var(--ErrorMain)
+    color: var(--ErrorMain);
 }
 
 .cr_CounterBox {
@@ -328,7 +328,7 @@
     /* margin-right: 20px; */
     gap: 10px;
     width: 96%;
-    background: #FFFFFF;
+    background: #ffffff;
     /* Inside auto layout */
     flex: none;
     /* order: 3; */

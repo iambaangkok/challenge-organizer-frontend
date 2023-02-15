@@ -1,5 +1,5 @@
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 :root {
     --PrimaryLight: #ffddae;
@@ -28,84 +28,84 @@
 }
 
 .H1 {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     font-size: 36px;
 }
 
 .H2 {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     font-size: 28px;
 }
 
 .H3 {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     font-size: 22px;
 }
 
 .TextRegular {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
 }
 
 .TextMedium {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
 }
 
 .TextBold {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
 }
 
 .S1Regular {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
 }
 
 .S1Medium {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
 }
 
 .S1Bold {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
 }
 
 .S2Regular {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
 }
 
 .S2Medium {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
 }
 
 .S2Bold {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     font-size: 12px;
@@ -132,7 +132,7 @@ hr {
 .button-primary {
     background: var(--PrimaryMain);
     border-radius: 30px;
-    
+
     text-transform: none;
 }
 

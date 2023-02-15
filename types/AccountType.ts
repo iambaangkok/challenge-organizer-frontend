@@ -1,1 +1,1 @@
-export type AccountType = "StdAcc" | "AlumAcc" | "MISEmpAcc";
+export type AccountType = 'StdAcc' | 'AlumAcc' | 'MISEmpAcc';
