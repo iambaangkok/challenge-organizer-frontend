@@ -15,6 +15,8 @@ import StarRating from '../../components/challenge/StarRating';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { ButtonTheme } from '../../theme/Button';
+import { fetchChallengeData, joinChallenge, leaveChallenge } from './services';
+import { getFormattedDate } from '../../utils/utils';
 
 export interface TabData {
     index: number;
@@ -75,9 +77,10 @@ export interface ChallengePageData {
 }
 
 export default function Challenge() {
-    // Variables
     const router = useRouter();
     const { challengeTitle } = router.query;
+
+    // useStates
 
     const [loading, setLoading] = useState<boolean>(false);
     const [tabValue, setTabValue] = useState<number>(0);
@@ -85,34 +88,38 @@ export default function Challenge() {
     const [challengePageData, setChallengePageData] =
         useState<ChallengePageData>();
 
+    const [displayName, setDisplayName] = useState('');
+
     // Functions
 
-    async function handleTabChange(
+    const handleTabChange = (
         _event: React.ChangeEvent<{}>,
         newTabValue: number,
-    ) {
+    ) => {
         setTabValue(newTabValue);
-    }
+    };
 
-    function getMonthName(monthNumber: number) {
-        const date = new Date();
-        date.setMonth(monthNumber);
+    const handleJoin = async (displayName: string) => {
+        await joinChallenge(displayName);
+    };
 
-        return date.toLocaleString('en-US', { month: 'long' });
-    }
-
-    function getFormattedDate(unformattedDate: string) {
-        const date = new Date(unformattedDate);
-
-        return `${getMonthName(date.getMonth()).substring(
-            0,
-            3,
-        )} ${date.getDate()}, ${date.getFullYear()}`;
-    }
+    const handleLeave = async (displayName: string) => {
+        await leaveChallenge(displayName);
+    };
 
     // useCallbacks
 
-    const fetchTabData = useCallback(async () => {
+    const getChallengeData = useCallback(async () => {
+        setLoading(true);
+        if (challengeTitle) {
+            setChallengePageData(
+                await fetchChallengeData(challengeTitle as string),
+            );
+        }
+        setLoading(false);
+    }, [challengeTitle]);
+
+    const getTabData = useCallback(async () => {
         const newTabData = testPostListsByTabs.find((x) => {
             return x.index == tabValue;
         }) as unknown as TabData;
@@ -120,28 +127,23 @@ export default function Challenge() {
         setTabData(newTabData);
     }, [tabValue]);
 
-    // Fetching Data from API
-    const fetchChallengeData = useCallback(async () => {
-        setLoading(true);
-        await axios
-            .get(`http://localhost:3030/api/challenges/${challengeTitle}`)
-            .then((resp) => {
-                setChallengePageData(resp.data);
-            })
-            .catch((err) => {})
-            .finally(() => {
-                setLoading(false);
-            });
-    }, [challengeTitle]);
-
     // useEffects
 
     useEffect(() => {
-        fetchChallengeData();
-        fetchTabData();
-    }, [fetchChallengeData, fetchTabData]);
+        getChallengeData();
+        getTabData();
+    }, [getChallengeData, getTabData]);
 
-    console.log(challengePageData);
+    useEffect(() => {
+        if (localStorage.getItem('displayName') !== null) {
+            setDisplayName(`/${localStorage.getItem('displayName')}`);
+        } else {
+            setDisplayName(``);
+        }
+        console.log(displayName);
+    }, []);
+
+    const userIsJoined = challengePageData?.participants.includes(displayName);
 
     return (
         <ThemeProvider theme={ButtonTheme}>
@@ -172,41 +174,67 @@ export default function Challenge() {
                                         ? challengePageData.challengeTitle
                                         : 'TitleText'}
                                 </div>
-                                <Button
-                                    id="StatusButton"
-                                    variant="contained"
-                                    className={
-                                        styles['status-button'] +
-                                        ' button-primary H3'
-                                    }
-                                    disableElevation
-                                >
-                                    {'Join'}
-                                </Button>
+                                {userIsJoined ? (
+                                    <Button
+                                        onClick={() => {
+                                            handleJoin(displayName);
+                                        }}
+                                        id="StatusButton"
+                                        variant="contained"
+                                        className={
+                                            styles['status-button'] +
+                                            ' button-primary H3'
+                                        }
+                                        disableElevation
+                                    >
+                                        {'Join'}
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        onClick={() => {
+                                            handleLeave(displayName);
+                                        }}
+                                        id="StatusButton"
+                                        variant="contained"
+                                        className={
+                                            styles['status-button'] +
+                                            ' button-primary H3'
+                                        }
+                                        disableElevation
+                                    >
+                                        {'Leave'}
+                                    </Button>
+                                )}
                             </div>
                         </div>
                         <div className={styles['title-right']}>
-                            <Link
-                                id={'EditChallengeButton'}
-                                href={{
-                                    pathname: '/editchallenge',
-                                    query: { id: 'CHALLENGEID' },
-                                }}
-                                style={{
-                                    textDecoration: 'none',
-                                }}
-                            >
-                                <Button
-                                    variant="contained"
-                                    className={
-                                        styles['editchallenge-button'] +
-                                        ' button-primary H3'
-                                    }
-                                    disableElevation
+                            {displayName &&
+                            challengePageData?.host &&
+                            displayName == challengePageData.host ? (
+                                <Link
+                                    id={'EditChallengeButton'}
+                                    href={{
+                                        pathname: '/editchallenge',
+                                        query: { id: 'CHALLENGEID' },
+                                    }}
+                                    style={{
+                                        textDecoration: 'none',
+                                    }}
                                 >
-                                    {'Edit Challenge'}
-                                </Button>
-                            </Link>
+                                    <Button
+                                        variant="contained"
+                                        className={
+                                            styles['editchallenge-button'] +
+                                            ' button-primary H3'
+                                        }
+                                        disableElevation
+                                    >
+                                        {'Edit Challenge'}
+                                    </Button>
+                                </Link>
+                            ) : (
+                                ''
+                            )}
                         </div>
                     </div>
                     <Tabs
