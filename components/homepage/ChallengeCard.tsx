@@ -1,18 +1,24 @@
 import styles from './css/ChallengeCard.module.scss';
-import { Rating } from '@mui/material';
+import Rating from '@mui/material/Rating';
 import Link from 'next/link';
 import Image from 'next/image';
-import { BiUser } from 'react-icons/bi';
+import { BiUser } from 'react-icons/bi/';
+import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { ChallengeCardData } from '../../types/DataType';
 
 export default function ChallengeCard(data: ChallengeCardData) {
+    const startDate = new Date(data.startDate).toLocaleDateString();
+    const endDate = new Date(data.endDate).toLocaleDateString();
+
+    // console.log(data.join)
+
     return (
         // Each challenge card routes to its own challenge page
         <Link
             id={'ChallengeCard'}
             href={{
                 pathname: '/challenge',
-                query: { id: data.challengeID },
+                query: { id: data.challengeId },
             }}
             className="no-underline"
         >
@@ -20,7 +26,7 @@ export default function ChallengeCard(data: ChallengeCardData) {
             <div className={styles['ChallengeCard']}>
                 {/* Background Image */}
                 <Image
-                    src={data.img}
+                    src="/pingpong.jpg"
                     alt={'test'}
                     fill
                     className={styles['Img']}
@@ -30,12 +36,13 @@ export default function ChallengeCard(data: ChallengeCardData) {
                     <div className={styles['Top']}>
                         <div className={styles['Left']}>
                             <div className={styles['ChallengeName'] + ' H3'}>
-                                {data.challengeName}
+                                {data.challengeTitle}
                             </div>
                             <Rating
                                 name="simple-controlled"
                                 value={data.rating}
                                 readOnly
+                                precision={0.1}
                             />
                         </div>
                         <div>
@@ -47,7 +54,7 @@ export default function ChallengeCard(data: ChallengeCardData) {
                                     Format: {data.format}
                                 </div>
                                 <div className={styles['Type'] + ' TextMedium'}>
-                                    Date: {data.date}
+                                    Date: {startDate} - {endDate}
                                 </div>
                             </div>
                         </div>
@@ -66,18 +73,18 @@ export default function ChallengeCard(data: ChallengeCardData) {
 
                         {/* ChallengeStatus : Number of participants , Open/Closed */}
                         <div className={styles['ChallengeStatus']}>
-                            {data.joined && (
+                            {data.join && (
                                 <div className={styles['Joined'] + ' TextBold'}>
-                                    Joined
+                                    <div>Joined</div> <BsFillCheckCircleFill />
                                 </div>
                             )}
-                            <BiUser className={styles['Icon']} />
                             <div
                                 className={
                                     styles['NumParticipants'] + ' TextBold'
                                 }
                             >
-                                {data.numParticipants} / {data.maxParticipants}
+                                <BiUser className={styles['Icon']} />
+                                {data.numParticipants}/{data.maxParticipants}
                             </div>
                             {data.closed && (
                                 <div className={styles['Closed'] + ' TextBold'}>

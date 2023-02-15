@@ -10,17 +10,21 @@ export default function Layout({ children }: any) {
     const [fullName, setFullName] = useState('');
     const [cmuAccount, setCmuAccount] = useState('');
     const [studentId, setStudentId] = useState('');
+
     const [errorMessage, setErrorMessage] = useState('');
+
+    // state
     const [loading, setLoading] = useState<boolean>(false);
     const [loggedIn, setLoggedIn] = useState<boolean>(false);
-
-    const router = useRouter().asPath;
+	
+    const router = useRouter();
 
     const getInfo = () => {
         //All cookies that belong to the current url will be sent with the request automatically
         //so we don't have to attach token to the request
         //You can view token (stored in cookies storage) in browser devtools (F12). Open tab "Application" -> "Cookies"
         setLoading(true);
+        setLoggedIn(false);
         axios
             .get<{}, AxiosResponse<WhoAmIResponse>, {}>('/api/whoAmI')
             .then((response) => {
@@ -35,6 +39,7 @@ export default function Layout({ children }: any) {
                 }
             })
             .catch((error: AxiosError<WhoAmIResponse>) => {
+                localStorage.removeItem('displayName');
                 if (!error.response) {
                     setErrorMessage(
                         'Cannot connect to the network. Please try again later.',
@@ -54,16 +59,36 @@ export default function Layout({ children }: any) {
             });
     };
 
-    useEffect(getInfo, [router]);
+    useEffect(getInfo, [router.pathname]);
 
     if (loading) {
         return (
-            <div>
-                <CircularProgress />
+            <div className="h-screen flex flex-col justify-center space-y-5">
+                <div className="flex justify-center H1">Loading</div>
+                <div className="flex justify-center">
+                    <CircularProgress
+                        size={100}
+                        thickness={5}
+                        sx={{ color: '#fa9c1d' }}
+                    />
+                </div>
             </div>
         );
     }
 
+    // if (cookieExpired) {
+
+    // 	router.push('/home')
+
+    // return (
+    // 	<div className="h-screen flex flex-col justify-center">
+    // 		<div className="flex justify-center">
+    // 			<div>Please login</div>
+    // 			<CircularProgress size={100} thickness={5} sx={{color:'#fa9c1d'}}/>
+    // 		</div>
+    // 	</div>
+    // )
+    // }
     return (
         <>
             <Navbar loginStatus={loggedIn} fullName={fullName} />

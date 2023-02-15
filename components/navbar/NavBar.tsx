@@ -1,14 +1,22 @@
 import styles from './css/NavBar.module.scss';
-import ProfileDropdown from './ProfileDropdown';
-import { navLinks, restrictedLink } from '../../lib/navLinks';
-import Notification from './Notification';
 
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+
+import ProfileDropdown from './ProfileDropdown';
+import Notification from './Notification';
+
+import { navLinks, restrictedLink } from '../../lib/navLinks';
+import { notificationList } from '../../lib/notificationList';
+
 import { NavLinks } from '../../types/Request';
 
 export default function NavBar({ loginStatus, fullName }: any) {
     const router = useRouter();
+
+    // fetch notification list
+    // if(loginStatus)
+    //      axios.get()
 
     return (
         <div className={styles.NavBar + ' ShadowContainer'}>
@@ -47,7 +55,12 @@ export default function NavBar({ loginStatus, fullName }: any) {
             </div>
             {/* Right */}
             <div className={styles.Right}>
-                <Notification badgeContent={2} />
+                {loginStatus && (
+                    <Notification
+                        badgeContent={notificationList.length}
+                        notificationList={notificationList}
+                    />
+                )}
                 <ProfileDropdown
                     loginStatus={loginStatus}
                     fullName={fullName}

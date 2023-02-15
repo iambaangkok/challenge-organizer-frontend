@@ -1,40 +1,59 @@
 import { testChallengeList } from '../../lib/challengeList';
 import ChallengeCard from './ChallengeCard';
-import styles from './css/ChallengeDashboard.module.scss';
-import { ChallengeCardData } from '../../types/DataType';
-import { useState } from 'react';
+import styles from './css/ChallengeDashboard.module.css';
 
-import { Button, FormControl, MenuItem, Select } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useEffect, useState } from 'react';
 import Skeleton from '@mui/material/Skeleton';
 import { HiArrowNarrowDown, HiArrowNarrowUp } from 'react-icons/hi';
+import { ChallengeCardData } from '../../types/DataType';
+import axios from 'axios';
+import Link from 'next/link';
+
+import { Button, FormControl, MenuItem, Select } from '@mui/material';
 import { ButtonTheme } from '../../theme/Button';
 import { SelectTheme } from '../../theme/Select';
 
 export default function ChallengeDashboard() {
     const [loading, setLoading] = useState(false);
-    const [challengeList, setChallengeList] = useState<[ChallengeCardData]>();
-    const [filterState, setFilterState] = useState<string>('All');
-    const [sortState, setSortState] = useState<string>('AZ');
+    const [challengeList, setChallengeList] = useState<
+        [ChallengeCardData] | null
+    >(null);
+
+    const [filterState, setFilterState] = useState<string>('all');
+    const [sortState, setSortState] = useState<string>('a-z');
+
+    const [displayName, setDisplayName] = useState('');
+
+    useEffect(() => {
+        if (localStorage.getItem('displayName') !== null) {
+            setDisplayName(`/${localStorage.getItem('displayName')}`);
+        } else {
+            setDisplayName(``);
+        }
+        console.log(displayName);
+    }, []);
 
     // Fetching Data from API
-    // useEffect(() => {
-    //     setLoading(false) // Set this before deploy
-    //     fetch('/api/profile-data')
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             setLoading(false)
-    //         })
-    // }, [])
+    const getChallengeList = () => {
+        setLoading(true);
+        axios
+            .get(`http://localhost:3001/api/challenges${displayName}`, {
+                // params: {
+                //     sort: sortState,
+                //     filter: filterState
+                // }
+            })
+            .then((resp) => {
+                setChallengeList(resp.data);
+            })
+            .catch((err) => {})
+            .finally(() => {
+                setLoading(false);
+            });
+    };
 
-    // If the data is not loaded
-    if (loading) {
-        return (
-            <div>
-                <Skeleton variant="rectangular" width={1000} height={800} />
-            </div>
-        );
-    }
+    useEffect(getChallengeList, [displayName, filterState, sortState]);
 
     return (
         <div className={styles['ChallengeDashboard'] + ' ShadowContainer'}>
@@ -51,19 +70,32 @@ export default function ChallengeDashboard() {
                         <FormControl size="small">
                             <ThemeProvider theme={SelectTheme}>
                                 <Select
+                                    sx={{
+                                        '.MuiOutlinedInput-notchedOutline': {
+                                            borderColor: '#FA9C1D',
+                                        },
+                                        '&.Mui-focused .MuiOutlinedInput-notchedOutline':
+                                            {
+                                                borderColor: '#DB8D23',
+                                            },
+                                        '&:hover .MuiOutlinedInput-notchedOutline':
+                                            {
+                                                borderColor: '#DB8D23',
+                                            },
+                                    }}
                                     value={filterState}
                                     onChange={(event) => {
                                         setFilterState(event.target.value);
                                     }}
                                 >
-                                    <MenuItem value={'All'}>All</MenuItem>
-                                    <MenuItem value={'Ongoing'}>
+                                    <MenuItem value={'all'}>All</MenuItem>
+                                    <MenuItem value={'ongoing'}>
                                         Ongoing
                                     </MenuItem>
-                                    <MenuItem value={'Upcoming'}>
+                                    <MenuItem value={'upcoming'}>
                                         Upcoming
                                     </MenuItem>
-                                    <MenuItem value={'Past'}>Past</MenuItem>
+                                    <MenuItem value={'past'}>Past</MenuItem>
                                 </Select>
                             </ThemeProvider>
                         </FormControl>
@@ -80,19 +112,19 @@ export default function ChallengeDashboard() {
                                         setSortState(event.target.value);
                                     }}
                                 >
-                                    <MenuItem value={'AZ'}>A-Z</MenuItem>
-                                    <MenuItem value={'ZA'}>Z-A</MenuItem>
-                                    <MenuItem value={'RecentAsc'}>
+                                    <MenuItem value={'a-z'}>A-Z</MenuItem>
+                                    <MenuItem value={'z-a'}>Z-A</MenuItem>
+                                    <MenuItem value={'recent-asc'}>
                                         {' '}
                                         Recent <HiArrowNarrowUp />
                                     </MenuItem>
-                                    <MenuItem value={'RecentDesc'}>
+                                    <MenuItem value={'recent-desc'}>
                                         Recent <HiArrowNarrowDown />
                                     </MenuItem>
-                                    <MenuItem value={'RatingAsc'}>
+                                    <MenuItem value={'rating-asc'}>
                                         Rating <HiArrowNarrowUp />
                                     </MenuItem>
-                                    <MenuItem value={'RatingDesc'}>
+                                    <MenuItem value={'rating-desc'}>
                                         Rating <HiArrowNarrowDown />
                                     </MenuItem>
                                 </Select>
@@ -102,12 +134,14 @@ export default function ChallengeDashboard() {
                 </div>
 
                 {/* Create Challenge Button */}
-                <div className={styles['CreateChallengeButton']}>
-                    <ThemeProvider theme={ButtonTheme}>
-                        <Button variant="contained" size="small">
-                            Create a new Challenge
-                        </Button>
-                    </ThemeProvider>
+                <div>
+                    <Link href="/challenges/create" className="no-underline">
+                        <ThemeProvider theme={ButtonTheme}>
+                            <Button variant="contained">
+                                Create a new Challenge
+                            </Button>
+                        </ThemeProvider>
+                    </Link>
                 </div>
             </div>
 
@@ -118,11 +152,20 @@ export default function ChallengeDashboard() {
 
             {/* Challenge List */}
             <div className={styles['ChallengeList']}>
-                {testChallengeList.map(
-                    (challenge: ChallengeCardData, index) => {
-                        return <ChallengeCard key={index} {...challenge} />;
-                    },
+                {loading && (
+                    <div className="flex flex-col space-y-2">
+                        <Skeleton variant="rectangular" height={154} />
+                        <Skeleton variant="rectangular" height={154} />
+                        <Skeleton variant="rectangular" height={154} />
+                        <Skeleton variant="rectangular" height={154} />
+                        <Skeleton variant="rectangular" height={154} />
+                    </div>
                 )}
+                {!loading &&
+                    challengeList !== null &&
+                    challengeList.map((challenge: ChallengeCardData, index) => {
+                        return <ChallengeCard key={index} {...challenge} />;
+                    })}
             </div>
         </div>
     );
