@@ -1,21 +1,24 @@
-import styles from './css/InventoryItem.module.css'
-import Image from 'next/image'
+import styles from './css/InventoryItem.module.css';
+import Image from 'next/image';
 
 export default function InventoryItem() {
     return (
-        <div className={styles.InventoryItem + ' ShadowContainer relative overflow-hidden'}>
+        <div
+            className={
+                styles.InventoryItem +
+                ' ShadowContainer relative overflow-hidden'
+            }
+        >
             <Image
-                src='/pingpong.jpg'
+                src="/pingpong.jpg"
                 alt={'test'}
                 fill
                 style={{
-                    objectFit: 'cover'
+                    objectFit: 'cover',
                 }}
                 className={styles.Img}
             />
-            <div className='text-white'>
-                Item Name Placeholder
-            </div>
+            <div className="text-white">Item Name Placeholder</div>
         </div>
-    )
+    );
 }

@@ -1,17 +1,17 @@
-import { deleteCookie } from "cookies-next";
-import { NextApiRequest, NextApiResponse } from "next";
+import { deleteCookie } from 'cookies-next';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<{ ok: true }>
+    req: NextApiRequest,
+    res: NextApiResponse<{ ok: true }>,
 ) {
-  deleteCookie("cmu-oauth-token", {
-    req,
-    res,
-    path: "/",
-    //change to your hostname in production
-    domain: "localhost",
-  });
+    deleteCookie('cmu-oauth-token', {
+        req,
+        res,
+        path: '/',
+        //change to your hostname in production
+        domain: 'localhost',
+    });
 
-  return res.json({ ok: true });
+    return res.json({ ok: true });
 }

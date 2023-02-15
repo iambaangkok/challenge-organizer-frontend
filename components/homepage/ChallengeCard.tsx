@@ -1,22 +1,21 @@
-import styles from './css/ChallengeCard.module.scss'
+import styles from './css/ChallengeCard.module.scss';
 import { Rating } from '@mui/material';
 import Link from 'next/link';
-import Image from 'next/image'
-import { BiUser } from "react-icons/bi";
+import Image from 'next/image';
+import { BiUser } from 'react-icons/bi';
 import { ChallengeCardData } from '../../types/DataType';
 
 export default function ChallengeCard(data: ChallengeCardData) {
-    
     return (
         // Each challenge card routes to its own challenge page
         <Link
-            id={"ChallengeCard"}
+            id={'ChallengeCard'}
             href={{
                 pathname: '/challenge',
                 query: { id: data.challengeID },
-            }} 
-            className='no-underline'>
-
+            }}
+            className="no-underline"
+        >
             {/* Challenge Card */}
             <div className={styles['ChallengeCard']}>
                 {/* Background Image */}
@@ -39,45 +38,56 @@ export default function ChallengeCard(data: ChallengeCardData) {
                                 readOnly
                             />
                         </div>
-                        <div> 
-                            <div className='flex space-x-4'>
-                                <div className={styles['Type'] + ' TextMedium'}>Type: {data.type}</div>
-                                <div className={styles['Type'] + ' TextMedium'}>Format: {data.format}</div>
-                                <div className={styles['Type'] + ' TextMedium'}>Date: {data.date}</div>
+                        <div>
+                            <div className="flex space-x-4">
+                                <div className={styles['Type'] + ' TextMedium'}>
+                                    Type: {data.type}
+                                </div>
+                                <div className={styles['Type'] + ' TextMedium'}>
+                                    Format: {data.format}
+                                </div>
+                                <div className={styles['Type'] + ' TextMedium'}>
+                                    Date: {data.date}
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div className={styles['Bottom']}>
                         <div className={styles['ChallengeDescription']}>
-                            <div className={styles['Description'] + ' TextRegular'}>
+                            <div
+                                className={
+                                    styles['Description'] + ' TextRegular'
+                                }
+                            >
                                 {data.description}
                             </div>
                         </div>
 
                         {/* ChallengeStatus : Number of participants , Open/Closed */}
                         <div className={styles['ChallengeStatus']}>
-                            {
-                                data.joined &&
+                            {data.joined && (
                                 <div className={styles['Joined'] + ' TextBold'}>
                                     Joined
                                 </div>
-                            }
+                            )}
                             <BiUser className={styles['Icon']} />
-                            <div className={styles['NumParticipants'] + ' TextBold'}>
+                            <div
+                                className={
+                                    styles['NumParticipants'] + ' TextBold'
+                                }
+                            >
                                 {data.numParticipants} / {data.maxParticipants}
                             </div>
-                            {
-                                data.closed &&
+                            {data.closed && (
                                 <div className={styles['Closed'] + ' TextBold'}>
                                     Closed
                                 </div>
-                            }
+                            )}
                         </div>
                     </div>
                 </div>
             </div>
         </Link>
-
-    )
+    );
 }

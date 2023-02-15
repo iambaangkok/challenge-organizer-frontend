@@ -1,6 +1,6 @@
-import { test, expect, selectors } from "@playwright/test";
+import { test, expect, selectors } from '@playwright/test';
 
-const url = "/home";
+const url = '/home';
 
 // test("website has redirect link to CMUOAuth", async ({ page }) => {
 //     await page.goto(url);

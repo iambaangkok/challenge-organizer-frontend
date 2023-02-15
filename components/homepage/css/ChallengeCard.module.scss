@@ -113,7 +113,6 @@
     color: var(--White);
 }
 
-
 .NumParticipants {
     color: var(--White);
 }
@@ -129,12 +128,11 @@
     z-index: -1;
     opacity: 0.8;
     transition: 0.2s ease-in;
-    filter: brightness(47.5%)
+    filter: brightness(47.5%);
 }
 
 .ChallengeStatus {
     display: flex;
     gap: 0.25rem;
     align-items: center;
-
 }

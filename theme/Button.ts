@@ -1,6 +1,6 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material/styles';
 
-// Color code 
+// Color code
 var PrimaryLight = '#FFDDAE';
 var PrimaryMain = '#FA9C1D';
 var PrimaryDark = '#EA7000';
@@ -19,15 +19,16 @@ declare module '@mui/material/Button' {
 
 export const ButtonTheme = createTheme({
     components: {
-        'MuiButton': {
+        MuiButton: {
             // 'rounded' variants
             variants: [
                 {
                     props: {
-                        variant: 'rounded', size: 'small'
+                        variant: 'rounded',
+                        size: 'small',
                     },
                     style: {
-                        color:White ,
+                        color: White,
                         fontSize: '12px',
                         padding: '6px 12px',
                         borderRadius: '20px',
@@ -43,10 +44,11 @@ export const ButtonTheme = createTheme({
                 },
                 {
                     props: {
-                        variant: 'rounded', size: 'medium'
+                        variant: 'rounded',
+                        size: 'medium',
                     },
                     style: {
-                        color:White ,
+                        color: White,
                         fontSize: '14px',
                         padding: '10px 16px',
                         borderRadius: '20px',
@@ -62,10 +64,11 @@ export const ButtonTheme = createTheme({
                 },
                 {
                     props: {
-                        variant: 'rounded', size: 'large'
+                        variant: 'rounded',
+                        size: 'large',
                     },
                     style: {
-                        color:White ,
+                        color: White,
                         fontSize: '16px',
                         padding: '14px 20px',
                         borderRadius: '30px',
@@ -83,7 +86,7 @@ export const ButtonTheme = createTheme({
 
             styleOverrides: {
                 root: {
-                    height: 'auto' ,
+                    height: 'auto',
                     fontStyle: 'normal',
                     fontWeight: '700',
                     boxShadow: 'none',
@@ -94,7 +97,7 @@ export const ButtonTheme = createTheme({
                         transform: 'scale(0.99)',
                     },
                     ':disabled': {
-                        opacity: '0.5'
+                        opacity: '0.5',
                     },
                 },
                 containedPrimary: {
@@ -102,35 +105,32 @@ export const ButtonTheme = createTheme({
                     ':disabled': {
                         color: White,
                         backgroundColor: PrimaryMain,
-                    }
+                    },
                 },
                 containedSecondary: {
                     color: PrimaryMain,
                     ':disabled': {
                         color: PrimaryMain,
                         backgroundColor: SecondaryMain,
-                    }
+                    },
                 },
                 containedSizeSmall: {
                     fontSize: '12px',
                     padding: '6px 12px',
-                    borderRadius: '8px'
+                    borderRadius: '8px',
                 },
                 containedSizeMedium: {
                     fontSize: '14px',
                     padding: '10px 16px',
-                    borderRadius: '11px'
+                    borderRadius: '11px',
                 },
                 containedSizeLarge: {
                     fontSize: '16px',
                     padding: '14px 20px',
-                    borderRadius: '15px'
+                    borderRadius: '15px',
                 },
             },
-            
-            
         },
-        
     },
     typography: {
         fontFamily: 'Inter',
@@ -144,7 +144,7 @@ export const ButtonTheme = createTheme({
         secondary: {
             main: SecondaryMain,
             light: SecondaryLight,
-            dark: SecondaryMain  // use Secondary/Main because hover color == default color
+            dark: SecondaryMain, // use Secondary/Main because hover color == default color
         },
-    }
-})
+    },
+});
