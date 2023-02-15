@@ -21,36 +21,45 @@ export default function ChallengeDashboard() {
     const [filterState, setFilterState] = useState<string>('all');
     const [sortState, setSortState] = useState<string>('a-z');
 
-    const [displayName, setDisplayName] = useState('');
+    const [displayName, setDisplayName] = useState<string>('');
+    const [route, setRoute] = useState<string>('')
 
     useEffect(() => {
         if (localStorage.getItem('displayName') !== null) {
-            setDisplayName(`/${localStorage.getItem('displayName')}`);
+            setDisplayName(`/${localStorage.getItem('displayName')}`)
+            setRoute('/by-user-display-name')
         } else {
             setDisplayName(``);
+            setRoute('')
         }
         console.log(displayName);
-    }, []);
+    }, [displayName]);
 
     // Fetching Data from API
-    const getChallengeList = useCallback(async () => {
+    const getChallengeList = () => {
         setLoading(true);
-        const resp = await axios.get(
-            `http://localhost:3030/api/challenges/by-user-display-name/${displayName}`,
-        );
-        console.log(resp.status);
-        console.log(resp.data);
-        if (resp.status == 200) {
-            setChallengeList(resp.data);
-        } else {
-            setChallengeList([]);
-        }
-        setLoading(false);
-    }, [displayName, filterState, sortState]);
 
-    useEffect(() => {
-        getChallengeList();
-    }, [getChallengeList]);
+        // console.log(`http://localhost:3030/api/challenges/by-user-display-name/${displayName}`)
+
+        axios
+            .get(`http://localhost:3030/api/challenges${route}${displayName}`, {
+                params: {
+                    filter: filterState,
+                    sort: sortState
+                }
+            })
+            .then((resp) => {
+                setChallengeList(resp.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+            .finally(() => {
+                setLoading(false);
+            })
+    }
+
+    useEffect(getChallengeList, [displayName, filterState, route, sortState])
 
     return (
         <div className={styles['ChallengeDashboard'] + ' ShadowContainer'}>
@@ -72,13 +81,13 @@ export default function ChallengeDashboard() {
                                             borderColor: '#FA9C1D',
                                         },
                                         '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                                            {
-                                                borderColor: '#DB8D23',
-                                            },
+                                        {
+                                            borderColor: '#DB8D23',
+                                        },
                                         '&:hover .MuiOutlinedInput-notchedOutline':
-                                            {
-                                                borderColor: '#DB8D23',
-                                            },
+                                        {
+                                            borderColor: '#DB8D23',
+                                        },
                                     }}
                                     value={filterState}
                                     onChange={(event) => {

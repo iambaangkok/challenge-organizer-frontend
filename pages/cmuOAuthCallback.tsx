@@ -1,5 +1,6 @@
 import CircularProgress from "@mui/material/CircularProgress";
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { deleteCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AuthorizationRequest, AuthorizationResponse } from "../types/Request";
@@ -20,28 +21,12 @@ export default function CMUOAuthCallback() {
             .post<SignInResponse>('api/signIn', { authorizationCode: code })
             .then(async (resp) => {
                 if (resp.data.ok) {
-                    // get API Token
-                    await axios
-                        .get<{}, AxiosResponse, {}>('api/whoAmI')
-                        .then((response) => {
-                            if (response.data.ok) {
-                                // console.log(response.data)
-                                // axios.post<AuthorizationResponse>('http://locahost:3001/users', {
-                                // 	username: response.data.firstName + " " + response.data.lastName,
-                                // 	cmuAccount: response.data.cmuAccount,
-                                // 	studentId: response.data.studentId
-                                // }).then((resp) => {
-                                // 	console.log(resp.data)
-                                // })
-                            }
-                        });
-
 					// get API Token
 					await axios
-						.get<{}, AxiosResponse, {}>('http://localhost:3000/api/whoAmI')
+						.get<{}, AxiosResponse, {}>('api/whoAmI')
 						.then((response) => {
 							if (response.data.ok) {
-								axios.post<AuthorizationResponse>('http://localhost:3001/api/users', {
+								axios.post<AuthorizationResponse>('http://localhost:3030/api/users', {
 									firstName: response.data.firstName,
 									lastName: response.data.lastName,
 									cmuAccount: response.data.cmuAccount,
@@ -55,6 +40,7 @@ export default function CMUOAuthCallback() {
 							}
 						}).catch((err) => {
 							console.log(err)
+							deleteCookie('cmu-oauth-token')
 						})
 
 					router.push('/home')
