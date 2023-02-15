@@ -63,14 +63,6 @@ export default function DateSelector(data: any) {
                             },
                         ],
                     }}
-                    inputProps={{
-                        style: {
-                            fontSize: 14,
-                            fontFamily: 'Inter',
-                            fontWeight: 500,
-                            fontStyle: 'normal',
-                        },
-                    }}
                 />
             </ThemeProvider>
         </LocalizationProvider>

@@ -98,7 +98,6 @@ export default function TextField_(data: any) {
     };
 
     return (
-        <ThemeProvider theme={theme}>
             <TextField
                 id="outlined-multiline-flexible"
                 multiline={data.multiline ? true : false}
@@ -124,6 +123,6 @@ export default function TextField_(data: any) {
                 value={data.default ? data.default : ''}
                 // defaultValue = {data.default}
             />
-        </ThemeProvider>
+
     );
 }

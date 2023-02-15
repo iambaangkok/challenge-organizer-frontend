@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import styles from './css/CreationPage.module.css';
 import DateSelector from './AtomicComponent/DateSelector';
 import TextField_ from './AtomicComponent/TextField.';
@@ -147,333 +148,373 @@ export default function CreationPage() {
     };
 
     return (
-        <div className={styles.cr_Body}>
-            <div className={styles.cr_Container}>
-                <div className={styles.cr_Challenges}>
-                    <div className="ml-8">
-                        <p className="H1">Create a New Challenge</p>
-                    </div>
-                    <div className={styles.cr_line}></div>
-
-                    {/* content */}
-
-                    <div className={styles.cr_NewBody}>
-                        {/* menu */}
-                        <div className="flex gap-6">
-                            <div className={styles.cr_MenuTab}>
-                                <div className={styles.cr_Box}>
-                                    {' '}
-                                    <div className="S1Medium">General Info</div>
-                                </div>
-                                <div className={styles.cr_Box}>
-                                    {' '}
-                                    <div className="S1Medium">Reward</div>
-                                </div>
-                                <div className={styles.cr_Box}>
-                                    {' '}
-                                    <div className="S1Medium">
-                                        Collaborators
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* body */}
-                            <div className={styles.cr_InfoFrame}>
-                                {/* general info */}
-                                <div className="w-full py-2">
-                                    <div
-                                        className={styles.cr_HeadText + ' pb-2'}
-                                    >
-                                        Challenge Title{' '}
-                                        <span className={styles.cr_star}>
-                                            {' '}
-                                            *{' '}
-                                        </span>
-                                    </div>
-                                    <TextField_
-                                        {...Title}
-                                        returnText={setTitle}
-                                        returnLimit={setTitleLimit}
-                                        default={title}
-                                    ></TextField_>
-                                    <div className="flex justify-end mr-1 pt-1">
-                                        <div className={styles.cr_SuccessText}>
-                                            {`${titleLimit}/50`}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-full pb-2">
-                                    <div
-                                        className={styles.cr_HeadText + ' pb-2'}
-                                    >
-                                        Description(Optional)
-                                    </div>
-                                    <TextField_
-                                        {...Desc1}
-                                        returnText={setDesc}
-                                        returnLimit={setDescLimit}
-                                        default={desc}
-                                    ></TextField_>
-                                    <div className="flex justify-end mr-1 pt-1">
-                                        <div className={styles.cr_SuccessText}>
-                                            {`${descLimit}/400`}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-row gap-10 pb-2">
-                                    <div className={styles.cr_DateInside}>
-                                        <div
-                                            className={
-                                                styles.cr_HeadText + ' pb-2'
-                                            }
-                                        >
-                                            Start Date
-                                            <span className={styles.cr_star}>
-                                                {' '}
-                                                *{' '}
-                                            </span>
-                                        </div>
-                                        <DateSelector
-                                            {...double}
-                                            returnDate={setDate}
-                                            default={date}
-                                        ></DateSelector>
-                                    </div>
-                                    <div className={styles.cr_DateInside}>
-                                        <div
-                                            className={
-                                                styles.cr_HeadText + ' pb-2'
-                                            }
-                                        >
-                                            End Date
-                                            <span className={styles.cr_star}>
-                                                {' '}
-                                                *{' '}
-                                            </span>
-                                        </div>
-                                        <DateSelector
-                                            {...double}
-                                            returnDate={setEnd}
-                                            default={end}
-                                        >
-                                            {' '}
-                                        </DateSelector>
-                                    </div>
-                                </div>
-                                <div className="flex flex-row gap-10 pb-2">
-                                    <div className={styles.cr_DateInside}>
-                                        <div
-                                            className={
-                                                styles.cr_HeadText + ' pb-2'
-                                            }
-                                        >
-                                            Type
-                                            <span className={styles.cr_star}>
-                                                {' '}
-                                                *{' '}
-                                            </span>
-                                        </div>
-                                        <FormControl fullWidth>
-                                            <ThemeProvider theme={theme}>
-                                                <Select
-                                                    sx={[
-                                                        {
-                                                            '.MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
-                                                            '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
-                                                            '&:hover .MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
-                                                        },
-                                                        { width: 262 },
-                                                    ]}
-                                                    value={typeState}
-                                                    onChange={(
-                                                        event: SelectChangeEvent,
-                                                    ) => {
-                                                        setTypeState(
-                                                            event.target.value,
-                                                        );
-                                                    }}
-                                                >
-                                                    <MenuItem value={'single'}>
-                                                        Single
-                                                    </MenuItem>
-                                                    <MenuItem value={'team'}>
-                                                        Team
-                                                    </MenuItem>
-                                                </Select>
-                                            </ThemeProvider>
-                                        </FormControl>
-                                    </div>
-                                    <div className={styles.cr_DateInside}>
-                                        <div
-                                            className={
-                                                styles.cr_HeadText + ' pb-2'
-                                            }
-                                        >
-                                            Format
-                                            <span className={styles.cr_star}>
-                                                {' '}
-                                                *{' '}
-                                            </span>
-                                        </div>
-                                        <FormControl fullWidth>
-                                            <ThemeProvider theme={theme}>
-                                                <Select
-                                                    sx={[
-                                                        {
-                                                            '.MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
-                                                            '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
-                                                            '&:hover .MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
-                                                        },
-                                                        { width: 262 },
-                                                    ]}
-                                                    value={formatState}
-                                                    onChange={(
-                                                        event: SelectChangeEvent,
-                                                    ) => {
-                                                        setFormatState(
-                                                            event.target.value,
-                                                        );
-                                                    }}
-                                                >
-                                                    <MenuItem
-                                                        value={'point-based'}
-                                                    >
-                                                        Point Based
-                                                    </MenuItem>
-                                                    <MenuItem
-                                                        value={'elimination'}
-                                                    >
-                                                        Elimination
-                                                    </MenuItem>
-                                                    <MenuItem
-                                                        value={
-                                                            'double-elimination'
-                                                        }
-                                                    >
-                                                        Double Elimination
-                                                    </MenuItem>
-                                                </Select>
-                                            </ThemeProvider>
-                                        </FormControl>
-                                    </div>
-                                </div>
-
-                                <div className="pb-2">
-                                    <div
-                                        className={styles.cr_HeadText + ' pb-2'}
-                                    >
-                                        Participant Limit (0 for unlimited)
-                                        <span className={styles.cr_star}>
-                                            {' '}
-                                            *{' '}
-                                        </span>
-                                    </div>
-                                    <TextField_
-                                        {...Parti}
-                                        returnText={setParti}
-                                        returnLimit={setPartiLimit}
-                                        default={parti}
-                                    ></TextField_>
-                                </div>
-
-                                {/* Banner */}
-                                <div className="pb-2">
-                                    <div
-                                        className={styles.cr_HeadText + ' pb-2'}
-                                    >
-                                        Challenge Banner{' '}
-                                    </div>
-                                    <div className="flex flex-row place-content-center ">
-                                        <div
-                                            className={
-                                                styles.cr_fileText +
-                                                ' my-2 pr-4'
-                                            }
-                                        >
-                                            placeholder.jpg{' '}
-                                        </div>
-
-                                        <ThemeProvider theme={ButtonTheme}>
-                                            <Button
-                                                variant="contained"
-                                                size="medium"
-                                                color="secondary"
-                                                component="label"
-                                                sx={[
-                                                    { width: 70 },
-                                                    { height: 40 },
-                                                ]}
-                                            >
-                                                upload
-                                                <input
-                                                    hidden
-                                                    accept="image/*"
-                                                    multiple
-                                                    type="file"
-                                                />
-                                            </Button>
-                                        </ThemeProvider>
-                                    </div>
-                                </div>
-                            </div>
+        <ThemeProvider theme={theme}>
+            <div className={styles.cr_Body}>
+                <Head>
+                    <title>Challenge Creation</title>
+                </Head>
+                <div className={styles.cr_Container}>
+                    <div className={styles.cr_Challenges}>
+                        <div className="ml-8">
+                            <p className="H1">Create a New Challenge</p>
                         </div>
+                        <div className={styles.cr_line}></div>
 
-                        {/* button */}
-                        <div className={styles.cr_Buttonsession}>
-                            {/* create */}
-                            <div>
-                                <ThemeProvider theme={ButtonTheme}>
-                                    <Button
-                                        variant="contained"
-                                        size="medium"
-                                        onClick={handleCreate}
-                                    >
-                                        create challenge
-                                    </Button>
-                                </ThemeProvider>
+                        {/* content */}
+
+                        <div className={styles.cr_NewBody}>
+                            {/* menu */}
+                            <div className="flex gap-6">
+                                <div className={styles.cr_MenuTab}>
+                                    <div className={styles.cr_Box}>
+                                        <div className="S1Medium">
+                                            General Info
+                                        </div>
+                                    </div>
+                                    <div className={styles.cr_Box}>
+                                        <div className="S1Medium">Reward</div>
+                                    </div>
+                                    <div className={styles.cr_Box}>
+                                        <div className="S1Medium">
+                                            Collaborators
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* body */}
+                                <div className={styles.cr_InfoFrame}>
+                                    {/* general info */}
+                                    <div className="w-full py-2">
+                                        <div
+                                            className={
+                                                styles.cr_HeadText + ' pb-2'
+                                            }
+                                        >
+                                            Challenge Title{' '}
+                                            <span className={styles.cr_star}>
+                                                {' '}
+                                                *{' '}
+                                            </span>
+                                        </div>
+                                        <TextField_
+                                            id={'ChallengeTitle'}
+                                            {...Title}
+                                            returnText={setTitle}
+                                            returnLimit={setTitleLimit}
+                                            default={title}
+                                        ></TextField_>
+                                        <div className="flex justify-end mr-1 pt-1">
+                                            <div
+                                                className={
+                                                    styles.cr_SuccessText
+                                                }
+                                            >
+                                                {`${titleLimit}/50`}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="w-full pb-2">
+                                        <div
+                                            className={
+                                                styles.cr_HeadText + ' pb-2'
+                                            }
+                                        >
+                                            Description(Optional)
+                                        </div>
+                                        <TextField_
+                                            title="Description"
+                                            {...Desc1}
+                                            returnText={setDesc}
+                                            returnLimit={setDescLimit}
+                                            default={desc}
+                                        ></TextField_>
+                                        <div className="flex justify-end mr-1 pt-1">
+                                            <div
+                                                className={
+                                                    styles.cr_SuccessText
+                                                }
+                                            >
+                                                {`${descLimit}/400`}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex flex-row gap-10 pb-2">
+                                        <div className={styles.cr_DateInside}>
+                                            <div
+                                                className={
+                                                    styles.cr_HeadText + ' pb-2'
+                                                }
+                                            >
+                                                Start Date
+                                                <span
+                                                    className={styles.cr_star}
+                                                >
+                                                    {' '}
+                                                    *{' '}
+                                                </span>
+                                            </div>
+                                            <DateSelector
+                                                {...double}
+                                                returnDate={setDate}
+                                                default={date}
+                                            ></DateSelector>
+                                        </div>
+                                        <div className={styles.cr_DateInside}>
+                                            <div
+                                                className={
+                                                    styles.cr_HeadText + ' pb-2'
+                                                }
+                                            >
+                                                End Date
+                                                <span
+                                                    className={styles.cr_star}
+                                                >
+                                                    {' '}
+                                                    *{' '}
+                                                </span>
+                                            </div>
+                                            <DateSelector
+                                                {...double}
+                                                returnDate={setEnd}
+                                                default={end}
+                                            >
+                                                {' '}
+                                            </DateSelector>
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-row gap-10 pb-2">
+                                        <div className={styles.cr_DateInside}>
+                                            <div
+                                                className={
+                                                    styles.cr_HeadText + ' pb-2'
+                                                }
+                                            >
+                                                Type
+                                                <span
+                                                    className={styles.cr_star}
+                                                >
+                                                    {' '}
+                                                    *{' '}
+                                                </span>
+                                            </div>
+                                            <FormControl fullWidth>
+                                                <ThemeProvider theme={theme}>
+                                                    <Select
+                                                        sx={[
+                                                            {
+                                                                '.MuiOutlinedInput-notchedOutline':
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
+                                                                '&.Mui-focused .MuiOutlinedInput-notchedOutline':
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
+                                                                '&:hover .MuiOutlinedInput-notchedOutline':
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
+                                                            },
+                                                            { width: 262 },
+                                                        ]}
+                                                        value={typeState}
+                                                        onChange={(
+                                                            event: SelectChangeEvent,
+                                                        ) => {
+                                                            setTypeState(
+                                                                event.target
+                                                                    .value,
+                                                            );
+                                                        }}
+                                                    >
+                                                        <MenuItem
+                                                            value={'single'}
+                                                        >
+                                                            Single
+                                                        </MenuItem>
+                                                        <MenuItem
+                                                            value={'team'}
+                                                        >
+                                                            Team
+                                                        </MenuItem>
+                                                    </Select>
+                                                </ThemeProvider>
+                                            </FormControl>
+                                        </div>
+                                        <div className={styles.cr_DateInside}>
+                                            <div
+                                                className={
+                                                    styles.cr_HeadText + ' pb-2'
+                                                }
+                                            >
+                                                Format
+                                                <span
+                                                    className={styles.cr_star}
+                                                >
+                                                    {' '}
+                                                    *{' '}
+                                                </span>
+                                            </div>
+                                            <FormControl fullWidth>
+                                                <ThemeProvider theme={theme}>
+                                                    <Select
+                                                        sx={[
+                                                            {
+                                                                '.MuiOutlinedInput-notchedOutline':
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
+                                                                '&.Mui-focused .MuiOutlinedInput-notchedOutline':
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
+                                                                '&:hover .MuiOutlinedInput-notchedOutline':
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
+                                                            },
+                                                            { width: 262 },
+                                                        ]}
+                                                        value={formatState}
+                                                        onChange={(
+                                                            event: SelectChangeEvent,
+                                                        ) => {
+                                                            setFormatState(
+                                                                event.target
+                                                                    .value,
+                                                            );
+                                                        }}
+                                                    >
+                                                        <MenuItem
+                                                            value={
+                                                                'point-based'
+                                                            }
+                                                        >
+                                                            Point Based
+                                                        </MenuItem>
+                                                        <MenuItem
+                                                            value={
+                                                                'elimination'
+                                                            }
+                                                        >
+                                                            Elimination
+                                                        </MenuItem>
+                                                        <MenuItem
+                                                            value={
+                                                                'double-elimination'
+                                                            }
+                                                        >
+                                                            Double Elimination
+                                                        </MenuItem>
+                                                    </Select>
+                                                </ThemeProvider>
+                                            </FormControl>
+                                        </div>
+                                    </div>
+
+                                    <div className="pb-2">
+                                        <div
+                                            className={
+                                                styles.cr_HeadText + ' pb-2'
+                                            }
+                                        >
+                                            Participant Limit (0 for unlimited)
+                                            <span className={styles.cr_star}>
+                                                {' '}
+                                                *{' '}
+                                            </span>
+                                        </div>
+                                        <TextField_
+                                            {...Parti}
+                                            returnText={setParti}
+                                            returnLimit={setPartiLimit}
+                                            default={parti}
+                                        ></TextField_>
+                                    </div>
+
+                                    {/* Banner */}
+                                    <div className="pb-2">
+                                        <div
+                                            className={
+                                                styles.cr_HeadText + ' pb-2'
+                                            }
+                                        >
+                                            Challenge Banner
+                                        </div>
+                                        <div className="flex flex-row place-content-center ">
+                                            <div
+                                                className={
+                                                    styles.cr_fileText +
+                                                    ' my-2 pr-4'
+                                                }
+                                            >
+                                                placeholder.jpg
+                                            </div>
+
+                                            <ThemeProvider theme={ButtonTheme}>
+                                                <Button
+                                                    variant="contained"
+                                                    size="medium"
+                                                    color="secondary"
+                                                    component="label"
+                                                    sx={[
+                                                        { width: 70 },
+                                                        { height: 40 },
+                                                    ]}
+                                                >
+                                                    upload
+                                                    <input
+                                                        hidden
+                                                        accept="image/*"
+                                                        multiple
+                                                        type="file"
+                                                    />
+                                                </Button>
+                                            </ThemeProvider>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            {/* save */}
-                            <div>
-                                <ThemeProvider theme={ButtonTheme}>
-                                    <Button
-                                        variant="contained"
-                                        size="medium"
-                                        color="secondary"
-                                        onClick={handleSave}
-                                    >
-                                        save
-                                    </Button>
-                                </ThemeProvider>
+
+                            {/* button */}
+                            <div className={styles.cr_Buttonsession}>
+                                {/* create */}
+                                <div>
+                                    <ThemeProvider theme={ButtonTheme}>
+                                        <Button
+                                            variant="contained"
+                                            size="medium"
+                                            onClick={handleCreate}
+                                        >
+                                            create challenge
+                                        </Button>
+                                    </ThemeProvider>
+                                </div>
+                                {/* save */}
+                                <div>
+                                    <ThemeProvider theme={ButtonTheme}>
+                                        <Button
+                                            variant="contained"
+                                            size="medium"
+                                            color="secondary"
+                                            onClick={handleSave}
+                                        >
+                                            save
+                                        </Button>
+                                    </ThemeProvider>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </ThemeProvider>
     );
 }
