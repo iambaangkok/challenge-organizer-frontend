@@ -1,9 +1,9 @@
 import { testChallengeList } from '../../lib/challengeList';
 import ChallengeCard from './ChallengeCard';
-import styles from './css/ChallengeDashboard.module.css';
+import styles from './css/ChallengeDashboard.module.scss';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Skeleton from '@mui/material/Skeleton';
 import { HiArrowNarrowDown, HiArrowNarrowUp } from 'react-icons/hi';
 import { ChallengeCardData } from '../../types/DataType';
@@ -16,9 +16,7 @@ import { SelectTheme } from '../../theme/Select';
 
 export default function ChallengeDashboard() {
     const [loading, setLoading] = useState(false);
-    const [challengeList, setChallengeList] = useState<
-        [ChallengeCardData] | null
-    >(null);
+    const [challengeList, setChallengeList] = useState<ChallengeCardData[]>([]);
 
     const [filterState, setFilterState] = useState<string>('all');
     const [sortState, setSortState] = useState<string>('a-z');
@@ -35,25 +33,24 @@ export default function ChallengeDashboard() {
     }, []);
 
     // Fetching Data from API
-    const getChallengeList = () => {
+    const getChallengeList = useCallback(async () => {
         setLoading(true);
-        axios
-            .get(`http://localhost:3001/api/challenges${displayName}`, {
-                // params: {
-                //     sort: sortState,
-                //     filter: filterState
-                // }
-            })
-            .then((resp) => {
-                setChallengeList(resp.data);
-            })
-            .catch((err) => {})
-            .finally(() => {
-                setLoading(false);
-            });
-    };
+        const resp = await axios.get(
+            `http://localhost:3030/api/challenges/by-user-display-name/${displayName}`,
+        );
+        console.log(resp.status);
+        console.log(resp.data);
+        if (resp.status == 200) {
+            setChallengeList(resp.data);
+        } else {
+            setChallengeList([]);
+        }
+        setLoading(false);
+    }, [displayName, filterState, sortState]);
 
-    useEffect(getChallengeList, [displayName, filterState, sortState]);
+    useEffect(() => {
+        getChallengeList();
+    }, [getChallengeList]);
 
     return (
         <div className={styles['ChallengeDashboard'] + ' ShadowContainer'}>
@@ -152,7 +149,7 @@ export default function ChallengeDashboard() {
 
             {/* Challenge List */}
             <div className={styles['ChallengeList']}>
-                {loading && (
+                {loading ? (
                     <div className="flex flex-col space-y-2">
                         <Skeleton variant="rectangular" height={154} />
                         <Skeleton variant="rectangular" height={154} />
@@ -160,12 +157,11 @@ export default function ChallengeDashboard() {
                         <Skeleton variant="rectangular" height={154} />
                         <Skeleton variant="rectangular" height={154} />
                     </div>
-                )}
-                {!loading &&
-                    challengeList !== null &&
+                ) : (
                     challengeList.map((challenge: ChallengeCardData, index) => {
                         return <ChallengeCard key={index} {...challenge} />;
-                    })}
+                    })
+                )}
             </div>
         </div>
     );

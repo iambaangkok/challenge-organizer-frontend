@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import styles from './css/CreationPage.module.css';
 import DateSelector from './AtomicComponent/DateSelector';
 import TextField_ from './AtomicComponent/TextField.';
@@ -150,9 +149,6 @@ export default function CreationPage() {
     return (
         <ThemeProvider theme={theme}>
             <div className={styles.cr_Body}>
-                <Head>
-                    <title>Challenge Creation</title>
-                </Head>
                 <div className={styles.cr_Container}>
                     <div className={styles.cr_Challenges}>
                         <div className="ml-8">

@@ -18,7 +18,7 @@ export default function ChallengeCard(data: ChallengeCardData) {
             id={'ChallengeCard'}
             href={{
                 pathname: '/challenge',
-                query: { id: data.challengeId },
+                query: { challengeTitle: data.challengeTitle },
             }}
             className="no-underline"
         >

@@ -52,7 +52,7 @@
         align-items: flex-end;
         padding: 12px 0px 0px;
 
-        height: 103px;
+        height: fit-content;
 
         background: var(--White);
 
@@ -71,7 +71,7 @@
             margin-left: 0;
 
             width: fit-content;
-            height: 91px;
+            height: fit-content;
 
             .title-text-container {
                 /* Auto layout */
@@ -80,8 +80,8 @@
                 align-items: center;
                 gap: 25px;
 
-                // width: 775px;
-                height: 44px;
+                max-width: 765px;
+                height: fit-content;
             }
 
             .status-button {
