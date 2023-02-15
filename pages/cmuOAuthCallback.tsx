@@ -1,8 +1,10 @@
+import CircularProgress from "@mui/material/CircularProgress";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AuthorizationRequest, AuthorizationResponse } from "../types/Request";
 import { SignInResponse } from "./api/signIn";
+import styles from './index.module.css'
 
 export default function CMUOAuthCallback() {
 	const router = useRouter();
@@ -33,7 +35,7 @@ export default function CMUOAuthCallback() {
 									localStorage.setItem('displayName', resp.data.displayName)
 									// console.log(resp.data.displayName)
 								}).catch((err) => {
-									
+
 								})
 							}
 						}).catch((err) => {
@@ -56,5 +58,14 @@ export default function CMUOAuthCallback() {
 			});
 	}, [code, router]);
 
-	return <div className="p-3">{"Redirecting ..."}</div>;
+	return (
+		<div className={styles.ScreenLoading +" flex flex-col justify-center space-y-5"}>
+			<div className="flex justify-center H1">
+				Redirecting ...
+			</div>
+			<div className="flex justify-center">
+				<CircularProgress size={100} thickness={5} sx={{ color: '#fa9c1d' }} />
+			</div>
+		</div>
+	)
 }
