@@ -77,25 +77,27 @@ export default function CreationPage() {
 
     useEffect(() => {
         const savedLS = localStorage.getItem('saved');
-        let saved = JSON.parse(savedLS != null ? savedLS : '');
-        if (saved) {
-            console.log(saved);
-            // console.log("title bf "+ title)
-            // console.log("saved title bf "+ saved.title)
-            setTitle(saved.title);
-            setTitleLimit(saved.title.toString().length);
-            // console.log("title af "+ title)
-            // console.log("saved title af "+ saved.title)
-            setDesc(saved.desc);
-            setDescLimit(saved.desc.toString().length);
+        if (savedLS != null) {
+            let saved = JSON.parse(savedLS);
+            if (saved) {
+                console.log(saved);
+                // console.log("title bf "+ title)
+                // console.log("saved title bf "+ saved.title)
+                setTitle(saved.title);
+                setTitleLimit(saved.title.toString().length);
+                // console.log("title af "+ title)
+                // console.log("saved title af "+ saved.title)
+                setDesc(saved.desc);
+                setDescLimit(saved.desc.toString().length);
 
-            setTypeState(saved.type);
-            setFormatState(saved.format);
-            setParti(saved.participant);
-            // console.log(saved.startDate)
-            // console.log(saved.endDate)
-            setDate(dayjs(saved.startDate));
-            setEnd(dayjs(saved.endDate));
+                setTypeState(saved.type);
+                setFormatState(saved.format);
+                setParti(saved.participant);
+                // console.log(saved.startDate)
+                // console.log(saved.endDate)
+                setDate(dayjs(saved.startDate));
+                setEnd(dayjs(saved.endDate));
+            }
         }
     }, []);
 
