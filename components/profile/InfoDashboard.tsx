@@ -74,7 +74,7 @@ export default function InfoDashboard() {
     const getInfo = () => {
         setLoading(true);
         axios
-            .get(`http://localhost:3001/api/users/${displayName}`)
+            .get(`http://localhost:3030/api/users/${displayName}`)
             .then((resp) => {
                 setFullName(resp.data.firstName + ' ' + resp.data.lastName);
             })
