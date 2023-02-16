@@ -11,20 +11,32 @@ export const fetchChallengeData = async (
     return resp.data;
 };
 
-export const joinChallenge = async (displayName: string) => {
-    const resp = await axios.put(`${BASE_URL}${BASE_PATH}/join`, {
-        body: {
-            displayName,
+export const joinChallenge = async (
+    challengeTitle: string,
+    displayName: string,
+) => {
+    const resp = await axios.put(
+        `${BASE_URL}${BASE_PATH}/${challengeTitle}/join`,
+        {
+            body: {
+                displayName,
+            },
         },
-    });
+    );
     return resp.data;
 };
 
-export const leaveChallenge = async (displayName: string) => {
-    const resp = await axios.put(`${BASE_URL}${BASE_PATH}/leave`, {
-        body: {
-            displayName,
+export const leaveChallenge = async (
+    challengeTitle: string,
+    displayName: string,
+) => {
+    const resp = await axios.put(
+        `${BASE_URL}${BASE_PATH}/${challengeTitle}/leave`,
+        {
+            body: {
+                displayName,
+            },
         },
-    });
+    );
     return resp.data;
 };

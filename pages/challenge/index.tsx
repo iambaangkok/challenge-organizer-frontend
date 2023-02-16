@@ -83,6 +83,7 @@ export interface ChallengePageData {
 export default function Challenge() {
     const router = useRouter();
     const { challengeTitle } = router.query;
+    const CMUOAuthCallback = process.env.NEXT_PUBLIC_CMU_OAUTH_URL;
 
     // useStates
 
@@ -103,12 +104,12 @@ export default function Challenge() {
         setTabValue(newTabValue);
     };
 
-    const handleJoin = async (displayName: string) => {
-        await joinChallenge(displayName);
+    const handleJoin = async (challengeTitle: string, displayName: string) => {
+        await joinChallenge(challengeTitle, displayName);
     };
 
-    const handleLeave = async (displayName: string) => {
-        await leaveChallenge(displayName);
+    const handleLeave = async (challengeTitle: string, displayName: string) => {
+        await leaveChallenge(challengeTitle, displayName);
     };
 
     // useCallbacks
@@ -178,25 +179,28 @@ export default function Challenge() {
                                         ? challengePageData.challengeTitle
                                         : 'TitleText'}
                                 </div>
-                                {userIsJoined ? (
+
+                                {displayName === '' ? (
+                                    <Link id="Login" href={CMUOAuthCallback}>
+                                        <Button
+                                            id="StatusButton"
+                                            variant="contained"
+                                            className={
+                                                styles['status-button'] +
+                                                ' button-primary H3'
+                                            }
+                                            disableElevation
+                                        >
+                                            {'Join'}
+                                        </Button>
+                                    </Link>
+                                ) : userIsJoined ? (
                                     <Button
                                         onClick={() => {
-                                            handleJoin(displayName);
-                                        }}
-                                        id="StatusButton"
-                                        variant="contained"
-                                        className={
-                                            styles['status-button'] +
-                                            ' button-primary H3'
-                                        }
-                                        disableElevation
-                                    >
-                                        {'Join'}
-                                    </Button>
-                                ) : (
-                                    <Button
-                                        onClick={() => {
-                                            handleLeave(displayName);
+                                            handleLeave(
+                                                challengeTitle as string,
+                                                displayName,
+                                            );
                                         }}
                                         id="StatusButton"
                                         variant="contained"
@@ -207,6 +211,24 @@ export default function Challenge() {
                                         disableElevation
                                     >
                                         {'Leave'}
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        onClick={() => {
+                                            handleJoin(
+                                                challengeTitle as string,
+                                                displayName,
+                                            );
+                                        }}
+                                        id="StatusButton"
+                                        variant="contained"
+                                        className={
+                                            styles['status-button'] +
+                                            ' button-primary H3'
+                                        }
+                                        disableElevation
+                                    >
+                                        {'Join'}
                                     </Button>
                                 )}
                             </div>
