@@ -15,6 +15,7 @@ export const joinChallenge = async (
     challengeTitle: string,
     displayName: string,
 ) => {
+    console.log(`${BASE_URL}${BASE_PATH}/${challengeTitle}/join`);
     const resp = await axios.put(
         `${BASE_URL}${BASE_PATH}/${challengeTitle}/join`,
         {
@@ -30,6 +31,7 @@ export const leaveChallenge = async (
     challengeTitle: string,
     displayName: string,
 ) => {
+    console.log(`${BASE_URL}${BASE_PATH}/${challengeTitle}/leave`);
     const resp = await axios.put(
         `${BASE_URL}${BASE_PATH}/${challengeTitle}/leave`,
         {

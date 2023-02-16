@@ -141,7 +141,7 @@ export default function Challenge() {
 
     useEffect(() => {
         if (localStorage.getItem('displayName') !== null) {
-            setDisplayName(`/${localStorage.getItem('displayName')}`);
+            setDisplayName(`${localStorage.getItem('displayName')}`);
         } else {
             setDisplayName(``);
         }
