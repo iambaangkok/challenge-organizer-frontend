@@ -19,9 +19,7 @@ export const joinChallenge = async (
     const resp = await axios.put(
         `${BASE_URL}${BASE_PATH}/${challengeTitle}/join`,
         {
-            body: {
-                displayName,
-            },
+            displayName,
         },
     );
     return resp.data;
@@ -35,9 +33,7 @@ export const leaveChallenge = async (
     const resp = await axios.put(
         `${BASE_URL}${BASE_PATH}/${challengeTitle}/leave`,
         {
-            body: {
-                displayName,
-            },
+            displayName,
         },
     );
     return resp.data;

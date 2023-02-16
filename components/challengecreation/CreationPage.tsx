@@ -116,11 +116,11 @@ export default function CreationPage() {
         };
         console.log(j);
         axios
-            .post('http://localhost:3001/api/challenges', j)
+            .post('http://localhost:3030/api/challenges', j)
             .then((resp) => {
                 localStorage.removeItem('saved');
-                let id = resp.data.challengeId;
-                Router.push('/challenge?id=' + id);
+                let title = resp.data.challengeTitle;
+                Router.push('/challenge?challengeTitle=' + title);
             })
             .catch((err) => {
                 console.log(err);

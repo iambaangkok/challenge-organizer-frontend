@@ -104,13 +104,23 @@ export default function Challenge() {
         setTabValue(newTabValue);
     };
 
-    const handleJoin = async (challengeTitle: string, displayName: string) => {
-        await joinChallenge(challengeTitle, displayName);
-    };
+    const handleJoin = useCallback(
+        async (challengeTitle: string, displayName: string) => {
+            setLoading(true);
+            await joinChallenge(challengeTitle, displayName);
+            setLoading(false);
+        },
+        [],
+    );
 
-    const handleLeave = async (challengeTitle: string, displayName: string) => {
-        await leaveChallenge(challengeTitle, displayName);
-    };
+    const handleLeave = useCallback(
+        async (challengeTitle: string, displayName: string) => {
+            setLoading(true);
+            await leaveChallenge(challengeTitle, displayName);
+            setLoading(false);
+        },
+        [],
+    );
 
     // useCallbacks
 
@@ -137,7 +147,7 @@ export default function Challenge() {
     useEffect(() => {
         getChallengeData();
         getTabData();
-    }, [getChallengeData, getTabData]);
+    }, [getChallengeData, getTabData, handleJoin, handleLeave]);
 
     useEffect(() => {
         if (localStorage.getItem('displayName') !== null) {

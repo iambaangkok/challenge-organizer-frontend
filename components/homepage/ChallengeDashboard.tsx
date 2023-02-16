@@ -22,15 +22,15 @@ export default function ChallengeDashboard() {
     const [sortState, setSortState] = useState<string>('a-z');
 
     const [displayName, setDisplayName] = useState<string>('');
-    const [route, setRoute] = useState<string>('')
+    const [route, setRoute] = useState<string>('');
 
     useEffect(() => {
         if (localStorage.getItem('displayName') !== null) {
-            setDisplayName(`/${localStorage.getItem('displayName')}`)
-            setRoute('/by-user-display-name')
+            setDisplayName(`/${localStorage.getItem('displayName')}`);
+            setRoute('/by-user-display-name');
         } else {
             setDisplayName(``);
-            setRoute('')
+            setRoute('');
         }
         console.log(displayName);
     }, [displayName]);
@@ -45,21 +45,21 @@ export default function ChallengeDashboard() {
             .get(`http://localhost:3030/api/challenges${route}${displayName}`, {
                 params: {
                     filter: filterState,
-                    sort: sortState
-                }
+                    sort: sortState,
+                },
             })
             .then((resp) => {
-                setChallengeList(resp.data)
+                setChallengeList(resp.data);
             })
             .catch((err) => {
-                console.log(err)
+                console.log(err);
             })
             .finally(() => {
                 setLoading(false);
-            })
-    }
+            });
+    };
 
-    useEffect(getChallengeList, [displayName, filterState, route, sortState])
+    useEffect(getChallengeList, [displayName, filterState, route, sortState]);
 
     return (
         <div className={styles['ChallengeDashboard'] + ' ShadowContainer'}>
@@ -81,13 +81,13 @@ export default function ChallengeDashboard() {
                                             borderColor: '#FA9C1D',
                                         },
                                         '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                                        {
-                                            borderColor: '#DB8D23',
-                                        },
+                                            {
+                                                borderColor: '#DB8D23',
+                                            },
                                         '&:hover .MuiOutlinedInput-notchedOutline':
-                                        {
-                                            borderColor: '#DB8D23',
-                                        },
+                                            {
+                                                borderColor: '#DB8D23',
+                                            },
                                     }}
                                     value={filterState}
                                     onChange={(event) => {
@@ -141,7 +141,7 @@ export default function ChallengeDashboard() {
 
                 {/* Create Challenge Button */}
                 <div>
-                    <Link href="/challenges/create" className="no-underline">
+                    <Link href="/createchallenge" className="no-underline">
                         <ThemeProvider theme={ButtonTheme}>
                             <Button variant="contained">
                                 Create a new Challenge
