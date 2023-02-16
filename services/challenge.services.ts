@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ChallengePageData } from './index';
+import { ChallengePageData } from '../pages/challenge/index';
 
 const BASE_URL = 'http://localhost:3030/api';
 const BASE_PATH = '/challenges';

@@ -15,7 +15,11 @@ import StarRating from '../../components/challenge/StarRating';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { ButtonTheme } from '../../theme/Button';
-import { fetchChallengeData, joinChallenge, leaveChallenge } from './services';
+import {
+    fetchChallengeData,
+    joinChallenge,
+    leaveChallenge,
+} from '../../services/challenge.services';
 import { getFormattedDate } from '../../utils/utils';
 
 export interface TabData {
