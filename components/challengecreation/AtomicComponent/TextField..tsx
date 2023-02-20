@@ -62,7 +62,7 @@ export default function TextField_(data: any) {
     useEffect(() => {
         // console.log("useeffect "+ text)
         data.returnText(text);
-    }, [text]);
+    }, [data, text]);
 
     const handleChange = async (e: any) => {
         // console.log(data.max)
