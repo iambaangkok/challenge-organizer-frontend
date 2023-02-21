@@ -1,6 +1,6 @@
 import styles from './css/ProfileDropdown.module.scss';
 
-import {Button , Menu , MenuItem} from '@mui/material';
+import { Button, Menu, MenuItem } from '@mui/material';
 
 import AccountBox from '@mui/icons-material/AccountBox';
 import Login from '@mui/icons-material/Login';
@@ -15,18 +15,18 @@ import { useEffect, useState } from 'react';
 
 export default function ProfileDropdown({ loginStatus, fullName }: any) {
 
-	const [displayName , setDisplayName] = useState<string | null>('')
+	const [displayName, setDisplayName] = useState<string | null>('')
 
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
+	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
 
 	const signOut = () => {
 		//Call sign out api without caring what is the result
@@ -42,14 +42,14 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 			.finally(() => {
 			});
 		router.push('/home')
-		
+
 	}
 
 	const CMUOAuthCallback = process.env.NEXT_PUBLIC_CMU_OAUTH_URL
 
 	useEffect(() => {
 		setDisplayName(localStorage.getItem('displayName'))
-	} , [])
+	}, [])
 
 	return (
 		<div>
@@ -59,12 +59,12 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 				onClick={handleClick}
 				className={'TextBold'}
 			>
-				<Person className = 'text-white' sx={{ fontSize: 26 }} />
+				<Person className='text-white' sx={{ fontSize: 26 }} />
 				{
 					loginStatus &&
-					<span className='text-lg'>{displayName}</span>
+					<span className=' text-white text-lg'>{displayName}</span>
 				}
-				<KeyboardArrowDown className = 'text-white' sx={{ fontSize: 26 }} />
+				<KeyboardArrowDown className='text-white' sx={{ fontSize: 26 }} />
 
 			</Button>
 
@@ -90,13 +90,13 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 						</Link>
 					</MenuItem>
 
-                    <MenuItem onClick={signOut} className="TextRegular">
-                        <Link href="/" className={styles['Menu']}>
-                            <Logout></Logout> <div>Log Out</div>
-                        </Link>
-                    </MenuItem>
-                </Menu>
-            }
+					<MenuItem onClick={signOut} className="TextRegular">
+						<Link href="/" className={styles['Menu']}>
+							<Logout></Logout> <div>Log Out</div>
+						</Link>
+					</MenuItem>
+				</Menu>
+			}
 
 			{
 				!loginStatus &&
