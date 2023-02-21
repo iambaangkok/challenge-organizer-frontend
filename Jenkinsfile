@@ -9,7 +9,8 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                withCredentials([file(credentialsId: '.env', variable: '.env')]) {
+                withCredentials([file(credentialsId: '.env', variable: 'dotenv')]) {
+                    bat 'echo %dotenv% > .env'
                     bat 'npm install'
                     bat 'npm run build'
                 }
@@ -17,7 +18,7 @@ pipeline {
         }
         stage('test') {
             steps {
-                withCredentials([file(credentialsId: '.env', variable: '.env')]) {
+                withCredentials([file(credentialsId: '.env', variable: 'dotenv')]) {
                     script {
                         try{
                             bat 'npx playwright install'
