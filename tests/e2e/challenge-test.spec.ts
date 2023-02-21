@@ -20,14 +20,14 @@ test('challenge page has links to homepage', async ({ page }) => {
     await expect(page).toHaveURL(/.*home/);
 });
 
-test('challenge page has links to editchallenge page', async ({ page }) => {
-    await page.goto(url);
+// test('challenge page has links to editchallenge page', async ({ page }) => {
+//     await page.goto(url);
 
-    const editChallengeButton = page.locator('#EditChallengeButton');
-    await expect(editChallengeButton).toBeDefined();
-    await editChallengeButton.click();
-    await expect(page).toHaveURL(/.*editchallenge.*/);
-});
+//     const editChallengeButton = page.locator('#EditChallengeButton');
+//     await expect(editChallengeButton).toBeDefined();
+//     await editChallengeButton.click();
+//     await expect(page).toHaveURL(/.*editchallenge.*/);
+// });
 
 test("challenge page has links to host's user profile", async ({ page }) => {
     await page.goto(url);

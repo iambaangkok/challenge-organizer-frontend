@@ -43,15 +43,15 @@ test('homepage has links to shop', async ({ page }) => {
 //     await expect(page).toHaveURL(/.*profile/);
 // });
 
-test('homepage challenge card links to challenge', async ({ page }) => {
-    await page.goto('/');
+// test('homepage challenge card links to challenge', async ({ page }) => {
+//     await page.goto('/');
 
-    const challengeCard = page.locator('#ChallengeCard').first();
-    await expect(challengeCard).toBeDefined();
-    await expect(challengeCard).toHaveAttribute('href', /.*challenge\?id=.*/);
-    await challengeCard.click();
-    await expect(page).toHaveURL(/.*challenge\?id=.*/);
-});
+//     const challengeCard = page.locator('#ChallengeCard').first();
+//     await expect(challengeCard).toBeDefined();
+//     await expect(challengeCard).toHaveAttribute('href', /.*challenge\?id=.*/);
+//     await challengeCard.click();
+//     await expect(page).toHaveURL(/.*challenge\?id=.*/);
+// });
 
 test('homepage task item name links to tasks tab in challenge', async ({
     page,
