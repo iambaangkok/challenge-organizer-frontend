@@ -10,6 +10,7 @@ pipeline {
         stage('build') {
             steps {
                 withCredentials([file(credentialsId: '.env', variable: 'dotenv')]) {
+                    bat 'echo %dotenv%'
                     bat 'echo %dotenv% > .env'
                     bat 'npm install'
                     bat 'npm run build'
