@@ -11,7 +11,7 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: '.env', variable: 'dotenv')]) {
                     bat 'echo %dotenv%'
-                    bat 'echo %dotenv% > .env'
+                    bat 'copy %dotenv% .env'
                     bat 'npm install'
                     bat 'npm run build'
                 }
