@@ -6,12 +6,18 @@
     border-radius: 8px;
 
     height: 120px;
-    width: 100%;
+    width: 450px;
 
     gap:2px;
     
     overflow: hidden;
     position: relative;
+
+    transition: ease-out 0.2s;
+
+    &:hover {
+        transform: scaleX(1.02) scaleY(1.02);
+    }
 }
 
 .Title {
@@ -43,5 +49,5 @@
 .Img {
     object-fit: cover;
     z-index: -1;
-    opacity: 20%;
+    filter: opacity(40%);
 }
