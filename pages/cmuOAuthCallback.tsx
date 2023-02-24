@@ -24,9 +24,9 @@ export default function CMUOAuthCallback() {
                     // get API Token
                     await axios
                         .get<{}, AxiosResponse, {}>('api/whoAmI')
-                        .then((response) => {
+                        .then(async (response) => {
                             if (response.data.ok) {
-                                axios
+                                await axios
                                     .post<AuthorizationResponse>(
                                         'http://localhost:3030/api/users',
                                         {
@@ -49,9 +49,9 @@ export default function CMUOAuthCallback() {
                                     });
                             }
                         })
-                        .catch((err) => {
+                        .catch(async (err) => {
                             console.log(err);
-                            deleteCookie('cmu-oauth-token');
+                            await axios.post("/api/signOut")
                         });
 
                     router.push('/home');

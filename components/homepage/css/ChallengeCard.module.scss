@@ -4,6 +4,8 @@
 }
 
 .ChallengeCard {
+
+
     padding: 10px 17px;
     height: 154px;
     border-radius: 8px;
@@ -133,8 +135,8 @@
 
 .Img {
     object-fit: cover;
-    z-index: -1;
     opacity: 0.8;
+    z-index: -1;
     transition: 0.2s ease-in;
     filter: brightness(47.5%);
 }
