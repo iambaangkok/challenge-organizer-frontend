@@ -61,30 +61,37 @@ export default function InfoDashboard() {
     const [fullName, setFullName] = useState<string | null>('');
     const [loading, setLoading] = useState<boolean>(false);
 
-    const [displayName, setDisplayName] = useState('');
-
-    useEffect(() => {
-        if (localStorage.getItem('displayName') !== null) {
-            setDisplayName(`${localStorage.getItem('displayName')}`);
-        } else {
-            setDisplayName(``);
-        }
-    }, []);
+    const [displayName, setDisplayName] = useState<string>('');
 
     const getInfo = () => {
+
         setLoading(true);
-        axios
-            .get(`http://localhost:3030/api/users/${displayName}`)
-            .then((resp) => {
-                setFullName(resp.data.firstName + ' ' + resp.data.lastName);
-            })
-            .catch((err) => {})
-            .finally(() => {
-                setLoading(false);
-            });
+
+        console.log('Retrieving Info')
+
+        if (localStorage.getItem('displayName') !== null) {
+            setDisplayName(`${localStorage.getItem('displayName')}`);
+            axios
+                .get(`http://localhost:3030/api/users/${localStorage.getItem('displayName')}`)
+                .then((resp) => {
+                    setFullName(resp.data.firstName + ' ' + resp.data.lastName);
+                })
+                .catch((err) => { })
+                .finally(() => {
+                    setLoading(false);
+                });
+        } else {
+            setDisplayName(`Not found`);
+            setLoading(false);
+        }
+
+        
+
+
+
     };
 
-    useEffect(getInfo, [displayName]);
+    useEffect(getInfo, []);
 
     if (loading) {
         return (
