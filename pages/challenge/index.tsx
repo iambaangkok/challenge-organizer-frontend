@@ -156,7 +156,7 @@ export default function Challenge() {
             setDisplayName(``);
         }
         console.log(displayName);
-    }, []);
+    }, [displayName]);
 
     const userIsJoined = challengePageData?.participants.includes(displayName);
 

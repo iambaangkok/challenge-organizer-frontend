@@ -1,5 +1,6 @@
 import { CircularProgress } from '@mui/material';
 import axios, { AxiosResponse, AxiosError } from 'axios';
+import { deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { WhoAmIResponse } from '../pages/api/whoAmI';
@@ -27,8 +28,8 @@ export default function Layout({ children }: any) {
         setLoggedIn(false);
         axios
             .get<{}, AxiosResponse<WhoAmIResponse>, {}>('/api/whoAmI')
-            .then((response) => {
-                if (response.data.ok) {
+            .then(async (response) => {
+                if (response.data.ok && localStorage.getItem('displayName')) {
                     // console.log(response.data)
                     setFullName(
                         response.data.firstName + ' ' + response.data.lastName,
@@ -36,6 +37,10 @@ export default function Layout({ children }: any) {
                     setCmuAccount(response.data.cmuAccount);
                     setStudentId(response.data.studentId ?? 'No Student Id');
                     setLoggedIn(true);
+                    console.log('YES')
+                } else {
+                    console.log('delete cookie')
+                    await axios.post("/api/signOut")
                 }
             })
             .catch((error: AxiosError<WhoAmIResponse>) => {
