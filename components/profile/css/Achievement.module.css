@@ -1,3 +1,12 @@
 .Achievement {
     border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px
+}
+
+.AchievementCardList {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
