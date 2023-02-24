@@ -10,11 +10,13 @@ export default function Profile() {
             <Head>
                 <title>Profile</title>
             </Head>
-            <div className="flex w-full mt-8 space-x-4 justify-center">
-                <InfoDashboard />
+            <div className={styles['Profile'] + " flex space-x-4 justify-center"}>
+                <div className={styles['Left']}>
+                    <InfoDashboard />
+                </div>
                 <div
                     className={
-                        styles.Right +
+                        styles['Right'] +
                         ' flex flex-col justify-between space-y-4'
                     }
                 >
