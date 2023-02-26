@@ -9,7 +9,7 @@ var SecondaryMain = '#F2F3F5';
 var SecondaryDark = '#ECEDEF';
 var White = '#FFFFFF';
 
-// * Important: define variant = 'contained' and size in MUI button elements
+// * Important: define variant {'contained' , 'rounded'} and size in MUI button elements
 
 declare module '@mui/material/Button' {
     interface ButtonPropsVariantOverrides {

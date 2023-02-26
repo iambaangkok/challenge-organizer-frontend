@@ -6,15 +6,7 @@ import Skeleton from '@mui/material/Skeleton';
 import { AiFillTrophy } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: '#FFDDAE',
-            contrastText: '#FA9C1D',
-        },
-    },
-});
+import { ButtonTheme } from '../../theme/Button';
 
 const personalInfo = {
     'Global Rank': 3,
@@ -84,11 +76,6 @@ export default function InfoDashboard() {
             setDisplayName(`Not found`);
             setLoading(false);
         }
-
-        
-
-
-
     };
 
     useEffect(getInfo, []);
@@ -124,21 +111,18 @@ export default function InfoDashboard() {
                     height="100"
                     className={styles.ProfilePic}
                 />
-                <div className="flex flex-col justify-between">
+                <div className="flex flex-col justify-between w-48">
                     <div>
                         <div className="TextMedium">{displayName}</div>
                         <div className={styles.Name + ' S1Regular'}>
                             {fullName}
                         </div>
                     </div>
-                    <ThemeProvider theme={theme}>
+                    <ThemeProvider theme={ButtonTheme}>
                         <Button
                             id="EditProfileButton"
                             variant="contained"
-                            className="TextBold"
-                            sx={{
-                                width: 190,
-                            }}
+                            size="small"
                         >
                             Edit Profile
                         </Button>
