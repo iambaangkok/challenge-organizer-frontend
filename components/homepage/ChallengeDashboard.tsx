@@ -61,6 +61,8 @@ export default function ChallengeDashboard() {
 
     useEffect(getChallengeList, [displayName, filterState, route, sortState]);
 
+    var PrimaryLight = '#FFDDAE';
+
     return (
         <div className={styles['ChallengeDashboard'] + ' ShadowContainer'}>
             {/* Top */}
@@ -76,31 +78,21 @@ export default function ChallengeDashboard() {
                         <FormControl size="small">
                             <ThemeProvider theme={SelectTheme}>
                                 <Select
-                                    sx={{
-                                        '.MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#FA9C1D',
-                                        },
-                                        '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                                            {
-                                                borderColor: '#DB8D23',
-                                            },
-                                        '&:hover .MuiOutlinedInput-notchedOutline':
-                                            {
-                                                borderColor: '#DB8D23',
-                                            },
-                                    }}
                                     value={filterState}
                                     onChange={(event) => {
                                         setFilterState(event.target.value);
                                     }}
+                                    MenuProps={{
+                                        sx: {
+                                            "&& .Mui-selected": {
+                                                backgroundColor: PrimaryLight
+                                            }
+                                        }
+                                    }}
                                 >
                                     <MenuItem value={'all'}>All</MenuItem>
-                                    <MenuItem value={'ongoing'}>
-                                        Ongoing
-                                    </MenuItem>
-                                    <MenuItem value={'upcoming'}>
-                                        Upcoming
-                                    </MenuItem>
+                                    <MenuItem value={'ongoing'}>Ongoing</MenuItem>
+                                    <MenuItem value={'upcoming'}>Upcoming</MenuItem>
                                     <MenuItem value={'past'}>Past</MenuItem>
                                 </Select>
                             </ThemeProvider>
@@ -117,11 +109,17 @@ export default function ChallengeDashboard() {
                                     onChange={(event) => {
                                         setSortState(event.target.value);
                                     }}
+                                    MenuProps={{
+                                        sx: {
+                                            "&& .Mui-selected": {
+                                                backgroundColor: PrimaryLight
+                                            }
+                                        }
+                                    }}
                                 >
                                     <MenuItem value={'a-z'}>A-Z</MenuItem>
                                     <MenuItem value={'z-a'}>Z-A</MenuItem>
                                     <MenuItem value={'recent-asc'}>
-                                        {' '}
                                         Recent <HiArrowNarrowUp />
                                     </MenuItem>
                                     <MenuItem value={'recent-desc'}>
