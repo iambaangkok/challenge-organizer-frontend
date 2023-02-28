@@ -21,6 +21,7 @@ import {
     leaveChallenge,
 } from '../../services/challenge.services';
 import { getFormattedDate } from '../../utils/utils';
+import PostModule from '../../components/challenge/PostModule';
 
 export interface TabData {
     index: number;
@@ -177,11 +178,14 @@ export default function Challenge() {
                         className={styles['banner']}
                     />
                 </div>
+
+                {/* Title and Tabs */}
                 <div
                     className={
                         styles['challengemenu-container'] + ' ShadowContainer'
                     }
                 >
+                    {/* Title */}
                     <div className={styles['title-container']}>
                         <div className={styles['title-left']}>
                             <div className={styles[''] + ' H3'}>
@@ -277,6 +281,8 @@ export default function Challenge() {
                             )}
                         </div>
                     </div>
+
+                    {/* Tabs */}
                     <Tabs
                         value={tabValue}
                         onChange={handleTabChange}
@@ -297,16 +303,35 @@ export default function Challenge() {
                         ))}
                     </Tabs>
                 </div>
+
                 <div className={styles['content-container']}>
-                    <div
-                        className={
-                            styles['posts-container'] +
-                            ' TextRegular' +
-                            ' ShadowContainer'
+                    {/* Post List */}
+
+                    <div className={
+                        styles['posts-container'] +
+                        ' TextRegular'
+                    }>
+                        {
+                            testPostListsByTabs.map((x) => {
+                                if (x.index === tabValue) {
+                                    return (
+                                        <>
+                                            {x.posts.map((post , index) => {
+                                                return (
+                                                    <PostModule data = {post} key={index}/>
+                                                )
+                                            })}
+                                        </>
+
+                                    )
+                                }
+                                else
+                                    return (<></>)
+                            })
                         }
-                    >
-                        {tabData?.tabName + ' tab posts'}
                     </div>
+
+                    {/* Timer and Challenge Info */}
                     <div className={styles['rightsidebar-container']}>
                         <div
                             className={

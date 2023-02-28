@@ -210,17 +210,21 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 30px 15px;
-        gap: 8px;
+        gap: 10px;
 
-        height: fit-content;
+        width: 765px;
 
-        background: var(--White);
-
-        border-radius: 10px;
 
         /* Inside auto layout */
         flex: 1 0 auto;
+
+        .posts {
+            // height: fit-content;
+            background: var(--White);
+            padding: 30px 15px;
+            border-radius: 10px;
+
+        }
     }
 
     .rightsidebar-container {
