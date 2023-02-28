@@ -1,4 +1,11 @@
+.Profile {
+    margin: 2rem;
+}
+
 .Right {
-    width: 794px;
-    height: inherit;
+    width: 996px;
+}
+
+.Left {
+    width : 367.2px;
 }

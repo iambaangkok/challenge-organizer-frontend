@@ -1,11 +1,12 @@
 import { Button, Pagination } from '@mui/material'
+import AchievementCard from './AchievementCard';
 import styles from './css/Achievement.module.css'
 
 export default function Achievement() {
     return (
         <div
             className={
-                styles.Achievement + ' ShadowContainer p-6 flex flex-col'
+                styles['Achievement'] + ' ShadowContainer p-6'
             }
         >
             {/* title and button*/}
@@ -14,7 +15,10 @@ export default function Achievement() {
                 <Button>See All</Button>
             </div>
             {/* some elements */}
-            <div></div>
+            <div className={styles['AchievementCardList']}>
+                <AchievementCard></AchievementCard>
+                <AchievementCard></AchievementCard>
+            </div>
             {/* pagination */}
             <div className="self-center">
                 <Pagination

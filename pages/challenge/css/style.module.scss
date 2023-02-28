@@ -6,22 +6,22 @@
     align-items: center;
 
     width: 100vw;
-    height: calc(100vh - 86px);
+    // height: calc(100vh - 86px);
 
     background: var(--SecondaryMain);
 }
 
 .banner-container {
-    overflow: hidden;
-    display: block;
 
+    display: block;
     height: 223px;
 
     .banner {
         opacity: 70%;
-
+        object-fit: cover;
+        overflow: hidden;
         width: 100%;
-        height: auto;
+        height: 100%;
     }
     align-self: stretch;
 }

@@ -62,7 +62,7 @@ export default function ProfileDropdown({ loginStatus, fullName }: any) {
 				<Person className='text-white' sx={{ fontSize: 26 }} />
 				{
 					loginStatus &&
-					<span className=' text-white text-lg'>{displayName}</span>
+					<span className='text-white text-lg'>{displayName}</span>
 				}
 				<KeyboardArrowDown className='text-white' sx={{ fontSize: 26 }} />
 

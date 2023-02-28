@@ -6,15 +6,7 @@ import Skeleton from '@mui/material/Skeleton';
 import { AiFillTrophy } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: '#FFDDAE',
-            contrastText: '#FA9C1D',
-        },
-    },
-});
+import { ButtonTheme } from '../../theme/Button';
 
 const personalInfo = {
     'Global Rank': 3,
@@ -61,30 +53,32 @@ export default function InfoDashboard() {
     const [fullName, setFullName] = useState<string | null>('');
     const [loading, setLoading] = useState<boolean>(false);
 
-    const [displayName, setDisplayName] = useState('');
-
-    useEffect(() => {
-        if (localStorage.getItem('displayName') !== null) {
-            setDisplayName(`${localStorage.getItem('displayName')}`);
-        } else {
-            setDisplayName(``);
-        }
-    }, []);
+    const [displayName, setDisplayName] = useState<string>('');
 
     const getInfo = () => {
+
         setLoading(true);
-        axios
-            .get(`http://localhost:3030/api/users/${displayName}`)
-            .then((resp) => {
-                setFullName(resp.data.firstName + ' ' + resp.data.lastName);
-            })
-            .catch((err) => {})
-            .finally(() => {
-                setLoading(false);
-            });
+
+        console.log('Retrieving Info')
+
+        if (localStorage.getItem('displayName') !== null) {
+            setDisplayName(`${localStorage.getItem('displayName')}`);
+            axios
+                .get(`http://localhost:3030/api/users/${localStorage.getItem('displayName')}`)
+                .then((resp) => {
+                    setFullName(resp.data.firstName + ' ' + resp.data.lastName);
+                })
+                .catch((err) => { })
+                .finally(() => {
+                    setLoading(false);
+                });
+        } else {
+            setDisplayName(`Not found`);
+            setLoading(false);
+        }
     };
 
-    useEffect(getInfo, [displayName]);
+    useEffect(getInfo, []);
 
     if (loading) {
         return (
@@ -117,21 +111,18 @@ export default function InfoDashboard() {
                     height="100"
                     className={styles.ProfilePic}
                 />
-                <div className="flex flex-col justify-between">
+                <div className="flex flex-col justify-between w-48">
                     <div>
                         <div className="TextMedium">{displayName}</div>
                         <div className={styles.Name + ' S1Regular'}>
                             {fullName}
                         </div>
                     </div>
-                    <ThemeProvider theme={theme}>
+                    <ThemeProvider theme={ButtonTheme}>
                         <Button
                             id="EditProfileButton"
                             variant="contained"
-                            className="TextBold"
-                            sx={{
-                                width: 190,
-                            }}
+                            size="small"
                         >
                             Edit Profile
                         </Button>

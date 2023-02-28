@@ -1,0 +1,53 @@
+.Card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    height: 120px;
+    width: 450px;
+
+    gap:2px;
+    
+    overflow: hidden;
+    position: relative;
+
+    transition: ease-out 0.2s;
+
+    &:hover {
+        transform: scaleX(1.02) scaleY(1.02);
+    }
+}
+
+.Title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.Placement {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.Score {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.Badge {
+    font-size: 36px;
+    color: var(--PrimaryMain)
+}
+
+.Img {
+    object-fit: cover;
+    z-index: -1;
+    filter: opacity(40%);
+}
