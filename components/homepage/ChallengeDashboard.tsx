@@ -86,7 +86,7 @@ export default function ChallengeDashboard() {
                                         sx: {
                                             "&& .Mui-selected": {
                                                 backgroundColor: PrimaryLight
-                                            }
+                                            },
                                         }
                                     }}
                                 >
@@ -113,7 +113,7 @@ export default function ChallengeDashboard() {
                                         sx: {
                                             "&& .Mui-selected": {
                                                 backgroundColor: PrimaryLight
-                                            }
+                                            },
                                         }
                                     }}
                                 >

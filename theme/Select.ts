@@ -24,11 +24,14 @@ export const SelectTheme = createTheme({
             styleOverrides: {
                 root: {
                     ':hover': {
-                        background: PrimaryLight
-                    },     
+                        background: PrimaryLight + ' !important'
+                    },
+                    "&.Mui-focusVisible": { 
+                        background: PrimaryLight + ' !important'
+                    },
                 },
-
             },
         },
+
     },
 });
