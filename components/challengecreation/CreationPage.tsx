@@ -1,6 +1,7 @@
 import styles from './css/CreationPage.module.css';
 import DateSelector from './AtomicComponent/DateSelector';
 import TextField_ from './AtomicComponent/TextField.';
+import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import {
     FormControl,
@@ -40,7 +41,6 @@ const double = {
     width: 400,
     height: 40,
 };
-
 const theme = createTheme({
     palette: {
         primary: {
@@ -56,6 +56,31 @@ const theme = createTheme({
         fontSize: 14,
     },
 });
+const uploadTheme = createTheme({
+    palette: {
+        primary: {
+            light: '#FFDDAE',
+            main: '#FA9C1D',
+            dark: '#EA7000',
+            contrastText: '#FFFFFF',
+        },
+    },
+    components: {
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    '.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+                        borderColor: '#FA9C1D',
+                    },
+                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                    {
+                        borderColor: '#EA7000',
+                    },
+                },
+            },
+        },
+    },
+});
 
 export default function CreationPage() {
     const [typeState, setTypeState] = useState<string>('');
@@ -69,11 +94,12 @@ export default function CreationPage() {
     const [parti, setParti] = useState<Number>();
     const [partiLimit, setPartiLimit] = useState<Number>(0);
 
-    const [banner, setBanner] = useState<File>();
-
+    const [fileName,setFileName] = useState("");
+    const [fileUrl, setFileUrl] = useState("");
     const [date, setDate] = useState<Dayjs | null>(null);
     const [end, setEnd] = useState<Dayjs | null>(null);
     // const [host,setHost] = useState<String>();
+
 
     useEffect(() => {
         const savedLS = localStorage.getItem('saved');
@@ -145,6 +171,12 @@ export default function CreationPage() {
         localStorage.setItem('saved', send);
         //tolocalstorage
     };
+    const handleUpload = (e) => {
+        let url = URL.createObjectURL(e.target.files[0]);
+        setFileUrl(url)
+        setFileName(e.target.files[0].name)
+        console.log(url)
+    }
 
     return (
         <ThemeProvider theme={theme}>
@@ -300,20 +332,20 @@ export default function CreationPage() {
                                                         sx={[
                                                             {
                                                                 '.MuiOutlinedInput-notchedOutline':
-                                                                    {
-                                                                        borderColor:
-                                                                            '#FA9C1D',
-                                                                    },
+                                                                {
+                                                                    borderColor:
+                                                                        '#FA9C1D',
+                                                                },
                                                                 '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                                                                    {
-                                                                        borderColor:
-                                                                            '#FA9C1D',
-                                                                    },
+                                                                {
+                                                                    borderColor:
+                                                                        '#FA9C1D',
+                                                                },
                                                                 '&:hover .MuiOutlinedInput-notchedOutline':
-                                                                    {
-                                                                        borderColor:
-                                                                            '#FA9C1D',
-                                                                    },
+                                                                {
+                                                                    borderColor:
+                                                                        '#FA9C1D',
+                                                                },
                                                             },
                                                             { width: 262 },
                                                         ]}
@@ -361,20 +393,20 @@ export default function CreationPage() {
                                                         sx={[
                                                             {
                                                                 '.MuiOutlinedInput-notchedOutline':
-                                                                    {
-                                                                        borderColor:
-                                                                            '#FA9C1D',
-                                                                    },
+                                                                {
+                                                                    borderColor:
+                                                                        '#FA9C1D',
+                                                                },
                                                                 '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                                                                    {
-                                                                        borderColor:
-                                                                            '#FA9C1D',
-                                                                    },
+                                                                {
+                                                                    borderColor:
+                                                                        '#FA9C1D',
+                                                                },
                                                                 '&:hover .MuiOutlinedInput-notchedOutline':
-                                                                    {
-                                                                        borderColor:
-                                                                            '#FA9C1D',
-                                                                    },
+                                                                {
+                                                                    borderColor:
+                                                                        '#FA9C1D',
+                                                                },
                                                             },
                                                             { width: 262 },
                                                         ]}
@@ -444,16 +476,7 @@ export default function CreationPage() {
                                         >
                                             Challenge Banner
                                         </div>
-                                        <div className="flex flex-row place-content-center ">
-                                            <div
-                                                className={
-                                                    styles.cr_fileText +
-                                                    ' my-2 pr-4'
-                                                }
-                                            >
-                                                placeholder.jpg
-                                            </div>
-
+                                        <div className="flex flex-row ">
                                             <ThemeProvider theme={ButtonTheme}>
                                                 <Button
                                                     variant="contained"
@@ -467,15 +490,28 @@ export default function CreationPage() {
                                                 >
                                                     upload
                                                     <input
-                                                        hidden
+
                                                         accept="image/*"
                                                         multiple
                                                         type="file"
+                                                        onChange={handleUpload}
                                                     />
+
                                                 </Button>
                                             </ThemeProvider>
+                                            <div
+                                                className={
+                                                    styles.cr_fileText +
+                                                    ' mt-2 pl-4'
+                                                }
+                                            >
+                                                {fileName}
+                                            </div>
+
+
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
 
