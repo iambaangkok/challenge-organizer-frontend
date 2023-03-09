@@ -94,8 +94,8 @@ export default function CreationPage() {
     const [parti, setParti] = useState<Number>();
     const [partiLimit, setPartiLimit] = useState<Number>(0);
 
-    const [fileName,setFileName] = useState("");
-    const [fileUrl, setFileUrl] = useState("");
+    const [fileName, setFileName] = useState("");
+    const [file, setFile] = useState(null);
     const [date, setDate] = useState<Dayjs | null>(null);
     const [end, setEnd] = useState<Dayjs | null>(null);
     // const [host,setHost] = useState<String>();
@@ -123,6 +123,8 @@ export default function CreationPage() {
                 // console.log(saved.endDate)
                 setDate(dayjs(saved.startDate));
                 setEnd(dayjs(saved.endDate));
+                setFile(saved.banner)
+                setFileName(saved.fName)
             }
         }
     }, []);
@@ -138,6 +140,7 @@ export default function CreationPage() {
             maxParticipants: Number(parti),
             numParticipants: 0,
             host: localStorage.getItem('displayName'),
+            banner: file
             // banner: banner
         };
         console.log(j);
@@ -166,16 +169,20 @@ export default function CreationPage() {
             endDate: end,
             participant: parti,
             // banner:banner
+            banner:file,
+            fName: fileName
         };
         let send = JSON.stringify(j);
         localStorage.setItem('saved', send);
         //tolocalstorage
     };
-    const handleUpload = (e) => {
-        let url = URL.createObjectURL(e.target.files[0]);
-        setFileUrl(url)
+    const handleUpload = (e:any) => {
+        setFile(e.target.files[0])
         setFileName(e.target.files[0].name)
-        console.log(url)
+    }
+    const handleRemove = (e:any) =>{
+        setFile(null)
+        setFileName("")
     }
 
     return (
@@ -510,8 +517,20 @@ export default function CreationPage() {
 
 
                                         </div>
+                                        {/* {file&& (
+                                            <div>
+                                                <img
+                                                    alt="not found"
+                                                    width={"250px"}
+                                                    src={URL.createObjectURL(file)}
+                                                />
+                                                <br />
+
+                                                <button onClick={() => setFile(null)}>Remove banner upload</button>
+                                            </div>
+                                        )} */}
                                     </div>
-                                    
+
                                 </div>
                             </div>
 
