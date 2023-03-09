@@ -81,6 +81,7 @@ export default function Layout({ children }: any) {
         );
     }
 
+
     // if (cookieExpired) {
 
     // 	router.push('/home')
@@ -94,6 +95,13 @@ export default function Layout({ children }: any) {
     // 	</div>
     // )
     // }
+    if(router.pathname === '/preview') {
+        return (
+            <>
+                <main>{children}</main>
+            </>
+        );
+    }
     return (
         <>
             <Navbar loginStatus={loggedIn} fullName={fullName} />

@@ -22,6 +22,7 @@ import {
 } from '../../services/challenge.services';
 import { getFormattedDate } from '../../utils/utils';
 import PostModule from '../../components/challenge/PostModule';
+import PostEditor from '../../components/challenge/PostEditor';
 
 export interface TabData {
     index: number;
@@ -305,12 +306,19 @@ export default function Challenge() {
                 </div>
 
                 <div className={styles['content-container']}>
-                    {/* Post List */}
+
+
+
 
                     <div className={
                         styles['posts-container'] +
                         ' TextRegular'
                     }>
+                    {/* Post Editor */}
+                    
+                    <PostEditor/>
+
+                    {/* Post List */}
                         {
                             testPostListsByTabs.map((x) => {
                                 if (x.index === tabValue) {
