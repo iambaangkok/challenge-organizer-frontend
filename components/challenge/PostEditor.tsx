@@ -3,7 +3,7 @@ import { Button, TextField, ThemeProvider } from '@mui/material';
 // import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { SetStateAction, useRef, useState } from 'react';
-import { Link , useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ButtonTheme } from '../../theme/Button';
 import styles from './css/PostEditor.module.scss';
 
@@ -16,15 +16,12 @@ export default function PostEditor() {
         setText(event.target.value);
     };
 
-    const router = useRouter()
-    
+    const router = useRouter();
+
     const previewMarkdown = () => {
-        // router.push({
-        //     pathname: '/preview',
-        //     query: { markdown: text }
-        // })
-        // navigate('/preview')
-    }
+        localStorage.setItem('markdown' , text)
+        router.push('/preview')
+    };
 
     const showTextField = () => {
         console.log(text);
@@ -47,23 +44,14 @@ export default function PostEditor() {
             </div>
             <div className={styles['Button']}>
                 <ThemeProvider theme={ButtonTheme}>
-                    {/* <Link
-                        href= {{
-                            pathname: '/preview',
-                            query : {
-                                markdown : text
-                            }
-                        }}
-                    > */}
-                        <Button
-                            variant="contained"
-                            size="medium"
-                            color="secondary"
-                            // onClick = {previewMarkdown}
-                        >
-                            Preview Markdown
-                        </Button>
-                    {/* </Link> */}
+                    <Button
+                        variant="contained"
+                        size="medium"
+                        color="secondary"
+                        onClick={previewMarkdown}
+                    >
+                        Preview Markdown
+                    </Button>
 
                     <Button
                         variant="contained"

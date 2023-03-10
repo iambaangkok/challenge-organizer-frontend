@@ -8,7 +8,7 @@ interface post {
             displayName: string,
             isHost: boolean,
         },
-        contentMarkdown: string
+        contentMarkdown: string | null
     }
 }
 
