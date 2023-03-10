@@ -13,7 +13,7 @@ interface post {
 }
 
 export default function PostModule(postData: post) {
-    var wrap = require('wordwrap')(80, { mode: "hard" })
+    var wrap = require('wordwrap')(92)
     var codeblocks = require('remark-code-blocks')
 
     // console.log(wrap(postData.data.contentMarkdown))
@@ -22,10 +22,10 @@ export default function PostModule(postData: post) {
         <div className={styles['Post'] + ' ShadowContainer'}>
             <div className={styles['GrayArea']}></div>
             <div className={styles['Content']}>
-                <div className='TextDimmedMain'>
+                <div className='TextDimmedMain S2Regular'>
                     Posted by {postData.data.author.displayName} {3} days ago
                 </div>
-                <div className={styles['MarkdownBody'] + ' markdown-body'}>
+                <div className={styles['MarkdownBody'] + ' TextRegular markdown-body'}>
                     <ReactMarkdown remarkPlugins={[remarkGfm, codeblocks]} className='markdown-body'>
                         {wrap(postData.data.contentMarkdown)}
                     </ReactMarkdown>

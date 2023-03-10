@@ -4,6 +4,7 @@
     background: var(--PrimaryMain);
     display: flex;
     justify-content: space-between;
+    width : calc(100vw - 40px)
 }
 
 .Left {

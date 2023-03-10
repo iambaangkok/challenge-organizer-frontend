@@ -17,9 +17,16 @@
     .Button {
         display: flex;
         flex-direction: row;
-        justify-content: flex-end;
+        justify-content: space-between;
         gap: 8px;
         
-        padding: 0px 12px 12px 12px
+        padding: 0px 12px 12px 12px;
+
+        .Left {
+            display: flex;
+            flex-direction: row;
+
+            gap: 8px;
+        }
     }
 }

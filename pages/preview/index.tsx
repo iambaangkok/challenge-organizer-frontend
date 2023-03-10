@@ -39,7 +39,7 @@ export default function Preview() {
 
     return (
         <div className={styles['Body']}>
-            <div className={styles['MarkdownBody'] + ' ShadowContainer'}>
+            <div className={styles['MarkdownBody']}>
                 <PostModule data={previewMarkdownPost} />
             </div>
         </div>

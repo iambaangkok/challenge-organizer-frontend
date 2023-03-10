@@ -2,7 +2,7 @@ import { CropLandscapeOutlined } from '@mui/icons-material';
 import { Button, TextField, ThemeProvider } from '@mui/material';
 // import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { SetStateAction, useRef, useState } from 'react';
+import { SetStateAction, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ButtonTheme } from '../../theme/Button';
 import styles from './css/PostEditor.module.scss';
@@ -19,12 +19,16 @@ export default function PostEditor() {
     const router = useRouter();
 
     const previewMarkdown = () => {
-        localStorage.setItem('markdown' , text)
-        router.push('/preview')
+        localStorage.setItem('markdown', text);
+        window.open('/preview', '_blank');
     };
 
-    const showTextField = () => {
-        console.log(text);
+    const createPost = () => {
+        // axios.post('/api/posts/')
+        setText('');
+    };
+
+    const clearTextField = () => {
         setText('');
     };
 
@@ -38,28 +42,41 @@ export default function PostEditor() {
                     // defaultValue="Default Value"
                     value={text}
                     onChange={handleTextInputChange}
-                    label="Enter your post markdown here"
+                    label="Create post! Your participants need information."
+                    helperText="* Markdown supported"
                     fullWidth
                 />
             </div>
             <div className={styles['Button']}>
                 <ThemeProvider theme={ButtonTheme}>
-                    <Button
-                        variant="contained"
-                        size="medium"
-                        color="secondary"
-                        onClick={previewMarkdown}
-                    >
-                        Preview Markdown
-                    </Button>
+                    <div>
+                        <Button
+                            variant="contained"
+                            size="medium"
+                            color="secondary"
+                            onClick={clearTextField}
+                        >
+                            Clear
+                        </Button>
+                    </div>
+                    <div className = {styles['Left']}>
+                        <Button
+                            variant="contained"
+                            size="medium"
+                            color="secondary"
+                            onClick={previewMarkdown}
+                        >
+                            Preview Markdown
+                        </Button>
 
-                    <Button
-                        variant="contained"
-                        size="medium"
-                        onClick={showTextField}
-                    >
-                        Create Post
-                    </Button>
+                        <Button
+                            variant="contained"
+                            size="medium"
+                            onClick={createPost}
+                        >
+                            Create Post
+                        </Button>
+                    </div>
                 </ThemeProvider>
             </div>
         </div>
