@@ -1,9 +1,9 @@
 import { CircularProgress } from '@mui/material';
 import axios, { AxiosResponse, AxiosError } from 'axios';
-import { deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { WhoAmIResponse } from '../pages/api/whoAmI';
+import styles from './Layout.module.scss'
 
 import Navbar from './navbar/NavBar';
 
@@ -69,13 +69,18 @@ export default function Layout({ children }: any) {
     if (loading) {
         return (
             <div className="h-screen flex flex-col justify-center space-y-5">
-                <div className="flex justify-center H1">Loading</div>
+                <div className="flex justify-center mb-36 H1">Loading</div>
                 <div className="flex justify-center">
-                    <CircularProgress
+                    {/* <CircularProgress
                         size={100}
                         thickness={5}
                         sx={{ color: '#fa9c1d' }}
-                    />
+                    /> */}
+                    <div className={styles['pong']}>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
                 </div>
             </div>
         );
