@@ -117,9 +117,10 @@ export default function Challenge() {
             <div className={styles['main-container']}>
                 <Head>
                     <title>
-                        {challengePageData
-                            ? challengePageData.challengeTitle
-                            : 'TitleText'}
+                        {'Challenge |' +
+                            (challengePageData
+                                ? challengePageData.challengeTitle
+                                : 'TitleText')}
                     </title>
                 </Head>
                 <div className={styles['banner-container']}>
