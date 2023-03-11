@@ -200,7 +200,11 @@ export default function Challenge() {
                                 </div>
 
                                 {displayName === '' ? (
-                                    <Link id="Login" href={CMUOAuthCallback} className='no-underline'>
+                                    <Link
+                                        id="Login"
+                                        href={CMUOAuthCallback}
+                                        className="no-underline"
+                                    >
                                         <Button
                                             id="StatusButton"
                                             variant="contained"
@@ -254,8 +258,8 @@ export default function Challenge() {
                         </div>
                         <div className={styles['title-right']}>
                             {displayName &&
-                                challengePageData?.host &&
-                                displayName == challengePageData.host ? (
+                            challengePageData?.host &&
+                            displayName == challengePageData.host ? (
                                 <Link
                                     id={'EditChallengeButton'}
                                     href={{
@@ -306,37 +310,26 @@ export default function Challenge() {
                 </div>
 
                 <div className={styles['content-container']}>
-
-
-
-
-                    <div className={
-                        styles['posts-container'] +
-                        ' TextRegular'
-                    }>
-                    {/* Post Editor */}
-                    
-                    <PostEditor/>
-
-                    {/* Post List */}
-                        {
-                            testPostListsByTabs.map((x) => {
-                                if (x.index === tabValue) {
-                                    return (
-                                        <>
-                                            {x.posts.map((post , index) => {
-                                                return (
-                                                    <PostModule data = {post} key={index}/>
-                                                )
-                                            })}
-                                        </>
-
-                                    )
-                                }
-                                else
-                                    return (<></>)
-                            })
-                        }
+                    <div className={styles['posts-container'] + ' TextRegular'}>
+                        {/* Post Editor */}
+                        <PostEditor />
+                        {/* Post List */}
+                        {testPostListsByTabs.map((x) => {
+                            if (x.index === tabValue) {
+                                return (
+                                    <>
+                                        {x.posts.map((post, index) => {
+                                            return (
+                                                <PostModule
+                                                    data={post}
+                                                    key={index}
+                                                />
+                                            );
+                                        })}
+                                    </>
+                                );
+                            } else return <></>;
+                        })}
                     </div>
 
                     {/* Timer and Challenge Info */}
@@ -392,8 +385,8 @@ export default function Challenge() {
                                         Last modified{' '}
                                         {challengePageData
                                             ? getFormattedDate(
-                                                challengePageData.timeStamp,
-                                            )
+                                                  challengePageData.timeStamp,
+                                              )
                                             : 'N/A'}{' '}
                                         by{' '}
                                         <Link
@@ -422,7 +415,7 @@ export default function Challenge() {
                                             {challengePageData
                                                 ? 'N/A'
                                                 : // ? challengePageData.prizePool
-                                                'N/A'}
+                                                  'N/A'}
                                         </div>
                                         <div
                                             className={
@@ -492,8 +485,8 @@ export default function Challenge() {
                                         >
                                             {challengePageData
                                                 ? getFormattedDate(
-                                                    challengePageData.startDate,
-                                                )
+                                                      challengePageData.startDate,
+                                                  )
                                                 : 'N/A'}
                                         </div>
                                         <div
@@ -516,8 +509,8 @@ export default function Challenge() {
                                         >
                                             {challengePageData
                                                 ? getFormattedDate(
-                                                    challengePageData.endDate,
-                                                )
+                                                      challengePageData.endDate,
+                                                  )
                                                 : 'N/A'}
                                         </div>
                                         <div
