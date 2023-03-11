@@ -8,12 +8,10 @@ import { Button, Tab, Tabs, ThemeProvider } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 
 import { testPostListsByTabs } from '../../lib/postListByTabs';
-import { testChallengePageData } from '../../lib/challengePageData';
 import CountdownTimer from '../../components/challenge/CountdownTimer';
 import Link from 'next/link';
 import StarRating from '../../components/challenge/StarRating';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 import { ButtonTheme } from '../../theme/Button';
 import {
     fetchChallengeData,
@@ -53,6 +51,7 @@ export default function Challenge() {
         async (challengeTitle: string, displayName: string) => {
             setLoading(true);
             await joinChallenge(challengeTitle, displayName);
+            await getChallengeData();
             setLoading(false);
         },
         [],
@@ -62,6 +61,7 @@ export default function Challenge() {
         async (challengeTitle: string, displayName: string) => {
             setLoading(true);
             await leaveChallenge(challengeTitle, displayName);
+            await getChallengeData();
             setLoading(false);
         },
         [],
@@ -117,7 +117,7 @@ export default function Challenge() {
             <div className={styles['main-container']}>
                 <Head>
                     <title>
-                        {'Challenge |' +
+                        {'Challenge | ' +
                             (challengePageData
                                 ? challengePageData.challengeTitle
                                 : 'TitleText')}
