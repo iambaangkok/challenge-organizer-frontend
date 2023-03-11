@@ -18,6 +18,7 @@ import Router from 'next/router';
 import { ButtonTheme } from '../../theme/Button';
 import { useEffect } from 'react';
 import Collaborators from '../managechallenge/menucomponent/collaborators';
+import ManageTask from './menucomponent/Task';
 
 const Title = {
     width: 1200,
@@ -538,7 +539,8 @@ export default function ManagePage() {
                                             </div>
                                         )} */}
                                     </div>
-                                <Collaborators></Collaborators>   
+                                <Collaborators></Collaborators>
+                                <ManageTask></ManageTask> 
 
                                 </div>
                             </div>
