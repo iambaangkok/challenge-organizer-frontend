@@ -3,9 +3,10 @@ import { Button, TextField, ThemeProvider } from '@mui/material';
 // import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { SetStateAction, useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { ButtonTheme } from '../../theme/Button';
 import styles from './css/PostEditor.module.scss';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 export default function PostEditor() {
     const [text, setText] = useState('');
@@ -30,6 +31,8 @@ export default function PostEditor() {
 
     const clearTextField = () => {
         setText('');
+        localStorage.removeItem('markdown');
+
     };
 
     return (
@@ -42,7 +45,7 @@ export default function PostEditor() {
                     // defaultValue="Default Value"
                     value={text}
                     onChange={handleTextInputChange}
-                    label="Create post! Your participants need information."
+                    label="What do you want to post?"
                     helperText="* Markdown supported"
                     fullWidth
                 />
@@ -52,9 +55,10 @@ export default function PostEditor() {
                     <div>
                         <Button
                             variant="contained"
-                            size="medium"
-                            color="secondary"
+                            size="small"
+                            color="error"
                             onClick={clearTextField}
+                            startIcon={<DeleteForeverIcon/>}
                         >
                             Clear
                         </Button>
@@ -62,19 +66,20 @@ export default function PostEditor() {
                     <div className = {styles['Left']}>
                         <Button
                             variant="contained"
-                            size="medium"
+                            size="small"
                             color="secondary"
                             onClick={previewMarkdown}
+                            startIcon={<VisibilityIcon/>}
                         >
                             Preview Markdown
                         </Button>
 
                         <Button
                             variant="contained"
-                            size="medium"
+                            size="small"
                             onClick={createPost}
                         >
-                            Create Post
+                            Post
                         </Button>
                     </div>
                 </ThemeProvider>

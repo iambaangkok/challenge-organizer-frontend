@@ -1,11 +1,12 @@
-import { testChallengeList } from '../../lib/challengeList';
 import ChallengeCard from './ChallengeCard';
 import styles from './css/ChallengeDashboard.module.scss';
 
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useCallback, useEffect, useState } from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import { useEffect, useState } from 'react';
 import Skeleton from '@mui/material/Skeleton';
 import { HiArrowNarrowDown, HiArrowNarrowUp } from 'react-icons/hi';
+import NorthIcon from '@mui/icons-material/North';
+import SouthIcon from '@mui/icons-material/South';
 import { ChallengeCardData } from '../../types/DataType';
 import axios from 'axios';
 import Link from 'next/link';
@@ -126,16 +127,16 @@ export default function ChallengeDashboard() {
                                     <MenuItem value={'a-z'}>A-Z</MenuItem>
                                     <MenuItem value={'z-a'}>Z-A</MenuItem>
                                     <MenuItem value={'recent-asc'}>
-                                        Recent <HiArrowNarrowUp />
+                                        Recent <NorthIcon />
                                     </MenuItem>
                                     <MenuItem value={'recent-desc'}>
-                                        Recent <HiArrowNarrowDown />
+                                        Recent <SouthIcon />
                                     </MenuItem>
                                     <MenuItem value={'rating-asc'}>
-                                        Rating <HiArrowNarrowUp />
+                                        Rating <NorthIcon />
                                     </MenuItem>
                                     <MenuItem value={'rating-desc'}>
-                                        Rating <HiArrowNarrowDown />
+                                        Rating <SouthIcon />
                                     </MenuItem>
                                 </Select>
                             </ThemeProvider>
@@ -148,16 +149,16 @@ export default function ChallengeDashboard() {
                     {displayName === '' ? (
                         <Link href={CMUOAuthCallback} className="no-underline">
                             <ThemeProvider theme={ButtonTheme}>
-                                <Button variant="contained">
-                                    Create a new Challenge
+                                <Button variant="contained" size="medium">
+                                    create challenge
                                 </Button>
                             </ThemeProvider>
                         </Link>
                     ) : (
                         <Link href="/createchallenge" className="no-underline">
                             <ThemeProvider theme={ButtonTheme}>
-                                <Button variant="contained">
-                                    Create a new Challenge
+                                <Button variant="contained" size="medium">
+                                    create challenge
                                 </Button>
                             </ThemeProvider>
                         </Link>
