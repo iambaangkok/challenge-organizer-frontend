@@ -68,7 +68,7 @@ export default function Layout({ children }: any) {
 
     if (loading) {
         return (
-            <div className={styles['ScreenLoading'] + ' space-y-5'}>
+            <div className={styles['Screen']}>
                 <div className={styles['Loading'] + ' H1'}>
                     Loading
                 </div>

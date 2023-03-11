@@ -285,16 +285,14 @@
     }
 }
 
-.ScreenLoading {
-    height: 87.5vh;
-
+.Screen {
+    height : calc(100vh - 84px);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-
 }
 
 .Redirect {
-    margin-bottom: calc(172px);
+    transform: translateY(-100px - 84/2)
 }

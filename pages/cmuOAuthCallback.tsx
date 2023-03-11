@@ -73,7 +73,7 @@ export default function CMUOAuthCallback() {
     }, [code, router]);
 
     return (
-        <div className={styles['ScreenLoading'] + ' space-y-5'}>
+        <div className = {styles['Screen']}>
             <div className={styles['Redirect'] + ' H1'}>Redirecting</div>
             <div className={styles['pong']}>
                 <div></div>

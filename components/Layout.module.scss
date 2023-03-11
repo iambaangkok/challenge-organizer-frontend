@@ -1,15 +1,13 @@
-.ScreenLoading {
-    height: 87.5vh;
-
+.Screen {
+    height : 100vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-
 }
 
 .Loading {
-    margin-bottom: calc(144px - 12.5vh);
+    transform: translateY(-100px)
 }
 
 .pong {
