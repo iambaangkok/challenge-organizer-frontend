@@ -7,7 +7,7 @@ const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH;
 export const fetchChallengeData = async (
     challengeTitle: string,
 ): Promise<ChallengePageData> => {
-    console.log(`${BASE_URL}${BASE_PATH}`)
+    console.log(`${BASE_URL}${BASE_PATH}/${challengeTitle}`)
     const resp = await axios.get(`${BASE_URL}${BASE_PATH}/${challengeTitle}`);
     return resp.data;
 };
