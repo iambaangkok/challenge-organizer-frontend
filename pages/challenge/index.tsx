@@ -21,64 +21,9 @@ import {
     leaveChallenge,
 } from '../../services/challenge.services';
 import { getFormattedDate } from '../../utils/utils';
-
-export interface TabData {
-    index: number;
-    tabName: string;
-    posts: [
-        {
-            author: {
-                displayName: string;
-                isHost: boolean;
-            };
-            contentMarkdown: boolean;
-        },
-    ];
-}
-
-export interface ChallengePageData {
-    challengeId: string;
-    challengeTitle: string;
-    description: string;
-
-    type: string;
-    format: string;
-
-    participants: string[];
-    numParticipants: number;
-    host: string;
-    banckImg: string;
-
-    maxParticipants: number;
-    banUser: object[];
-    publishedStatus: boolean;
-
-    timeStamp: string;
-    startDate: string;
-    endDate: string;
-    closed: boolean;
-
-    file: {
-        user: object;
-        path: string;
-    };
-    rewards: [
-        {
-            rankMin: number;
-            rankMax: number;
-            rewardAbsolute: number;
-        },
-    ];
-    teams: {
-        team_id: number;
-        menubar: object[];
-    };
-    maxTeams: number;
-    rating: number;
-
-    schema_v: string;
-    join: boolean;
-}
+import PostModule from '../../components/challenge/PostModule';
+import PostEditor from '../../components/challenge/PostEditor';
+import { TabData, ChallengePageData } from '../../types/DataType';
 
 export default function Challenge() {
     const router = useRouter();
@@ -86,7 +31,7 @@ export default function Challenge() {
     const CMUOAuthCallback = process.env.NEXT_PUBLIC_CMU_OAUTH_URL;
 
     // useStates
-
+    
     const [loading, setLoading] = useState<boolean>(false);
     const [tabValue, setTabValue] = useState<number>(0);
     const [tabData, setTabData] = useState<TabData>();
@@ -155,10 +100,17 @@ export default function Challenge() {
         } else {
             setDisplayName(``);
         }
-        console.log(displayName);
-    }, [displayName]);
+    }, []);
 
-    const userIsJoined = challengePageData?.participants.includes(displayName);
+    const userIsJoined = challengePageData?.participants
+        .map((x) => x.displayName)
+        .includes(displayName);
+
+    const userIsHost =
+        challengePageData?.host == displayName ||
+        challengePageData?.collaborators
+            .map((x) => x.displayName)
+            .includes(displayName);
 
     return (
         <ThemeProvider theme={ButtonTheme}>
@@ -178,11 +130,14 @@ export default function Challenge() {
                         className={styles['banner']}
                     />
                 </div>
+
+                {/* Title and Tabs */}
                 <div
                     className={
                         styles['challengemenu-container'] + ' ShadowContainer'
                     }
                 >
+                    {/* Title */}
                     <div className={styles['title-container']}>
                         <div className={styles['title-left']}>
                             <div className={styles[''] + ' H3'}>
@@ -253,9 +208,7 @@ export default function Challenge() {
                             </div>
                         </div>
                         <div className={styles['title-right']}>
-                            {displayName &&
-                            challengePageData?.host &&
-                            displayName == challengePageData.host ? (
+                            {userIsHost ? (
                                 <Link
                                     id={'EditChallengeButton'}
                                     href={{
@@ -282,6 +235,8 @@ export default function Challenge() {
                             )}
                         </div>
                     </div>
+
+                    {/* Tabs */}
                     <Tabs
                         value={tabValue}
                         onChange={handleTabChange}
@@ -302,16 +257,31 @@ export default function Challenge() {
                         ))}
                     </Tabs>
                 </div>
+
                 <div className={styles['content-container']}>
-                    <div
-                        className={
-                            styles['posts-container'] +
-                            ' TextRegular' +
-                            ' ShadowContainer'
-                        }
-                    >
-                        {tabData?.tabName + ' tab posts'}
+                    <div className={styles['posts-container'] + ' TextRegular'}>
+                        {/* Post Editor */}
+                        {userIsHost && <PostEditor />}
+                        {/* Post List */}
+                        {testPostListsByTabs.map((x) => {
+                            if (x.index === tabValue) {
+                                return (
+                                    <>
+                                        {x.posts.map((post, index) => {
+                                            return (
+                                                <PostModule
+                                                    data={post}
+                                                    key={index}
+                                                />
+                                            );
+                                        })}
+                                    </>
+                                );
+                            } else return <></>;
+                        })}
                     </div>
+
+                    {/* Timer and Challenge Info */}
                     <div className={styles['rightsidebar-container']}>
                         <div
                             className={

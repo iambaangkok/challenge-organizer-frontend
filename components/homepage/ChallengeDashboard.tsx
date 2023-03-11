@@ -35,6 +35,8 @@ export default function ChallengeDashboard() {
         console.log(displayName);
     }, [displayName]);
 
+    const CMUOAuthCallback = process.env.NEXT_PUBLIC_CMU_OAUTH_URL;
+
     // Fetching Data from API
     const getChallengeList = () => {
         setLoading(true);
@@ -84,15 +86,19 @@ export default function ChallengeDashboard() {
                                     }}
                                     MenuProps={{
                                         sx: {
-                                            "&& .Mui-selected": {
-                                                backgroundColor: PrimaryLight
+                                            '&& .Mui-selected': {
+                                                backgroundColor: PrimaryLight,
                                             },
-                                        }
+                                        },
                                     }}
                                 >
                                     <MenuItem value={'all'}>All</MenuItem>
-                                    <MenuItem value={'ongoing'}>Ongoing</MenuItem>
-                                    <MenuItem value={'upcoming'}>Upcoming</MenuItem>
+                                    <MenuItem value={'ongoing'}>
+                                        Ongoing
+                                    </MenuItem>
+                                    <MenuItem value={'upcoming'}>
+                                        Upcoming
+                                    </MenuItem>
                                     <MenuItem value={'past'}>Past</MenuItem>
                                 </Select>
                             </ThemeProvider>
@@ -111,10 +117,10 @@ export default function ChallengeDashboard() {
                                     }}
                                     MenuProps={{
                                         sx: {
-                                            "&& .Mui-selected": {
-                                                backgroundColor: PrimaryLight
+                                            '&& .Mui-selected': {
+                                                backgroundColor: PrimaryLight,
                                             },
-                                        }
+                                        },
                                     }}
                                 >
                                     <MenuItem value={'a-z'}>A-Z</MenuItem>
@@ -139,13 +145,23 @@ export default function ChallengeDashboard() {
 
                 {/* Create Challenge Button */}
                 <div>
-                    <Link href="/createchallenge" className="no-underline">
-                        <ThemeProvider theme={ButtonTheme}>
-                            <Button variant="contained">
-                                Create a new Challenge
-                            </Button>
-                        </ThemeProvider>
-                    </Link>
+                    {displayName === '' ? (
+                        <Link href={CMUOAuthCallback} className="no-underline">
+                            <ThemeProvider theme={ButtonTheme}>
+                                <Button variant="contained">
+                                    Create a new Challenge
+                                </Button>
+                            </ThemeProvider>
+                        </Link>
+                    ) : (
+                        <Link href="/createchallenge" className="no-underline">
+                            <ThemeProvider theme={ButtonTheme}>
+                                <Button variant="contained">
+                                    Create a new Challenge
+                                </Button>
+                            </ThemeProvider>
+                        </Link>
+                    )}
                 </div>
             </div>
 

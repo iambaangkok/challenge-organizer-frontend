@@ -1,0 +1,31 @@
+.Post {
+    width: 100%;
+
+    background: var(--White);
+
+    display: flex;
+    flex-direction: row;
+
+    // border: 1px solid #8E8E8E;
+    border-radius: 10px;
+}
+
+.GrayArea {
+    width: 30px;
+    background: var(--SecondaryDark);
+    border-radius: 5px 0px 0px 5px;
+}
+
+.Content {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 30px);
+
+    padding : 5px 20px;
+    
+    .MarkdownBody pre code {
+        word-wrap: break-word;
+        // overflow: hidden;
+    }
+
+}

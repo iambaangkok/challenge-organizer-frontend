@@ -1,0 +1,32 @@
+.Post {
+    width: 100%;
+
+    background: var(--White);
+
+    display: flex;
+    flex-direction: column;
+
+    // border: 1px solid #8E8E8E;
+    border-radius: 5px;
+
+    .Editor {
+        width: inherit - 12px;
+        padding: 12px;
+    }
+
+    .Button {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 8px;
+        
+        padding: 0px 12px 12px 12px;
+
+        .Left {
+            display: flex;
+            flex-direction: row;
+
+            gap: 8px;
+        }
+    }
+}

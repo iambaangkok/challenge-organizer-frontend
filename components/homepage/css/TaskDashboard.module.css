@@ -1,6 +1,7 @@
 .TaskDashboard {
     padding: 30px 15px 10px;
-    width: 309px;
+    width: calc(100vw / 13*3);
+
     height: 100%;
     border-radius: 10px;
 

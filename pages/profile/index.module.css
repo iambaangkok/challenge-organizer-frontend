@@ -3,9 +3,9 @@
 }
 
 .Right {
-    width: 996px;
+    width: calc(100vw / 12 * 8);
 }
 
 .Left {
-    width : 367.2px;
+    width : calc(100vw / 12 * 4);
 }
