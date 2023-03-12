@@ -259,8 +259,8 @@ export default function Challenge() {
                                 <Link
                                     id={'EditChallengeButton'}
                                     href={{
-                                        pathname: '/editchallenge',
-                                        query: { id: 'CHALLENGEID' },
+                                        pathname: '/managechallenge',
+                                        query: { challengeTitle: challengeTitle },
                                     }}
                                     style={{
                                         textDecoration: 'none',
@@ -274,7 +274,7 @@ export default function Challenge() {
                                         }
                                         disableElevation
                                     >
-                                        {'Edit Challenge'}
+                                        {'manage Challenge'}
                                     </Button>
                                 </Link>
                             ) : (

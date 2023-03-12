@@ -4,6 +4,8 @@ import { useState } from 'react';
 import styles from '../../challengecreation/css/CreationPage.module.css'
 import { setConstantValue } from 'typescript';
 import axios from 'axios';
+import router from 'next/router';
+import { useEffect } from 'react';
 type Collaborator = {
     id: string;
     name: string;
@@ -20,7 +22,9 @@ const c2 = {
 };
 
 
-export default function Collaborators() {
+export default function Collaborators(title:any) {
+    // const {challengeTitle} = router.query
+
     const [cols, setCols] = useState<Collaborator[]>([]);
     const [text,setText]  = useState("")
     const [apiResp,setApiResp] = useState<Collaborator>();
@@ -33,6 +37,13 @@ export default function Collaborators() {
         // }
         setCols(cols.filter((e) => e !== cc));
     };
+    // useEffect(()=>{
+    //    axios .get('getall',title)
+    //    .then(resp =>{
+    //        setCols(resp.data)
+    //    })
+
+    // },[])
     const [emailInput,setEmailInput] = useState("");
     const addCol = (c: Collaborator) => {
         if (!cols.includes(c)) setCols([...cols, c]);
@@ -42,6 +53,7 @@ export default function Collaborators() {
     const handleChange = (e:any) =>{
         setText(e.target.value.toString())
     }
+
     const handleAdd = () =>{
         //send {text} to api then api return an entity
         //call addCol  with the returned entity as param

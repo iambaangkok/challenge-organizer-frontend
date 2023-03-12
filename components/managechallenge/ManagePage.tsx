@@ -18,6 +18,9 @@ import Router from 'next/router';
 import { ButtonTheme } from '../../theme/Button';
 import { useEffect } from 'react';
 import Collaborators from '../managechallenge/menucomponent/collaborators';
+import router from 'next/router';
+import { fetchChallengeData } from '../../services/challenge.services';
+import { useRouter } from 'next/router';
 
 const Title = {
     width: 1200,
@@ -82,6 +85,9 @@ const uploadTheme = createTheme({
 });
 
 export default function ManagePage() {
+    const router = useRouter();
+    const {challengeTitle} = router.query
+
     const [typeState, setTypeState] = useState<string>('');
     const [formatState, setFormatState] = useState<string>('');
 
@@ -101,32 +107,38 @@ export default function ManagePage() {
 
 
     useEffect(() => {
-        const savedLS = localStorage.getItem('saved');
-        if (savedLS != null) {
-            let saved = JSON.parse(savedLS);
-            if (saved) {
-                console.log(saved);
-                // console.log("title bf "+ title)
-                // console.log("saved title bf "+ saved.title)
-                setTitle(saved.title);
-                setTitleLimit(saved.title.toString().length);
-                // console.log("title af "+ title)
-                // console.log("saved title af "+ saved.title)
-                setDesc(saved.desc);
-                setDescLimit(saved.desc.toString().length);
+        // console.log(challengeTitle)
+        // console.log(title)
 
-                setTypeState(saved.type);
-                setFormatState(saved.format);
-                setParti(saved.participant);
-                // console.log(saved.startDate)
-                // console.log(saved.endDate)
-                setDate(dayjs(saved.startDate));
-                setEnd(dayjs(saved.endDate));
-                setFile(saved.banner)
-                setFileName(saved.fName)
-            }
+                // setTitle(saved.title);
+                // setTitleLimit(saved.title.toString().length);
+     
+                // setDesc(saved.desc);
+                // setDescLimit(saved.desc.toString().length);
+
+                // setTypeState(saved.type);
+                // setFormatState(saved.format);
+                // setParti(saved.participant);
+                // setDate(dayjs(saved.startDate));
+                // setEnd(dayjs(saved.endDate));
+        if (challengeTitle) {
+            fetchChallengeData(challengeTitle as string)
+            .then(resp=>{
+                setTitle(resp.challengeTitle)
+                setTitleLimit(resp.challengeTitle.toString().length);
+
+                setTypeState(resp.type)
+                setFormatState(resp.format)
+                setDesc(resp.description)
+                setDescLimit(resp.description.toString().length);
+
+                setParti(resp.maxParticipants)
+                setDate(dayjs(resp.startDate))
+                setEnd(dayjs(resp.endDate))
+            })
+  
         }
-    }, []);
+    }, [challengeTitle]);
 
     const handleCreate = () => {
         let j = {
@@ -538,7 +550,7 @@ export default function ManagePage() {
                                             </div>
                                         )} */}
                                     </div>
-                                <Collaborators></Collaborators>   
+                                <Collaborators {...title}></Collaborators>   
 
                                 </div>
                             </div>
