@@ -3,9 +3,9 @@ import collabStyle from '../css/Collabs.module.css';
 import { useState } from 'react';
 import styles from '../../challengecreation/css/CreationPage.module.css'
 import { setConstantValue } from 'typescript';
+import axios from 'axios';
 type Collaborator = {
-    cnumber: number;
-    id: number;
+    id: string;
     name: string;
 };
 const c = {
@@ -23,7 +23,14 @@ const c2 = {
 export default function Collaborators() {
     const [cols, setCols] = useState<Collaborator[]>([]);
     const [text,setText]  = useState("")
+    const [apiResp,setApiResp] = useState<Collaborator>();
     const removeCol = (cc: Collaborator) => {
+        // let.
+        // axios.delete('http://localhost:3030/api/challenges//deleteCollaborators')
+        // .then =>{
+            
+        //     removeCol
+        // }
         setCols(cols.filter((e) => e !== cc));
     };
     const [emailInput,setEmailInput] = useState("");
@@ -38,6 +45,25 @@ export default function Collaborators() {
     const handleAdd = () =>{
         //send {text} to api then api return an entity
         //call addCol  with the returned entity as param
+        console.log("add")
+        let j = {
+            challengeTitle: "Gemak112",
+            cmuAccount: emailInput
+        }
+        axios
+            .put('http://localhost:3030/api/challenges/addCollaborators',j)
+            .then((resp) =>{
+                console.log(resp.data)
+                // setApiResp({id:resp.data.ParticipantId,name:resp.data.CollaboratorName})
+                let c = {
+                    id:resp.data.ParticipantID,
+                    name:resp.data.CollaboratorName
+                }
+                addCol(c)
+            })
+            .catch((err) =>{
+                console.log(err)
+            })
     }
     return (
         <div className="w-full pb-2">
@@ -51,6 +77,7 @@ export default function Collaborators() {
                     <TextField
                         onChange = {(e) =>{
                             setEmailInput(e.target.value)
+                            
                         }}
                         placeholder = "Please input your collaborator's email."
                         fullWidth
@@ -58,7 +85,7 @@ export default function Collaborators() {
                     ></TextField>
                     </div>
                    
-                    <button className = "" onClick={() => addCol(c)}>add</button>
+                    <button className = "" onClick={() => handleAdd()}>add</button>
 
              
                 </div>
