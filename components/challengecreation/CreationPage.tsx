@@ -61,9 +61,9 @@ export default function CreationPage() {
     const [typeState, setTypeState] = useState<string>('');
     const [formatState, setFormatState] = useState<string>('');
 
-    const [title, setTitle] = useState<String>('');
+    const [title, setTitle] = useState<String>("");
     const [titleLimit, setTitleLimit] = useState<Number>(0);
-    const [desc, setDesc] = useState<String>('');
+    const [desc, setDesc] = useState<String>("");
     const [descLimit, setDescLimit] = useState<Number>(0);
 
     const [parti, setParti] = useState<Number>();

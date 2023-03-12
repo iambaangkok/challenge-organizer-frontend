@@ -62,7 +62,8 @@ export default function TextField_(data: any) {
     useEffect(() => {
         // console.log("useeffect "+ text)
         data.returnText(text);
-    }, [data, text]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[text]);
 
     const handleChange = async (e: any) => {
         // console.log(data.max)
@@ -120,7 +121,7 @@ export default function TextField_(data: any) {
                 onChange={(e) => handleChange(e)}
                 // value ={data.num?Number(text):text}
 
-                value={data.default ? data.default : ''}
+                value={data.default}
                 // defaultValue = {data.default}
             />
 

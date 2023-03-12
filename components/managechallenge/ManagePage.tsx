@@ -1,6 +1,6 @@
 import styles from '../challengecreation/css/CreationPage.module.css';
-import DateSelector from './AtomicComponent/DateSelector';
-import TextField_ from './AtomicComponent/TextField.';
+import DateSelector from '../challengecreation/AtomicComponent/DateSelector';
+import TextField_ from '../challengecreation/AtomicComponent/TextField.';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import {

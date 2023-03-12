@@ -26,7 +26,7 @@ export default function Collaborators(title:any) {
     // const {challengeTitle} = router.query
 
     const [cols, setCols] = useState<Collaborator[]>([]);
-    const [text,setText]  = useState("")
+    // const [text,setText]  = useState("")
     const [apiResp,setApiResp] = useState<Collaborator>();
     const removeCol = (cc: Collaborator) => {
         // let.
@@ -46,20 +46,21 @@ export default function Collaborators(title:any) {
     // },[])
     const [emailInput,setEmailInput] = useState("");
     const addCol = (c: Collaborator) => {
-        if (!cols.includes(c)) setCols([...cols, c]);
-        console.log(emailInput)
+        setCols([...cols, c]);
         setEmailInput("")
+        console.log(emailInput)
     };
-    const handleChange = (e:any) =>{
-        setText(e.target.value.toString())
-    }
+    // const handleChange = (e:any) =>{
+    //     setText(e.target.value.toString())
+    // }
 
     const handleAdd = () =>{
         //send {text} to api then api return an entity
         //call addCol  with the returned entity as param
-        console.log("add")
+        let dupe = cols.map((c) => c.name).includes(c.name)    
+        if(!dupe) {
         let j = {
-            challengeTitle: "Gemak112",
+            challengeTitle: "ggwp",
             cmuAccount: emailInput
         }
         axios
@@ -76,6 +77,7 @@ export default function Collaborators(title:any) {
             .catch((err) =>{
                 console.log(err)
             })
+        }   
     }
     return (
         <div className="w-full pb-2">
