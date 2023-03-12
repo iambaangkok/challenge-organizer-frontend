@@ -19,8 +19,10 @@ const c2 = {
     name: 'oat699',
 };
 
+
 export default function Collaborators() {
     const [cols, setCols] = useState<Collaborator[]>([]);
+    const [text,setText]  = useState("")
     const removeCol = (cc: Collaborator) => {
         setCols(cols.filter((e) => e !== cc));
     };
@@ -30,6 +32,13 @@ export default function Collaborators() {
         console.log(emailInput)
         setEmailInput("")
     };
+    const handleChange = (e:any) =>{
+        setText(e.target.value.toString())
+    }
+    const handleAdd = () =>{
+        //send {text} to api then api return an entity
+        //call addCol  with the returned entity as param
+    }
     return (
         <div className="w-full pb-2">
             <div className={styles.cr_HeadText + ' pb-2'}>
