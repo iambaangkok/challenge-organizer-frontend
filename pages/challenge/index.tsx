@@ -21,6 +21,7 @@ import {
     leaveChallenge,
 } from '../../services/challenge.services';
 import { getFormattedDate } from '../../utils/utils';
+import { UserData } from '../../types/DataType';
 
 export interface TabData {
     index: number;
@@ -78,6 +79,7 @@ export interface ChallengePageData {
 
     schema_v: string;
     join: boolean;
+    collaborators:UserData[];
 }
 
 export default function Challenge() {

@@ -6,6 +6,7 @@ import { setConstantValue } from 'typescript';
 import axios from 'axios';
 import router from 'next/router';
 import { useEffect } from 'react';
+import { UserData } from '../../../types/DataType';
 type Collaborator = {
     id: string;
     name: string;
@@ -22,20 +23,20 @@ const c2 = {
 };
 
 
-export default function Collaborators(title:any) {
+export default function Collaborators(title:String, collaborators:UserData[]) {
     // const {challengeTitle} = router.query
 
-    const [cols, setCols] = useState<Collaborator[]>([]);
+    const [cols, setCols] = useState<UserData[]>([]);
     // const [text,setText]  = useState("")
     const [apiResp,setApiResp] = useState<Collaborator>();
-    const removeCol = (cc: Collaborator) => {
+    const removeCol = (cc: UserData) => {
         // let.
         // axios.delete('http://localhost:3030/api/challenges//deleteCollaborators')
         // .then =>{
             
         //     removeCol
         // }
-        setCols(cols.filter((e) => e !== cc));
+        setCols(cols.filter((e) => e.userId !== cc.userId));
     };
     // useEffect(()=>{
     //    axios .get('getall',title)
@@ -45,7 +46,7 @@ export default function Collaborators(title:any) {
 
     // },[])
     const [emailInput,setEmailInput] = useState("");
-    const addCol = (c: Collaborator) => {
+    const addCol = (c: UserData) => {
         setCols([...cols, c]);
         setEmailInput("")
         console.log(emailInput)
@@ -57,22 +58,17 @@ export default function Collaborators(title:any) {
     const handleAdd = () =>{
         //send {text} to api then api return an entity
         //call addCol  with the returned entity as param
-        let dupe = cols.map((c) => c.name).includes(c.name)    
+        let dupe = cols.map((c) => c.cmuAccount).includes(emailInput)    
         if(!dupe) {
         let j = {
-            challengeTitle: "ggwp",
+            challengeTitle: title,
             cmuAccount: emailInput
         }
         axios
             .put('http://localhost:3030/api/challenges/addCollaborators',j)
             .then((resp) =>{
-                console.log(resp.data)
-                // setApiResp({id:resp.data.ParticipantId,name:resp.data.CollaboratorName})
-                let c = {
-                    id:resp.data.ParticipantID,
-                    name:resp.data.CollaboratorName
-                }
-                addCol(c)
+                console.log(resp.data.Collaborator)
+                // addCol(resp.data.Collaborator)
             })
             .catch((err) =>{
                 console.log(err)
@@ -115,17 +111,17 @@ export default function Collaborators(title:any) {
                         <div className={collabStyle.theadtext}>Action</div>
                     </div>
                     {cols.length > 0 &&
-                        cols.map((co: Collaborator, index) => {
+                        cols.map((co: UserData, index) => {
                             return (
                                 <div className={collabStyle.tbody} key={index}>
                                     <div className={collabStyle.tbodytext}>
                                         {index + 1}
                                     </div>
                                     <div className={collabStyle.tbodytext}>
-                                        {co.id}
+                                        {co.studentId}
                                     </div>
                                     <div className={collabStyle.tbodytext}>
-                                        {co.name}
+                                        {co.displayName}
                                     </div>
                                     <button
                                         className=""

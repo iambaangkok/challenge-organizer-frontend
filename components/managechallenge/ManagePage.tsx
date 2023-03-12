@@ -21,6 +21,7 @@ import Collaborators from '../managechallenge/menucomponent/collaborators';
 import router from 'next/router';
 import { fetchChallengeData } from '../../services/challenge.services';
 import { useRouter } from 'next/router';
+import { UserData } from '../../types/DataType';
 
 const Title = {
     width: 1200,
@@ -86,6 +87,8 @@ const uploadTheme = createTheme({
 
 export default function ManagePage() {
     const router = useRouter();
+    // const [challengePageData, setChallengePageData] =
+    //     useState<ChallengePageData>();
     const {challengeTitle} = router.query
 
     const [typeState, setTypeState] = useState<string>('');
@@ -104,23 +107,10 @@ export default function ManagePage() {
     const [date, setDate] = useState<Dayjs | null>(null);
     const [end, setEnd] = useState<Dayjs | null>(null);
     // const [host,setHost] = useState<String>();
+    const [collabarotors,setCollaborators] = useState<UserData[]>([]);
 
 
     useEffect(() => {
-        // console.log(challengeTitle)
-        // console.log(title)
-
-                // setTitle(saved.title);
-                // setTitleLimit(saved.title.toString().length);
-     
-                // setDesc(saved.desc);
-                // setDescLimit(saved.desc.toString().length);
-
-                // setTypeState(saved.type);
-                // setFormatState(saved.format);
-                // setParti(saved.participant);
-                // setDate(dayjs(saved.startDate));
-                // setEnd(dayjs(saved.endDate));
         if (challengeTitle) {
             fetchChallengeData(challengeTitle as string)
             .then(resp=>{
@@ -135,6 +125,7 @@ export default function ManagePage() {
                 setParti(resp.maxParticipants)
                 setDate(dayjs(resp.startDate))
                 setEnd(dayjs(resp.endDate))
+                setCollaborators(resp.collaborators)
             })
   
         }
@@ -550,7 +541,7 @@ export default function ManagePage() {
                                             </div>
                                         )} */}
                                     </div>
-                                <Collaborators {...title}></Collaborators>   
+                                <Collaborators {...title} {...collabarotors}></Collaborators>   
 
                                 </div>
                             </div>

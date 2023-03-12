@@ -26,3 +26,19 @@ export interface NotificationData {
     description: string;
     date: string;
 }
+
+export interface UserData {
+    banStatus: boolean;
+    cmuAccount: string;
+    coin: string;
+    createdDate: string;
+    displayName: string;
+    editAtDate: string | null;
+    equipmentFrame: string;
+    firstName: string;
+    isAdmin: boolean;
+    lastName: string;
+    studentId: string;
+    tasks: string;
+    userId: number;
+}
