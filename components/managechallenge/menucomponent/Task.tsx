@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import styles from '../../challengecreation/css/CreationPage.module.css'
 
@@ -34,6 +36,27 @@ export default function ManageTask() {
         setFinish(finish.filter((e) => e !== t));
         //api
     };
+
+    useEffect(()=>{
+        let currentTime = new Date()
+        //send chal data
+        axios.get('all task')
+        .then((resp) =>{
+            var o = []
+            var f= []
+            var fi = []
+            let end = new Date(t.endDate)
+            let start = new Date(t.startDate)
+            for (var t of resp.data){
+                if (start <= currentTime &&end > currentTime) o.push(t)
+                if (start > currentTime) f.push(t)
+                if (end <= currentTime) fi.push(t)
+            }
+            setOngoing(o)
+            setFuture(f)
+            setFinish(fi)
+        })
+    },[]);
     return (
         <div className = "w-full">
             <div className="w-full pb-2">
@@ -71,7 +94,7 @@ export default function ManageTask() {
                                             {t.end}
                                         </div>
                                         <div>
-                                            <button>Hide</button>
+        
                                             <button>Edit</button>
                                             <button
                                                 onClick={() => ongDelete(t)}
@@ -118,7 +141,7 @@ export default function ManageTask() {
                                             {t.end}
                                         </div>
                                         <div>
-                                            <button>Hide</button>
+                        
                                             <button>Edit</button>
                                             <button onClick={() => fDelete(t)}>
                                                 Delete
@@ -162,8 +185,7 @@ export default function ManageTask() {
                                         <div className={tStyle.bodytext}>
                                             {t.end}
                                         </div>
-                                        <div>
-                                            <button>Hide</button>
+                        
                                             <button>Edit</button>
                                             <button
                                                 onClick={() => finishDelete(t)}
