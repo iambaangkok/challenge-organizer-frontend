@@ -15,23 +15,21 @@ interface post {
 }
 
 export default function Preview() {
-    const [markdown, setMarkdown] = useState<string | null>('');
-
-    var wrap = require('wordwrap')(80, { mode: 'hard' });
-    var codeblocks = require('remark-code-blocks');
+    const [markdown, setMarkdown] = useState<string>('');
+    const [displayName, setDisplayName] = useState<string>('');
 
     useEffect(() => {
-        var text = localStorage.getItem('markdown');
-        if (text === null) {
-            setMarkdown('');
-        } else {
-            setMarkdown(text);
-        }
+        var md = localStorage.getItem('markdown');
+        var name = localStorage.getItem('displayName');
+        if (name === null) setDisplayName('Not Found');
+        else setDisplayName(name);
+        if (md === null) setMarkdown('Not Found');
+        else setMarkdown(md);
     }, []);
 
     const previewMarkdownPost = {
         author: {
-            displayName: 'Preview Markdown',
+            displayName: displayName,
             isHost: false,
         },
         contentMarkdown: markdown,
