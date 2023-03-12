@@ -8,12 +8,10 @@ import { Button, Tab, Tabs, ThemeProvider } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 
 import { testPostListsByTabs } from '../../lib/postListByTabs';
-import { testChallengePageData } from '../../lib/challengePageData';
 import CountdownTimer from '../../components/challenge/CountdownTimer';
 import Link from 'next/link';
 import StarRating from '../../components/challenge/StarRating';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 import { ButtonTheme } from '../../theme/Button';
 import {
     fetchChallengeData,
@@ -31,14 +29,14 @@ export default function Challenge() {
     const CMUOAuthCallback = process.env.NEXT_PUBLIC_CMU_OAUTH_URL;
 
     // useStates
-    
+
     const [loading, setLoading] = useState<boolean>(false);
     const [tabValue, setTabValue] = useState<number>(0);
     const [tabData, setTabData] = useState<TabData>();
     const [challengePageData, setChallengePageData] =
         useState<ChallengePageData>();
 
-    const [displayName, setDisplayName] = useState('');
+    const [displayName, setDisplayName] = useState<string | null>('');
 
     // Functions
 
@@ -48,26 +46,6 @@ export default function Challenge() {
     ) => {
         setTabValue(newTabValue);
     };
-
-    const handleJoin = useCallback(
-        async (challengeTitle: string, displayName: string) => {
-            setLoading(true);
-            await joinChallenge(challengeTitle, displayName);
-            setLoading(false);
-        },
-        [],
-    );
-
-    const handleLeave = useCallback(
-        async (challengeTitle: string, displayName: string) => {
-            setLoading(true);
-            await leaveChallenge(challengeTitle, displayName);
-            setLoading(false);
-        },
-        [],
-    );
-
-    // useCallbacks
 
     const getChallengeData = useCallback(async () => {
         setLoading(true);
@@ -79,6 +57,31 @@ export default function Challenge() {
         setLoading(false);
     }, [challengeTitle]);
 
+    const handleJoin = useCallback(
+        async (challengeTitle: string, displayName: string | null) => {
+            if (displayName !== null) {
+                setLoading(true);
+                await joinChallenge(challengeTitle, displayName);
+                await getChallengeData();
+                setLoading(false);
+            }
+        },
+        [getChallengeData],
+    );
+
+    const handleLeave = useCallback(
+        async (challengeTitle: string, displayName: string | null) => {
+            if (displayName !== null) {
+                setLoading(true);
+                await leaveChallenge(challengeTitle, displayName);
+                await getChallengeData();
+                setLoading(false);
+            }
+        },
+        [getChallengeData],
+    );
+
+    // useCallbacks
     const getTabData = useCallback(async () => {
         const newTabData = testPostListsByTabs.find((x) => {
             return x.index == tabValue;
@@ -98,26 +101,31 @@ export default function Challenge() {
         if (localStorage.getItem('displayName') !== null) {
             setDisplayName(`${localStorage.getItem('displayName')}`);
         } else {
-            setDisplayName(``);
+            setDisplayName(null);
         }
     }, []);
 
-    const userIsJoined = challengePageData?.participants
-        .map((x) => x.displayName)
-        .includes(displayName);
+    const userIsJoined =
+        displayName !== null
+            ? challengePageData?.participants
+                  .map((x) => x.displayName)
+                  .includes(displayName)
+            : false;
 
     const userIsHost =
-        challengePageData?.host == displayName ||
-        challengePageData?.collaborators
-            .map((x) => x.displayName)
-            .includes(displayName);
+        displayName !== null
+            ? challengePageData?.host == displayName ||
+              challengePageData?.collaborators
+                  .map((x) => x.displayName)
+                  .includes(displayName)
+            : false;
 
     return (
         <ThemeProvider theme={ButtonTheme}>
             <div className={styles['main-container']}>
                 <Head>
                     <title>
-                        {'Challenge |' +
+                        {'Challenge | ' +
                             (challengePageData
                                 ? challengePageData.challengeTitle
                                 : 'TitleText')}

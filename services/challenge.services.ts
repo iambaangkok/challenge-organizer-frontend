@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ChallengePageData } from '../pages/challenge/index';
+import { ChallengePageData } from '../types/DataType';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH;

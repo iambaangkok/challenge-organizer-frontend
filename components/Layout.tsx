@@ -37,7 +37,7 @@ export default function Layout({ children }: any) {
                     setCmuAccount(response.data.cmuAccount);
                     setStudentId(response.data.studentId ?? 'No Student Id');
                     setLoggedIn(true);
-                    console.log('YES');
+                    console.log('Get Profile');
                 } else {
                     console.log('delete cookie');
                     await axios.post('/api/signOut');
