@@ -1,16 +1,25 @@
 import { useState } from 'react';
-import styles from '../../challengecreation/css/CreationPage.module.css';
+import styles from '../../challengecreation/css/CreationPage.module.css'
+
 import tStyle from '../css/Task.module.css';
 
 type Task_ = {
-    cnumber: number;
     name: string;
     desc: string;
     start: string;
     end: string;
 };
+const t1 = {
+    name: "gae",
+    desc:"become the g"
+    ,start: "050623",
+    end: "050823"
+}
 export default function ManageTask() {
     const [ongoing, setOngoing] = useState<Task_[]>([]);
+    const ongAdd = (t:Task_) =>{
+        setOngoing([...ongoing,t])
+    }
     const ongDelete = (t: Task_) => {
         setOngoing(ongoing.filter((e) => e !== t));
         //api
@@ -29,6 +38,7 @@ export default function ManageTask() {
         <div className = "w-full">
             <div className="w-full pb-2">
                 <div className={styles.cr_HeadText + 'pb-2'}>Ongoing Task</div>
+                <button onClick = {()=>ongAdd(t1)}>add</button>
                 <div className={tStyle.frame + ' w-full'}>
                     <div></div>
                     {/* table */}
