@@ -27,11 +27,14 @@ export default function Preview() {
         else setMarkdown(md);
     }, []);
 
+    var currentTime = new Date().toISOString()
+
     const previewMarkdownPost = {
         author: {
             displayName: displayName,
             isHost: false,
         },
+        createdAt : currentTime,
         contentMarkdown: markdown,
     };
 
