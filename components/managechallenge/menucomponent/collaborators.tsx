@@ -4,10 +4,11 @@ import { useState } from 'react';
 import styles from '../../challengecreation/css/CreationPage.module.css';
 import { setConstantValue } from 'typescript';
 import axios from 'axios';
-import router from 'next/router';
+import router, { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { UserData } from '../../../types/DataType';
 import { useCallback } from 'react';
+import { fetchChallengeData } from '../../../services/challenge.services';
 type Collaborator = {
     id: string;
     name: string;
@@ -25,6 +26,9 @@ const c2 = {
 
 export default function Collaborators({    title,collaborators} :any) {
     // const {challengeTitle} = router.query
+    const router = useRouter();
+    const {challengeTitle} = router.query
+
     const [emailInput, setEmailInput] = useState('');
 
     const [cols, setCols] = useState<UserData[]>([]);
@@ -45,28 +49,37 @@ export default function Collaborators({    title,collaborators} :any) {
     // const handleChange = (e:any) =>{
     //     setText(e.target.value.toString())
     // }
-
-    const handleAdd = useCallback(() => {
+    const addCol = useCallback(() =>{
         let dupe = cols.map((c) => c.cmuAccount).includes(emailInput);
         if (!dupe) {
+            console.log("yes")
             let j = {
                 challengeTitle: title,
                 cmuAccount: emailInput,
             };
+            console.log("j= ",j)
             axios
                 .put('http://localhost:3030/api/challenges/addCollaborators', j)
                 .then((resp) => {
-                    console.log(resp.data.Collaborator);
+                    console.log(resp.data);
+                    fetchChallengeData(challengeTitle as string)
+                    .then(resp=>{
+                    setCols(resp.collaborators)})
                 })
                 .catch((err) => {
                     console.log(err);
                 });
         }
-    },[cols, emailInput, title]);
+    },[challengeTitle, cols, emailInput, title])
+
+    const handleAdd = () =>{
+        addCol
+    }
 
     useEffect(()=>{
-        setCols(collaborators)
-    },[collaborators,handleAdd])
+    },[cols])
+
+
     return (
         <div className="w-full pb-2">
             <div className={styles.cr_HeadText + ' pb-2'}>Collaborators</div>
@@ -98,7 +111,7 @@ export default function Collaborators({    title,collaborators} :any) {
                         </div>
                         <div className={collabStyle.theadtext}>Action</div>
                     </div>
-                    {cols.length > 0 &&
+                    {cols?.length > 0 &&
                         cols.map((co: UserData, index) => {
                             return (
                                 <div className={collabStyle.tbody} key={index}>
