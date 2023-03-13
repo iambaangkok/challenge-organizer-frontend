@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import styles from '../../challengecreation/css/CreationPage.module.css'
-
+import styles from '../../challengecreation/css/CreationPage.module.css';
 import tStyle from '../css/Task.module.css';
 
 type Task_ = {
@@ -12,56 +11,69 @@ type Task_ = {
     end: string;
 };
 const t1 = {
-    name: "gae",
-    desc:"become the g"
-    ,start: "050623",
-    end: "050823"
-}
-export default function ManageTask() {
+    name: 'gae',
+    desc: 'become the g',
+    start: '050623',
+    end: '050823',
+};
+export default function ManageTask(tasks: any) {
     const [ongoing, setOngoing] = useState<Task_[]>([]);
-    const ongAdd = (t:Task_) =>{
-        setOngoing([...ongoing,t])
-    }
-    const ongDelete = (t: Task_) => {
-        setOngoing(ongoing.filter((e) => e !== t));
-        //api
-    };
     const [future, setFuture] = useState<Task_[]>([]);
-    const fDelete = (t: Task_) => {
-        setFuture(future.filter((e) => e !== t));
-        //api
-    };
     const [finish, setFinish] = useState<Task_[]>([]);
-    const finishDelete = (t: Task_) => {
-        setFinish(finish.filter((e) => e !== t));
-        //api
-    };
 
+    const spiltTask = (tasks: any) => {
+        let currentTime = new Date();
+        var o = [];
+        var f = [];
+        var fi = [];
+
+        for (var t of tasks) {
+            let end = new Date(t.endDate);
+            let start = new Date(t.startDate);
+            if (start <= currentTime && end > currentTime) o.push(t);
+            if (start > currentTime) f.push(t);
+            if (end <= currentTime) fi.push(t);
+        }
+        setOngoing(o)
+        setFuture(f)
+        setFinish(fi)
+    };
     useEffect(()=>{
-        let currentTime = new Date()
+        spiltTask(tasks)
+    },[tasks])
+
+    const addTask = async (t: Task_) => {
+        setOngoing([...ongoing, t]);
+        await axios.post('add')
+    };
+    const delTask = async (t:Task_) =>{
+        await axios.delete('del')
+    }
+
+    useEffect(() => {
+        let currentTime = new Date();
         //send chal data
-        axios.get('all task')
-        .then((resp) =>{
-            var o = []
-            var f= []
-            var fi = []
-            let end = new Date(t.endDate)
-            let start = new Date(t.startDate)
-            for (var t of resp.data){
-                if (start <= currentTime &&end > currentTime) o.push(t)
-                if (start > currentTime) f.push(t)
-                if (end <= currentTime) fi.push(t)
+        axios.get('all task').then((resp) => {
+            var o = [];
+            var f = [];
+            var fi = [];
+            let end = new Date(t.endDate);
+            let start = new Date(t.startDate);
+            for (var t of resp.data) {
+                if (start <= currentTime && end > currentTime) o.push(t);
+                if (start > currentTime) f.push(t);
+                if (end <= currentTime) fi.push(t);
             }
-            setOngoing(o)
-            setFuture(f)
-            setFinish(fi)
-        })
-    },[]);
+            setOngoing(o);
+            setFuture(f);
+            setFinish(fi);
+        });
+    }, []);
     return (
-        <div className = "w-full">
+        <div className="w-full">
             <div className="w-full pb-2">
                 <div className={styles.cr_HeadText + 'pb-2'}>Ongoing Task</div>
-                <button onClick = {()=>ongAdd(t1)}>add</button>
+             
                 <div className={tStyle.frame + ' w-full'}>
                     <div></div>
                     {/* table */}
@@ -94,10 +106,9 @@ export default function ManageTask() {
                                             {t.end}
                                         </div>
                                         <div>
-        
                                             <button>Edit</button>
                                             <button
-                                                onClick={() => ongDelete(t)}
+                                                onClick={() => delTask(t)}
                                             >
                                                 Delete
                                             </button>
@@ -141,9 +152,8 @@ export default function ManageTask() {
                                             {t.end}
                                         </div>
                                         <div>
-                        
                                             <button>Edit</button>
-                                            <button onClick={() => fDelete(t)}>
+                                            <button onClick={() => delTask(t)}>
                                                 Delete
                                             </button>
                                         </div>
@@ -185,10 +195,10 @@ export default function ManageTask() {
                                         <div className={tStyle.bodytext}>
                                             {t.end}
                                         </div>
-                        
+                                        <div>
                                             <button>Edit</button>
                                             <button
-                                                onClick={() => finishDelete(t)}
+                                                onClick={() => delTask(t)}
                                             >
                                                 Delete
                                             </button>
