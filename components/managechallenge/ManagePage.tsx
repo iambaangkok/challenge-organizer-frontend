@@ -541,7 +541,7 @@ export default function ManagePage() {
                                             </div>
                                         )} */}
                                     </div>
-                                <Collaborators {...title} {...collabarotors}></Collaborators>   
+                                <Collaborators title={title} collaborators={collabarotors}></Collaborators>   
 
                                 </div>
                             </div>

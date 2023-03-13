@@ -7,6 +7,7 @@ import axios from 'axios';
 import router from 'next/router';
 import { useEffect } from 'react';
 import { UserData } from '../../../types/DataType';
+import { useCallback } from 'react';
 type Collaborator = {
     id: string;
     name: string;
@@ -22,11 +23,9 @@ const c2 = {
     name: 'oat699',
 };
 
-export default function Collaborators(
-    title: String,
-    collaborators: UserData[],
-) {
+export default function Collaborators({    title,collaborators} :any) {
     // const {challengeTitle} = router.query
+    const [emailInput, setEmailInput] = useState('');
 
     const [cols, setCols] = useState<UserData[]>([]);
     // const [text,setText]  = useState("")
@@ -40,24 +39,14 @@ export default function Collaborators(
         // }
         setCols(cols.filter((e) => e.userId !== cc.userId));
     };
-    // useEffect(()=>{
-    //    axios .get('getall',title)
-    //    .then(resp =>{
-    //        setCols(resp.data)
-    //    })
-
-    // },[])
-    const [emailInput, setEmailInput] = useState('');
-    const addCol = (c: UserData) => {
-        setCols([...cols, c]);
-        setEmailInput('');
-        console.log(emailInput);
-    };
+    
+    
+   
     // const handleChange = (e:any) =>{
     //     setText(e.target.value.toString())
     // }
 
-    const handleAdd = () => {
+    const handleAdd = useCallback(() => {
         let dupe = cols.map((c) => c.cmuAccount).includes(emailInput);
         if (!dupe) {
             let j = {
@@ -68,13 +57,16 @@ export default function Collaborators(
                 .put('http://localhost:3030/api/challenges/addCollaborators', j)
                 .then((resp) => {
                     console.log(resp.data.Collaborator);
-                    addCol(resp.data.Collaborator);
                 })
                 .catch((err) => {
                     console.log(err);
                 });
         }
-    };
+    },[cols, emailInput, title]);
+
+    useEffect(()=>{
+        setCols(collaborators)
+    },[collaborators,handleAdd])
     return (
         <div className="w-full pb-2">
             <div className={styles.cr_HeadText + ' pb-2'}>Collaborators</div>

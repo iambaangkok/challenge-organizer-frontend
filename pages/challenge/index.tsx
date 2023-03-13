@@ -45,7 +45,7 @@ export interface ChallengePageData {
     type: string;
     format: string;
 
-    participants: string[];
+    participants: UserData[];
     numParticipants: number;
     host: string;
     banckImg: string;
@@ -77,9 +77,10 @@ export interface ChallengePageData {
     maxTeams: number;
     rating: number;
 
+    collaborators: UserData[];
+
     schema_v: string;
     join: boolean;
-    collaborators:UserData[];
 }
 
 export default function Challenge() {
