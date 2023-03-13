@@ -70,7 +70,7 @@ export interface ChallengePageData {
 
     participants: UserData[];
     numParticipants: number;
-    host: string;
+    host: UserData;
     banckImg: string;
 
     maxParticipants: number;

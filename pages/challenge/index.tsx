@@ -108,15 +108,15 @@ export default function Challenge() {
     const userIsJoined =
         displayName !== null
             ? challengePageData?.participants
-                  .map((x) => x.displayName)
+                  .map((x, index) => x.displayName)
                   .includes(displayName)
             : false;
 
     const userIsHost =
         displayName !== null
-            ? challengePageData?.host == displayName ||
+            ? challengePageData?.host.displayName == displayName ||
               challengePageData?.collaborators
-                  .map((x) => x.displayName)
+                  .map((x, index) => x.displayName)
                   .includes(displayName)
             : false;
 
@@ -271,21 +271,21 @@ export default function Challenge() {
                         {/* Post Editor */}
                         {userIsHost && <PostEditor />}
                         {/* Post List */}
-                        {testPostListsByTabs.map((x) => {
+                        {testPostListsByTabs.map((x, index) => {
                             if (x.index === tabValue) {
                                 return (
-                                    <>
-                                        {x.posts.map((post, index) => {
+                                    <div key={index}>
+                                        {x.posts.map((post, index2) => {
                                             return (
                                                 <PostModule
                                                     data={post}
-                                                    key={index}
+                                                    key={index2}
                                                 />
                                             );
                                         })}
-                                    </>
+                                    </div>
                                 );
-                            } else return <></>;
+                            } else return <div key={index}></div>;
                         })}
                     </div>
 
@@ -355,7 +355,7 @@ export default function Challenge() {
                                             className={styles['hostname']}
                                         >
                                             {challengePageData
-                                                ? challengePageData.host
+                                                ? challengePageData.host.displayName
                                                 : 'N/A'}
                                         </Link>
                                     </div>
