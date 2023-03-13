@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { AuthorizationRequest, AuthorizationResponse } from '../types/Request';
 import { SignInResponse } from './api/signIn';
-import styles from './index.module.css';
+import styles from './cmuOAuthCallback.module.scss';
 
 export default function CMUOAuthCallback() {
     const router = useRouter();
@@ -51,7 +51,7 @@ export default function CMUOAuthCallback() {
                         })
                         .catch(async (err) => {
                             console.log(err);
-                            await axios.post("/api/signOut")
+                            await axios.post('/api/signOut');
                         });
 
                     router.push('/home');
@@ -73,18 +73,12 @@ export default function CMUOAuthCallback() {
     }, [code, router]);
 
     return (
-        <div
-            className={
-                styles.ScreenLoading + ' flex flex-col justify-center space-y-5'
-            }
-        >
-            <div className="flex justify-center H1">Redirecting ...</div>
-            <div className="flex justify-center">
-                <CircularProgress
-                    size={100}
-                    thickness={5}
-                    sx={{ color: '#fa9c1d' }}
-                />
+        <div className = {styles['Screen']}>
+            <div className={styles['Redirect'] + ' H1'}>Redirecting</div>
+            <div className={styles['pong']}>
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
         </div>
     );

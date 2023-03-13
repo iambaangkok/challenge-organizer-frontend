@@ -1,9 +1,9 @@
 import { CircularProgress } from '@mui/material';
 import axios, { AxiosResponse, AxiosError } from 'axios';
-import { deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { WhoAmIResponse } from '../pages/api/whoAmI';
+import styles from './Layout.module.scss';
 
 import Navbar from './navbar/NavBar';
 
@@ -17,7 +17,7 @@ export default function Layout({ children }: any) {
     // state
     const [loading, setLoading] = useState<boolean>(false);
     const [loggedIn, setLoggedIn] = useState<boolean>(false);
-	
+
     const router = useRouter();
 
     const getInfo = () => {
@@ -37,10 +37,10 @@ export default function Layout({ children }: any) {
                     setCmuAccount(response.data.cmuAccount);
                     setStudentId(response.data.studentId ?? 'No Student Id');
                     setLoggedIn(true);
-                    console.log('YES')
+                    console.log('Get Profile');
                 } else {
-                    console.log('delete cookie')
-                    await axios.post("/api/signOut")
+                    console.log('delete cookie');
+                    await axios.post('/api/signOut');
                 }
             })
             .catch((error: AxiosError<WhoAmIResponse>) => {
@@ -68,14 +68,14 @@ export default function Layout({ children }: any) {
 
     if (loading) {
         return (
-            <div className="h-screen flex flex-col justify-center space-y-5">
-                <div className="flex justify-center H1">Loading</div>
-                <div className="flex justify-center">
-                    <CircularProgress
-                        size={100}
-                        thickness={5}
-                        sx={{ color: '#fa9c1d' }}
-                    />
+            <div className={styles['Screen']}>
+                <div className={styles['Loading'] + ' H1'}>
+                    Loading
+                </div>
+                <div className={styles['pong']}>
+                    <div></div>
+                    <div></div>
+                    <div></div>
                 </div>
             </div>
         );
@@ -94,6 +94,13 @@ export default function Layout({ children }: any) {
     // 	</div>
     // )
     // }
+    if (router.pathname === '/preview') {
+        return (
+            <>
+                <main>{children}</main>
+            </>
+        );
+    }
     return (
         <>
             <Navbar loginStatus={loggedIn} fullName={fullName} />

@@ -42,3 +42,63 @@ export interface UserData {
     tasks: string;
     userId: number;
 }
+
+export interface TabData {
+    index: number;
+    tabName: string;
+    posts: [
+        {
+            author: {
+                displayName: string;
+                isHost: boolean;
+            };
+            contentMarkdown: boolean;
+        },
+    ];
+}
+
+export interface ChallengePageData {
+    challengeId: string;
+    challengeTitle: string;
+    description: string;
+
+    type: string;
+    format: string;
+
+    participants: UserData[];
+    numParticipants: number;
+    host: string;
+    banckImg: string;
+
+    maxParticipants: number;
+    banUser: object[];
+    publishedStatus: boolean;
+
+    timeStamp: string;
+    startDate: string;
+    endDate: string;
+    closed: boolean;
+
+    file: {
+        user: object;
+        path: string;
+    };
+    rewards: [
+        {
+            rankMin: number;
+            rankMax: number;
+            rewardAbsolute: number;
+        },
+    ];
+    teams: {
+        team_id: number;
+        menubar: object[];
+    };
+    maxTeams: number;
+    rating: number;
+
+    collaborators: UserData[];
+
+    schema_v: string;
+    join: boolean;
+}
