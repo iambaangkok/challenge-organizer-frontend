@@ -16,10 +16,13 @@ export interface ChallengeCardData {
 
 export interface TaskData {
     taskId: string;
-    taskName: string;
-    challengeName: string;
-    dueDate: string;
-    finished: boolean;
+    description: string;
+    doned: boolean;
+    editAt: string;
+    start: string;
+    end: string;
+    hasChallenges: ChallengeData;
+    score: number;
 }
 
 export interface NotificationData {
@@ -101,4 +104,25 @@ export interface ChallengePageData {
 
     schema_v: string;
     join: boolean;
+}
+
+export interface ChallengeData {
+    banckImg?: string;
+    challengeId: number;
+    challengeTitle: string;
+    closed: boolean;
+    createdAtDate: string;
+    description: string;
+    endDate?: string;
+    format?: string;
+    host: string;
+    join: boolean;
+    maxParticipants: number;
+    maxTeams: number;
+    numParticipants: number;
+    publishedStatus: boolean;
+    rating: number;
+    startDate?: string;
+    type: string;
+    upDateAt: string;
 }
