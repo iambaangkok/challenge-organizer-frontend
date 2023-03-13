@@ -114,11 +114,16 @@ export default function Challenge() {
 
     const userIsHost =
         displayName !== null
-            ? challengePageData?.host.displayName == displayName ||
+            ? challengePageData?.host.displayName === displayName ||
               challengePageData?.collaborators
                   .map((x, index) => x.displayName)
                   .includes(displayName)
             : false;
+
+    const userIsMaxed =
+        !(challengePageData?.maxParticipants === 0) &&
+        challengePageData?.maxParticipants ===
+            challengePageData?.numParticipants;
 
     return (
         <ThemeProvider theme={ButtonTheme}>
@@ -194,7 +199,7 @@ export default function Challenge() {
                                     >
                                         {'Leave'}
                                     </Button>
-                                ) : (
+                                ) : !userIsMaxed ? (
                                     <Button
                                         onClick={() => {
                                             handleJoin(
@@ -211,6 +216,19 @@ export default function Challenge() {
                                         disableElevation
                                     >
                                         {'Join'}
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        id="StatusButton"
+                                        variant="contained"
+                                        className={
+                                            styles['status-button'] +
+                                            ' button-primary H3'
+                                        }
+                                        disableElevation
+                                        disabled
+                                    >
+                                        {'Max'}
                                     </Button>
                                 )}
                             </div>
@@ -271,21 +289,21 @@ export default function Challenge() {
                         {/* Post Editor */}
                         {userIsHost && <PostEditor />}
                         {/* Post List */}
-                        {testPostListsByTabs.map((x, index) => {
+                        {testPostListsByTabs.map((x) => {
                             if (x.index === tabValue) {
                                 return (
-                                    <div key={index}>
-                                        {x.posts.map((post, index2) => {
+                                    <>
+                                        {x.posts.map((post, index) => {
                                             return (
                                                 <PostModule
                                                     data={post}
-                                                    key={index2}
+                                                    key={index}
                                                 />
                                             );
                                         })}
-                                    </div>
+                                    </>
                                 );
-                            } else return <div key={index}></div>;
+                            } else return <></>;
                         })}
                     </div>
 
@@ -355,7 +373,8 @@ export default function Challenge() {
                                             className={styles['hostname']}
                                         >
                                             {challengePageData
-                                                ? challengePageData.host.displayName
+                                                ? challengePageData.host
+                                                      .displayName
                                                 : 'N/A'}
                                         </Link>
                                     </div>
@@ -494,7 +513,10 @@ export default function Challenge() {
                                             }
                                         >
                                             {challengePageData
-                                                ? `${challengePageData.numParticipants} / ${challengePageData.maxParticipants}`
+                                                ? challengePageData.maxParticipants !==
+                                                  0
+                                                    ? `${challengePageData.numParticipants} / ${challengePageData.maxParticipants}`
+                                                    : `${challengePageData.numParticipants}`
                                                 : 'N/A'}
                                         </div>
                                         <div
