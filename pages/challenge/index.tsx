@@ -120,6 +120,7 @@ export default function Challenge() {
                   .includes(displayName)
             : false;
 
+
     return (
         <ThemeProvider theme={ButtonTheme}>
             <div className={styles['main-container']}>
@@ -239,7 +240,7 @@ export default function Challenge() {
                                     </Button>
                                 </Link>
                             ) : (
-                                ''
+                                <div></div>
                             )}
                         </div>
                     </div>
