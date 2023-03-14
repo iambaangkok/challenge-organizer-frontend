@@ -4,13 +4,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { BiUser } from 'react-icons/bi/';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
-import { ChallengeCardData } from '../../types/DataType';
+import { ChallengeData } from '../../types/DataType';
 
-export default function ChallengeCard(data: ChallengeCardData) {
-    const startDate = new Date(data.startDate).toLocaleDateString();
-    const endDate = new Date(data.endDate).toLocaleDateString();
-
-    // console.log(data.join)
+export default function ChallengeCard(data: ChallengeData) {
+    const startDate = data.startDate
+        ? new Date(data.startDate).toLocaleDateString()
+        : 'TBD';
+    const endDate = data.endDate
+        ? new Date(data.endDate).toLocaleDateString()
+        : 'TBD';
 
     return (
         // Each challenge card routes to its own challenge page
@@ -40,7 +42,7 @@ export default function ChallengeCard(data: ChallengeCardData) {
                             </div>
                             <Rating
                                 name="simple-controlled"
-                                value={data.rating}
+                                value={data.ratings}
                                 readOnly
                                 precision={0.1}
                             />
@@ -84,7 +86,10 @@ export default function ChallengeCard(data: ChallengeCardData) {
                                 }
                             >
                                 <BiUser className={styles['Icon']} />
-                                {data.numParticipants}/{data.maxParticipants}
+                                {data.numParticipants}
+                                {data.maxParticipants !== 0 && (
+                                    <>/{data.maxParticipants}</>
+                                )}
                             </div>
                             {data.closed && (
                                 <div className={styles['Closed'] + ' TextBold'}>
