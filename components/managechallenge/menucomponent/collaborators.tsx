@@ -34,7 +34,7 @@ export default function Collaborators({ title, collaborators }: any) {
     const removeCol = (cc: UserData) => {
         let j = {
             challengeTitle: title,
-            cmuAccount: cc.cmuAccount,
+            cmuAccount: cc.userId,
         };
         axios.delete('http://localhost:3030/api/challenges/deleteCollaborators',j)
             .then((resp) =>{
