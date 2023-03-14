@@ -160,26 +160,9 @@ export default function CreationPage() {
 
                         <div className={styles.cr_NewBody}>
                             {/* menu */}
-                            <div className="flex gap-6">
-                                <div className={styles.cr_MenuTab}>
-                                    <div className={styles.cr_Box}>
-                                        <div className="S1Medium">
-                                            General Info
-                                        </div>
-                                    </div>
-                                    <div className={styles.cr_Box}>
-                                        <div className="S1Medium">Reward</div>
-                                    </div>
-                                    <div className={styles.cr_Box}>
-                                        <div className="S1Medium">
-                                            Collaborators
-                                        </div>
-                                    </div>
-                                </div>
-
+                            <div className="flex justify-center gap-6">
                                 {/* body */}
                                 <div className={styles.cr_InfoFrame}>
-                                    {/* general info */}
                                     <div className="w-full py-2">
                                         <div
                                             className={
