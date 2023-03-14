@@ -24,10 +24,10 @@ const c2 = {
     name: 'oat699',
 };
 
-export default function Collaborators({    title,collaborators} :any) {
+export default function Collaborators({ title, collaborators }: any) {
     // const {challengeTitle} = router.query
     const router = useRouter();
-    const {challengeTitle} = router.query
+    const { challengeTitle } = router.query;
 
     const [emailInput, setEmailInput] = useState('');
 
@@ -43,42 +43,49 @@ export default function Collaborators({    title,collaborators} :any) {
         // }
         setCols(cols.filter((e) => e.userId !== cc.userId));
     };
-    
-    
-   
+
     // const handleChange = (e:any) =>{
     //     setText(e.target.value.toString())
     // }
-    const addCol = useCallback(() =>{
+    // const addCol = useCallback(() => {}, [
+    //     challengeTitle,
+    //     cols,
+    //     emailInput,
+    //     title,
+    // ]);
+
+    const handleAdd = () => {
+        console.log('call');
         let dupe = cols.map((c) => c.cmuAccount).includes(emailInput);
         if (!dupe) {
-            console.log("yes")
+            console.log('yes');
             let j = {
                 challengeTitle: title,
                 cmuAccount: emailInput,
             };
-            console.log("j= ",j)
+            console.log('j= ', j);
             axios
                 .put('http://localhost:3030/api/challenges/addCollaborators', j)
                 .then((resp) => {
                     console.log(resp.data);
-                    fetchChallengeData(challengeTitle as string)
-                    .then(resp=>{
-                    setCols(resp.collaborators)})
+                    fetchChallengeData(challengeTitle as string).then(
+                        (resp) => {
+                            setCols(resp.collaborators);
+                        },
+                    );
                 })
                 .catch((err) => {
                     console.log(err);
                 });
         }
-    },[challengeTitle, cols, emailInput, title])
+    };
 
-    const handleAdd = () =>{
-        addCol
-    }
+    useEffect(() => {}, [cols]);
 
-    useEffect(()=>{
-    },[cols])
-
+    useEffect(() => {
+        console.log(collaborators)
+        setCols(collaborators);
+    }, []);
 
     return (
         <div className="w-full pb-2">
