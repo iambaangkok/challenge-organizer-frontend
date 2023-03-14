@@ -1,30 +1,3 @@
-export interface ChallengeCardData {
-    challengeId?: string;
-    challengeTitle: string;
-    type?: string;
-    format?: string;
-    description: string;
-    startDate?: string;
-    endDate?: string;
-    numParticipants?: number;
-    maxParticipants?: number;
-    rating?: number;
-    closed?: boolean;
-    bannerImg?: string;
-    publishedStatus?: boolean;
-    createdAtDate?: string;
-    upDateAt?: string;
-    maxTeams?: number;
-    join?: boolean;
-    participants?: UserData[];
-    collaborators? : UserData[];
-    tabs?: TabData[];
-    posts?: PostData[];
-    tasks?: TaskData[];
-    file?: File;
-    host?: UserData;
-}
-
 export interface TaskData {
     taskId: string;
     description: string;
@@ -42,19 +15,27 @@ export interface NotificationData {
 }
 
 export interface UserData {
-    banStatus: boolean;
-    cmuAccount: string;
-    coin: string;
-    createdDate: string;
-    displayName: string;
-    editAtDate: string | null;
-    equipmentFrame: string;
-    firstName: string;
-    isAdmin: boolean;
-    lastName: string;
-    studentId: string;
-    tasks: string;
     userId: number;
+    displayName?: string;
+    firstName?: string;
+    lastName?: string;
+    cmuAccount?: string;
+    studentId?: string;
+    createdDate?: string;
+    editAtDate?: string;
+    coin?: string;
+    equipmentFrame?: string;
+    banStatus: boolean;
+    isAdmin?: boolean;
+    challenges?: ChallengeData[];
+    constructors?: ChallengeData[];
+    // submited?: Submission[];
+    // inTeam?: Team;
+    file?: File;
+    // items?: Item[];
+    // ratings?: Rating[];
+    isHost?: ChallengeData[];
+    isOwner?: PostData[];
 }
 
 export interface TabData {
@@ -66,16 +47,16 @@ export interface TabData {
 }
 
 export interface PostData {
+    postId: number;
     content?: string;
+    createdAtDate: string;
     upDateAt?: string;
-    parent?: PostData | null;
+    allowComment?: boolean;
+    children?: PostData[]
+    parent?: PostData
     owner?: UserData;
     hasTab?: TabData;
-    hasChallenge: ChallengeData;
-    postId: number;
-    createdAtDate: string;
-    allowComment?: boolean;
-    children?: PostData[];
+    hasChallenge?: ChallengeData;
 }
 
 export interface ChallengePageData {

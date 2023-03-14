@@ -51,6 +51,7 @@ export default function PostEditor({ tabName }: inputs) {
                 .catch((e) => console.log(e))
                 .finally(() => {
                     setText('');
+                    router.reload()
                 });
         }
     };

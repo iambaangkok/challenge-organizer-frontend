@@ -31,7 +31,6 @@ export default function Challenge() {
 
     // useStates
 
-    const [loading, setLoading] = useState<boolean>(false);
     const [tabValue, setTabValue] = useState<number>(0);
     const [tabsData, setTabsData] = useState<TabData[]>([]);
     const [challengePageData, setChallengePageData] =
@@ -49,22 +48,18 @@ export default function Challenge() {
     };
 
     const getChallengeData = useCallback(async () => {
-        setLoading(true);
         if (challengeTitle) {
             setChallengePageData(
                 await fetchChallengeData(challengeTitle as string),
             );
         }
-        setLoading(false);
     }, [challengeTitle]);
 
     const handleJoin = useCallback(
         async (challengeTitle: string, displayName: string | null) => {
             if (displayName !== null) {
-                setLoading(true);
                 await joinChallenge(challengeTitle, displayName);
                 await getChallengeData();
-                setLoading(false);
             }
         },
         [getChallengeData],
@@ -73,10 +68,8 @@ export default function Challenge() {
     const handleLeave = useCallback(
         async (challengeTitle: string, displayName: string | null) => {
             if (displayName !== null) {
-                setLoading(true);
                 await leaveChallenge(challengeTitle, displayName);
                 await getChallengeData();
-                setLoading(false);
             }
         },
         [getChallengeData],
@@ -91,7 +84,7 @@ export default function Challenge() {
                     setTabsData(resp.data);
                 })
                 .catch((e) => console.log(e));
-    }, []);
+    }, [BASE_URL, challengeTitle]);
 
     // useEffects
 
@@ -103,12 +96,12 @@ export default function Challenge() {
         }
         getChallengeData();
         getTabs();
-    }, [handleJoin, handleLeave]);
+    }, [getChallengeData, getTabs, handleJoin, handleLeave , tabValue]);
 
     const userIsJoined =
         displayName !== null
             ? challengePageData?.participants
-                  .map((x, index) => x.displayName)
+                  .map((x) => x.displayName)
                   .includes(displayName)
             : false;
 
@@ -116,12 +109,12 @@ export default function Challenge() {
         displayName !== null
             ? challengePageData?.host.displayName === displayName ||
               challengePageData?.collaborators
-                  .map((x, index) => x.displayName)
+                  .map((x) => x.displayName)
                   .includes(displayName)
             : false;
 
     const userIsMaxed =
-        !(challengePageData?.maxParticipants === 0) &&
+        challengePageData?.maxParticipants !== 0 &&
         challengePageData?.maxParticipants ===
             challengePageData?.numParticipants;
 
