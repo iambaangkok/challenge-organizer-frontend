@@ -1,15 +1,15 @@
-import { testChallengeList } from '../../lib/challengeList';
 import ChallengeCard from './ChallengeCard';
 import styles from './css/ChallengeDashboard.module.scss';
 
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useCallback, useEffect, useState } from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import { useEffect, useState, useCallback } from 'react';
 import Skeleton from '@mui/material/Skeleton';
 import { HiArrowNarrowDown, HiArrowNarrowUp } from 'react-icons/hi';
+import NorthIcon from '@mui/icons-material/North';
+import SouthIcon from '@mui/icons-material/South';
 import { ChallengeCardData } from '../../types/DataType';
 import axios from 'axios';
 import Link from 'next/link';
-
 import { Button, FormControl, MenuItem, Select } from '@mui/material';
 import { ButtonTheme } from '../../theme/Button';
 import { SelectTheme } from '../../theme/Select';
@@ -24,22 +24,13 @@ export default function ChallengeDashboard() {
     const [displayName, setDisplayName] = useState<string>('');
     const [route, setRoute] = useState<string>('');
 
-    useEffect(() => {
-        if (localStorage.getItem('displayName') !== null) {
-            setDisplayName(`/${localStorage.getItem('displayName')}`);
-            setRoute('/by-user-display-name');
-        } else {
-            setDisplayName(``);
-            setRoute('');
-        }
-        console.log(displayName);
-    }, [displayName]);
+    const CMUOAuthCallback = process.env.NEXT_PUBLIC_CMU_OAUTH_URL;
+
+    var PrimaryLight = '#FFDDAE';
 
     // Fetching Data from API
-    const getChallengeList = () => {
+    const getChallengeList = useCallback(() => {
         setLoading(true);
-
-        // console.log(`http://localhost:3030/api/challenges/by-user-display-name/${displayName}`)
 
         axios
             .get(`http://localhost:3030/api/challenges${route}${displayName}`, {
@@ -57,11 +48,19 @@ export default function ChallengeDashboard() {
             .finally(() => {
                 setLoading(false);
             });
-    };
+    },[displayName, filterState, route, sortState])
 
-    useEffect(getChallengeList, [displayName, filterState, route, sortState]);
-
-    var PrimaryLight = '#FFDDAE';
+    useEffect(() => {
+        if (localStorage.getItem('displayName') !== null) {
+            setDisplayName(`/${localStorage.getItem('displayName')}`);
+            setRoute('/by-user-display-name');
+        } else {
+            setDisplayName(``);
+            setRoute('');
+        }
+        console.log('/GET' + route + displayName);
+        getChallengeList();
+    }, [displayName, filterState, route, sortState, getChallengeList]);
 
     return (
         <div className={styles['ChallengeDashboard'] + ' ShadowContainer'}>
@@ -84,15 +83,19 @@ export default function ChallengeDashboard() {
                                     }}
                                     MenuProps={{
                                         sx: {
-                                            "&& .Mui-selected": {
-                                                backgroundColor: PrimaryLight
+                                            '&& .Mui-selected': {
+                                                backgroundColor: PrimaryLight,
                                             },
-                                        }
+                                        },
                                     }}
                                 >
                                     <MenuItem value={'all'}>All</MenuItem>
-                                    <MenuItem value={'ongoing'}>Ongoing</MenuItem>
-                                    <MenuItem value={'upcoming'}>Upcoming</MenuItem>
+                                    <MenuItem value={'ongoing'}>
+                                        Ongoing
+                                    </MenuItem>
+                                    <MenuItem value={'upcoming'}>
+                                        Upcoming
+                                    </MenuItem>
                                     <MenuItem value={'past'}>Past</MenuItem>
                                 </Select>
                             </ThemeProvider>
@@ -111,25 +114,25 @@ export default function ChallengeDashboard() {
                                     }}
                                     MenuProps={{
                                         sx: {
-                                            "&& .Mui-selected": {
-                                                backgroundColor: PrimaryLight
+                                            '&& .Mui-selected': {
+                                                backgroundColor: PrimaryLight,
                                             },
-                                        }
+                                        },
                                     }}
                                 >
                                     <MenuItem value={'a-z'}>A-Z</MenuItem>
                                     <MenuItem value={'z-a'}>Z-A</MenuItem>
                                     <MenuItem value={'recent-asc'}>
-                                        Recent <HiArrowNarrowUp />
+                                        Recent <NorthIcon />
                                     </MenuItem>
                                     <MenuItem value={'recent-desc'}>
-                                        Recent <HiArrowNarrowDown />
+                                        Recent <SouthIcon />
                                     </MenuItem>
                                     <MenuItem value={'rating-asc'}>
-                                        Rating <HiArrowNarrowUp />
+                                        Rating <NorthIcon />
                                     </MenuItem>
                                     <MenuItem value={'rating-desc'}>
-                                        Rating <HiArrowNarrowDown />
+                                        Rating <SouthIcon />
                                     </MenuItem>
                                 </Select>
                             </ThemeProvider>
@@ -139,13 +142,23 @@ export default function ChallengeDashboard() {
 
                 {/* Create Challenge Button */}
                 <div>
-                    <Link href="/createchallenge" className="no-underline">
-                        <ThemeProvider theme={ButtonTheme}>
-                            <Button variant="contained">
-                                Create a new Challenge
-                            </Button>
-                        </ThemeProvider>
-                    </Link>
+                    {displayName === '' ? (
+                        <Link href={CMUOAuthCallback} className="no-underline">
+                            <ThemeProvider theme={ButtonTheme}>
+                                <Button variant="contained" size="medium">
+                                    create challenge
+                                </Button>
+                            </ThemeProvider>
+                        </Link>
+                    ) : (
+                        <Link href="/createchallenge" className="no-underline">
+                            <ThemeProvider theme={ButtonTheme}>
+                                <Button variant="contained" size="medium">
+                                    create challenge
+                                </Button>
+                            </ThemeProvider>
+                        </Link>
+                    )}
                 </div>
             </div>
 

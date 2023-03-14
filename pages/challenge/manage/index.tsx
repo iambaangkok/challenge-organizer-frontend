@@ -1,6 +1,8 @@
 import Head from 'next/head';
-import ManagePage from '../../components/managechallenge/ManagePage';
+import router from 'next/router';
+import ManagePage from '../../../components/managechallenge/ManagePage';
 export default function ManageChallengePage() {
+   
     return (
         <>
             <Head>

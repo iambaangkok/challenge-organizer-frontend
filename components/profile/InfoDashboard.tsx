@@ -1,12 +1,13 @@
 import styles from './css/InfoDashboard.module.css';
 import Image from 'next/image';
 import Button from '@mui/material/Button';
-import { createTheme, ThemeProvider } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
-import { AiFillTrophy } from 'react-icons/ai';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ButtonTheme } from '../../theme/Button';
+import EditIcon from '@mui/icons-material/Edit';
 
 const personalInfo = {
     'Global Rank': 3,
@@ -32,7 +33,7 @@ const mapElement = (value: any, index: any) => {
                     styles.Info + ' S1Regular flex items-center space-x-1'
                 }
             >
-                <AiFillTrophy />
+                <EmojiEventsIcon />
                 <div>{value[0]}</div>
                 <div>{value[1]}</div>
             </div>
@@ -40,7 +41,7 @@ const mapElement = (value: any, index: any) => {
     else
         return (
             <div key={index} className="S1Regular flex items-center space-x-1">
-                <AiFillTrophy />
+                <EmojiEventsIcon />
                 <div>{value[0]}</div>
                 <div>{value[1]}</div>
             </div>
@@ -123,6 +124,7 @@ export default function InfoDashboard() {
                             id="EditProfileButton"
                             variant="contained"
                             size="small"
+                            startIcon={<EditIcon/>}
                         >
                             Edit Profile
                         </Button>
