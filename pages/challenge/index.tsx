@@ -22,6 +22,7 @@ import { getFormattedDate } from '../../utils/utils';
 import PostModule from '../../components/challenge/PostModule';
 import PostEditor from '../../components/challenge/PostEditor';
 import { TabData, ChallengePageData } from '../../types/DataType';
+import axios from 'axios';
 
 export default function Challenge() {
     const router = useRouter();
@@ -32,12 +33,12 @@ export default function Challenge() {
 
     const [loading, setLoading] = useState<boolean>(false);
     const [tabValue, setTabValue] = useState<number>(0);
-    const [tabData, setTabData] = useState<TabData>();
+    const [tabsData, setTabsData] = useState<TabData[]>([]);
     const [challengePageData, setChallengePageData] =
         useState<ChallengePageData>();
 
     const [displayName, setDisplayName] = useState<string | null>('');
-
+    const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
     // Functions
 
     const handleTabChange = (
@@ -82,20 +83,21 @@ export default function Challenge() {
     );
 
     // useCallbacks
-    const getTabData = useCallback(async () => {
-        const newTabData = testPostListsByTabs.find((x) => {
-            return x.index == tabValue;
-        }) as unknown as TabData;
-
-        setTabData(newTabData);
-    }, [tabValue]);
+    const getTabs = useCallback(async () => {
+        axios
+            .get(`${BASE_URL}/tabs/${challengeTitle}`)
+            .then((resp) => {
+                setTabsData(resp.data);
+            })
+            .catch((e) => console.log(e));
+    }, []);
 
     // useEffects
 
     useEffect(() => {
         getChallengeData();
-        getTabData();
-    }, [getChallengeData, getTabData, handleJoin, handleLeave]);
+        getTabs();
+    }, [getChallengeData, getTabs, handleJoin, handleLeave]);
 
     useEffect(() => {
         if (localStorage.getItem('displayName') !== null) {
@@ -272,7 +274,7 @@ export default function Challenge() {
                             className: styles['tab-indicator'],
                         }}
                     >
-                        {testPostListsByTabs.map((x, index) => (
+                        {tabsData.map((x, index) => (
                             <Tab
                                 key={index}
                                 label={x.tabName}
@@ -286,24 +288,14 @@ export default function Challenge() {
 
                 <div className={styles['content-container']}>
                     <div className={styles['posts-container'] + ' TextRegular'}>
-                        {/* Post Editor */}
-                        {userIsHost && <PostEditor />}
-                        {/* Post List */}
-                        {testPostListsByTabs.map((x) => {
-                            if (x.index === tabValue) {
-                                return (
-                                    <>
-                                        {x.posts.map((post, index) => {
-                                            return (
-                                                <PostModule
-                                                    data={post}
-                                                    key={index}
-                                                />
-                                            );
-                                        })}
-                                    </>
-                                );
-                            } else return <></>;
+                        {/* Post Editor && Post List */}
+
+                        {userIsHost && (
+                            <PostEditor tabName={tabsData[tabValue]?.tabName} />
+                        )}
+
+                        {tabsData[tabValue]?.posts?.map((post, index) => {
+                            return <PostModule postData={post} key={index} />;
                         })}
                     </div>
 
