@@ -84,20 +84,16 @@ export default function Challenge() {
 
     // useCallbacks
     const getTabs = useCallback(async () => {
-        axios
-            .get(`${BASE_URL}/tabs/${challengeTitle}`)
-            .then((resp) => {
-                setTabsData(resp.data);
-            })
-            .catch((e) => console.log(e));
+        if (challengeTitle !== undefined)
+            axios
+                .get(`${BASE_URL}/tabs/${challengeTitle}`)
+                .then((resp) => {
+                    setTabsData(resp.data);
+                })
+                .catch((e) => console.log(e));
     }, []);
 
     // useEffects
-
-    useEffect(() => {
-        getChallengeData();
-        getTabs();
-    }, [getChallengeData, getTabs, handleJoin, handleLeave]);
 
     useEffect(() => {
         if (localStorage.getItem('displayName') !== null) {
@@ -105,7 +101,9 @@ export default function Challenge() {
         } else {
             setDisplayName(null);
         }
-    }, []);
+        getChallengeData();
+        getTabs();
+    }, [handleJoin, handleLeave]);
 
     const userIsJoined =
         displayName !== null
