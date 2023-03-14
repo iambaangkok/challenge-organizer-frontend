@@ -25,19 +25,33 @@ const c2 = {
 };
 
 export default function Collaborators({ title, collaborators }: any) {
-    // const {challengeTitle} = router.query
     const router = useRouter();
     const { challengeTitle } = router.query;
 
     const [emailInput, setEmailInput] = useState('');
 
     const [cols, setCols] = useState<UserData[]>([]);
-    // const [text,setText]  = useState("")
-    const [apiResp, setApiResp] = useState<Collaborator>();
     const removeCol = (cc: UserData) => {
-        // let.
-        // axios.delete('http://localhost:3030/api/challenges//deleteCollaborators')
-        // .then =>{
+        let j = {
+            challengeTitle: title,
+            cmuAccount: cc.cmuAccount,
+        };
+        axios.delete('http://localhost:3030/api/challenges/deleteCollaborators',j)
+            .then((resp) =>{
+                console.log("del reach db")
+                console.log("del resp: ",resp)
+
+                fetchChallengeData(challengeTitle as string).then(
+                    (resp) => {
+                        setCols(resp.collaborators);
+                    },
+                );
+            })
+            .catch((err)=>{
+                
+                console.log(err);
+
+            })
 
         //     removeCol
         // }
@@ -83,9 +97,12 @@ export default function Collaborators({ title, collaborators }: any) {
     useEffect(() => {}, [cols]);
 
     useEffect(() => {
-        console.log(collaborators)
+        console.log(collaborators);
         setCols(collaborators);
     }, []);
+    const iprop = {
+        disableunderline: 'true',
+    };
 
     return (
         <div className="w-full pb-2">
@@ -99,6 +116,8 @@ export default function Collaborators({ title, collaborators }: any) {
                             }}
                             placeholder="Please input your collaborator's email."
                             fullWidth
+                            autoComplete="off"
+                            inputProps={iprop}
                             value={emailInput}
                         ></TextField>
                     </div>
