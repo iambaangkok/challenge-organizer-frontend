@@ -24,7 +24,7 @@ const c2 = {
     name: 'oat699',
 };
 
-export default function Collaborators({ title, collaborators }: any) {
+export default function Collaborators() {
     const router = useRouter();
     const { challengeTitle } = router.query;
 
@@ -33,29 +33,23 @@ export default function Collaborators({ title, collaborators }: any) {
     const [cols, setCols] = useState<UserData[]>([]);
     const removeCol = (cc: UserData) => {
         let j = {
-            challengeTitle: title,
-            cmuAccount: cc.userId,
-        };
+            challengeTitle: challengeTitle as string,
+            displayName: cc.displayName,
+        }
+        console.log("j",j)
         axios.delete('http://localhost:3030/api/challenges/deleteCollaborators',j)
             .then((resp) =>{
                 console.log("del reach db")
                 console.log("del resp: ",resp)
-
-                fetchChallengeData(challengeTitle as string).then(
+            fetchChallengeData(challengeTitle as string).then(
                     (resp) => {
                         setCols(resp.collaborators);
                     },
                 );
             })
             .catch((err)=>{
-                
                 console.log(err);
-
             })
-
-        //     removeCol
-        // }
-        setCols(cols.filter((e) => e.userId !== cc.userId));
     };
 
     // const handleChange = (e:any) =>{
@@ -68,22 +62,23 @@ export default function Collaborators({ title, collaborators }: any) {
     //     title,
     // ]);
 
-    const handleAdd = () => {
+    const handleAdd = async () => {
         console.log('call');
         let dupe = cols.map((c) => c.cmuAccount).includes(emailInput);
         if (!dupe) {
-            console.log('yes');
+            // console.log('yes');
             let j = {
-                challengeTitle: title,
+                challengeTitle: challengeTitle,
                 cmuAccount: emailInput,
             };
-            console.log('j= ', j);
-            axios
+            // console.log('j= ', j);
+           await axios
                 .put('http://localhost:3030/api/challenges/addCollaborators', j)
-                .then((resp) => {
-                    console.log(resp.data);
-                    fetchChallengeData(challengeTitle as string).then(
+                .then(async (resp) => {
+                    // console.log(resp.data);
+                   await fetchChallengeData(challengeTitle as string).then(
                         (resp) => {
+                            // console.log("addfetch",resp)
                             setCols(resp.collaborators);
                         },
                     );
@@ -94,12 +89,19 @@ export default function Collaborators({ title, collaborators }: any) {
         }
     };
 
-    useEffect(() => {}, [cols]);
+    useEffect(() => {
+        console.log("update",cols)
+
+    }, [cols]);
 
     useEffect(() => {
-        console.log(collaborators);
-        setCols(collaborators);
-    }, []);
+     
+        fetchChallengeData(challengeTitle as string).then(
+            (resp) => {
+                setCols(resp.collaborators);
+            },
+        );
+    }, [challengeTitle]);
     const iprop = {
         disableunderline: 'true',
     };

@@ -542,10 +542,7 @@ export default function ManagePage() {
                                             </div>
                                         )} */}
                                     </div>
-           
-                                <Collaborators title={title} collaborators={collabarotors}></Collaborators>   
-                                <ManageTask></ManageTask> 
-
+                                <Collaborators></Collaborators>   
 
                                 </div>
                             </div>
