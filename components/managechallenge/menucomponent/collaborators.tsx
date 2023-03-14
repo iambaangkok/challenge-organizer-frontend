@@ -31,13 +31,14 @@ export default function Collaborators() {
     const [emailInput, setEmailInput] = useState('');
 
     const [cols, setCols] = useState<UserData[]>([]);
-    const removeCol = (cc: UserData) => {
+
+    const removeCol = async (cc: UserData) => {
         let j = {
             challengeTitle: challengeTitle as string,
             displayName: cc.displayName,
         }
         console.log("j",j)
-        axios.delete('http://localhost:3030/api/challenges/deleteCollaborators',j)
+        await axios.delete('http://localhost:3030/api/challenges/deleteCollaborators',{data:j})
             .then((resp) =>{
                 console.log("del reach db")
                 console.log("del resp: ",resp)
