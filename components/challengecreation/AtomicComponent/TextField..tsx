@@ -37,9 +37,15 @@ export default function TextField_(data: any) {
         // } else {
         //     data.returnLimit(e.target.value.toString().length);
         // }
-        setText(e.target.value);
-        data.returnLimit(e.target.value.toString().length);
-        data.returnText(e.target.value.toString());
+        if (data.num && Number(e.target.value) < 0) {
+            setText('0');
+            data.returnLimit(1);
+            data.returnText('0');
+        } else {
+            setText(e.target.value);
+            data.returnLimit(e.target.value.toString().length);
+            data.returnText(e.target.value.toString());
+        }
     };
 
     const iprop = {
