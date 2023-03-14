@@ -1,74 +1,43 @@
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { fetchChallengeData } from '../../../services/challenge.services';
+import { TaskData } from '../../../types/DataType';
 import styles from '../../challengecreation/css/CreationPage.module.css';
 import tStyle from '../css/Task.module.css';
 
-type Task_ = {
-    name: string;
-    desc: string;
-    start: string;
-    end: string;
-};
-const t1 = {
-    name: 'gae',
-    desc: 'become the g',
-    start: '050623',
-    end: '050823',
-};
-export default function ManageTask(tasks: any) {
-    const [ongoing, setOngoing] = useState<Task_[]>([]);
-    const [future, setFuture] = useState<Task_[]>([]);
-    const [finish, setFinish] = useState<Task_[]>([]);
 
-    const spiltTask = (tasks: any) => {
-        let currentTime = new Date();
-        var o = [];
-        var f = [];
-        var fi = [];
 
-        for (var t of tasks) {
-            let end = new Date(t.endDate);
-            let start = new Date(t.startDate);
-            if (start <= currentTime && end > currentTime) o.push(t);
-            if (start > currentTime) f.push(t);
-            if (end <= currentTime) fi.push(t);
-        }
-        setOngoing(o)
-        setFuture(f)
-        setFinish(fi)
-    };
-    useEffect(()=>{
-        spiltTask(tasks)
-    },[tasks])
+export default function Tasks() {
+    const router = useRouter();
+    const { challengeTitle } = router.query;
+    const [tasks,setTasks] = useState<TaskData[]>([]);
+    const [ongoing, setOngoing] = useState<TaskData[]>([]);
+    const [future, setFuture] = useState<TaskData[]>([]);
+    const [finish, setFinish] = useState<TaskData[]>([]);
 
-    const addTask = async (t: Task_) => {
+    
+    // useEffect(()=>{
+    //     spiltTask(tasks)
+    // },[tasks])
+
+    const addTask = async (t: TaskData) => {
         setOngoing([...ongoing, t]);
         await axios.post('add')
     };
-    const delTask = async (t:Task_) =>{
+    const delTask = async (t:TaskData) =>{
         await axios.delete('del')
     }
 
     useEffect(() => {
-        let currentTime = new Date();
-        //send chal data
-        axios.get('all task').then((resp) => {
-            var o = [];
-            var f = [];
-            var fi = [];
-            let end = new Date(t.endDate);
-            let start = new Date(t.startDate);
-            for (var t of resp.data) {
-                if (start <= currentTime && end > currentTime) o.push(t);
-                if (start > currentTime) f.push(t);
-                if (end <= currentTime) fi.push(t);
-            }
-            setOngoing(o);
-            setFuture(f);
-            setFinish(fi);
-        });
-    }, []);
+        fetchChallengeData(challengeTitle as string).then(
+            (resp) => {
+                setTasks(resp.tasks);
+            },
+        );
+    }, [challengeTitle]);
+
     return (
         <div className="w-full">
             <div className="w-full pb-2">

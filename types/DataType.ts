@@ -15,11 +15,14 @@ export interface ChallengeCardData {
 }
 
 export interface TaskData {
-    taskId: string;
-    taskName: string;
-    challengeName: string;
-    dueDate: string;
-    finished: boolean;
+    taskId: number;
+    description?:string;
+    score?:number;
+    createAt?: string;
+    editAt?:string;
+    doned?:boolean;
+    start?:string;
+    end?:string
 }
 
 export interface NotificationData {
@@ -98,6 +101,7 @@ export interface ChallengePageData {
     rating: number;
 
     collaborators: UserData[];
+    tasks:TaskData[];
 
     schema_v: string;
     join: boolean;

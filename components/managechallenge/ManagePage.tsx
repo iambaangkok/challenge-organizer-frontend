@@ -2,7 +2,7 @@ import styles from '../challengecreation/css/CreationPage.module.css';
 import DateSelector from '../challengecreation/AtomicComponent/DateSelector';
 import TextField_ from '../challengecreation/AtomicComponent/TextField.';
 import TextField from '@mui/material/TextField';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
     FormControl,
     MenuItem,
@@ -18,11 +18,11 @@ import Router from 'next/router';
 import { ButtonTheme } from '../../theme/Button';
 import { useEffect } from 'react';
 import Collaborators from '../managechallenge/menucomponent/collaborators';
-import ManageTask from './menucomponent/Task';
 import router from 'next/router';
 import { fetchChallengeData } from '../../services/challenge.services';
 import { useRouter } from 'next/router';
 import { UserData } from '../../types/DataType';
+import Tasks from './menucomponent/Tasks';
 
 const Title = {
     width: 1200,
@@ -542,7 +542,8 @@ export default function ManagePage() {
                                             </div>
                                         )} */}
                                     </div>
-                                <Collaborators></Collaborators>   
+                                <Collaborators></Collaborators>
+                                <Tasks></Tasks>   
 
                                 </div>
                             </div>
