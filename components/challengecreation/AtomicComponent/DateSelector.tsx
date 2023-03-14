@@ -31,6 +31,15 @@ const theme = createTheme({
 });
 
 export default function DateSelector(data: any) {
+
+    const onError = () => {
+        data.setAccept(false)
+    }
+
+    const onAccept = () => {
+        data.setAccept(true)
+    }
+
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <ThemeProvider theme={theme}>
@@ -40,6 +49,8 @@ export default function DateSelector(data: any) {
                     onChange={(newValue: any) => {
                         data.returnDate(newValue);
                     }}
+                    onAccept = {onAccept}
+                    onError = {onError}
                     renderInput={(params: any) => <TextField {...params} />}
                     InputProps={{
                         sx: [

@@ -73,6 +73,8 @@ export default function CreationPage() {
 
     const [date, setDate] = useState<Dayjs | null>(null);
     const [end, setEnd] = useState<Dayjs | null>(null);
+    const [acceptStart, setAcceptStart] = useState<boolean>(false);
+    const [acceptEnd, setAcceptEnd] = useState<boolean>(false);
     // const [host,setHost] = useState<String>();
 
     useEffect(() => {
@@ -123,9 +125,15 @@ export default function CreationPage() {
             typeState === '' ||
             Number.isNaN(Number(parti))
         ) {
-            alert('Please make sure to fill out all the required fields before submitting.');
+            alert(
+                'Please make sure to fill out all the required fields before submitting.',
+            );
+        } else if (!acceptStart || !acceptEnd) {
+            alert('The date provided is invalid. Please re-enter the date');
         } else if (date?.diff(end) > 0) {
-            alert('The date input provided is invalid. Please re-enter the date input');
+            alert(
+                'The date range provided is invalid. Please re-enter the date',
+            );
         } else {
             axios
                 .post('http://localhost:3030/api/challenges', j)
@@ -249,6 +257,7 @@ export default function CreationPage() {
                                             <DateSelector
                                                 {...double}
                                                 returnDate={setDate}
+                                                setAccept={setAcceptStart}
                                                 default={date}
                                             ></DateSelector>
                                         </div>
@@ -268,6 +277,7 @@ export default function CreationPage() {
                                             </div>
                                             <DateSelector
                                                 {...double}
+                                                setAccept={setAcceptEnd}
                                                 returnDate={setEnd}
                                                 default={end}
                                             />
