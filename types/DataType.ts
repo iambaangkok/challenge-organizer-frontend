@@ -1,25 +1,12 @@
-export interface ChallengeCardData {
-    challengeId: string;
-    challengeTitle: string;
-    type: string;
-    format: string;
-    description: string;
-    startDate: string;
-    endDate: string;
-    numParticipants: number;
-    maxParticipants: number;
-    rating: number;
-    join: boolean;
-    closed: boolean;
-    bannerImg: string;
-}
-
 export interface TaskData {
     taskId: string;
-    taskName: string;
-    challengeName: string;
-    dueDate: string;
-    finished: boolean;
+    description: string;
+    doned: boolean;
+    editAt: string;
+    start: string;
+    end: string;
+    hasChallenges: ChallengeData;
+    score: number;
 }
 
 export interface NotificationData {
@@ -28,33 +15,48 @@ export interface NotificationData {
 }
 
 export interface UserData {
-    banStatus: boolean;
-    cmuAccount: string;
-    coin: string;
-    createdDate: string;
-    displayName: string;
-    editAtDate: string | null;
-    equipmentFrame: string;
-    firstName: string;
-    isAdmin: boolean;
-    lastName: string;
-    studentId: string;
-    tasks: string;
     userId: number;
+    displayName?: string;
+    firstName?: string;
+    lastName?: string;
+    cmuAccount?: string;
+    studentId?: string;
+    createdDate?: string;
+    editAtDate?: string;
+    coin?: string;
+    equipmentFrame?: string;
+    banStatus: boolean;
+    isAdmin?: boolean;
+    challenges?: ChallengeData[];
+    constructors?: ChallengeData[];
+    // submited?: Submission[];
+    // inTeam?: Team;
+    file?: File;
+    // items?: Item[];
+    // ratings?: Rating[];
+    isHost?: ChallengeData[];
+    isOwner?: PostData[];
 }
 
 export interface TabData {
-    index: number;
-    tabName: string;
-    posts: [
-        {
-            author: {
-                displayName: string;
-                isHost: boolean;
-            };
-            contentMarkdown: boolean;
-        },
-    ];
+    tabId: number;
+    tabName?: string;
+    permission: boolean;
+    posts?: PostData[];
+    hasChallenge?: ChallengeData;
+}
+
+export interface PostData {
+    postId: number;
+    content?: string;
+    createdAtDate: string;
+    upDateAt?: string;
+    allowComment?: boolean;
+    children?: PostData[]
+    parent?: PostData
+    owner?: UserData;
+    hasTab?: TabData;
+    hasChallenge?: ChallengeData;
 }
 
 export interface ChallengePageData {
@@ -67,7 +69,7 @@ export interface ChallengePageData {
 
     participants: UserData[];
     numParticipants: number;
-    host: string;
+    host: UserData;
     banckImg: string;
 
     maxParticipants: number;
@@ -101,4 +103,25 @@ export interface ChallengePageData {
 
     schema_v: string;
     join: boolean;
+}
+
+export interface ChallengeData {
+    banckImg?: string;
+    challengeId: number;
+    challengeTitle: string;
+    closed: boolean;
+    createdAtDate: string;
+    description: string;
+    endDate?: string;
+    format?: string;
+    host: string;
+    join: boolean;
+    maxParticipants: number;
+    maxTeams: number;
+    numParticipants: number;
+    publishedStatus: boolean;
+    rating: number;
+    startDate?: string;
+    type: string;
+    upDateAt: string;
 }
