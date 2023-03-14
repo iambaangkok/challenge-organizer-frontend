@@ -38,7 +38,7 @@ export default function ChallengeCard(data: ChallengeData) {
                             </div>
                             <Rating
                                 name="simple-controlled"
-                                value={data.rating}
+                                value={data.ratings}
                                 readOnly
                                 precision={0.1}
                             />

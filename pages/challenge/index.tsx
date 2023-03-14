@@ -7,7 +7,6 @@ import bannerImage from '../../public/pingpong.jpg';
 import { Button, Tab, Tabs, ThemeProvider } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 
-import { testPostListsByTabs } from '../../lib/postListByTabs';
 import CountdownTimer from '../../components/challenge/CountdownTimer';
 import Link from 'next/link';
 import StarRating from '../../components/challenge/StarRating';
@@ -21,7 +20,7 @@ import {
 import { getFormattedDate } from '../../utils/utils';
 import PostModule from '../../components/challenge/PostModule';
 import PostEditor from '../../components/challenge/PostEditor';
-import { TabData, ChallengePageData } from '../../types/DataType';
+import { TabData, ChallengeData, UserData } from '../../types/DataType';
 import axios from 'axios';
 
 export default function Challenge() {
@@ -34,7 +33,7 @@ export default function Challenge() {
     const [tabValue, setTabValue] = useState<number>(0);
     const [tabsData, setTabsData] = useState<TabData[]>([]);
     const [challengePageData, setChallengePageData] =
-        useState<ChallengePageData>();
+        useState<ChallengeData>();
 
     const [displayName, setDisplayName] = useState<string | null>('');
     const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -343,7 +342,7 @@ export default function Challenge() {
                                         Last modified{' '}
                                         {challengePageData
                                             ? getFormattedDate(
-                                                  challengePageData.timeStamp,
+                                                  challengePageData.upDateAt,
                                               )
                                             : 'N/A'}{' '}
                                         by{' '}
@@ -517,8 +516,8 @@ export default function Challenge() {
                                     >
                                         <StarRating
                                             rating={
-                                                challengePageData
-                                                    ? challengePageData.rating
+                                                challengePageData?.ratings
+                                                    ? challengePageData.ratings
                                                     : 0
                                             }
                                         ></StarRating>

@@ -59,32 +59,31 @@ export interface PostData {
     hasChallenge?: ChallengeData;
 }
 
-export interface ChallengePageData {
-    challengeId: string;
+export interface ChallengeData {
+    challengeId?: string;
     challengeTitle: string;
     description: string;
 
-    type: string;
-    format: string;
+    type?: string;
+    format?: string;
 
     participants: UserData[];
-    numParticipants: number;
+    numParticipants?: number;
     host: UserData;
-    banckImg: string;
+    bannerImg?: string;
 
-    maxParticipants: number;
-    banUser: object[];
-    publishedStatus: boolean;
+    maxParticipants?: number;
+    banUser: UserData[];
+    publishedStatus?: boolean;
 
-    timeStamp: string;
+    createdAtDate?: string;
+    upDateAt: string;
     startDate: string;
     endDate: string;
+
     closed: boolean;
 
-    file: {
-        user: object;
-        path: string;
-    };
+    file: File;
     rewards: [
         {
             rankMin: number;
@@ -96,32 +95,16 @@ export interface ChallengePageData {
         team_id: number;
         menubar: object[];
     };
-    maxTeams: number;
-    rating: number;
+    maxTeams?: number;
+    ratings?: number;
 
     collaborators: UserData[];
 
     schema_v: string;
-    join: boolean;
-}
+    join?: boolean;
 
-export interface ChallengeData {
-    banckImg?: string;
-    challengeId: number;
-    challengeTitle: string;
-    closed: boolean;
-    createdAtDate: string;
-    description: string;
-    endDate?: string;
-    format?: string;
-    host: string;
-    join: boolean;
-    maxParticipants: number;
-    maxTeams: number;
-    numParticipants: number;
-    publishedStatus: boolean;
-    rating: number;
-    startDate?: string;
-    type: string;
-    upDateAt: string;
+    tabs? : TabData[]
+    posts? : PostData[]
+    tasks? : TaskData[]
+
 }
