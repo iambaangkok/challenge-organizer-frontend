@@ -56,7 +56,7 @@ export default function Tasks() {
                             <div className={tStyle.text}>Action</div>
                         </div>
                         {ongoing.length > 0 &&
-                            ongoing.map((t: Task_, index) => {
+                            ongoing.map((t: TaskData, index) => {
                                 return (
                                     <div key={index} className={tStyle.body}>
                                         <div className={tStyle.bodytext}>
@@ -102,7 +102,7 @@ export default function Tasks() {
                             <div className={tStyle.text}>Action</div>
                         </div>
                         {future.length > 0 &&
-                            future.map((t: Task_, index) => {
+                            future.map((t: TaskData, index) => {
                                 return (
                                     <div key={index} className={tStyle.body}>
                                         <div className={tStyle.bodytext}>
@@ -146,7 +146,7 @@ export default function Tasks() {
                             <div className={tStyle.text}>Action</div>
                         </div>
                         {finish.length > 0 &&
-                            finish.map((t: Task_, index) => {
+                            finish.map((t: TaskData, index) => {
                                 return (
                                     <div key={index} className={tStyle.body}>
                                         <div className={tStyle.bodytext}>
