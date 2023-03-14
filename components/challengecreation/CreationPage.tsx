@@ -115,16 +115,29 @@ export default function CreationPage() {
             // banner: banner
         };
         console.log(j);
-        axios
-            .post('http://localhost:3030/api/challenges', j)
-            .then((resp) => {
-                localStorage.removeItem('saved');
-                let title = resp.data.challengeTitle;
-                Router.push('/challenge?challengeTitle=' + title);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        if (
+            title.trim() == '' ||
+            date === null ||
+            end === null ||
+            formatState === '' ||
+            typeState === '' ||
+            Number.isNaN(Number(parti))
+        ) {
+            alert('Please make sure to fill out all the required fields before submitting.');
+        } else if (date?.diff(end) > 0) {
+            alert('The date input provided is invalid. Please re-enter the date input');
+        } else {
+            axios
+                .post('http://localhost:3030/api/challenges', j)
+                .then((resp) => {
+                    localStorage.removeItem('saved');
+                    let title = resp.data.challengeTitle;
+                    Router.push('/challenge?challengeTitle=' + title);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
 
         // location.reload()
     };
@@ -257,9 +270,7 @@ export default function CreationPage() {
                                                 {...double}
                                                 returnDate={setEnd}
                                                 default={end}
-                                            >
-                                                {' '}
-                                            </DateSelector>
+                                            />
                                         </div>
                                     </div>
                                     <div className="flex flex-row gap-10 pb-2">
