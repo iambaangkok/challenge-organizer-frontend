@@ -1,6 +1,5 @@
 import { createTheme, TextField, ThemeProvider } from '@mui/material';
 import React from 'react';
-import { textSpanEnd } from 'typescript';
 import { useEffect } from 'react';
 
 const theme = createTheme({
@@ -30,16 +29,14 @@ const theme = createTheme({
 });
 
 export default function TextField_(data: any) {
-    var fieldId = '';
     var height = data.height;
     if (data.multiline) {
-        fieldId = 'outlined-multiline-flexible';
         height = height;
     } else {
-        fieldId = 'outlined-basic';
     }
    
     const [text, setText] = React.useState<any>('');
+
     useEffect(() => {
         // console.log("useeffect "+ text)
         data.returnText(text);
@@ -54,18 +51,27 @@ export default function TextField_(data: any) {
         // console.log(Number(e.target.value))
         // console.log(e.target.value.toString().length)
 
-        if (e.target.value.toString().length <= data.max) {
-            // console.log("textbefroe = "+text)
-            data.num
-                ? setText(Number(e.target.value))
-                : setText(e.target.value.toString());
+        // if (e.target.value.toString().length <= data.max) {
+        //     // console.log("textbefroe = "+text)
+        //     data.num
+        //         ? setText(Number(e.target.value))
+        //         : setText(e.target.value.toString());
 
-            setText(e.target.value.toString());
-        }
-        if (e.target.value.toString().length > data.max) {
-            data.returnLimit(data.max);
+        //     setText(e.target.value.toString());
+        // }
+        // if (e.target.value.toString().length > data.max) {
+        //     data.returnLimit(data.max);
+        // } else {
+        //     data.returnLimit(e.target.value.toString().length);
+        // }
+        if (data.num && Number(e.target.value) < 0) {
+            setText('0');
+            data.returnLimit(1);
+            data.returnText('0');
         } else {
+            setText(e.target.value);
             data.returnLimit(e.target.value.toString().length);
+            data.returnText(e.target.value.toString());
         }
     };
 
@@ -77,10 +83,12 @@ export default function TextField_(data: any) {
             fontWeight: 500,
             fontStyle: 'normal',
         },
+        maxLength: data.max,
     };
 
     const ALPHA_REGEX = /^[0-9]+$/;
     const ALPHA_NUMERIC_REGEX = /^[0-9A-Za-z\u0E00-\u0E7F ]+$/;
+
     return (
         <ThemeProvider theme={theme}>
         <TextField

@@ -1,17 +1,21 @@
 import Link from 'next/link';
-import { TaskData } from '../../types/DataType';
+import { ChallengeData, TaskData } from '../../types/DataType';
 import styles from './css/Task.module.scss';
 
 export default function Task(data: TaskData) {
+    const challenge: ChallengeData = data.hasChallenges;
+
+    var startDate = new Date(data.start);
+    var endDate = new Date(data.end);
+
     return (
         // Each task routes to its own task page
         <Link
-            id={data.challengeName}
+            id={challenge.challengeTitle}
             href={{
                 pathname: '/challenge',
                 query: {
-                    id: data.taskId,
-                    tab: 'tasks',
+                    challengeTitle: challenge.challengeTitle,
                 },
             }}
             className="no-underline"
@@ -20,14 +24,31 @@ export default function Task(data: TaskData) {
             <div className={styles['Task']}>
                 <div className={styles['TaskInfo']}>
                     <div className={styles['TaskName'] + ' TextMedium'}>
-                        {data.taskName}
+                        {data.description}
                     </div>
                     <div className={styles['TaskDescription'] + ' S2Regular'}>
-                        {data.challengeName}
+                        {challenge.challengeTitle}
                     </div>
-                    <div className={styles['TaskDescription'] + ' S2Regular'}>
-                        {data.dueDate}
-                    </div>
+
+                    {startDate.toLocaleDateString() ===
+                    endDate.toLocaleDateString() ? (
+                        <div
+                            className={styles['TaskDescription'] + ' S2Regular'}
+                        >
+                            {startDate.toLocaleDateString() +
+                                ' ' +
+                                startDate.toLocaleTimeString()}{' '}
+                            - {endDate.toLocaleTimeString()}
+                        </div>
+                    ) : (
+                        <div
+                            className={styles['TaskDescription'] + ' S2Regular'}
+                        >
+                            {startDate.toLocaleString() +
+                                ' - ' +
+                                endDate.toLocaleString()}
+                        </div>
+                    )}
                 </div>
             </div>
         </Link>

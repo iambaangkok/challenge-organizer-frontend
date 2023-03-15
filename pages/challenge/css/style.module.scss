@@ -16,10 +16,13 @@
     display: block;
     height: 223px;
 
+    position: relative;
+    overflow: hidden;
+
     .banner {
         opacity: 70%;
         object-fit: cover;
-        overflow: hidden;
+        // overflow: hidden;
         width: 100%;
         height: 100%;
     }

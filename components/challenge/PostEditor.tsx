@@ -1,4 +1,3 @@
-import { CropLandscapeOutlined } from '@mui/icons-material';
 import { Button, TextField, ThemeProvider } from '@mui/material';
 // import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -7,9 +6,21 @@ import { ButtonTheme } from '../../theme/Button';
 import styles from './css/PostEditor.module.scss';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import axios from 'axios';
 
-export default function PostEditor() {
+interface inputs {
+    tabName: string | undefined;
+}
+
+export default function PostEditor({ tabName }: inputs) {
     const [text, setText] = useState('');
+    const [displayName, setDisplayName] = useState<string>('');
+
+    useEffect(() => {
+        var name = localStorage.getItem('displayName');
+        if (name === null) setDisplayName('Not Found');
+        else setDisplayName(name);
+    }, []);
 
     const handleTextInputChange = (event: {
         target: { value: SetStateAction<string> };
@@ -18,21 +29,36 @@ export default function PostEditor() {
     };
 
     const router = useRouter();
+    const { challengeTitle } = router.query;
 
     const previewMarkdown = () => {
         localStorage.setItem('markdown', text);
         window.open('/preview', '_blank');
     };
 
+    const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
     const createPost = () => {
-        // axios.post('/api/posts/')
-        setText('');
+        if (text.length !== 0) {
+            axios
+                .post(`${BASE_URL}/posts/`, {
+                    displayName: displayName,
+                    challengeTitle: challengeTitle,
+                    tabName: tabName,
+                    content: text,
+                })
+                .then((resp) => {})
+                .catch((e) => console.log(e))
+                .finally(() => {
+                    setText('');
+                    router.reload()
+                });
+        }
     };
 
     const clearTextField = () => {
         setText('');
         localStorage.removeItem('markdown');
-
     };
 
     return (
@@ -58,18 +84,18 @@ export default function PostEditor() {
                             size="small"
                             color="error"
                             onClick={clearTextField}
-                            startIcon={<DeleteForeverIcon/>}
+                            startIcon={<DeleteForeverIcon />}
                         >
                             Clear
                         </Button>
                     </div>
-                    <div className = {styles['Left']}>
+                    <div className={styles['Left']}>
                         <Button
                             variant="contained"
                             size="small"
                             color="secondary"
                             onClick={previewMarkdown}
-                            startIcon={<VisibilityIcon/>}
+                            startIcon={<VisibilityIcon />}
                         >
                             Preview Markdown
                         </Button>

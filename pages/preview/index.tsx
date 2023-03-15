@@ -2,17 +2,8 @@ import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import PostModule from '../../components/challenge/PostModule';
+import { PostData, UserData } from '../../types/DataType';
 import styles from './css/index.module.scss';
-
-interface post {
-    data: {
-        author: {
-            displayName: string;
-            isHost: boolean;
-        };
-        contentMarkdown: string | null;
-    };
-}
 
 export default function Preview() {
     const [markdown, setMarkdown] = useState<string>('');
@@ -28,20 +19,29 @@ export default function Preview() {
     }, []);
 
     var currentTime = new Date().toISOString()
+        // author: {
+        //     displayName: displayName,
+        //     isHost: false,
+        // },
+        // createdAt : currentTime,
+        // contentMarkdown: markdown,
 
-    const previewMarkdownPost = {
-        author: {
-            displayName: displayName,
-            isHost: false,
-        },
-        createdAt : currentTime,
-        contentMarkdown: markdown,
+    var author : UserData = {
+        userId: 0,
+        banStatus: false,
+        displayName: displayName,
+    }    
+    const previewMarkdownPost : PostData = {
+        owner: author,
+        postId: 0,
+        createdAtDate: currentTime,
+        content: markdown
     };
 
     return (
         <div className={styles['Body']}>
             <div className={styles['MarkdownBody']}>
-                <PostModule data={previewMarkdownPost} />
+                <PostModule postData={previewMarkdownPost} />
             </div>
         </div>
     );

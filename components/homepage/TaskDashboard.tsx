@@ -13,7 +13,11 @@ export default function TaskDashboard() {
     const fetchTaskList = useCallback(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:3030/api/task${displayName}`)
+            .get(`http://localhost:3030/api/task/viewByDisPlayName`, {
+                data: {
+                    displayName: displayName,
+                },
+            })
             .then((resp) => {
                 setTaskList(resp.data);
             })
@@ -41,9 +45,15 @@ export default function TaskDashboard() {
                 <hr />
             </div>
             <div className={styles['TaskList']}>
-                {taskList.map((task: TaskData, index) => {
-                    return <Task key={index} {...task}></Task>;
-                })}
+                {taskList.length !== 0 ? (
+                    taskList.map((task: TaskData, index) => {
+                        console.log('task : ');
+                        console.log(task);
+                        return <Task key={index} {...task}></Task>;
+                    })
+                ) : (
+                    <div></div>
+                )}
             </div>
         </div>
     );

@@ -4,10 +4,9 @@ import styles from './css/ChallengeDashboard.module.scss';
 import { ThemeProvider } from '@mui/material/styles';
 import { useEffect, useState, useCallback } from 'react';
 import Skeleton from '@mui/material/Skeleton';
-import { HiArrowNarrowDown, HiArrowNarrowUp } from 'react-icons/hi';
 import NorthIcon from '@mui/icons-material/North';
 import SouthIcon from '@mui/icons-material/South';
-import { ChallengeCardData } from '../../types/DataType';
+import { ChallengeData } from '../../types/DataType';
 import axios from 'axios';
 import Link from 'next/link';
 import { Button, FormControl, MenuItem, Select } from '@mui/material';
@@ -16,7 +15,7 @@ import { SelectTheme } from '../../theme/Select';
 
 export default function ChallengeDashboard() {
     const [loading, setLoading] = useState(false);
-    const [challengeList, setChallengeList] = useState<ChallengeCardData[]>([]);
+    const [challengeList, setChallengeList] = useState<ChallengeData[]>([]);
 
     const [filterState, setFilterState] = useState<string>('all');
     const [sortState, setSortState] = useState<string>('a-z');
@@ -178,7 +177,7 @@ export default function ChallengeDashboard() {
                         <Skeleton variant="rectangular" height={154} />
                     </div>
                 ) : (
-                    challengeList.map((challenge: ChallengeCardData, index) => {
+                    challengeList.map((challenge: ChallengeData, index) => {
                         return <ChallengeCard key={index} {...challenge} />;
                     })
                 )}

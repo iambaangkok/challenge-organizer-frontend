@@ -1,6 +1,7 @@
 import styles from './css/CreationPage.module.css';
 import DateSelector from './AtomicComponent/DateSelector';
 import TextField_ from './AtomicComponent/TextField.';
+import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import {
     FormControl,
@@ -40,7 +41,6 @@ const double = {
     width: 400,
     height: 40,
 };
-
 const theme = createTheme({
     palette: {
         primary: {
@@ -56,6 +56,31 @@ const theme = createTheme({
         fontSize: 14,
     },
 });
+const uploadTheme = createTheme({
+    palette: {
+        primary: {
+            light: '#FFDDAE',
+            main: '#FA9C1D',
+            dark: '#EA7000',
+            contrastText: '#FFFFFF',
+        },
+    },
+    components: {
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    '.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+                        borderColor: '#FA9C1D',
+                    },
+                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                        {
+                            borderColor: '#EA7000',
+                        },
+                },
+            },
+        },
+    },
+});
 
 export default function CreationPage() {
     const [typeState, setTypeState] = useState<string>('');
@@ -69,10 +94,12 @@ export default function CreationPage() {
     const [parti, setParti] = useState<Number>();
     const [partiLimit, setPartiLimit] = useState<Number>(0);
 
-    const [banner, setBanner] = useState<File>();
-
+    const [fileName, setFileName] = useState('');
+    const [file, setFile] = useState<string | Blob | undefined>();
     const [date, setDate] = useState<Dayjs | null>(null);
     const [end, setEnd] = useState<Dayjs | null>(null);
+    const [acceptStart, setAcceptStart] = useState<boolean>(false);
+    const [acceptEnd, setAcceptEnd] = useState<boolean>(false);
     // const [host,setHost] = useState<String>();
 
     useEffect(() => {
@@ -97,9 +124,14 @@ export default function CreationPage() {
                 // console.log(saved.endDate)
                 setDate(dayjs(saved.startDate));
                 setEnd(dayjs(saved.endDate));
+                setFile(saved.banner);
+                setFileName(saved.fName);
             }
         }
     }, []);
+
+    const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+    const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH;
 
     const handleCreate = () => {
         let j = {
@@ -112,19 +144,52 @@ export default function CreationPage() {
             maxParticipants: Number(parti),
             numParticipants: 0,
             host: localStorage.getItem('displayName'),
+            banner: file,
             // banner: banner
         };
         console.log(j);
-        axios
-            .post('http://localhost:3030/api/challenges', j)
-            .then((resp) => {
-                localStorage.removeItem('saved');
-                let title = resp.data.challengeTitle;
-                Router.push('/challenge?challengeTitle=' + title);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        if (
+            title.trim() == '' ||
+            date === null ||
+            end === null ||
+            formatState === '' ||
+            typeState === '' ||
+            Number.isNaN(Number(parti))
+        ) {
+            alert(
+                'Please make sure to fill out all the required fields before submitting.',
+            );
+        } else if (!acceptStart || !acceptEnd) {
+            alert('The date provided is invalid. Please re-enter the date');
+        } else if (date?.diff(end) > 0) {
+            alert(
+                'The date range provided is invalid. Please re-enter the date',
+            );
+        } else {
+            axios
+                .post('http://localhost:3030/api/challenges', j)
+                .then((resp) => {
+                    localStorage.removeItem('saved');
+
+                    let title = resp.data.challengeTitle;
+
+                    if (file) {
+                        let formData = new FormData();
+                        formData.append('file', file);
+
+                        axios({
+                            method: 'post',
+                            url: `${BASE_URL}${BASE_PATH}/${title}/uploadbanner`,
+                            data: formData,
+                        });
+                    }
+
+                    Router.push('/challenge?challengeTitle=' + title);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
 
         // location.reload()
     };
@@ -140,10 +205,20 @@ export default function CreationPage() {
             endDate: end,
             participant: parti,
             // banner:banner
+            banner: file,
+            fName: fileName,
         };
         let send = JSON.stringify(j);
         localStorage.setItem('saved', send);
         //tolocalstorage
+    };
+    const handleUpload = (e: any) => {
+        setFile(e.target.files[0]);
+        setFileName(e.target.files[0].name);
+    };
+    const handleRemove = (e: any) => {
+        setFile(undefined);
+        setFileName('');
     };
 
     return (
@@ -160,26 +235,9 @@ export default function CreationPage() {
 
                         <div className={styles.cr_NewBody}>
                             {/* menu */}
-                            <div className="flex gap-6">
-                                <div className={styles.cr_MenuTab}>
-                                    <div className={styles.cr_Box}>
-                                        <div className="S1Medium">
-                                            General Info
-                                        </div>
-                                    </div>
-                                    <div className={styles.cr_Box}>
-                                        <div className="S1Medium">Reward</div>
-                                    </div>
-                                    <div className={styles.cr_Box}>
-                                        <div className="S1Medium">
-                                            Collaborators
-                                        </div>
-                                    </div>
-                                </div>
-
+                            <div className="flex justify-center gap-6">
                                 {/* body */}
                                 <div className={styles.cr_InfoFrame}>
-                                    {/* general info */}
                                     <div className="w-full py-2">
                                         <div
                                             className={
@@ -253,6 +311,7 @@ export default function CreationPage() {
                                             <DateSelector
                                                 {...double}
                                                 returnDate={setDate}
+                                                setAccept={setAcceptStart}
                                                 default={date}
                                             ></DateSelector>
                                         </div>
@@ -272,11 +331,10 @@ export default function CreationPage() {
                                             </div>
                                             <DateSelector
                                                 {...double}
+                                                setAccept={setAcceptEnd}
                                                 returnDate={setEnd}
                                                 default={end}
-                                            >
-                                                {' '}
-                                            </DateSelector>
+                                            />
                                         </div>
                                     </div>
                                     <div className="flex flex-row gap-10 pb-2">
@@ -444,16 +502,7 @@ export default function CreationPage() {
                                         >
                                             Challenge Banner
                                         </div>
-                                        <div className="flex flex-row place-content-center ">
-                                            <div
-                                                className={
-                                                    styles.cr_fileText +
-                                                    ' my-2 pr-4'
-                                                }
-                                            >
-                                                placeholder.jpg
-                                            </div>
-
+                                        <div className="flex flex-row ">
                                             <ThemeProvider theme={ButtonTheme}>
                                                 <Button
                                                     variant="contained"
@@ -467,14 +516,34 @@ export default function CreationPage() {
                                                 >
                                                     upload
                                                     <input
-                                                        hidden
                                                         accept="image/*"
                                                         multiple
                                                         type="file"
+                                                        onChange={handleUpload}
                                                     />
                                                 </Button>
                                             </ThemeProvider>
+                                            <div
+                                                className={
+                                                    styles.cr_fileText +
+                                                    ' mt-2 pl-4'
+                                                }
+                                            >
+                                                {fileName}
+                                            </div>
                                         </div>
+                                        {/* {file&& (
+                                            <div>
+                                                <img
+                                                    alt="not found"
+                                                    width={"250px"}
+                                                    src={URL.createObjectURL(file)}
+                                                />
+                                                <br />
+
+                                                <button onClick={() => setFile(null)}>Remove banner upload</button>
+                                            </div>
+                                        )} */}
                                     </div>
                                 </div>
                             </div>

@@ -2,26 +2,20 @@ import ReactMarkdown from 'react-markdown';
 import styles from './css/PostModule.module.scss';
 import remarkGfm from 'remark-gfm';
 import { useEffect, useState } from 'react';
+import { PostData } from '../../types/DataType';
 
-interface post {
-    data: {
-        author: {
-            displayName: string;
-            isHost: boolean;
-        };
-        createdAt: string;
-        contentMarkdown: string | null;
-    };
+interface inputs {
+    postData : PostData;
 }
 
-export default function PostModule(postData: post) {
+export default function PostModule({postData} : inputs) {
     const [time, setTime] = useState<string>('');
 
     var wrap = require('wordwrap')(92);
     var codeblocks = require('remark-code-blocks');
 
     const findDiff = () => {
-        var postTime = new Date(postData.data.createdAt);
+        var postTime = new Date(postData.createdAtDate);
         var currentTime = new Date();
 
         var diffTime = (currentTime.getTime() - postTime.getTime()) / 1000;
@@ -51,14 +45,14 @@ export default function PostModule(postData: post) {
         }
     };
 
-    useEffect(findDiff, [postData.data.createdAt]);
+    useEffect(findDiff, [postData.createdAtDate]);
 
     return (
         <div className={styles['Post'] + ' ShadowContainer'}>
             <div className={styles['GrayArea']}></div>
             <div className={styles['Content']}>
                 <div className="TextDimmedMain S2Regular">
-                    Posted by {postData.data.author.displayName} {time}
+                    Posted by {postData.owner?.displayName} {time}
                 </div>
                 <div
                     className={
@@ -69,7 +63,7 @@ export default function PostModule(postData: post) {
                         remarkPlugins={[remarkGfm, codeblocks]}
                         className="markdown-body"
                     >
-                        {wrap(postData.data.contentMarkdown)}
+                        {wrap(postData.content)}
                     </ReactMarkdown>
                 </div>
             </div>

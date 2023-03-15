@@ -17,7 +17,29 @@ pipeline {
                 }
             }
         }
-        
+        // stage('test') {
+        //     steps {
+        //         withCredentials([file(credentialsId: '.env', variable: 'dotenv')]) {
+        //             script {
+        //                 try{
+        //                     bat 'npx playwright install'
+        //                     bat 'npx playwright install msedge'
+        //                     bat 'if not exist "playwright-report" mkdir playwright-report'
+        //                     bat 'npx playwright test --reporter=html'
+        //                     test_ok = true
+        //                     emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/index.html', body: 'All tests passed.', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
+        //                 }catch(e) {
+        //                     test_ok = false
+        //                     echo e.toString()
+
+        //                     emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/index.html', body: 'See attached report for failed test(s).', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - TEST FAILED!'
+        //                     // emailext attachLog: true, mimeType: 'text/html', attachmentsPattern: 'playwright-report/report.txt', body: '${FILE, path="playwright-report/report.txt"}', recipientProviders: [previous(), brokenBuildSuspects(), brokenTestsSuspects()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
+        //                     error "Test Failed"
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         stage('build docker image') {
             when{
                 branch 'master'
