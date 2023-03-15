@@ -223,48 +223,19 @@ export default function GraderPage() {
                 <div className={styles.cr_Container}>
                     <div className={styles.cr_Challenges}>
                         <div className="ml-8">
-                            <p className="H1">Manage Challenge</p>
+                            <p className="H1">Submission Grader</p>
                         </div>
                         <div className={styles.cr_line}></div>
 
                         {/* content */}
 
-                        <div className={styles.cr_NewBody}>
+                        <div className={styles.cr_NewBody2}>
                             {/* menu */}
                             <div className="flex gap-6">
                                 {/* body */}
                                 <div className={styles.cr_InfoFrame}>
                                     {/* general info */}
                                     <Submissions />
-                                </div>
-                            </div>
-
-                            {/* button */}
-                            <div className={styles.cr_Buttonsession}>
-                                {/* create */}
-                                <div>
-                                    <ThemeProvider theme={ButtonTheme}>
-                                        <Button
-                                            variant="contained"
-                                            size="medium"
-                                            onClick={handleEdit}
-                                        >
-                                            Edit
-                                        </Button>
-                                    </ThemeProvider>
-                                </div>
-                                {/* save */}
-                                <div>
-                                    <ThemeProvider theme={ButtonTheme}>
-                                        <Button
-                                            variant="contained"
-                                            size="medium"
-                                            color="secondary"
-                                            onClick={handleDel}
-                                        >
-                                            delete challenge
-                                        </Button>
-                                    </ThemeProvider>
                                 </div>
                             </div>
                         </div>

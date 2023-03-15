@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { fetchChallengeData } from '../../services/challenge.services';
-import { TaskData } from '../../types/DataType';
+import { SubmissionData, TaskData } from '../../types/DataType';
 import styles from '../challengecreation/css/CreationPage.module.css';
 import tStyle from '../managechallenge/css/Task.module.css';
 import { createTheme, TextField } from '@mui/material';
@@ -56,116 +56,35 @@ export default function Submissions() {
     const [selector, setSelector] = useState('');
     const [start, setStart] = useState<Dayjs | null>(null);
     const [end, setEnd] = useState<Dayjs | null>(null);
-    const [acceptStart, setAcceptStart] = useState<boolean>(false);
-    const [acceptEnd, setAcceptEnd] = useState<boolean>(false);
 
-    const [ongoing, setOngoing] = useState<TaskData[]>([]);
-    const [future, setFuture] = useState<TaskData[]>([]);
-    const [finish, setFinish] = useState<TaskData[]>([]);
+    const [fileName, setFileName] = useState('');
+    const [file, setFile] = useState<string | Blob | undefined>();
+
+    const [submissions, setSubmissions] = useState<SubmissionData[]>([]);
 
     // useEffect(()=>{
     //     spiltTask(tasks)
     // },[tasks])
 
-    const addTask = () => {
-        let j = {
-            description: desc,
-            score: selector,
-            challengeTitle: challengeTitle as string,
-            start: start,
-            end: end,
-        };
-        console.log(j);
-        axios
-            .post('http://localhost:3030/api/task', j)
-            .then((resp) => {
-                console.log(resp);
-                axios
-                    .get(
-                        `http://localhost:3030/api/challenges/allTask/${challengeTitle}`,
-                        {
-                            data: {
-                                challengeTitle: challengeTitle,
-                            },
-                        },
-                    )
-                    .then((resp) => {
-                        setOngoing(resp.data.onGoing);
-                        setFuture(resp.data.future);
-                        setFinish(resp.data.finish);
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
-    const delTask = (t: TaskData) => {
-        let id = t.taskId;
-        console.log('http://localhost:3030/api/task/' + id);
-        axios
-            .delete('http://localhost:3030/api/task/' + id)
-            .then((resp) => {
-                console.log(resp);
-                axios
-                    .get(
-                        `http://localhost:3030/api/challenges/allTask/${challengeTitle}`,
-                        {
-                            data: {
-                                challengeTitle: challengeTitle,
-                            },
-                        },
-                    )
-                    .then((resp) => {
-                        setOngoing(resp.data.onGoing);
-                        setFuture(resp.data.future);
-                        setFinish(resp.data.finish);
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
-
-    const iprop = {
-        disableunderline: 'true',
-        style: {
-            fontSize: 14,
-            fontFamily: 'Inter',
-            fontWeight: 500,
-            fontStyle: 'normal',
-        },
-    };
-
-    useEffect(() => {}, [ongoing, finish, future]);
+    useEffect(() => {}, [submissions]);
 
     useEffect(() => {
-        console.log('fetch all task', challengeTitle);
+        console.log('fetch submissions', taskId);
         axios
-            .get(
-                `http://localhost:3030/api/challenges/allTask/${challengeTitle}`,
-                {
-                    data: {
-                        challengeTitle: challengeTitle,
-                    },
+            .get(`http://localhost:3030/api/submissions/bytaskId`, {
+                data: {
+                    taskId: taskId,
                 },
-            )
+            })
             .then((resp) => {
-                console.log('challengetitile = ', challengeTitle);
+                console.log('taskId = ', taskId);
                 console.log('resp= ', resp);
-                setOngoing(resp.data.onGoing);
-                setFuture(resp.data.future);
-                setFinish(resp.data.finish);
+                setSubmissions(resp.data);
             })
             .catch((err) => {
                 console.log(err);
             });
-    }, [challengeTitle]);
+    }, [challengeTitle, taskId]);
 
     return (
         <div className="w-full">
@@ -180,35 +99,37 @@ export default function Submissions() {
                     <div className={tStyle.table + ' w-full'}>
                         <div className={tStyle.head}>
                             <div className={tStyle.text1}>#</div>
-                            <div className={tStyle.headDesc}>
-                                Participant ID
-                            </div>
+                            <div className={tStyle.text}>Participant ID</div>
                             <div className={tStyle.text}>Name</div>
                             <div className={tStyle.text}>Submission</div>
-                            <div className={tStyle.text2}>Status</div>
+                            <div className={tStyle.text}>Status</div>
                             <div className={tStyle.text2}>Score</div>
                         </div>
-                        {ongoing?.length > 0 &&
-                            ongoing.map((t: TaskData, index) => {
+                        {submissions?.length > 0 &&
+                            submissions.map((s: SubmissionData, index) => {
                                 return (
                                     <div key={index} className={tStyle.body}>
                                         <div className={tStyle.bodytext1}>
                                             {index + 1}
                                         </div>
-                                        <div className={tStyle.desc}>
-                                            {t.description}
+                                        <div className={tStyle.bodytext}>
+                                            {s.hasSubmit.userId}
                                         </div>
                                         <div className={tStyle.bodytext}>
-                                            {t.start?.slice(0, 10)}
+                                            {s.hasSubmit.displayName}
                                         </div>
                                         <div className={tStyle.bodytext}>
-                                            {t.end?.slice(0, 10)}
+                                            {s.file?.path}
+                                        </div>
+                                        <div className={tStyle.bodytext}>
+                                            {s.score != null &&
+                                                s.score != undefined}
                                         </div>
                                         <div>
                                             {/* <button>Edit</button> */}
-                                            <button onClick={() => delTask(t)}>
+                                            {/* <button onClick={() => delTask(s)}>
                                                 Delete
-                                            </button>
+                                            </button> */}
                                         </div>
                                     </div>
                                 );
