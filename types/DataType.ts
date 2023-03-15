@@ -1,7 +1,3 @@
-export interface SubmissionData{
-    
-}
-
 export interface TaskData {
     taskId: number;
     description?:string;
