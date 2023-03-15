@@ -29,13 +29,17 @@ const theme = createTheme({
         },
     },
 });
-interface Data {
-    width: number;
-    height: number;
-}
 
 export default function DateSelector(data: any) {
-    const [value, setValue] = React.useState<Dayjs | null>();
+
+    const onError = () => {
+        data.setAccept(false)
+    }
+
+    const onAccept = () => {
+        data.setAccept(true)
+    }
+
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <ThemeProvider theme={theme}>
@@ -43,9 +47,10 @@ export default function DateSelector(data: any) {
                     label=""
                     value={data.default}
                     onChange={(newValue: any) => {
-                        setValue(newValue);
                         data.returnDate(newValue);
                     }}
+                    onAccept = {onAccept}
+                    onError = {onError}
                     renderInput={(params: any) => <TextField {...params} />}
                     InputProps={{
                         sx: [
@@ -63,6 +68,7 @@ export default function DateSelector(data: any) {
                             },
                         ],
                     }}
+                    disablePast
                 />
             </ThemeProvider>
         </LocalizationProvider>

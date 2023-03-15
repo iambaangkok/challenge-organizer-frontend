@@ -98,6 +98,8 @@ export default function CreationPage() {
     const [file, setFile] = useState(null);
     const [date, setDate] = useState<Dayjs | null>(null);
     const [end, setEnd] = useState<Dayjs | null>(null);
+    const [acceptStart, setAcceptStart] = useState<boolean>(false);
+    const [acceptEnd, setAcceptEnd] = useState<boolean>(false);
     // const [host,setHost] = useState<String>();
 
 
@@ -144,16 +146,35 @@ export default function CreationPage() {
             // banner: banner
         };
         console.log(j);
-        axios
-            .post('http://localhost:3030/api/challenges', j)
-            .then((resp) => {
-                localStorage.removeItem('saved');
-                let title = resp.data.challengeTitle;
-                Router.push('/challenge?challengeTitle=' + title);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        if (
+            title.trim() == '' ||
+            date === null ||
+            end === null ||
+            formatState === '' ||
+            typeState === '' ||
+            Number.isNaN(Number(parti))
+        ) {
+            alert(
+                'Please make sure to fill out all the required fields before submitting.',
+            );
+        } else if (!acceptStart || !acceptEnd) {
+            alert('The date provided is invalid. Please re-enter the date');
+        } else if (date?.diff(end) > 0) {
+            alert(
+                'The date range provided is invalid. Please re-enter the date',
+            );
+        } else {
+            axios
+                .post('http://localhost:3030/api/challenges', j)
+                .then((resp) => {
+                    localStorage.removeItem('saved');
+                    let title = resp.data.challengeTitle;
+                    Router.push('/challenge?challengeTitle=' + title);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
 
         // location.reload()
     };
@@ -199,26 +220,9 @@ export default function CreationPage() {
 
                         <div className={styles.cr_NewBody}>
                             {/* menu */}
-                            <div className="flex gap-6">
-                                <div className={styles.cr_MenuTab}>
-                                    <div className={styles.cr_Box}>
-                                        <div className="S1Medium">
-                                            General Info
-                                        </div>
-                                    </div>
-                                    <div className={styles.cr_Box}>
-                                        <div className="S1Medium">Reward</div>
-                                    </div>
-                                    <div className={styles.cr_Box}>
-                                        <div className="S1Medium">
-                                            Collaborators
-                                        </div>
-                                    </div>
-                                </div>
-
+                            <div className="flex justify-center gap-6">
                                 {/* body */}
                                 <div className={styles.cr_InfoFrame}>
-                                    {/* general info */}
                                     <div className="w-full py-2">
                                         <div
                                             className={
@@ -292,6 +296,7 @@ export default function CreationPage() {
                                             <DateSelector
                                                 {...double}
                                                 returnDate={setDate}
+                                                setAccept={setAcceptStart}
                                                 default={date}
                                             ></DateSelector>
                                         </div>
@@ -311,11 +316,10 @@ export default function CreationPage() {
                                             </div>
                                             <DateSelector
                                                 {...double}
+                                                setAccept={setAcceptEnd}
                                                 returnDate={setEnd}
                                                 default={end}
-                                            >
-                                                {' '}
-                                            </DateSelector>
+                                            />
                                         </div>
                                     </div>
                                     <div className="flex flex-row gap-10 pb-2">

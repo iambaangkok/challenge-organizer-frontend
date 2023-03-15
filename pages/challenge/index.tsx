@@ -7,13 +7,10 @@ import bannerImage from '../../public/pingpong.jpg';
 import { Button, Tab, Tabs, ThemeProvider } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 
-import { testPostListsByTabs } from '../../lib/postListByTabs';
-import { testChallengePageData } from '../../lib/challengePageData';
 import CountdownTimer from '../../components/challenge/CountdownTimer';
 import Link from 'next/link';
 import StarRating from '../../components/challenge/StarRating';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 import { ButtonTheme } from '../../theme/Button';
 import {
     fetchChallengeData,
@@ -21,64 +18,10 @@ import {
     leaveChallenge,
 } from '../../services/challenge.services';
 import { getFormattedDate } from '../../utils/utils';
-
-export interface TabData {
-    index: number;
-    tabName: string;
-    posts: [
-        {
-            author: {
-                displayName: string;
-                isHost: boolean;
-            };
-            contentMarkdown: boolean;
-        },
-    ];
-}
-
-export interface ChallengePageData {
-    challengeId: string;
-    challengeTitle: string;
-    description: string;
-
-    type: string;
-    format: string;
-
-    participants: string[];
-    numParticipants: number;
-    host: string;
-    banckImg: string;
-
-    maxParticipants: number;
-    banUser: object[];
-    publishedStatus: boolean;
-
-    timeStamp: string;
-    startDate: string;
-    endDate: string;
-    closed: boolean;
-
-    file: {
-        user: object;
-        path: string;
-    };
-    rewards: [
-        {
-            rankMin: number;
-            rankMax: number;
-            rewardAbsolute: number;
-        },
-    ];
-    teams: {
-        team_id: number;
-        menubar: object[];
-    };
-    maxTeams: number;
-    rating: number;
-
-    schema_v: string;
-    join: boolean;
-}
+import PostModule from '../../components/challenge/PostModule';
+import PostEditor from '../../components/challenge/PostEditor';
+import { TabData, ChallengeData, UserData } from '../../types/DataType';
+import axios from 'axios';
 
 export default function Challenge() {
     const router = useRouter();
@@ -87,14 +30,13 @@ export default function Challenge() {
 
     // useStates
 
-    const [loading, setLoading] = useState<boolean>(false);
     const [tabValue, setTabValue] = useState<number>(0);
-    const [tabData, setTabData] = useState<TabData>();
+    const [tabsData, setTabsData] = useState<TabData[]>([]);
     const [challengePageData, setChallengePageData] =
-        useState<ChallengePageData>();
+        useState<ChallengeData>();
 
-    const [displayName, setDisplayName] = useState('');
-
+    const [displayName, setDisplayName] = useState<string | null>('');
+    const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
     // Functions
 
     const handleTabChange = (
@@ -104,68 +46,83 @@ export default function Challenge() {
         setTabValue(newTabValue);
     };
 
-    const handleJoin = useCallback(
-        async (challengeTitle: string, displayName: string) => {
-            setLoading(true);
-            await joinChallenge(challengeTitle, displayName);
-            setLoading(false);
-        },
-        [],
-    );
-
-    const handleLeave = useCallback(
-        async (challengeTitle: string, displayName: string) => {
-            setLoading(true);
-            await leaveChallenge(challengeTitle, displayName);
-            setLoading(false);
-        },
-        [],
-    );
-
-    // useCallbacks
-
     const getChallengeData = useCallback(async () => {
-        setLoading(true);
         if (challengeTitle) {
             setChallengePageData(
                 await fetchChallengeData(challengeTitle as string),
             );
         }
-        setLoading(false);
     }, [challengeTitle]);
 
-    const getTabData = useCallback(async () => {
-        const newTabData = testPostListsByTabs.find((x) => {
-            return x.index == tabValue;
-        }) as unknown as TabData;
+    const handleJoin = useCallback(
+        async (challengeTitle: string, displayName: string | null) => {
+            if (displayName !== null) {
+                await joinChallenge(challengeTitle, displayName);
+                await getChallengeData();
+            }
+        },
+        [getChallengeData],
+    );
 
-        setTabData(newTabData);
-    }, [tabValue]);
+    const handleLeave = useCallback(
+        async (challengeTitle: string, displayName: string | null) => {
+            if (displayName !== null) {
+                await leaveChallenge(challengeTitle, displayName);
+                await getChallengeData();
+            }
+        },
+        [getChallengeData],
+    );
+
+    // useCallbacks
+    const getTabs = useCallback(async () => {
+        if (challengeTitle !== undefined)
+            axios
+                .get(`${BASE_URL}/tabs/${challengeTitle}`)
+                .then((resp) => {
+                    setTabsData(resp.data);
+                })
+                .catch((e) => console.log(e));
+    }, [BASE_URL, challengeTitle]);
 
     // useEffects
-
-    useEffect(() => {
-        getChallengeData();
-        getTabData();
-    }, [getChallengeData, getTabData, handleJoin, handleLeave]);
 
     useEffect(() => {
         if (localStorage.getItem('displayName') !== null) {
             setDisplayName(`${localStorage.getItem('displayName')}`);
         } else {
-            setDisplayName(``);
+            setDisplayName(null);
         }
-        console.log(displayName);
-    }, [displayName]);
+        getChallengeData();
+        getTabs();
+    }, [getChallengeData, getTabs, handleJoin, handleLeave , tabValue]);
 
-    const userIsJoined = challengePageData?.participants.includes(displayName);
+    const userIsJoined =
+        displayName !== null
+            ? challengePageData?.participants
+                  .map((x) => x.displayName)
+                  .includes(displayName)
+            : false;
+
+    const userIsHost =
+        displayName !== null
+            ? challengePageData?.host.displayName === displayName ||
+              challengePageData?.collaborators
+                  .map((x) => x.displayName)
+                  .includes(displayName)
+            : false;
+
+    const userIsMaxed =
+        challengePageData?.maxParticipants !== 0 &&
+        challengePageData?.maxParticipants ===
+            challengePageData?.numParticipants;
 
     return (
         <ThemeProvider theme={ButtonTheme}>
             <div className={styles['main-container']}>
                 <Head>
                     <title>
-                        {'Challenge |' +
+                        {'Challenge | ' +
                             (challengePageData
                                 ? challengePageData.challengeTitle
                                 : 'TitleText')}
@@ -178,11 +135,14 @@ export default function Challenge() {
                         className={styles['banner']}
                     />
                 </div>
+
+                {/* Title and Tabs */}
                 <div
                     className={
                         styles['challengemenu-container'] + ' ShadowContainer'
                     }
                 >
+                    {/* Title */}
                     <div className={styles['title-container']}>
                         <div className={styles['title-left']}>
                             <div className={styles[''] + ' H3'}>
@@ -231,7 +191,7 @@ export default function Challenge() {
                                     >
                                         {'Leave'}
                                     </Button>
-                                ) : (
+                                ) : !userIsMaxed ? (
                                     <Button
                                         onClick={() => {
                                             handleJoin(
@@ -249,17 +209,28 @@ export default function Challenge() {
                                     >
                                         {'Join'}
                                     </Button>
+                                ) : (
+                                    <Button
+                                        id="StatusButton"
+                                        variant="contained"
+                                        className={
+                                            styles['status-button'] +
+                                            ' button-primary H3'
+                                        }
+                                        disableElevation
+                                        disabled
+                                    >
+                                        {'Max'}
+                                    </Button>
                                 )}
                             </div>
                         </div>
                         <div className={styles['title-right']}>
-                            {displayName &&
-                            challengePageData?.host &&
-                            displayName == challengePageData.host ? (
+                            {userIsHost ? (
                                 <Link
                                     id={'EditChallengeButton'}
                                     href={{
-                                        pathname: '/editchallenge',
+                                        pathname: '/managechallenge',
                                         query: { id: 'CHALLENGEID' },
                                     }}
                                     style={{
@@ -274,7 +245,7 @@ export default function Challenge() {
                                         }
                                         disableElevation
                                     >
-                                        {'Edit Challenge'}
+                                        {'Manage Challenge'}
                                     </Button>
                                 </Link>
                             ) : (
@@ -282,6 +253,8 @@ export default function Challenge() {
                             )}
                         </div>
                     </div>
+
+                    {/* Tabs */}
                     <Tabs
                         value={tabValue}
                         onChange={handleTabChange}
@@ -291,7 +264,7 @@ export default function Challenge() {
                             className: styles['tab-indicator'],
                         }}
                     >
-                        {testPostListsByTabs.map((x, index) => (
+                        {tabsData.map((x, index) => (
                             <Tab
                                 key={index}
                                 label={x.tabName}
@@ -302,16 +275,21 @@ export default function Challenge() {
                         ))}
                     </Tabs>
                 </div>
+
                 <div className={styles['content-container']}>
-                    <div
-                        className={
-                            styles['posts-container'] +
-                            ' TextRegular' +
-                            ' ShadowContainer'
-                        }
-                    >
-                        {tabData?.tabName + ' tab posts'}
+                    <div className={styles['posts-container'] + ' TextRegular'}>
+                        {/* Post Editor && Post List */}
+
+                        {userIsHost && (
+                            <PostEditor tabName={tabsData[tabValue]?.tabName} />
+                        )}
+
+                        {tabsData[tabValue]?.posts?.map((post, index) => {
+                            return <PostModule postData={post} key={index} />;
+                        })}
                     </div>
+
+                    {/* Timer and Challenge Info */}
                     <div className={styles['rightsidebar-container']}>
                         <div
                             className={
@@ -364,7 +342,7 @@ export default function Challenge() {
                                         Last modified{' '}
                                         {challengePageData
                                             ? getFormattedDate(
-                                                  challengePageData.timeStamp,
+                                                  challengePageData.upDateAt,
                                               )
                                             : 'N/A'}{' '}
                                         by{' '}
@@ -378,6 +356,7 @@ export default function Challenge() {
                                         >
                                             {challengePageData
                                                 ? challengePageData.host
+                                                      .displayName
                                                 : 'N/A'}
                                         </Link>
                                     </div>
@@ -516,7 +495,10 @@ export default function Challenge() {
                                             }
                                         >
                                             {challengePageData
-                                                ? `${challengePageData.numParticipants} / ${challengePageData.maxParticipants}`
+                                                ? challengePageData.maxParticipants !==
+                                                  0
+                                                    ? `${challengePageData.numParticipants} / ${challengePageData.maxParticipants}`
+                                                    : `${challengePageData.numParticipants}`
                                                 : 'N/A'}
                                         </div>
                                         <div
@@ -534,8 +516,8 @@ export default function Challenge() {
                                     >
                                         <StarRating
                                             rating={
-                                                challengePageData
-                                                    ? challengePageData.rating
+                                                challengePageData?.ratings
+                                                    ? challengePageData.ratings
                                                     : 0
                                             }
                                         ></StarRating>

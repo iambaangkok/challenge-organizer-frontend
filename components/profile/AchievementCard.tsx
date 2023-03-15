@@ -1,5 +1,6 @@
 import styles from './css/AchievementCard.module.scss'
-import { AiFillTrophy } from 'react-icons/ai'
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+
 import Image from 'next/image'
 
 export default function AchievementCard(data: any) {
@@ -18,7 +19,7 @@ export default function AchievementCard(data: any) {
                 CPE Monthly Coding Challenge (February 2023)
             </div>
             <div className={styles['Placement'] + ' H3'}>
-                <AiFillTrophy className={styles['Badge']}></AiFillTrophy>
+                <EmojiEventsIcon className={styles['Badge']}/>
                 <div>#1 Place!</div>
             </div>
             <div className={styles['Score'] + ' S2Regular'}>

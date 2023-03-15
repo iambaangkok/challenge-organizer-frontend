@@ -1,28 +1,110 @@
-export interface ChallengeCardData {
-    challengeId: string;
-    challengeTitle: string;
-    type: string;
-    format: string;
-    description: string;
-    startDate: string;
-    endDate: string;
-    numParticipants: number;
-    maxParticipants: number;
-    rating: number;
-    join: boolean;
-    closed: boolean;
-    bannerImg: string;
-}
-
 export interface TaskData {
     taskId: string;
-    taskName: string;
-    challengeName: string;
-    dueDate: string;
-    finished: boolean;
+    description: string;
+    doned: boolean;
+    editAt: string;
+    start: string;
+    end: string;
+    hasChallenges: ChallengeData;
+    score: number;
 }
 
 export interface NotificationData {
     description: string;
     date: string;
+}
+
+export interface UserData {
+    userId: number;
+    displayName?: string;
+    firstName?: string;
+    lastName?: string;
+    cmuAccount?: string;
+    studentId?: string;
+    createdDate?: string;
+    editAtDate?: string;
+    coin?: string;
+    equipmentFrame?: string;
+    banStatus: boolean;
+    isAdmin?: boolean;
+    challenges?: ChallengeData[];
+    constructors?: ChallengeData[];
+    // submited?: Submission[];
+    // inTeam?: Team;
+    file?: File;
+    // items?: Item[];
+    // ratings?: Rating[];
+    isHost?: ChallengeData[];
+    isOwner?: PostData[];
+}
+
+export interface TabData {
+    tabId: number;
+    tabName?: string;
+    permission: boolean;
+    posts?: PostData[];
+    hasChallenge?: ChallengeData;
+}
+
+export interface PostData {
+    postId: number;
+    content?: string;
+    createdAtDate: string;
+    upDateAt?: string;
+    allowComment?: boolean;
+    children?: PostData[]
+    parent?: PostData
+    owner?: UserData;
+    hasTab?: TabData;
+    hasChallenge?: ChallengeData;
+}
+
+export interface ChallengeData {
+    challengeId?: string;
+    challengeTitle: string;
+    description: string;
+
+    type?: string;
+    format?: string;
+
+    participants: UserData[];
+    numParticipants?: number;
+    host: UserData;
+    bannerImg?: string;
+
+    maxParticipants?: number;
+    banUser: UserData[];
+    publishedStatus?: boolean;
+
+    createdAtDate?: string;
+    upDateAt: string;
+    startDate: string;
+    endDate: string;
+
+    closed: boolean;
+
+    file: File;
+    rewards: [
+        {
+            rankMin: number;
+            rankMax: number;
+            rewardAbsolute: number;
+        },
+    ];
+    teams: {
+        team_id: number;
+        menubar: object[];
+    };
+    maxTeams?: number;
+    ratings?: number;
+
+    collaborators: UserData[];
+
+    schema_v: string;
+    join?: boolean;
+
+    tabs? : TabData[]
+    posts? : PostData[]
+    tasks? : TaskData[]
+
 }
