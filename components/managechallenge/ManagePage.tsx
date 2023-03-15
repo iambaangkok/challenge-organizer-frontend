@@ -94,8 +94,8 @@ export default function ManagePage() {
     //     useState<ChallengePageData>();
     const {challengeTitle} = router.query
 
-    const [typeState, setTypeState] = useState<string>('');
-    const [formatState, setFormatState] = useState<string>('');
+    const [typeState, setTypeState] = useState<string|undefined>('');
+    const [formatState, setFormatState] = useState<string|undefined>('');
 
     const [title, setTitle] = useState<String>('');
     const [titleLimit, setTitleLimit] = useState<Number>(0);
@@ -123,8 +123,8 @@ export default function ManagePage() {
                 setTitle(resp.challengeTitle)
                 setTitleLimit(resp.challengeTitle?.toString().length);
 
-                // setTypeState(resp.type)
-                // setFormatState(resp.format)
+                setTypeState(resp.type)
+                setFormatState(resp.format)
                 setDesc(resp.description)
                 setDescLimit(resp.description.toString().length);
 
