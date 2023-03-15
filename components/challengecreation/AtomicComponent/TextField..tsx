@@ -60,7 +60,7 @@ export default function TextField_(data: any) {
     };
 
     const ALPHA_REGEX = /^[0-9]+$/;
-    const ALPHA_NUMERIC_REGEX = /^[0-9A-Za-z\u0E00-\u0E7F ]+$/;
+    const ALPHA_NUMERIC_REGEX = /^[0-9A-Za-z\u0E00-\u0E7F. \/]+$/;
 
     return (
         <TextField

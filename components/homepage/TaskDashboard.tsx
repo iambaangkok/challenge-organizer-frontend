@@ -12,26 +12,27 @@ export default function TaskDashboard() {
 
     const fetchTaskList = useCallback(() => {
         setLoading(true);
-        axios
-            .get(`http://localhost:3030/api/task/viewByDisPlayName`, {
-                data: {
-                    displayName: displayName,
-                },
-            })
-            .then((resp) => {
-                setTaskList(resp.data);
-            })
-            .catch((e) => {
-                console.log(e);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+        console.log(displayName);
+
+        if (displayName !== '') {
+            axios
+                .get(`http://localhost:3030/api/task/viewByDisPlayName/${displayName}`)
+                .then((resp) => {
+                    // console.log(resp)
+                    setTaskList(resp.data);
+                })
+                .catch((e) => {
+                    console.log(e);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        }
     }, [displayName]);
 
     useEffect(() => {
         if (localStorage.getItem('displayName') !== null) {
-            setDisplayName(`/${localStorage.getItem('displayName')}`);
+            setDisplayName(`${localStorage.getItem('displayName')}`);
         } else {
             setDisplayName(``);
         }

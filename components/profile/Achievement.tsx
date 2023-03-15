@@ -11,7 +11,7 @@ export default function Achievement() {
         >
             {/* title and button*/}
             <div className="flex justify-between items-center">
-                <div className="TextMedium">Recently Completed Challenge</div>
+                <div className="H3">Recently Completed Challenge</div>
                 <Button>See All</Button>
             </div>
             {/* some elements */}
