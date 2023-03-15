@@ -39,8 +39,9 @@ export default function TextField_(data: any) {
 
     useEffect(() => {
         // console.log("useeffect "+ text)
-        setText(data.default);
-    }, [data.default]);
+        data.returnText(text);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[text]);
 
     const handleChange = async (e: any) => {
         // console.log(data.max)
