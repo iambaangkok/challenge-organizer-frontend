@@ -95,7 +95,7 @@ export default function CreationPage() {
     const [partiLimit, setPartiLimit] = useState<Number>(0);
 
     const [fileName, setFileName] = useState('');
-    const [file, setFile] = useState({});
+    const [file, setFile] = useState<string | Blob | undefined>();
     const [date, setDate] = useState<Dayjs | null>(null);
     const [end, setEnd] = useState<Dayjs | null>(null);
     const [acceptStart, setAcceptStart] = useState<boolean>(false);
@@ -173,14 +173,16 @@ export default function CreationPage() {
 
                     let title = resp.data.challengeTitle;
 
-                    let formData = new FormData();
-                    formData.append('file', file);
+                    if (file) {
+                        let formData = new FormData();
+                        formData.append('file', file);
 
-                    const uploadImg = axios({
-                        method: 'post',
-                        url: `${BASE_URL}${BASE_PATH}/${title}/uploadbanner`,
-                        data: formData,
-                    });
+                        axios({
+                            method: 'post',
+                            url: `${BASE_URL}${BASE_PATH}/${title}/uploadbanner`,
+                            data: formData,
+                        });
+                    }
 
                     Router.push('/challenge?challengeTitle=' + title);
                 })
@@ -215,7 +217,7 @@ export default function CreationPage() {
         setFileName(e.target.files[0].name);
     };
     const handleRemove = (e: any) => {
-        setFile(null);
+        setFile(undefined);
         setFileName('');
     };
 
