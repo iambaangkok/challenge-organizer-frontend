@@ -118,7 +118,7 @@ export default function Challenge() {
             challengeData?.numParticipants;
 
     // const srcPath = 'http://localhost:3030/' + challengeData?.bannerImg?.replaceAll('\\' , '/');
-    const srcPath = challengeData?.bannerImg ? 'http://localhost:3030/' + challengeData.bannerImg?.replaceAll('\\' , '/') : '/pingpong.jpg';
+    const srcPath = challengeData?.bannerImg ? 'http://localhost:3030/' + challengeData.bannerImg?.replace('client' , '').replaceAll('\\' , '/').substring(1) : '/pingpong.jpg';
 
     return (
         <ThemeProvider theme={ButtonTheme}>
