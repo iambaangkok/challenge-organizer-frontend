@@ -1,8 +1,4 @@
-import { breadcrumbsClasses, TextField } from '@mui/material';
-import { alpha, createTheme, styled } from '@mui/material/styles';
-import { ThemeProvider } from '@mui/material';
-import { ClassNames } from '@emotion/react';
-import { Interface } from 'node:readline/promises';
+import { createTheme, TextField, ThemeProvider } from '@mui/material';
 import React from 'react';
 import { textSpanEnd } from 'typescript';
 import { useEffect } from 'react';
@@ -32,21 +28,6 @@ const theme = createTheme({
         },
     },
 });
-const styles = {
-    refont: {
-        fontFamily: 'Inter',
-        fontStyle: 'normal',
-        fontWeight: 500,
-        fontSize: 14,
-    },
-};
-
-interface textData {
-    width: number;
-    height: number;
-    max: number;
-    multiline: Boolean;
-}
 
 export default function TextField_(data: any) {
     var fieldId = '';
@@ -57,7 +38,7 @@ export default function TextField_(data: any) {
     } else {
         fieldId = 'outlined-basic';
     }
-
+   
     const [text, setText] = React.useState<any>('');
     useEffect(() => {
         // console.log("useeffect "+ text)
@@ -98,32 +79,46 @@ export default function TextField_(data: any) {
         },
     };
 
+    const ALPHA_REGEX = /^[0-9]+$/;
+    const ALPHA_NUMERIC_REGEX = /^[0-9A-Za-z\u0E00-\u0E7F ]+$/;
     return (
-            <TextField
-                id="outlined-multiline-flexible"
-                multiline={data.multiline ? true : false}
-                maxRows={4}
-                label=""
-                variant="outlined"
-                fullWidth={true}
-                type={data.num ? 'number' : 'any'}
-                autoComplete="off"
-                // sx = {[{ height: height} ]}
-                // focused
-                inputProps={iprop}
-                onKeyDown={
-                    data.num
-                        ? (evt) =>
-                              ['e', 'E', '+', '-', '.'].includes(evt.key) &&
-                              evt.preventDefault()
-                        : (evt) => {}
-                }
-                onChange={(e) => handleChange(e)}
-                // value ={data.num?Number(text):text}
+        <ThemeProvider theme={theme}>
+        <TextField
+            id="outlined-multiline-flexible"
+            multiline={data.multiline ? true : false}
+            maxRows={4}
+            label=""
+            variant="outlined"
+            fullWidth={true}
+            type={data.num ? 'number' : 'any'}
+            autoComplete="off"
+            inputProps={iprop}
+            onKeyDown={
+                data.num
+                    ? (evt) => {
+                          console.log(evt.key);
+                          if (evt.key !== 'Backspace') {
+                              return (
+                                  !ALPHA_REGEX.test(evt.key) &&
+                                  evt.preventDefault()
+                              );
+                          }
+                      }
+                    : (evt) => {
+                          if (evt.key !== 'Backspace' && evt.key !== ' ') {
+                              return (
+                                  !ALPHA_NUMERIC_REGEX.test(evt.key) &&
+                                  evt.preventDefault()
+                              );
+                          }
+                      }
+            }
+            onChange={(e) => handleChange(e)}
+            // value ={data.num?Number(text):text}
 
-                value={data.default}
-                // defaultValue = {data.default}
-            />
-
+            value={text}
+            // defaultValue = {data.default}
+        />
+        </ThemeProvider>
     );
 }

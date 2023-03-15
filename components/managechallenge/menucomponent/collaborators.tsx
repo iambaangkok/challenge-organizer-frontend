@@ -24,24 +24,33 @@ const c2 = {
     name: 'oat699',
 };
 
-export default function Collaborators({ title, collaborators }: any) {
-    // const {challengeTitle} = router.query
+export default function Collaborators() {
     const router = useRouter();
     const { challengeTitle } = router.query;
 
     const [emailInput, setEmailInput] = useState('');
 
     const [cols, setCols] = useState<UserData[]>([]);
-    // const [text,setText]  = useState("")
-    const [apiResp, setApiResp] = useState<Collaborator>();
-    const removeCol = (cc: UserData) => {
-        // let.
-        // axios.delete('http://localhost:3030/api/challenges//deleteCollaborators')
-        // .then =>{
 
-        //     removeCol
-        // }
-        setCols(cols.filter((e) => e.userId !== cc.userId));
+    const removeCol = async (cc: UserData) => {
+        let j = {
+            challengeTitle: challengeTitle as string,
+            displayName: cc.displayName,
+        }
+        console.log("j",j)
+        await axios.delete('http://localhost:3030/api/challenges/deleteCollaborators',{data:j})
+            .then((resp) =>{
+                console.log("del reach db")
+                console.log("del resp: ",resp)
+            fetchChallengeData(challengeTitle as string).then(
+                    (resp) => {
+                        setCols(resp.collaborators);
+                    },
+                );
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
     };
 
     // const handleChange = (e:any) =>{
@@ -54,22 +63,23 @@ export default function Collaborators({ title, collaborators }: any) {
     //     title,
     // ]);
 
-    const handleAdd = () => {
+    const handleAdd = async () => {
         console.log('call');
         let dupe = cols.map((c) => c.cmuAccount).includes(emailInput);
         if (!dupe) {
-            console.log('yes');
+            // console.log('yes');
             let j = {
-                challengeTitle: title,
+                challengeTitle: challengeTitle,
                 cmuAccount: emailInput,
             };
-            console.log('j= ', j);
-            axios
+            // console.log('j= ', j);
+           await axios
                 .put('http://localhost:3030/api/challenges/addCollaborators', j)
-                .then((resp) => {
-                    console.log(resp.data);
-                    fetchChallengeData(challengeTitle as string).then(
+                .then(async (resp) => {
+                    // console.log(resp.data);
+                   await fetchChallengeData(challengeTitle as string).then(
                         (resp) => {
+                            // console.log("addfetch",resp)
                             setCols(resp.collaborators);
                         },
                     );
@@ -80,12 +90,22 @@ export default function Collaborators({ title, collaborators }: any) {
         }
     };
 
-    useEffect(() => {}, [cols]);
+    useEffect(() => {
+        console.log("update",cols)
+
+    }, [cols]);
 
     useEffect(() => {
-        console.log(collaborators)
-        setCols(collaborators);
-    }, []);
+     
+        fetchChallengeData(challengeTitle as string).then(
+            (resp) => {
+                setCols(resp.collaborators);
+            },
+        );
+    }, [challengeTitle]);
+    const iprop = {
+        disableunderline: 'true',
+    };
 
     return (
         <div className="w-full pb-2">
@@ -99,6 +119,8 @@ export default function Collaborators({ title, collaborators }: any) {
                             }}
                             placeholder="Please input your collaborator's email."
                             fullWidth
+                            autoComplete="off"
+                            inputProps={iprop}
                             value={emailInput}
                         ></TextField>
                     </div>
