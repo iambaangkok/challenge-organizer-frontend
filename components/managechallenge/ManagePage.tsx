@@ -139,7 +139,7 @@ export default function ManagePage() {
 
     const handleEdit = () => {
         let j = {
-            challengeTitle: title,
+            challengeTitle: title as string,
             description: desc,
             startDate: date,
             endDate: end,
@@ -151,10 +151,13 @@ export default function ManagePage() {
         console.log(j);
         let tt = challengeTitle as string
         axios
-            .put('http://localhost:3030/api/challenges'+tt, j)
+            .put('http://localhost:3030/api/challenges/'+tt, j)
             .then((resp) => {
+                // router.back()
+                // router.push('/home')
                 Swal.fire('Edit complete', '', 'success')
-                console.log(resp)
+
+                // console.log(resp)
             })
             .catch((err) => {
                 console.log(err);

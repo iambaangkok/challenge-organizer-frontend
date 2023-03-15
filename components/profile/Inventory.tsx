@@ -10,7 +10,7 @@ export default function Inventory() {
                 ' ShadowContainer p-6 flex flex-col space-y-5'
             }
         >
-            <div className="TextMedium">Inventory</div>
+            <div className="H3">Inventory</div>
             <div className="grid grid-rows-3 grid-cols-5 grid-flow-row gap-x-9 gap-y-3 self-center">
                 <InventoryItem></InventoryItem>
                 <InventoryItem></InventoryItem>

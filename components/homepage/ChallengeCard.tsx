@@ -14,9 +14,9 @@ export default function ChallengeCard(data: ChallengeData) {
         ? new Date(data.endDate).toLocaleDateString()
         : 'TBD';
 
-    const srcPath = data.bannerImg ? 'http://localhost:3030/' + data.bannerImg?.replaceAll('\\' , '/') : '/pingpong.jpg';
+    const srcPath = data.bannerImg ? 'http://localhost:3030/' + data.bannerImg?.replace('client' , '').replaceAll('\\' , '/').substring(1) : '/pingpong.jpg';
 
-    console.log(srcPath);
+    // console.log(srcPath);   
     return (
         // Each challenge card routes to its own challenge page
         <Link

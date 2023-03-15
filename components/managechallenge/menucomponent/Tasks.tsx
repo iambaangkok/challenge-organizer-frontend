@@ -142,12 +142,8 @@ export default function Tasks() {
     useEffect(() => {
         console.log('fetch all task', challengeTitle);
         axios
-            .get(`http://localhost:3030/api/challenges/allTask/${challengeTitle}`, {
-                data: {
-                    challengeTitle: challengeTitle,
-                },
-            })
-            .then((resp) => {
+            .get(`http://localhost:3030/api/challenges/allTask/${challengeTitle}`)
+            .then((resp :any) => {
                 console.log('challengetitile = ', challengeTitle);
                 console.log('resp= ', resp);
                 setOngoing(resp.data.onGoing);
