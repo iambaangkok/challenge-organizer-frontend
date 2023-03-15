@@ -1,12 +1,12 @@
 export interface TaskData {
-    taskId: string;
-    description: string;
-    doned: boolean;
-    editAt: string;
-    start: string;
-    end: string;
-    hasChallenges: ChallengeData;
-    score: number;
+    taskId: number;
+    description?:string;
+    score?:number;
+    createAt?: string;
+    editAt?:string;
+    doned?:boolean;
+    start?:string;
+    end?:string
 }
 
 export interface NotificationData {
@@ -99,6 +99,7 @@ export interface ChallengeData {
     ratings?: number;
 
     collaborators: UserData[];
+
 
     schema_v: string;
     join?: boolean;
