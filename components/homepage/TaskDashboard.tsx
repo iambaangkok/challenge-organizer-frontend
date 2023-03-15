@@ -22,7 +22,7 @@ export default function TaskDashboard() {
                 setTaskList(resp.data);
             })
             .catch((e) => {
-                console.log(e);
+                setLoading(false);
             })
             .finally(() => {
                 setLoading(false);
