@@ -4,7 +4,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { BiUser } from 'react-icons/bi/';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
-import { ChallengeData } from '../../types/DataType';
+import { ChallengeData } from '../../types/DataType';   
+import Img from '../../../challenge-organizer-backend/uploads/bannerimages/1678876233226-177237919.jpg';
+import { useEffect } from 'react';
 
 export default function ChallengeCard(data: ChallengeData) {
     const startDate = data.startDate
@@ -14,6 +16,23 @@ export default function ChallengeCard(data: ChallengeData) {
         ? new Date(data.endDate).toLocaleDateString()
         : 'TBD';
 
+    // const srcPath = data.bannerImg
+    //     ? '../../../challenge-organizer-backend/' + data.bannerImg.replaceAll('\\', '/')
+    //     : '/pingpong.jpg';
+
+    // const srcPath = 'D:/Study/3rd Year Term 2-2565/Software Engineer/Project/challenge-organizer-backend/uploads/bannerimages/1678877826672-497272490.jpg'
+    const srcPath = 'http://localhost:3030/' + data.bannerImg?.replaceAll('\\' , '/');
+
+    // const url = require(srcPath);
+
+    // useEffect(() => {
+    //     import(srcPath).then((resp) => {
+    //         console.log(resp);
+    //     });
+    // } , []);
+    // const srcPath = '/pingpong.jpg'
+
+    console.log(srcPath);
     return (
         // Each challenge card routes to its own challenge page
         <Link
@@ -27,12 +46,8 @@ export default function ChallengeCard(data: ChallengeData) {
             {/* Challenge Card */}
             <div className={styles['ChallengeCard']}>
                 {/* Background Image */}
-                <Image
-                    src="/pingpong.jpg"
-                    alt={'test'}
-                    fill
-                    className={styles['Img']}
-                />
+                <Image src={srcPath} alt={'test'} fill className={styles['Img']} />
+                {/* <img src={Img} alt={'test'} className={styles['Img']} /> */}
                 {/* Challenge Info */}
                 <div className={styles['BottomHalf']}>
                     <div className={styles['Top']}>

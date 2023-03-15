@@ -10,6 +10,14 @@ const nextConfig = {
             },
         ];
     },
+    images: {
+        remotePatterns: [
+            {
+                hostname: 'localhost',
+                port: '3030',
+            },
+        ],
+    },
 };
 
 module.exports = nextConfig;

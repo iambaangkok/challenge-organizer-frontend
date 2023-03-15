@@ -73,9 +73,9 @@ const uploadTheme = createTheme({
                         borderColor: '#FA9C1D',
                     },
                     '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
-                    {
-                        borderColor: '#EA7000',
-                    },
+                        {
+                            borderColor: '#EA7000',
+                        },
                 },
             },
         },
@@ -94,14 +94,13 @@ export default function CreationPage() {
     const [parti, setParti] = useState<Number>();
     const [partiLimit, setPartiLimit] = useState<Number>(0);
 
-    const [fileName, setFileName] = useState("");
-    const [file, setFile] = useState(null);
+    const [fileName, setFileName] = useState('');
+    const [file, setFile] = useState({});
     const [date, setDate] = useState<Dayjs | null>(null);
     const [end, setEnd] = useState<Dayjs | null>(null);
     const [acceptStart, setAcceptStart] = useState<boolean>(false);
     const [acceptEnd, setAcceptEnd] = useState<boolean>(false);
     // const [host,setHost] = useState<String>();
-
 
     useEffect(() => {
         const savedLS = localStorage.getItem('saved');
@@ -125,11 +124,14 @@ export default function CreationPage() {
                 // console.log(saved.endDate)
                 setDate(dayjs(saved.startDate));
                 setEnd(dayjs(saved.endDate));
-                setFile(saved.banner)
-                setFileName(saved.fName)
+                setFile(saved.banner);
+                setFileName(saved.fName);
             }
         }
     }, []);
+
+    const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+    const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH;
 
     const handleCreate = () => {
         let j = {
@@ -142,7 +144,7 @@ export default function CreationPage() {
             maxParticipants: Number(parti),
             numParticipants: 0,
             host: localStorage.getItem('displayName'),
-            banner: file
+            banner: file,
             // banner: banner
         };
         console.log(j);
@@ -168,7 +170,18 @@ export default function CreationPage() {
                 .post('http://localhost:3030/api/challenges', j)
                 .then((resp) => {
                     localStorage.removeItem('saved');
+
                     let title = resp.data.challengeTitle;
+
+                    let formData = new FormData();
+                    formData.append('file', file);
+
+                    const uploadImg = axios({
+                        method: 'post',
+                        url: `${BASE_URL}${BASE_PATH}/${title}/uploadbanner`,
+                        data: formData,
+                    });
+
                     Router.push('/challenge?challengeTitle=' + title);
                 })
                 .catch((err) => {
@@ -190,21 +203,21 @@ export default function CreationPage() {
             endDate: end,
             participant: parti,
             // banner:banner
-            banner:file,
-            fName: fileName
+            banner: file,
+            fName: fileName,
         };
         let send = JSON.stringify(j);
         localStorage.setItem('saved', send);
         //tolocalstorage
     };
-    const handleUpload = (e:any) => {
-        setFile(e.target.files[0])
-        setFileName(e.target.files[0].name)
-    }
-    const handleRemove = (e:any) =>{
-        setFile(null)
-        setFileName("")
-    }
+    const handleUpload = (e: any) => {
+        setFile(e.target.files[0]);
+        setFileName(e.target.files[0].name);
+    };
+    const handleRemove = (e: any) => {
+        setFile(null);
+        setFileName('');
+    };
 
     return (
         <ThemeProvider theme={theme}>
@@ -343,20 +356,20 @@ export default function CreationPage() {
                                                         sx={[
                                                             {
                                                                 '.MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
                                                                 '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
                                                                 '&:hover .MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
                                                             },
                                                             { width: 262 },
                                                         ]}
@@ -404,20 +417,20 @@ export default function CreationPage() {
                                                         sx={[
                                                             {
                                                                 '.MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
                                                                 '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
                                                                 '&:hover .MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
                                                             },
                                                             { width: 262 },
                                                         ]}
@@ -501,13 +514,11 @@ export default function CreationPage() {
                                                 >
                                                     upload
                                                     <input
-
                                                         accept="image/*"
                                                         multiple
                                                         type="file"
                                                         onChange={handleUpload}
                                                     />
-
                                                 </Button>
                                             </ThemeProvider>
                                             <div
@@ -518,8 +529,6 @@ export default function CreationPage() {
                                             >
                                                 {fileName}
                                             </div>
-
-
                                         </div>
                                         {/* {file&& (
                                             <div>
@@ -534,7 +543,6 @@ export default function CreationPage() {
                                             </div>
                                         )} */}
                                     </div>
-
                                 </div>
                             </div>
 
