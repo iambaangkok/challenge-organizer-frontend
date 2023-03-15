@@ -234,7 +234,7 @@ export default function Challenge() {
                                 <Link
                                     id={'EditChallengeButton'}
                                     href={{
-                                        pathname: '/managechallenge',
+                                        pathname: '/challenge/manage',
                                         query: { challengeTitle: challengeTitle },
                                     }}
                                     style={{

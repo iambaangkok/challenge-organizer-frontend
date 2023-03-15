@@ -1,6 +1,32 @@
-import { TextField } from '@mui/material';
+import { createTheme, TextField, ThemeProvider } from '@mui/material';
 import React from 'react';
 import { useEffect } from 'react';
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            light: '#FFDDAE',
+            main: '#FA9C1D',
+            dark: '#EA7000',
+            contrastText: '#FFFFFF',
+        },
+    },
+    components: {
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    '.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+                        borderColor: '#FA9C1D',
+                    },
+                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                        {
+                            borderColor: '#EA7000',
+                        },
+                },
+            },
+        },
+    },
+});
 
 export default function TextField_(data: any) {
     var height = data.height;
@@ -8,7 +34,7 @@ export default function TextField_(data: any) {
         height = height;
     } else {
     }
-
+   
     const [text, setText] = React.useState<any>('');
 
     useEffect(() => {
@@ -61,8 +87,8 @@ export default function TextField_(data: any) {
 
     const ALPHA_REGEX = /^[0-9]+$/;
     const ALPHA_NUMERIC_REGEX = /^[0-9A-Za-z\u0E00-\u0E7F ]+$/;
-
     return (
+        <ThemeProvider theme={theme}>
         <TextField
             id="outlined-multiline-flexible"
             multiline={data.multiline ? true : false}
@@ -99,5 +125,6 @@ export default function TextField_(data: any) {
             value={text}
             // defaultValue = {data.default}
         />
+        </ThemeProvider>
     );
 }

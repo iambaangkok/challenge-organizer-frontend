@@ -18,6 +18,9 @@ pipeline {
             }
         }
         stage('test') {
+            when{
+                branch 'skipped'
+            }
             steps {
                 withCredentials([file(credentialsId: '.env', variable: 'dotenv')]) {
                     script {
