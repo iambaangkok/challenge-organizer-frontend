@@ -1,8 +1,7 @@
 import styles from '../challengecreation/css/CreationPage.module.css';
 import DateSelector from '../challengecreation/AtomicComponent/DateSelector';
 import TextField_ from '../challengecreation/AtomicComponent/TextField.';
-import TextField from '@mui/material/TextField';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
     FormControl,
     MenuItem,
@@ -22,6 +21,9 @@ import router from 'next/router';
 import { fetchChallengeData } from '../../services/challenge.services';
 import { useRouter } from 'next/router';
 import { UserData } from '../../types/DataType';
+import Tasks from './menucomponent/Tasks';
+import Swal from 'sweetalert2';
+import { Tty } from '@mui/icons-material';
 
 const Title = {
     width: 1200,
@@ -109,13 +111,16 @@ export default function ManagePage() {
     // const [host,setHost] = useState<String>();
     const [collabarotors,setCollaborators] = useState<UserData[]>([]);
 
+    const [acceptStart, setAcceptStart] = useState<boolean>(false);
+    const [acceptEnd, setAcceptEnd] = useState<boolean>(false);
+
 
     useEffect(() => {
         if (challengeTitle) {
             fetchChallengeData(challengeTitle as string)
             .then(resp=>{
                 setTitle(resp.challengeTitle)
-                setTitleLimit(resp.challengeTitle.toString().length);
+                setTitleLimit(resp.challengeTitle?.toString().length);
 
                 setTypeState(resp.type)
                 setFormatState(resp.format)
@@ -131,7 +136,7 @@ export default function ManagePage() {
         }
     }, [challengeTitle]);
 
-    const handleCreate = () => {
+    const handleEdit = () => {
         let j = {
             challengeTitle: title,
             description: desc,
@@ -140,25 +145,52 @@ export default function ManagePage() {
             type: typeState,
             format: formatState,
             maxParticipants: Number(parti),
-            numParticipants: 0,
-            host: localStorage.getItem('displayName'),
-            banner: file
-            // banner: banner
+            //banner
         };
         console.log(j);
+        let tt = challengeTitle as string
         axios
-            .post('http://localhost:3030/api/challenges', j)
+            .put('http://localhost:3030/api/challenges'+tt, j)
             .then((resp) => {
-                localStorage.removeItem('saved');
-                let title = resp.data.challengeTitle;
-                Router.push('/challenge?challengeTitle=' + title);
+                Swal.fire('Edit complete', '', 'success')
+                console.log(resp)
             })
             .catch((err) => {
                 console.log(err);
             });
-
-        // location.reload()
     };
+    const handleDel = () =>{
+        Swal.fire({
+            title: 'Do you want to delete this challenge?',
+            showDenyButton: true,
+            // showCancelButton: true,
+            confirmButtonText: 'No',
+            denyButtonText: 'Yes',
+            // customClass: {
+            //   actions: 'my-actions',
+            //   cancelButton: 'order-1 right-gap',
+            //   confirmButton: 'order-2',
+            //   denyButton: 'order-3',
+            // }
+          }).then((result) => {
+            if (result.isConfirmed) {
+                
+            } else if (result.isDenied) {
+                Swal.fire('Challenge Delete', '', 'info')
+                let tt = challengeTitle as string
+                axios.delete('http://localhost:3030/api/challenges/'+tt)
+                .then((resp)=>{
+                    console.log(resp)
+                    Router.push('/home');
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
+            }
+          })
+        
+    }
+
 
     //set state of them when load page
     const handleSave = () => {
@@ -178,6 +210,7 @@ export default function ManagePage() {
         localStorage.setItem('saved', send);
         //tolocalstorage
     };
+    
     const handleUpload = (e:any) => {
         setFile(e.target.files[0])
         setFileName(e.target.files[0].name)
@@ -304,6 +337,7 @@ export default function ManagePage() {
                                                 {...double}
                                                 returnDate={setDate}
                                                 default={date}
+                                                setAccept={setAcceptStart}
                                             ></DateSelector>
                                         </div>
                                         <div className={styles.cr_DateInside}>
@@ -324,6 +358,8 @@ export default function ManagePage() {
                                                 {...double}
                                                 returnDate={setEnd}
                                                 default={end}
+                                                setAccept={setAcceptEnd}
+
                                             >
                                                 {' '}
                                             </DateSelector>
@@ -554,7 +590,7 @@ export default function ManagePage() {
                                         <Button
                                             variant="contained"
                                             size="medium"
-                                            onClick={handleCreate}
+                                            onClick={handleEdit}
                                         >
                                             Edit
                                         </Button>
@@ -567,9 +603,9 @@ export default function ManagePage() {
                                             variant="contained"
                                             size="medium"
                                             color="secondary"
-                                            onClick={handleSave}
+                                            onClick={handleDel}
                                         >
-                                            save
+                                            delete challenge
                                         </Button>
                                     </ThemeProvider>
                                 </div>
