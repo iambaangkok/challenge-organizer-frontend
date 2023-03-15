@@ -1,6 +1,7 @@
 import styles from './css/CreationPage.module.css';
 import DateSelector from './AtomicComponent/DateSelector';
 import TextField_ from './AtomicComponent/TextField.';
+import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import {
     FormControl,
@@ -40,7 +41,6 @@ const double = {
     width: 400,
     height: 40,
 };
-
 const theme = createTheme({
     palette: {
         primary: {
@@ -56,6 +56,31 @@ const theme = createTheme({
         fontSize: 14,
     },
 });
+const uploadTheme = createTheme({
+    palette: {
+        primary: {
+            light: '#FFDDAE',
+            main: '#FA9C1D',
+            dark: '#EA7000',
+            contrastText: '#FFFFFF',
+        },
+    },
+    components: {
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    '.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+                        borderColor: '#FA9C1D',
+                    },
+                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                        {
+                            borderColor: '#EA7000',
+                        },
+                },
+            },
+        },
+    },
+});
 
 export default function CreationPage() {
     const [typeState, setTypeState] = useState<string>('');
@@ -69,8 +94,8 @@ export default function CreationPage() {
     const [parti, setParti] = useState<Number>();
     const [partiLimit, setPartiLimit] = useState<Number>(0);
 
-    const [banner, setBanner] = useState<File>();
-
+    const [fileName, setFileName] = useState('');
+    const [file, setFile] = useState<string | Blob | undefined>();
     const [date, setDate] = useState<Dayjs | null>(null);
     const [end, setEnd] = useState<Dayjs | null>(null);
     const [acceptStart, setAcceptStart] = useState<boolean>(false);
@@ -99,9 +124,14 @@ export default function CreationPage() {
                 // console.log(saved.endDate)
                 setDate(dayjs(saved.startDate));
                 setEnd(dayjs(saved.endDate));
+                setFile(saved.banner);
+                setFileName(saved.fName);
             }
         }
     }, []);
+
+    const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+    const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH;
 
     const handleCreate = () => {
         let j = {
@@ -114,6 +144,7 @@ export default function CreationPage() {
             maxParticipants: Number(parti),
             numParticipants: 0,
             host: localStorage.getItem('displayName'),
+            banner: file,
             // banner: banner
         };
         console.log(j);
@@ -139,7 +170,20 @@ export default function CreationPage() {
                 .post('http://localhost:3030/api/challenges', j)
                 .then((resp) => {
                     localStorage.removeItem('saved');
+
                     let title = resp.data.challengeTitle;
+
+                    if (file) {
+                        let formData = new FormData();
+                        formData.append('file', file);
+
+                        axios({
+                            method: 'post',
+                            url: `${BASE_URL}${BASE_PATH}/${title}/uploadbanner`,
+                            data: formData,
+                        });
+                    }
+
                     Router.push('/challenge?challengeTitle=' + title);
                 })
                 .catch((err) => {
@@ -161,10 +205,20 @@ export default function CreationPage() {
             endDate: end,
             participant: parti,
             // banner:banner
+            banner: file,
+            fName: fileName,
         };
         let send = JSON.stringify(j);
         localStorage.setItem('saved', send);
         //tolocalstorage
+    };
+    const handleUpload = (e: any) => {
+        setFile(e.target.files[0]);
+        setFileName(e.target.files[0].name);
+    };
+    const handleRemove = (e: any) => {
+        setFile(undefined);
+        setFileName('');
     };
 
     return (
@@ -448,16 +502,7 @@ export default function CreationPage() {
                                         >
                                             Challenge Banner
                                         </div>
-                                        <div className="flex flex-row place-content-center ">
-                                            <div
-                                                className={
-                                                    styles.cr_fileText +
-                                                    ' my-2 pr-4'
-                                                }
-                                            >
-                                                placeholder.jpg
-                                            </div>
-
+                                        <div className="flex flex-row ">
                                             <ThemeProvider theme={ButtonTheme}>
                                                 <Button
                                                     variant="contained"
@@ -471,14 +516,34 @@ export default function CreationPage() {
                                                 >
                                                     upload
                                                     <input
-                                                        hidden
                                                         accept="image/*"
                                                         multiple
                                                         type="file"
+                                                        onChange={handleUpload}
                                                     />
                                                 </Button>
                                             </ThemeProvider>
+                                            <div
+                                                className={
+                                                    styles.cr_fileText +
+                                                    ' mt-2 pl-4'
+                                                }
+                                            >
+                                                {fileName}
+                                            </div>
                                         </div>
+                                        {/* {file&& (
+                                            <div>
+                                                <img
+                                                    alt="not found"
+                                                    width={"250px"}
+                                                    src={URL.createObjectURL(file)}
+                                                />
+                                                <br />
+
+                                                <button onClick={() => setFile(null)}>Remove banner upload</button>
+                                            </div>
+                                        )} */}
                                     </div>
                                 </div>
                             </div>
