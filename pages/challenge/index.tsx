@@ -32,7 +32,7 @@ export default function Challenge() {
 
     const [tabValue, setTabValue] = useState<number>(0);
     const [tabsData, setTabsData] = useState<TabData[]>([]);
-    const [challengePageData, setChallengePageData] =
+    const [challengeData, setChallengeData] =
         useState<ChallengeData>();
 
     const [displayName, setDisplayName] = useState<string | null>('');
@@ -48,7 +48,7 @@ export default function Challenge() {
 
     const getChallengeData = useCallback(async () => {
         if (challengeTitle) {
-            setChallengePageData(
+            setChallengeData(
                 await fetchChallengeData(challengeTitle as string),
             );
         }
@@ -99,23 +99,26 @@ export default function Challenge() {
 
     const userIsJoined =
         displayName !== null
-            ? challengePageData?.participants
+            ? challengeData?.participants
                   .map((x) => x.displayName)
                   .includes(displayName)
             : false;
 
     const userIsHost =
         displayName !== null
-            ? challengePageData?.host.displayName === displayName ||
-              challengePageData?.collaborators
+            ? challengeData?.host.displayName === displayName ||
+              challengeData?.collaborators
                   .map((x) => x.displayName)
                   .includes(displayName)
             : false;
 
     const userIsMaxed =
-        challengePageData?.maxParticipants !== 0 &&
-        challengePageData?.maxParticipants ===
-            challengePageData?.numParticipants;
+        challengeData?.maxParticipants !== 0 &&
+        challengeData?.maxParticipants ===
+            challengeData?.numParticipants;
+
+    // const srcPath = 'http://localhost:3030/' + challengeData?.bannerImg?.replaceAll('\\' , '/');
+    const srcPath = challengeData?.bannerImg ? 'http://localhost:3030/' + challengeData.bannerImg?.replaceAll('\\' , '/') : '/pingpong.jpg';
 
     return (
         <ThemeProvider theme={ButtonTheme}>
@@ -123,16 +126,17 @@ export default function Challenge() {
                 <Head>
                     <title>
                         {'Challenge | ' +
-                            (challengePageData
-                                ? challengePageData.challengeTitle
+                            (challengeData
+                                ? challengeData.challengeTitle
                                 : 'TitleText')}
                     </title>
                 </Head>
                 <div className={styles['banner-container']}>
                     <Image
-                        src={bannerImage}
+                        src={srcPath}
                         alt=""
                         className={styles['banner']}
+                        fill
                     />
                 </div>
 
@@ -150,8 +154,8 @@ export default function Challenge() {
                             </div>
                             <div className={styles['title-text-container']}>
                                 <div className={styles['title-text'] + ' H1'}>
-                                    {challengePageData
-                                        ? challengePageData.challengeTitle
+                                    {challengeData
+                                        ? challengeData.challengeTitle
                                         : 'TitleText'}
                                 </div>
 
@@ -303,8 +307,8 @@ export default function Challenge() {
                             <div className={styles['divider']}></div>
                             <CountdownTimer
                                 dateTime={
-                                    challengePageData
-                                        ? challengePageData.startDate
+                                    challengeData
+                                        ? challengeData.startDate
                                         : '1970-01-01'
                                 }
                                 dateTimeFormat={'YYYY-MM-DDTHH:mm:ss.sssZ'}
@@ -329,8 +333,8 @@ export default function Challenge() {
                                             styles['description'] + ' S1Medium'
                                         }
                                     >
-                                        {challengePageData
-                                            ? challengePageData.description
+                                        {challengeData
+                                            ? challengeData.description
                                             : 'description'}
                                     </div>
                                     <div
@@ -340,9 +344,9 @@ export default function Challenge() {
                                         }
                                     >
                                         Last modified{' '}
-                                        {challengePageData
+                                        {challengeData
                                             ? getFormattedDate(
-                                                  challengePageData.upDateAt,
+                                                  challengeData.upDateAt,
                                               )
                                             : 'N/A'}{' '}
                                         by{' '}
@@ -354,8 +358,8 @@ export default function Challenge() {
                                             }}
                                             className={styles['hostname']}
                                         >
-                                            {challengePageData
-                                                ? challengePageData.host
+                                            {challengeData
+                                                ? challengeData.host
                                                       .displayName
                                                 : 'N/A'}
                                         </Link>
@@ -370,7 +374,7 @@ export default function Challenge() {
                                         <div
                                             className={styles['value'] + ' H3'}
                                         >
-                                            {challengePageData
+                                            {challengeData
                                                 ? 'N/A'
                                                 : // ? challengePageData.prizePool
                                                   'N/A'}
@@ -395,8 +399,8 @@ export default function Challenge() {
                                                 styles['value'] + ' S1Medium'
                                             }
                                         >
-                                            {challengePageData
-                                                ? challengePageData.type
+                                            {challengeData
+                                                ? challengeData.type
                                                 : 'N/A'}
                                         </div>
                                         <div
@@ -417,8 +421,8 @@ export default function Challenge() {
                                                 styles['value'] + ' S1Medium'
                                             }
                                         >
-                                            {challengePageData
-                                                ? challengePageData.format
+                                            {challengeData
+                                                ? challengeData.format
                                                 : 'N/A'}
                                         </div>
                                         <div
@@ -441,9 +445,9 @@ export default function Challenge() {
                                                 styles['value'] + ' S1Medium'
                                             }
                                         >
-                                            {challengePageData
+                                            {challengeData
                                                 ? getFormattedDate(
-                                                      challengePageData.startDate,
+                                                      challengeData.startDate,
                                                   )
                                                 : 'N/A'}
                                         </div>
@@ -465,9 +469,9 @@ export default function Challenge() {
                                                 styles['value'] + ' S1Medium'
                                             }
                                         >
-                                            {challengePageData
+                                            {challengeData
                                                 ? getFormattedDate(
-                                                      challengePageData.endDate,
+                                                      challengeData.endDate,
                                                   )
                                                 : 'N/A'}
                                         </div>
@@ -494,11 +498,11 @@ export default function Challenge() {
                                                 styles['value'] + ' S1Medium'
                                             }
                                         >
-                                            {challengePageData
-                                                ? challengePageData.maxParticipants !==
+                                            {challengeData
+                                                ? challengeData.maxParticipants !==
                                                   0
-                                                    ? `${challengePageData.numParticipants} / ${challengePageData.maxParticipants}`
-                                                    : `${challengePageData.numParticipants}`
+                                                    ? `${challengeData.numParticipants} / ${challengeData.maxParticipants}`
+                                                    : `${challengeData.numParticipants}`
                                                 : 'N/A'}
                                         </div>
                                         <div
@@ -516,8 +520,8 @@ export default function Challenge() {
                                     >
                                         <StarRating
                                             rating={
-                                                challengePageData?.ratings
-                                                    ? challengePageData.ratings
+                                                challengeData?.ratings
+                                                    ? challengeData.ratings
                                                     : 0
                                             }
                                         ></StarRating>
