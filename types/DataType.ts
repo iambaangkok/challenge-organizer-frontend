@@ -5,8 +5,10 @@ export interface TaskData {
     createAt?: string;
     editAt?:string;
     doned?:boolean;
-    start?:string;
-    end?:string
+    start:string;
+    end:string;
+    hasChallenges: ChallengeData;
+
 }
 
 export interface NotificationData {
