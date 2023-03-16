@@ -79,9 +79,9 @@ const uploadTheme = createTheme({
                         borderColor: '#FA9C1D',
                     },
                     '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
-                    {
-                        borderColor: '#EA7000',
-                    },
+                        {
+                            borderColor: '#EA7000',
+                        },
                 },
             },
         },
@@ -92,10 +92,10 @@ export default function ManagePage() {
     const router = useRouter();
     // const [challengePageData, setChallengePageData] =
     //     useState<ChallengePageData>();
-    const {challengeTitle} = router.query
+    const { challengeTitle } = router.query;
 
-    const [typeState, setTypeState] = useState<string|undefined>('');
-    const [formatState, setFormatState] = useState<string|undefined>('');
+    const [typeState, setTypeState] = useState<string | undefined>('');
+    const [formatState, setFormatState] = useState<string | undefined>('');
 
     const [title, setTitle] = useState<String>('');
     const [titleLimit, setTitleLimit] = useState<Number>(0);
@@ -105,35 +105,32 @@ export default function ManagePage() {
     const [parti, setParti] = useState<Number>();
     const [partiLimit, setPartiLimit] = useState<Number>(0);
 
-    const [fileName, setFileName] = useState("");
+    const [fileName, setFileName] = useState('');
     const [file, setFile] = useState(null);
     const [date, setDate] = useState<Dayjs | null>(null);
     const [end, setEnd] = useState<Dayjs | null>(null);
     // const [host,setHost] = useState<String>();
-    const [collabarotors,setCollaborators] = useState<UserData[]>([]);
+    const [collabarotors, setCollaborators] = useState<UserData[]>([]);
 
     const [acceptStart, setAcceptStart] = useState<boolean>(false);
     const [acceptEnd, setAcceptEnd] = useState<boolean>(false);
 
-
     useEffect(() => {
         if (challengeTitle) {
-            fetchChallengeData(challengeTitle as string)
-            .then(resp=>{
-                setTitle(resp.challengeTitle)
+            fetchChallengeData(challengeTitle as string).then((resp) => {
+                setTitle(resp.challengeTitle);
                 setTitleLimit(resp.challengeTitle?.toString().length);
 
-                setTypeState(resp.type)
-                setFormatState(resp.format)
-                setDesc(resp.description)
+                setTypeState(resp.type);
+                setFormatState(resp.format);
+                setDesc(resp.description);
                 setDescLimit(resp.description.toString().length);
 
-                setParti(resp.maxParticipants)
-                setDate(dayjs(resp.startDate))
-                setEnd(dayjs(resp.endDate))
-                setCollaborators(resp.collaborators)
-            })
-  
+                setParti(resp.maxParticipants);
+                setDate(dayjs(resp.startDate));
+                setEnd(dayjs(resp.endDate));
+                setCollaborators(resp.collaborators);
+            });
         }
     }, [challengeTitle]);
 
@@ -149,13 +146,18 @@ export default function ManagePage() {
             //banner
         };
         console.log(j);
-        let tt = challengeTitle as string
+        let tt = challengeTitle as string;
         axios
-            .put('http://localhost:3030/api/challenges/'+tt, j)
+            .put('http://localhost:3030/api/challenges/' + tt, j)
             .then((resp) => {
-                // router.back()
-                // router.push('/home')
-                Swal.fire('Edit complete', '', 'success')
+                router.push('/home')
+                Swal.fire('Edit complete', '', 'success');
+                // router.push('/challenge/', {
+                //     query: {
+                //         challengeTitle: j.challengeTitle,
+                //     },
+                // });
+                // router.reload()
 
                 // console.log(resp)
             })
@@ -163,7 +165,7 @@ export default function ManagePage() {
                 console.log(err);
             });
     };
-    const handleDel = () =>{
+    const handleDel = () => {
         Swal.fire({
             title: 'Do you want to delete this challenge?',
             showDenyButton: true,
@@ -176,25 +178,23 @@ export default function ManagePage() {
             //   confirmButton: 'order-2',
             //   denyButton: 'order-3',
             // }
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
-                
             } else if (result.isDenied) {
-                Swal.fire('Challenge Delete', '', 'info')
-                let tt = challengeTitle as string
-                axios.delete('http://localhost:3030/api/challenges/'+tt)
-                .then((resp)=>{
-                    console.log(resp)
-                    Router.push('/home');
-                })
-                .catch((err)=>{
-                    console.log(err)
-                })
+                Swal.fire('Challenge Delete', '', 'info');
+                let tt = challengeTitle as string;
+                axios
+                    .delete('http://localhost:3030/api/challenges/' + tt)
+                    .then((resp) => {
+                        console.log(resp);
+                        Router.push('/home');
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
             }
-          })
-        
-    }
-
+        });
+    };
 
     //set state of them when load page
     const handleSave = () => {
@@ -207,22 +207,22 @@ export default function ManagePage() {
             endDate: end,
             participant: parti,
             // banner:banner
-            banner:file,
-            fName: fileName
+            banner: file,
+            fName: fileName,
         };
         let send = JSON.stringify(j);
         localStorage.setItem('saved', send);
         //tolocalstorage
     };
-    
-    const handleUpload = (e:any) => {
-        setFile(e.target.files[0])
-        setFileName(e.target.files[0].name)
-    }
-    const handleRemove = (e:any) =>{
-        setFile(null)
-        setFileName("")
-    }
+
+    const handleUpload = (e: any) => {
+        setFile(e.target.files[0]);
+        setFileName(e.target.files[0].name);
+    };
+    const handleRemove = (e: any) => {
+        setFile(null);
+        setFileName('');
+    };
 
     return (
         <ThemeProvider theme={theme}>
@@ -249,7 +249,9 @@ export default function ManagePage() {
                                         <div className="S1Medium">Reward</div>
                                     </div>
                                     <div className={styles.cr_Box}>
-                                        <div className="S1Medium">Participant/Member</div>
+                                        <div className="S1Medium">
+                                            Participant/Member
+                                        </div>
                                     </div>
                                     <div className={styles.cr_Box}>
                                         <div className="S1Medium">
@@ -363,7 +365,6 @@ export default function ManagePage() {
                                                 returnDate={setEnd}
                                                 default={end}
                                                 setAccept={setAcceptEnd}
-
                                             >
                                                 {' '}
                                             </DateSelector>
@@ -390,20 +391,20 @@ export default function ManagePage() {
                                                         sx={[
                                                             {
                                                                 '.MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
                                                                 '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
                                                                 '&:hover .MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
                                                             },
                                                             { width: 262 },
                                                         ]}
@@ -451,20 +452,20 @@ export default function ManagePage() {
                                                         sx={[
                                                             {
                                                                 '.MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
                                                                 '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
                                                                 '&:hover .MuiOutlinedInput-notchedOutline':
-                                                                {
-                                                                    borderColor:
-                                                                        '#FA9C1D',
-                                                                },
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
                                                             },
                                                             { width: 262 },
                                                         ]}
@@ -548,13 +549,11 @@ export default function ManagePage() {
                                                 >
                                                     upload
                                                     <input
-
                                                         accept="image/*"
                                                         multiple
                                                         type="file"
                                                         onChange={handleUpload}
                                                     />
-
                                                 </Button>
                                             </ThemeProvider>
                                             <div
@@ -565,8 +564,6 @@ export default function ManagePage() {
                                             >
                                                 {fileName}
                                             </div>
-
-
                                         </div>
                                         {/* {file&& (
                                             <div>
@@ -581,9 +578,8 @@ export default function ManagePage() {
                                             </div>
                                         )} */}
                                     </div>
-                                <Collaborators></Collaborators>
-                                <Tasks></Tasks>   
-
+                                    <Collaborators></Collaborators>
+                                    <Tasks></Tasks>
                                 </div>
                             </div>
 
