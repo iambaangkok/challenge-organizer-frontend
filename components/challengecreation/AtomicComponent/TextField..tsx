@@ -85,6 +85,10 @@ export default function TextField_(data: any) {
         },
         maxLength: data.max,
     };
+    useEffect(()=>{
+        setText(data.default)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
     const ALPHA_REGEX = /^[0-9]+$/;
     const ALPHA_NUMERIC_REGEX = /^[0-9A-Za-z\u0E00-\u0E7F. \/]+$/;
@@ -124,7 +128,7 @@ export default function TextField_(data: any) {
             onChange={(e) => handleChange(e)}
             // value ={data.num?Number(text):text}
 
-            value={text}
+            value={data.default}
             // defaultValue = {data.default}
         />
         </ThemeProvider>

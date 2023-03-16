@@ -1,14 +1,34 @@
+export interface FileData {
+    fileId: number;
+    path?: string;
+    createdAtDate: Date;
+    editDate?: Date;
+    user?: UserData;
+    submission?: SubmissionData;
+    challenge?: ChallengeData;
+    item?: any;
+}
+
+export interface SubmissionData {
+    submissionId: number;
+    score: number | null;
+    createDate: string;
+    editDate: string;
+    task: TaskData;
+    hasSubmit: UserData;
+    file?: FileData;
+}
+
 export interface TaskData {
     taskId: number;
-    description?:string;
-    score?:number;
+    description?: string;
+    score?: number;
     createAt?: string;
-    editAt?:string;
-    doned?:boolean;
-    start:string;
-    end:string;
+    editAt?: string;
+    doned?: boolean;
+    start: string;
+    end: string;
     hasChallenges: ChallengeData;
-
 }
 
 export interface NotificationData {
@@ -54,8 +74,8 @@ export interface PostData {
     createdAtDate: string;
     upDateAt?: string;
     allowComment?: boolean;
-    children?: PostData[]
-    parent?: PostData
+    children?: PostData[];
+    parent?: PostData;
     owner?: UserData;
     hasTab?: TabData;
     hasChallenge?: ChallengeData;
@@ -102,12 +122,10 @@ export interface ChallengeData {
 
     collaborators: UserData[];
 
-
     schema_v: string;
     join?: boolean;
 
-    tabs? : TabData[]
-    posts? : PostData[]
-    tasks? : TaskData[]
-
+    tabs?: TabData[];
+    posts?: PostData[];
+    tasks?: TaskData[];
 }

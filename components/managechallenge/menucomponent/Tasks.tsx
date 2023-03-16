@@ -82,11 +82,7 @@ export default function Tasks() {
             .then((resp) => {
                 console.log(resp);
                 axios
-                    .get(`http://localhost:3030/api/challenges/allTask/${challengeTitle}`, {
-                        data: {
-                            challengeTitle: challengeTitle,
-                        },
-                    })
+                    .get(`http://localhost:3030/api/challenges/allTask/${challengeTitle}`)
                     .then((resp) => {
                         setOngoing(resp.data.onGoing);
                         setFuture(resp.data.future);
@@ -108,11 +104,7 @@ export default function Tasks() {
             .then((resp) => {
                 console.log(resp);
                 axios
-                    .get(`http://localhost:3030/api/challenges/allTask/${challengeTitle}`, {
-                        data: {
-                            challengeTitle: challengeTitle,
-                        },
-                    })
+                    .get(`http://localhost:3030/api/challenges/allTask/${challengeTitle}`)
                     .then((resp) => {
                         setOngoing(resp.data.onGoing);
                         setFuture(resp.data.future);
@@ -126,6 +118,14 @@ export default function Tasks() {
                 console.log(err);
             });
     };
+    
+    const graderRoute = (t:TaskData) =>{
+        router.push('/challenge/task/grader',{
+            query:{challengeTitle:challengeTitle,
+                    taskId:t.taskId
+            }
+        })
+    }
 
     const iprop = {
         disableunderline: 'true',
@@ -144,8 +144,8 @@ export default function Tasks() {
         axios
             .get(`http://localhost:3030/api/challenges/allTask/${challengeTitle}`)
             .then((resp :any) => {
-                console.log('challengetitile = ', challengeTitle);
-                console.log('resp= ', resp);
+                // console.log('challengetitile = ', challengeTitle);
+                // console.log('resp= ', resp);
                 setOngoing(resp.data.onGoing);
                 setFuture(resp.data.future);
                 setFinish(resp.data.finish);
@@ -285,7 +285,7 @@ export default function Tasks() {
                                         <div className={tStyle.bodytext1}>
                                             {index + 1}
                                         </div>
-                                        <div className={tStyle.desc}>
+                                        <div className={tStyle.desc} onClick = {()=>graderRoute(t)}>
                                             {t.description}
                                         </div>
                                         <div className={tStyle.bodytext}>
@@ -327,7 +327,7 @@ export default function Tasks() {
                                         <div className={tStyle.bodytext1}>
                                             {index + 1}
                                         </div>
-                                        <div className={tStyle.desc}>
+                                        <div className={tStyle.desc} onClick = {()=>graderRoute(t)}>
                                             {t.description}
                                         </div>
                                         <div className={tStyle.bodytext}>
@@ -369,7 +369,7 @@ export default function Tasks() {
                                         <div className={tStyle.bodytext1}>
                                             {index + 1}
                                         </div>
-                                        <div className={tStyle.desc}>
+                                        <div className={tStyle.desc} onClick = {()=>graderRoute(t)}>
                                             {t.description}
                                         </div>
                                         <div className={tStyle.bodytext}>
