@@ -11,6 +11,7 @@ import { createTheme, TextField } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import DateSelector from '../challengecreation/AtomicComponent/DateSelector';
 import { Dayjs } from 'dayjs';
+
 import {
     FormControl,
     MenuItem,
@@ -51,6 +52,8 @@ const theme = createTheme({
 export default function Submissions() {
     const router = useRouter();
     const { challengeTitle, taskId } = router.query;
+    const [tt,setTT] = useState("");
+    const [tid,setTid] = useState<Number>();
 
     const [desc, setDesc] = useState<string>('');
     const [selector, setSelector] = useState('');
@@ -66,25 +69,32 @@ export default function Submissions() {
     //     spiltTask(tasks)
     // },[tasks])
 
-    useEffect(() => {}, [submissions]);
+    // useEffect(() => {}, [submissions]);
 
-    useEffect(() => {
-        console.log('fetch submissions', taskId);
-        axios
-            .get(`http://localhost:3030/api/submissions/bytaskId`, {
-                data: {
-                    taskId: taskId,
-                },
-            })
-            .then((resp) => {
-                console.log('taskId = ', taskId);
-                console.log('resp= ', resp);
-                setSubmissions(resp.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, [challengeTitle, taskId]);
+    // useEffect(() => {
+    //     // console.log('fetch submissions tt', challengeTitle);
+    //     // console.log('fetch submissions', taskId);
+    //     console.log(tt)
+    //     console.log(tid)
+    //     axios
+    //         .get(`http://localhost:3030/api/submissions/bytaskId`, {
+    //             data: {
+    //                 taskId: tid,
+    //             },
+    //         })
+    //         .then((resp) => {
+    //             console.log('resp= ', resp);
+    //             setSubmissions(resp.data);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    // },[tid]);
+    
+    useEffect(()=>{
+        setTT(challengeTitle as string)
+        setTid(Number(taskId as string))
+    },[challengeTitle, taskId])
 
     return (
         <div className="w-full">
@@ -126,10 +136,71 @@ export default function Submissions() {
                                                 s.score != undefined}
                                         </div>
                                         <div>
-                                            {/* <button>Edit</button> */}
-                                            {/* <button onClick={() => delTask(s)}>
-                                                Delete
-                                            </button> */}
+                                            <FormControl fullWidth>
+                                                <ThemeProvider theme={theme}>
+                                                    <Select
+                                                        sx={[
+                                                            {
+                                                                '.MuiOutlinedInput-notchedOutline':
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
+                                                                '&.Mui-focused .MuiOutlinedInput-notchedOutline':
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
+                                                                '&:hover .MuiOutlinedInput-notchedOutline':
+                                                                    {
+                                                                        borderColor:
+                                                                            '#FA9C1D',
+                                                                    },
+                                                            },
+                                                        ]}
+                                                        value={selector}
+                                                        onChange={(
+                                                            event: SelectChangeEvent,
+                                                        ) => {
+                                                            setSelector(
+                                                                event.target
+                                                                    .value,
+                                                            );
+                                                        }}
+                                                    >
+                                                        <MenuItem value={'1'}>
+                                                            1
+                                                        </MenuItem>
+                                                        <MenuItem value={'2'}>
+                                                            2
+                                                        </MenuItem>
+                                                        <MenuItem value={'3'}>
+                                                            3
+                                                        </MenuItem>
+                                                        <MenuItem value={'4'}>
+                                                            4
+                                                        </MenuItem>
+                                                        <MenuItem value={'5'}>
+                                                            5
+                                                        </MenuItem>
+                                                        <MenuItem value={'6'}>
+                                                            6
+                                                        </MenuItem>
+                                                        <MenuItem value={'7'}>
+                                                            7
+                                                        </MenuItem>
+                                                        <MenuItem value={'8'}>
+                                                            8
+                                                        </MenuItem>
+                                                        <MenuItem value={'9'}>
+                                                            9
+                                                        </MenuItem>
+                                                        <MenuItem value={'10'}>
+                                                            10
+                                                        </MenuItem>
+                                                    </Select>
+                                                </ThemeProvider>
+                                            </FormControl>
                                         </div>
                                     </div>
                                 );

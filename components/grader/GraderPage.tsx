@@ -21,7 +21,7 @@ import Collaborators from '../managechallenge/menucomponent/collaborators';
 import router from 'next/router';
 import { fetchChallengeData } from '../../services/challenge.services';
 import { useRouter } from 'next/router';
-import { UserData } from '../../types/DataType';
+import { SubmissionData, UserData } from '../../types/DataType';
 import Tasks from '../managechallenge/menucomponent/Tasks';
 import Swal from 'sweetalert2';
 import { Tty } from '@mui/icons-material';
@@ -93,7 +93,8 @@ export default function GraderPage() {
     const router = useRouter();
     // const [challengePageData, setChallengePageData] =
     //     useState<ChallengePageData>();
-    const { challengeTitle } = router.query;
+    const { challengeTitle,taskId } = router.query;
+    
 
     const [typeState, setTypeState] = useState<string | undefined>('');
     const [formatState, setFormatState] = useState<string | undefined>('');
@@ -115,25 +116,25 @@ export default function GraderPage() {
 
     const [acceptStart, setAcceptStart] = useState<boolean>(false);
     const [acceptEnd, setAcceptEnd] = useState<boolean>(false);
+    const [submission,setSubmission] = useState<SubmissionData|undefined>(undefined);
+    // useEffect(() => {
+    //     if (challengeTitle) {
+    //         fetchChallengeData(challengeTitle as string).then((resp) => {
+    //             setTitle(resp.challengeTitle);
+    //             setTitleLimit(resp.challengeTitle?.toString().length);
 
-    useEffect(() => {
-        if (challengeTitle) {
-            fetchChallengeData(challengeTitle as string).then((resp) => {
-                setTitle(resp.challengeTitle);
-                setTitleLimit(resp.challengeTitle?.toString().length);
+    //             setTypeState(resp.type);
+    //             setFormatState(resp.format);
+    //             setDesc(resp.description);
+    //             setDescLimit(resp.description.toString().length);
 
-                setTypeState(resp.type);
-                setFormatState(resp.format);
-                setDesc(resp.description);
-                setDescLimit(resp.description.toString().length);
-
-                setParti(resp.maxParticipants);
-                setDate(dayjs(resp.startDate));
-                setEnd(dayjs(resp.endDate));
-                setCollaborators(resp.collaborators);
-            });
-        }
-    }, [challengeTitle]);
+    //             setParti(resp.maxParticipants);
+    //             setDate(dayjs(resp.startDate));
+    //             setEnd(dayjs(resp.endDate));
+    //             setCollaborators(resp.collaborators);
+    //         });
+    //     }
+    // }, [challengeTitle]);
 
     const handleEdit = () => {
         let j = {
@@ -216,7 +217,13 @@ export default function GraderPage() {
         setFile(null);
         setFileName('');
     };
-
+    // useEffect(()=>{
+    //     axios.get(`http://localhost:3030/api/task/getByTaskId/${taskId}`)
+    //     .then((resp)=>{
+    //         console.log(resp.data)
+    //         setSubmission(resp.data)
+    //     })
+    // })
     return (
         <ThemeProvider theme={theme}>
             <div className={styles.cr_Body}>
@@ -224,18 +231,19 @@ export default function GraderPage() {
                     <div className={styles.cr_Challenges}>
                         <div className="ml-8">
                             <p className="H1">Submission Grader</p>
+                            <p className="H3"></p>
                         </div>
                         <div className={styles.cr_line}></div>
 
                         {/* content */}
 
                         <div className={styles.cr_NewBody2}>
-                            {/* menu */}
+                   
                             <div className="flex gap-6">
-                                {/* body */}
+                        
                                 <div className={styles.cr_InfoFrame}>
-                                    {/* general info */}
-                                    <Submissions />
+                        
+                                    <Submissions></Submissions>
                                 </div>
                             </div>
                         </div>
