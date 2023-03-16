@@ -11,11 +11,13 @@ export default function Task(data: TaskData) {
     return (
         // Each task routes to its own task page
         <Link
-            id={challenge.challengeTitle}
+            id={challenge ? challenge.challengeTitle : ''}
             href={{
-                pathname: '/challenge',
+                pathname: '/submit',
                 query: {
-                    challengeTitle: challenge.challengeTitle,
+                    taskId : data.taskId ,
+                    taskName : data.description ,
+                    challengeTitle : challenge ? challenge.challengeTitle : ''
                 },
             }}
             className="no-underline"
@@ -27,7 +29,7 @@ export default function Task(data: TaskData) {
                         {data.description}
                     </div>
                     <div className={styles['TaskDescription'] + ' S2Regular'}>
-                        {challenge.challengeTitle}
+                        {challenge ? challenge.challengeTitle : ''}
                     </div>
 
                     {startDate.toLocaleDateString() ===

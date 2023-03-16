@@ -12,7 +12,7 @@ export default function TaskDashboard() {
 
     const fetchTaskList = useCallback(() => {
         setLoading(true);
-        console.log(displayName);
+        // console.log(displayName);
 
         if (displayName !== '') {
             axios
@@ -48,8 +48,8 @@ export default function TaskDashboard() {
             <div className={styles['TaskList']}>
                 {taskList.length !== 0 ? (
                     taskList.map((task: TaskData, index) => {
-                        console.log('task : ');
-                        console.log(task);
+                        // console.log('task : ');
+                        // console.log(task);
                         return <Task key={index} {...task}></Task>;
                     })
                 ) : (
